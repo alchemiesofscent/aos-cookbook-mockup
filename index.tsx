@@ -255,7 +255,8 @@ const WORKS_DATA = [
     author: "Pedanius Dioscorides",
     date: "c. 50–70 CE",
     description: "The primary source for pharmacology and medical botany for over 1,500 years. Books 1 and 2 cover aromatics and oils.",
-    urn: "urn:cts:greekLit:tlg0656.tlg001"
+    urn: "urn:cts:greekLit:tlg0656.tlg001",
+    route: "work_materia_medica"
   },
   {
     id: "theophrastus-on-odors",
@@ -263,7 +264,8 @@ const WORKS_DATA = [
     author: "Theophrastus",
     date: "c. 300 BCE",
     description: "A short treatise dealing specifically with perfumes, their ingredients, and manufacturing processes.",
-    urn: "urn:cts:greekLit:tlg0093.tlg002"
+    urn: "urn:cts:greekLit:tlg0093.tlg002",
+    route: null
   },
   {
     id: "pliny-natural-history",
@@ -271,7 +273,8 @@ const WORKS_DATA = [
     author: "Pliny the Elder",
     date: "c. 77 CE",
     description: "An encyclopedic work. Book 13 discusses trees and perfumes.",
-    urn: "urn:cts:latinLit:phi0978.phi001"
+    urn: "urn:cts:latinLit:phi0978.phi001",
+    route: null
   }
 ];
 
@@ -281,23 +284,93 @@ const PEOPLE_DATA = [
     name: "Pedanius Dioscorides",
     role: "Physician & Botanist",
     period: "1st Century CE",
-    bio: "A Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica."
+    bio: "A Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica.",
+    route: "person_dioscorides"
   },
   {
     id: "theophrastus",
     name: "Theophrastus",
     role: "Philosopher & Botanist",
     period: "c. 371 – c. 287 BCE",
-    bio: "Successor to Aristotle in the Peripatetic school. Often called the 'father of botany'."
+    bio: "Successor to Aristotle in the Peripatetic school. Often called the 'father of botany'.",
+    route: null
   },
   {
     id: "tapputi",
     name: "Tapputi-Belat-Ekallim",
     role: "Perfumer",
     period: "c. 1200 BCE",
-    bio: "Considered the world's first recorded chemist, mentioned in a cuneiform tablet from Babylonia."
+    bio: "Considered the world's first recorded chemist, mentioned in a cuneiform tablet from Babylonia.",
+    route: null
   }
 ];
+
+// --- New Detail Data Constants ---
+
+const DIOSCORIDES_DETAIL = {
+  name: "Pedanius Dioscorides",
+  shortName: "Dioscorides",
+  floruit: "1st century CE",
+  activeIn: "Roman Anatolia",
+  urn: "urn:aos:person:dioscorides",
+  image: "Image: medieval manuscript portrait",
+  bio: "Greek physician and pharmacologist, author of De materia medica, the most influential pharmacological text of antiquity. Served as a military physician, possibly under Nero. His work on aromatics and perfumes in Book 1 remains our most important ancient source for perfume recipes.",
+  works: [
+    { name: "De materia medica", route: "work_materia_medica", detail: "Editions: Wellmann (1907), Sprengel (1829)" },
+    { name: "Translations: Beck (2005)", route: null }
+  ],
+  recipes: [
+    { name: "Rose Perfume (1.43)", route: "recipe_rose" },
+    { name: "Lily Perfume (1.62)", route: null },
+    { name: "Cinnamon Perfume (1.61)", route: null },
+    { name: "Megalleion (1.59)", route: null }
+  ],
+  external: [
+    { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Dioscorides" },
+    { name: "VIAF", url: "https://viaf.org/viaf/78822798/" }
+  ]
+};
+
+const SEAN_DETAIL = {
+  name: "Sean Coughlin",
+  role: "Principal Investigator",
+  affiliation: "Institute of Philosophy, Czech Academy of Sciences",
+  orcid: "0000-0000-0000-0000",
+  website: "seancoughlin.net",
+  image: "Photo",
+  bio: "Sean Coughlin is a historian of science and philosophy specializing in ancient Greek and Roman science. He leads the Alchemies of Scent project, which combines philological analysis with chemical replication to understand ancient perfumery.",
+  publications: [
+    { title: "Coughlin, S. (2024). \"Ancient Perfume Reconstruction: Methodologies and Challenges.\"", url: "#" },
+    { title: "Coughlin, S. & Graff, D. (2023). \"The Scent of the Past: Recreating the Mendesian.\"", url: "#" }
+  ],
+  experiments: [
+    { title: "Replicating Dioscorides' Rose Perfume", route: "experiments" },
+    { title: "Reconstructing Megalleion", route: "experiments" }
+  ]
+};
+
+const MATERIA_MEDICA_DETAIL = {
+  title: "De materia medica",
+  author: { name: "Dioscorides", route: "person_dioscorides" },
+  date: "1st century CE",
+  language: "Greek",
+  type: "Ancient text",
+  urn: "urn:aos:work:de-materia-medica",
+  description: "Encyclopedic pharmacological treatise covering approximately 600 plants, 35 animal products, and 90 minerals. Book 1 contains extensive material on aromatics and perfumes, making it our primary source for ancient Greek perfume recipes.",
+  editions: [
+    { name: "Wellmann (1907)", desc: "Standard critical edition. Reference system: book.chapter" },
+    { name: "Sprengel (1829)", desc: "Earlier edition. Reference system: book.chapter (numbering differs)" }
+  ],
+  translations: [
+    { name: "Beck (2005) — English", route: null },
+    { name: "Berendes (1902) — German", route: null }
+  ],
+  recipes: [
+    { name: "Rose Perfume (1.43)", route: "recipe_rose" },
+    { name: "Lily Perfume (1.62)", route: null },
+    { name: "Cinnamon Perfume (1.61)", route: null }
+  ]
+};
 
 // --- Components ---
 
@@ -562,7 +635,7 @@ const WorksPage = ({ navigate }) => {
             <div className="card-meta">
                <span className="urn">{work.urn}</span>
             </div>
-            <button className="btn-primary">View text</button>
+            <button className="btn-primary" onClick={() => work.route ? navigate(work.route) : null}>View text</button>
           </div>
         ))}
       </div>
@@ -590,7 +663,7 @@ const PeoplePage = ({ navigate }) => {
             <p style={{fontSize: '0.9rem', color: 'var(--color-earth)', marginBottom: '1.5rem'}}>
               {person.bio}
             </p>
-            <button className="btn-secondary">View profile</button>
+            <button className="btn-secondary" onClick={() => person.route ? navigate(person.route) : null}>View profile</button>
           </div>
         ))}
       </div>
@@ -1647,7 +1720,7 @@ const TeamPage = ({ navigate }) => (
     <h1>The Team</h1>
     <div className="section-block">
       <div className="recipe-grid" style={{marginTop: '2rem'}}>
-        <div className="recipe-card">
+        <div className="recipe-card" onClick={() => navigate('team_sean')} style={{cursor: 'pointer'}}>
           <h3>Principal Investigator</h3>
           <div className="card-sub">History of Science</div>
           <p>Leading the historical and chemical analysis of ancient recipes.</p>
@@ -1691,6 +1764,214 @@ const NewsPage = ({ navigate }) => (
     </div>
   </div>
 );
+
+// --- New Pages: Historical Person, Team Member, Work Detail ---
+
+const HistoricalPersonPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('people')}>
+        <Icons.ArrowLeft /> Back to People
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+        <div style={{display: 'flex', gap: '3rem'}}>
+           <div style={{flex: 2}}>
+              <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{DIOSCORIDES_DETAIL.shortName}</h1>
+              <div style={{fontSize: '1.25rem', color: 'var(--color-charcoal)', marginBottom: '0.5rem'}}>{DIOSCORIDES_DETAIL.name}</div>
+              <div style={{fontSize: '1rem', color: 'var(--color-stone)', marginBottom: '1.5rem'}}>
+                 <div>Floruit: {DIOSCORIDES_DETAIL.floruit}</div>
+                 <div>Active in: {DIOSCORIDES_DETAIL.activeIn}</div>
+              </div>
+              <div className="urn" style={{display: 'inline-block', marginBottom: '1rem'}}>{DIOSCORIDES_DETAIL.urn}</div>
+           </div>
+           <div style={{flex: 1}}>
+              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666'}}>
+                 [{DIOSCORIDES_DETAIL.image}]
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <div className="product-section">
+         <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{DIOSCORIDES_DETAIL.bio}</p>
+      </div>
+
+      <div className="product-section">
+         <h2>WORKS</h2>
+         <ul style={{listStyle: 'none', padding: 0}}>
+           {DIOSCORIDES_DETAIL.works.map((w, i) => (
+             <li key={i} style={{marginBottom: '1rem', fontSize: '1.1rem'}}>
+               {w.route ? (
+                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(w.route)}>{w.name} →</span>
+               ) : (
+                 <span style={{color: 'var(--color-earth)'}}>{w.name}</span>
+               )}
+               {w.detail && <div style={{fontSize: '0.9rem', color: 'var(--color-stone)', marginTop: '0.2rem', paddingLeft: '1rem'}}>{w.detail}</div>}
+             </li>
+           ))}
+        </ul>
+      </div>
+
+      <div className="product-section">
+         <h2>RECIPES BY DIOSCORIDES</h2>
+         <div style={{marginBottom: '1rem', fontStyle: 'italic', color: 'var(--color-stone)'}}>Book 1: Aromatics</div>
+         <ul style={{listStyle: 'none', padding: 0}}>
+           {DIOSCORIDES_DETAIL.recipes.map((r, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               {r.route ? (
+                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(r.route)}>{r.name} →</span>
+               ) : (
+                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
+               )}
+             </li>
+           ))}
+        </ul>
+        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all 47 recipes →]</button>
+      </div>
+
+      <div className="product-section" style={{borderBottom: 'none'}}>
+         <h2>EXTERNAL RESOURCES</h2>
+         <ul style={{listStyle: 'none', padding: 0}}>
+           {DIOSCORIDES_DETAIL.external.map((e, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               <a href={e.url} target="_blank" rel="noopener noreferrer" style={{color: 'var(--color-earth)', textDecoration: 'underline'}}>{e.name} ↗</a>
+             </li>
+           ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const TeamMemberPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('team')}>
+        <Icons.ArrowLeft /> Back to Team
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+        <div style={{display: 'flex', gap: '3rem'}}>
+           <div style={{flex: 2}}>
+              <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0, textTransform: 'uppercase'}}>{SEAN_DETAIL.name}</h1>
+              <div style={{fontSize: '1.25rem', color: 'var(--color-amber-dark)', marginBottom: '0.5rem'}}>{SEAN_DETAIL.role}</div>
+              <div style={{fontSize: '1rem', color: 'var(--color-stone)', marginBottom: '1.5rem'}}>
+                 <div>{SEAN_DETAIL.affiliation}</div>
+                 <div style={{marginTop: '0.5rem'}}>ORCID: {SEAN_DETAIL.orcid}</div>
+                 <div>Website: <a href={`https://${SEAN_DETAIL.website}`} target="_blank" rel="noopener noreferrer" style={{color: 'var(--color-amber)'}}>{SEAN_DETAIL.website} →</a></div>
+              </div>
+           </div>
+           <div style={{flex: 1}}>
+              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666'}}>
+                 [{SEAN_DETAIL.image}]
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <div className="product-section">
+         <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{SEAN_DETAIL.bio}</p>
+      </div>
+
+      <div className="product-section">
+         <h2>PUBLICATIONS</h2>
+         <ul style={{listStyle: 'none', padding: 0}}>
+           {SEAN_DETAIL.publications.map((p, i) => (
+             <li key={i} style={{marginBottom: '1rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               <span style={{color: 'var(--color-earth)'}}>{p.title}</span> <span className="text-btn" style={{cursor: 'pointer'}}>→</span>
+             </li>
+           ))}
+        </ul>
+      </div>
+
+      <div className="product-section" style={{borderBottom: 'none'}}>
+         <h2>EXPERIMENTS</h2>
+         <ul style={{listStyle: 'none', padding: 0}}>
+           {SEAN_DETAIL.experiments.map((e, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               {e.route ? (
+                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(e.route)}>{e.title} →</span>
+               ) : (
+                 <span style={{color: 'var(--color-earth)'}}>{e.title}</span>
+               )}
+             </li>
+           ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const WorkDetailPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('works')}>
+        <Icons.ArrowLeft /> Back to Works
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+        <h1 style={{textTransform: 'uppercase', fontSize: '2.5rem', marginBottom: '0.5rem'}}>{MATERIA_MEDICA_DETAIL.title}</h1>
+        <div style={{fontSize: '1.5rem', marginBottom: '1.5rem'}}>
+           <span className="text-btn" style={{fontSize: '1.5rem', cursor: 'pointer'}} onClick={() => navigate(MATERIA_MEDICA_DETAIL.author.route)}>{MATERIA_MEDICA_DETAIL.author.name} →</span>
+        </div>
+        <div className="metadata-box" style={{minWidth: 'auto', display: 'inline-block', paddingRight: '2rem'}}>
+             <div className="meta-row">Date: {MATERIA_MEDICA_DETAIL.date}</div>
+             <div className="meta-row">Language: {MATERIA_MEDICA_DETAIL.language}</div>
+             <div className="meta-row">Type: {MATERIA_MEDICA_DETAIL.type}</div>
+        </div>
+        <div className="urn" style={{marginTop: '1rem'}}>{MATERIA_MEDICA_DETAIL.urn}</div>
+      </div>
+
+      <div className="product-section">
+        <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{MATERIA_MEDICA_DETAIL.description}</p>
+      </div>
+
+      <div className="product-section">
+        <h2>EDITIONS</h2>
+        {MATERIA_MEDICA_DETAIL.editions.map((ed, i) => (
+          <div key={i} style={{marginBottom: '1.5rem'}}>
+             <div style={{fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem'}}>{ed.name} <span className="text-btn">→</span></div>
+             <div style={{color: 'var(--color-stone)'}}>{ed.desc}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="product-section">
+        <h2>TRANSLATIONS</h2>
+        <ul style={{listStyle: 'none', padding: 0}}>
+           {MATERIA_MEDICA_DETAIL.translations.map((t, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-earth)'}}>{t.name}</span> <span className="text-btn" style={{cursor: 'pointer'}}>→</span>
+             </li>
+           ))}
+        </ul>
+      </div>
+
+      <div className="product-section" style={{borderBottom: 'none'}}>
+        <h2>RECIPES FROM THIS WORK</h2>
+        <div style={{marginBottom: '1rem', fontStyle: 'italic', color: 'var(--color-stone)'}}>Book 1: Aromatics</div>
+        <ul style={{listStyle: 'none', padding: 0}}>
+          {MATERIA_MEDICA_DETAIL.recipes.map((r, i) => (
+            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               {r.route ? (
+                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
+               ) : (
+                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
+               )}
+             </li>
+          ))}
+        </ul>
+        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all 47 recipes →]</button>
+      </div>
+    </div>
+  );
+};
 
 // --- Main App & Styles ---
 
@@ -2217,6 +2498,12 @@ const App = () => {
       case 'tool_alembic': return <ToolDetailPage navigate={setRoute} />;
       case 'identification_smyrna': return <IdentificationPage navigate={setRoute} />;
       case 'experiments': return <ExperimentsPage navigate={setRoute} />;
+      
+      // New Routes
+      case 'person_dioscorides': return <HistoricalPersonPage navigate={setRoute} />;
+      case 'team_sean': return <TeamMemberPage navigate={setRoute} />;
+      case 'work_materia_medica': return <WorkDetailPage navigate={setRoute} />;
+
       default: return <HomePage navigate={setRoute} />;
     }
   };
