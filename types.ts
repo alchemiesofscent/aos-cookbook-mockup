@@ -7,6 +7,16 @@ export interface MasterEntity {
   family?: string; // For ingredients
   source?: string; // For ingredients (botanical source)
   type?: string; // For tools (Tool type)
+  parentId?: string; // For hierarchical works (e.g. Edition -> Work)
+  author?: string; // For works
+  date?: string; // For works
+  language?: string; // For works
+  place?: string; // For works
+}
+
+export interface Quantity {
+  value: number;
+  unit: string;
 }
 
 export interface RecipeItem {
@@ -14,7 +24,8 @@ export interface RecipeItem {
   masterId: string | null;
   originalTerm: string;
   displayTerm: string;
-  amount: string;
+  amount: string; // Human readable string
+  quantities: Quantity[]; // Structured data for normalization
   role: string;
   annotation?: string;
   type: 'ingredient' | 'tool' | 'process';
@@ -28,8 +39,10 @@ export interface Recipe {
     title: string;
     sourceWorkId: string;
     author: string;
+    attribution: string;
     language: string;
     date: string;
+    place: string;
   };
   text: {
     original: string;

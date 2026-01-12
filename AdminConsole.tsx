@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { DatabaseState, MasterEntity, Recipe, RecipeItem } from "./types";
+import { DatabaseState, MasterEntity, Recipe, RecipeItem, Quantity } from "./types";
 import { StorageAdapter, generateSlug, generateURN } from "./storage";
 
 // --- Styles for the Admin Console ---
@@ -24,6 +24,7 @@ const AdminStyles = () => (
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #5C4A3D; margin-bottom: 0.4rem; }
     .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-family: 'Noto Sans', sans-serif; }
     .form-group input:focus, .form-group textarea:focus { border-color: #C9A227; outline: none; }
+    .form-group .hint { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
     
     .tab-nav { display: flex; border-bottom: 1px solid #ddd; margin-bottom: 1.5rem; }
     .tab-btn { padding: 0.75rem 1.5rem; cursor: pointer; border-bottom: 3px solid transparent; font-weight: 500; color: #666; }
@@ -39,7 +40,9 @@ const AdminStyles = () => (
     .btn-outline { background: transparent; border: 1px solid #ccc; color: #555; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
     .btn-danger { background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; }
     
-    .item-row { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: grid; grid-template-columns: 2fr 2fr 1fr 1fr auto; gap: 1rem; align-items: center; }
+    .item-row { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: grid; grid-template-columns: 2fr 2fr 1fr 1fr auto; gap: 1rem; align-items: start; }
+    .qty-tag { display: inline-block; background: #e0e0e0; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-right: 0.3rem; margin-top: 0.2rem; border: 1px solid #ccc; }
+
     .status-bar { position: fixed; bottom: 0; left: 250px; right: 0; background: #2D2A26; color: #9A9487; padding: 0.5rem 2rem; font-size: 0.8rem; display: flex; justify-content: space-between; }
     
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
@@ -91,12 +94,12 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
   );
 };
 
-const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
+const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork }) => {
   const [formData, setFormData] = useState<Recipe>(recipe || {
     id: crypto.randomUUID(),
     slug: '',
     urn: '',
-    metadata: { title: '', sourceWorkId: '', author: '', language: 'Greek', date: '' },
+    metadata: { title: '', sourceWorkId: '', author: '', attribution: '', language: '', date: '', place: '' },
     text: { original: '', translation: '', notes: '' },
     items: []
   });
@@ -104,18 +107,53 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
   const [activeTab, setActiveTab] = useState('meta');
   const [jsonInput, setJsonInput] = useState('');
 
+  // Helper to determine inherited metadata
+  const inherited = useMemo(() => {
+    const work = masters.works.find(w => w.id === formData.metadata.sourceWorkId);
+    if (!work) return { author: '', date: '', language: '', place: '' };
+    
+    // Default to work properties
+    let author = work.author || '';
+    let date = work.date || '';
+    let language = work.language || '';
+    let place = work.place || '';
+    
+    // If work has parent, fall back to parent for missing fields
+    if (work.parentId) {
+      const parent = masters.works.find(p => p.id === work.parentId);
+      if (parent) {
+         if (!author) author = parent.author || '';
+         if (!date) date = parent.date || '';
+         if (!language) language = parent.language || '';
+         if (!place) place = parent.place || '';
+      }
+    }
+    return { author, date, language, place };
+  }, [formData.metadata.sourceWorkId, masters.works]);
+
   // Auto-generate slug/urn if title changes and slug is empty
   useEffect(() => {
     if (recipe) return; // Don't auto-update on edit existing
-    if (formData.metadata.title && !formData.slug) {
-      const slug = generateSlug(formData.metadata.title);
+    if (formData.metadata.title) {
+      // Logic: [title-slug]-[author-slug]
+      // Author priority: Attribution > Override Author > Inherited Author > 'Unknown'
+      const titleSlug = generateSlug(formData.metadata.title);
+      
+      let authorStr = 'unknown';
+      if (formData.metadata.attribution) authorStr = formData.metadata.attribution;
+      else if (formData.metadata.author) authorStr = formData.metadata.author;
+      else if (inherited.author) authorStr = inherited.author;
+      
+      const authorSlug = generateSlug(authorStr);
+      const slug = `${titleSlug}-${authorSlug}`;
+
       setFormData(prev => ({
         ...prev,
         slug,
         urn: generateURN('recipe', slug)
       }));
     }
-  }, [formData.metadata.title]);
+  }, [formData.metadata.title, formData.metadata.attribution, formData.metadata.author, inherited.author]);
 
   const updateMeta = (field, value) => {
     setFormData(prev => ({ ...prev, metadata: { ...prev.metadata, [field]: value } }));
@@ -131,6 +169,7 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
         originalTerm: '',
         displayTerm: '',
         amount: '',
+        quantities: [],
         role: ''
       }]
     }));
@@ -149,14 +188,40 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
 
   // LLM Helper Functions
   const generatePrompt = () => {
-    const prompt = `Analyze the following ancient recipe text. Extract ingredients, tools, and processes into a JSON structure. 
-    Output format: { "items": [ { "type": "ingredient|tool|process", "originalTerm": "string", "displayTerm": "string", "amount": "string", "role": "string" } ] }.
+    const prompt = `You are a specialized assistant for the "Alchemies of Scent" project. Your task is to extract ingredients, tools, and processes from ancient Greek recipe texts.
+
+    CRITICAL TASK: Metrology and Unit Parsing.
+    You must extract measurements and parse them into a controlled vocabulary.
     
-    TEXT:
-    ${formData.text.translation || formData.text.original}
+    1. Identify the 'originalTerm' (the full Greek phrase, e.g., "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ").
+    2. Create a 'displayTerm' (English translation, e.g., "5 litras 8 ounces of skhoinos").
+    3. Create an 'amount' string (e.g., "5 litras 8 ounces").
+    4. PARSE 'quantities': Create an array of objects for numerical normalization.
+       - Supported Units: litra, ouggia, drachma, gramma, mna, xestes, kotyle.
+       - Format: { "value": number, "unit": "string" }
+       - Example: "λίτρας πέντε οὐγγίας ὀκτώ" becomes [{"value": 5, "unit": "litra"}, {"value": 8, "unit": "ouggia"}]
+
+    Output Format (JSON):
+    { 
+      "items": [ 
+        { 
+          "type": "ingredient|tool|process", 
+          "originalTerm": "string", 
+          "displayTerm": "string", 
+          "amount": "string",
+          "quantities": [ { "value": 0, "unit": "string" } ],
+          "role": "string" 
+        } 
+      ] 
+    }
+    
+    TEXT TO ANALYZE (Greek & Translation):
+    ${formData.text.original}
+    
+    ${formData.text.translation}
     `;
     navigator.clipboard.writeText(prompt);
-    alert("Prompt copied to clipboard!");
+    alert("Metrology Prompt copied to clipboard!");
   };
 
   const applyJson = () => {
@@ -166,15 +231,25 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
         const newItems = parsed.items.map(i => ({
            id: crypto.randomUUID(),
            masterId: null, // Logic to auto-match could go here
+           quantities: i.quantities || [], // Ensure array exists
            ...i
         }));
         setFormData(prev => ({ ...prev, items: [...prev.items, ...newItems] }));
         setJsonInput('');
-        alert(`Imported ${newItems.length} items.`);
+        alert(`Imported ${newItems.length} items with structured units.`);
       }
     } catch (e) {
       alert("Invalid JSON");
     }
+  };
+
+  // Helper to format work names in dropdown
+  const formatWorkOption = (w) => {
+    if (w.parentId) {
+      const parent = masters.works.find(p => p.id === w.parentId);
+      return `${parent?.name || 'Unknown'} (${w.name})`;
+    }
+    return w.name;
   };
 
   return (
@@ -201,8 +276,8 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
             <input value={formData.metadata.title} onChange={e => updateMeta('title', e.target.value)} />
           </div>
           <div className="form-group">
-             <label>Slug (ID)</label>
-             <input value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} />
+             <label>Slug (ID) - Auto-generated from Title & Author</label>
+             <input value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} style={{background: '#f9f9f9'}} />
           </div>
           <div className="form-group">
              <label>URN</label>
@@ -210,18 +285,41 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
           </div>
           <div className="form-group">
              <label>Source Work</label>
-             <select value={formData.metadata.sourceWorkId} onChange={e => updateMeta('sourceWorkId', e.target.value)}>
+             <select 
+                value={formData.metadata.sourceWorkId} 
+                onChange={e => {
+                    if (e.target.value === 'NEW_WORK') {
+                        onCreateWork();
+                    } else {
+                        updateMeta('sourceWorkId', e.target.value);
+                    }
+                }}
+             >
                <option value="">Select Work...</option>
-               {masters.works.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
+               {masters.works.map(w => <option key={w.id} value={w.id}>{formatWorkOption(w)}</option>)}
+               <option value="NEW_WORK" style={{fontWeight: 'bold', color: '#C9A227'}}>+ Add New Work</option>
              </select>
           </div>
           <div className="form-group">
+             <label>Attribution (Specific)</label>
+             <input value={formData.metadata.attribution || ''} onChange={e => updateMeta('attribution', e.target.value)} placeholder="e.g. Attributed to Cleopatra" />
+             <div className="hint">Overrides author in ID generation</div>
+          </div>
+          <div className="form-group">
              <label>Author</label>
-             <input value={formData.metadata.author} onChange={e => updateMeta('author', e.target.value)} />
+             <input value={formData.metadata.author} onChange={e => updateMeta('author', e.target.value)} placeholder={inherited.author ? `Inherited: ${inherited.author}` : "Override inherited author..."} />
           </div>
           <div className="form-group">
              <label>Date</label>
-             <input value={formData.metadata.date} onChange={e => updateMeta('date', e.target.value)} />
+             <input value={formData.metadata.date} onChange={e => updateMeta('date', e.target.value)} placeholder={inherited.date ? `Inherited: ${inherited.date}` : "Override inherited date..."} />
+          </div>
+          <div className="form-group">
+             <label>Language</label>
+             <input value={formData.metadata.language} onChange={e => updateMeta('language', e.target.value)} placeholder={inherited.language ? `Inherited: ${inherited.language}` : "Override inherited language..."} />
+          </div>
+           <div className="form-group">
+             <label>Place</label>
+             <input value={formData.metadata.place} onChange={e => updateMeta('place', e.target.value)} placeholder={inherited.place ? `Inherited: ${inherited.place}` : "Override inherited place..."} />
           </div>
         </div>
       )}
@@ -270,14 +368,21 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel }) => {
                    <input value={item.originalTerm} onChange={e => updateItem(item.id, 'originalTerm', e.target.value)} placeholder="e.g. σμύρνα" style={{width: '100%'}} />
                 </div>
                  <div>
-                   <label style={{fontSize: '0.7rem'}}>Amount</label>
+                   <label style={{fontSize: '0.7rem'}}>Amount (Display)</label>
                    <input value={item.amount} onChange={e => updateItem(item.id, 'amount', e.target.value)} style={{width: '100%'}} />
+                   <div style={{marginTop: '0.25rem'}}>
+                     {item.quantities && item.quantities.map((q, qIdx) => (
+                       <span key={qIdx} className="qty-tag">
+                         {q.value} {q.unit}
+                       </span>
+                     ))}
+                   </div>
                 </div>
                  <div>
                    <label style={{fontSize: '0.7rem'}}>Role</label>
                    <input value={item.role} onChange={e => updateItem(item.id, 'role', e.target.value)} style={{width: '100%'}} />
                 </div>
-                <button style={{background:'none', border:'none', cursor:'pointer', color:'#aaa'}} onClick={() => removeItem(item.id)}>✕</button>
+                <button style={{background:'none', border:'none', cursor:'pointer', color:'#aaa', marginTop: '1.5rem'}} onClick={() => removeItem(item.id)}>✕</button>
              </div>
            ))}
         </div>
@@ -370,6 +475,24 @@ export const AdminConsole = ({ navigate }) => {
   };
 
   // --- Renderers ---
+  
+  const resolveWorkCitation = (workId: string) => {
+    const work = db.masterWorks.find(w => w.id === workId);
+    if (!work) return workId;
+    
+    // Check for Parent (e.g. "De materia medica" is parent of "Wellmann 1907")
+    if (work.parentId) {
+      const parent = db.masterWorks.find(p => p.id === work.parentId);
+      if (parent) {
+        // Format: "Dioscorides De materia medica (Wellmann 1907)"
+        const author = parent.author || 'Unknown Author';
+        return `${author} ${parent.name} (${work.name})`;
+      }
+    }
+    // Fallback or Top Level Work
+    return `${work.author || ''} ${work.name}`;
+  };
+
   const renderDashboard = () => (
     <div className="console-card">
       <h2>Welcome to the Scriptorium</h2>
@@ -398,8 +521,20 @@ export const AdminConsole = ({ navigate }) => {
      if (!editingItem) return null;
      const { type, data, collection } = editingItem;
      
+     // Automatic slug generation logic
+     // Effect logic moved inside the renderer implies we need a controlled component wrapper, 
+     // but for simplicity we'll just auto-update state on name change if slug is clean
+     const handleNameChange = (newName) => {
+       const isClean = !data.slug || data.slug === generateSlug(data.name);
+       const newData = { ...data, name: newName };
+       if (isClean) {
+         newData.slug = generateSlug(newName);
+       }
+       setEditingItem({ ...editingItem, data: newData });
+     };
+     
      const handleSave = () => {
-         // Auto-generate slug
+         // Final safety check on slug
          const slug = data.slug || generateSlug(data.name);
          const urn = data.urn || generateURN(type, slug);
          saveMaster(collection, { ...data, slug, urn });
@@ -409,14 +544,74 @@ export const AdminConsole = ({ navigate }) => {
          <div className="modal-overlay">
              <div className="modal-content">
                  <h3>{data.id ? 'Edit' : 'Create'} {type}</h3>
+                 
                  <div className="form-group">
                      <label>Name</label>
-                     <input value={data.name} onChange={e => setEditingItem({...editingItem, data: {...data, name: e.target.value}})} />
+                     <input value={data.name} onChange={e => handleNameChange(e.target.value)} />
+                     {collection === 'masterWorks' && data.parentId && <div className="hint">Edition/Translation Name (e.g. "Wellmann 1907")</div>}
                  </div>
+                 
+                 <div className="form-group">
+                     <label>Slug (Auto-generated)</label>
+                     <input value={data.slug} readOnly style={{background: '#f9f9f9', color: '#666'}} />
+                 </div>
+
+                 {collection === 'masterWorks' && (
+                   <>
+                     <div className="form-group">
+                        <label>Parent Work (if this is an edition/translation)</label>
+                        <select 
+                          value={data.parentId || ''} 
+                          onChange={e => setEditingItem({...editingItem, data: {...data, parentId: e.target.value}})}
+                        >
+                          <option value="">No Parent (Top Level Work)</option>
+                          {db.masterWorks
+                            .filter(w => w.id !== data.id && !w.parentId) // Prevent circular and deep nesting
+                            .map(w => <option key={w.id} value={w.id}>{w.name}</option>)
+                          }
+                        </select>
+                     </div>
+                     <div className="form-group">
+                        <label>Author</label>
+                        <input 
+                           value={data.author || ''} 
+                           onChange={e => setEditingItem({...editingItem, data: {...data, author: e.target.value}})} 
+                           disabled={!!data.parentId}
+                           placeholder={data.parentId ? "(Inherited from Parent)" : "e.g. Dioscorides"}
+                        />
+                     </div>
+                     <div className="form-group">
+                        <label>Date</label>
+                        <input 
+                           value={data.date || ''} 
+                           onChange={e => setEditingItem({...editingItem, data: {...data, date: e.target.value}})} 
+                           placeholder="e.g. 1st Century CE"
+                        />
+                     </div>
+                     <div className="form-group">
+                        <label>Language</label>
+                        <input 
+                           value={data.language || ''} 
+                           onChange={e => setEditingItem({...editingItem, data: {...data, language: e.target.value}})} 
+                           placeholder="e.g. Ancient Greek"
+                        />
+                     </div>
+                     <div className="form-group">
+                        <label>Place</label>
+                        <input 
+                           value={data.place || ''} 
+                           onChange={e => setEditingItem({...editingItem, data: {...data, place: e.target.value}})} 
+                           placeholder="e.g. Anatolia"
+                        />
+                     </div>
+                   </>
+                 )}
+
                  <div className="form-group">
                      <label>Description</label>
                      <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
                  </div>
+
                  <div style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem'}}>
                      <button className="btn-outline" onClick={() => setEditingItem(null)}>Cancel</button>
                      <button className="btn-action" onClick={handleSave}>Save</button>
@@ -461,7 +656,7 @@ export const AdminConsole = ({ navigate }) => {
                       {db.recipes.map(r => (
                           <tr key={r.id}>
                               <td>{r.metadata.title}</td>
-                              <td>{db.masterWorks.find(w => w.id === r.metadata.sourceWorkId)?.name || r.metadata.sourceWorkId}</td>
+                              <td>{resolveWorkCitation(r.metadata.sourceWorkId)}</td>
                               <td>{r.metadata.date}</td>
                               <td>
                                   <button className="text-btn" onClick={() => { setEditingRecipe(r); setView('editor'); }}>Edit</button>
@@ -481,6 +676,7 @@ export const AdminConsole = ({ navigate }) => {
                 masters={{ ingredients: db.masterIngredients, tools: db.masterTools, processes: db.masterProcesses, works: db.masterWorks }}
                 onSave={saveRecipe}
                 onCancel={() => { setEditingRecipe(null); setView('recipes'); }}
+                onCreateWork={() => setEditingItem({ type: 'Work', collection: 'masterWorks', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '' } })}
             />
         )}
 
