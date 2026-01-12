@@ -364,14 +364,9 @@ const Header = ({ navigate }) => {
         <div className="nav-item">
           <span onClick={() => navigate('workshop')}>The Workshop</span> <Icons.ChevronDown />
           <div className="dropdown">
-             <div className="dropdown-section-title">Materials</div>
-            <div onClick={() => navigate('ingredients')}>Ingredients</div>
-            <div onClick={() => navigate('terms')}>Ancient Terms</div>
-            <div onClick={() => navigate('sources')}>Material Sources</div>
-            <div className="dropdown-section-title">Methods</div>
+            <div onClick={() => navigate('materials')}>Materials</div>
             <div onClick={() => navigate('processes')}>Processes</div>
             <div onClick={() => navigate('tools')}>Tools</div>
-             <div className="dropdown-section-title">Research</div>
             <div onClick={() => navigate('experiments')}>Experiments</div>
           </div>
         </div>
@@ -402,7 +397,7 @@ const Footer = ({ navigate }) => (
       </div>
       <div className="col">
         <h4 style={{cursor: 'pointer'}} onClick={() => navigate('workshop')}>The Workshop</h4>
-        <a style={{cursor: 'pointer'}} onClick={() => navigate('ingredients')}>Ingredients</a>
+        <a style={{cursor: 'pointer'}} onClick={() => navigate('materials')}>Materials</a>
         <a style={{cursor: 'pointer'}} onClick={() => navigate('processes')}>Processes</a>
         <a style={{cursor: 'pointer'}} onClick={() => navigate('tools')}>Tools</a>
          <a style={{cursor: 'pointer'}} onClick={() => navigate('experiments')}>Experiments</a>
@@ -419,6 +414,17 @@ const Footer = ({ navigate }) => (
       <p>Institute of Philosophy, Czech Academy of Sciences</p>
     </div>
   </footer>
+);
+
+// --- Reusable Components ---
+
+const MaterialsSubNav = ({ navigate, active }) => (
+  <div className="materials-nav">
+     <button className={active === 'dashboard' ? 'active' : ''} onClick={() => navigate('materials')}>Overview</button>
+     <button className={active === 'terms' ? 'active' : ''} onClick={() => navigate('terms')}>Ancient Terms</button>
+     <button className={active === 'ingredients' ? 'active' : ''} onClick={() => navigate('ingredients')}>Ingredients</button>
+     <button className={active === 'sources' ? 'active' : ''} onClick={() => navigate('sources')}>Material Sources</button>
+  </div>
 );
 
 // --- Page Views ---
@@ -612,6 +618,7 @@ const TermsPage = ({ navigate }) => {
       
       <div className="archive-intro">
         <h1>ANCIENT TERMS</h1>
+        <MaterialsSubNav navigate={navigate} active="terms" />
         <p>A dictionary of botanical, chemical, and technical terminology from ancient sources.</p>
       </div>
 
@@ -686,6 +693,7 @@ const IngredientsPage = ({ navigate }) => {
       
       <div className="archive-intro">
         <h1>INGREDIENTS</h1>
+        <MaterialsSubNav navigate={navigate} active="ingredients" />
         <p>Explore the materials used in ancient perfumery.</p>
         {viewMode === 'list' && <p style={{marginTop: '1rem', fontSize: '1rem', color: 'var(--color-earth)'}}>This index lists modern ingredient names. Click any entry to explore its modern definition and sensory profile, or to see the ancient terms that may correspond to it.</p>}
       </div>
@@ -804,6 +812,7 @@ const SourcesPage = ({ navigate }) => {
       
       <div className="archive-intro">
         <h1>MATERIAL SOURCES</h1>
+        <MaterialsSubNav navigate={navigate} active="sources" />
         <p>The biological sources—plants, animals, and minerals—yielding the raw materials of perfumery.</p>
       </div>
 
@@ -852,6 +861,59 @@ const SourcesPage = ({ navigate }) => {
   );
 };
 
+const MaterialsDashboardPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('workshop')}>
+        <Icons.ArrowLeft /> Back to Workshop
+      </div>
+      
+      <div className="workshop-header">
+        <h1>MATERIALS</h1>
+        <MaterialsSubNav navigate={navigate} active="dashboard" />
+        <p className="intro-text">
+          Ancient perfumery materials are complex. Explore our Dictionary of Ancient Terms, browse modern Ingredient Profiles, or study the biological Material Sources.
+        </p>
+      </div>
+
+      <div className="workshop-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
+        <div className="workshop-card" onClick={() => navigate('terms')} style={{display: 'flex', flexDirection: 'column', height: '100%', minHeight: '250px'}}>
+           <div className="card-top">
+            <h3>Ancient Terms</h3>
+            <span className="lang-tag">Dictionary</span>
+          </div>
+          <p className="def" style={{fontSize: '1rem', lineHeight: '1.6', margin: '1rem 0', flex: 1}}>
+            A philological dictionary of botanical, chemical, and technical terminology found in ancient Greek and Latin texts.
+          </p>
+          <span className="link-text">Browse Dictionary &rarr;</span>
+        </div>
+        
+        <div className="workshop-card" onClick={() => navigate('ingredients')} style={{display: 'flex', flexDirection: 'column', height: '100%', minHeight: '250px'}}>
+          <div className="card-top">
+            <h3>Ingredients</h3>
+            <span className="type-tag">Profiles</span>
+          </div>
+          <p className="def" style={{fontSize: '1rem', lineHeight: '1.6', margin: '1rem 0', flex: 1}}>
+            Modern chemical and sensory profiles of the ingredients used in our reconstructions, indexed A-Z.
+          </p>
+          <span className="link-text">Browse Ingredients &rarr;</span>
+        </div>
+        
+        <div className="workshop-card" onClick={() => navigate('sources')} style={{display: 'flex', flexDirection: 'column', height: '100%', minHeight: '250px'}}>
+           <div className="card-top">
+            <h3>Material Sources</h3>
+            <span className="type-tag">Biology</span>
+          </div>
+          <p className="def" style={{fontSize: '1rem', lineHeight: '1.6', margin: '1rem 0', flex: 1}}>
+            The biological taxonomy of the plants, animals, and minerals that yield the raw materials of perfumery.
+          </p>
+          <span className="link-text">Browse Sources &rarr;</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const WorkshopPage = ({ navigate }) => {
   return (
     <div className="page-container">
@@ -869,7 +931,7 @@ const WorkshopPage = ({ navigate }) => {
       <div className="workshop-section">
         <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '1.5rem'}}>
             <h2 style={{margin:0, border: 'none'}}>MATERIALS</h2>
-            <button className="text-btn" onClick={() => navigate('ingredients')}>See all ingredients &rarr;</button>
+            <button className="text-btn" onClick={() => navigate('materials')}>See overview &rarr;</button>
         </div>
         <div className="workshop-grid">
           <div className="workshop-card" onClick={() => navigate('ingredient_smyrna')}>
@@ -1787,6 +1849,35 @@ const GlobalStyles = () => (
     .translit { font-style: italic; font-family: var(--font-serif); color: var(--color-amber-dark); margin-bottom: 0.75rem; font-size: 0.9375rem; }
     .def { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); }
 
+    /* Materials Nav */
+    .materials-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(92, 74, 61, 0.2);
+      padding-bottom: 0.5rem;
+    }
+    .materials-nav button {
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--color-stone);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .materials-nav button:hover {
+      color: var(--color-amber);
+      background: rgba(201, 162, 39, 0.05);
+    }
+    .materials-nav button.active {
+      color: var(--color-amber-dark);
+      background: rgba(201, 162, 39, 0.1);
+      font-weight: 600;
+    }
+
     /* AZ List */
     .az-container { margin-top: 2rem; }
     .az-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; font-family: var(--font-sans); border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1.5rem; }
@@ -2115,6 +2206,7 @@ const App = () => {
       case 'team': return <TeamPage navigate={setRoute} />;
       case 'news': return <NewsPage navigate={setRoute} />;
       case 'workshop': return <WorkshopPage navigate={setRoute} />;
+      case 'materials': return <MaterialsDashboardPage navigate={setRoute} />;
       case 'terms': return <TermsPage navigate={setRoute} />;
       case 'ingredients': return <IngredientsPage navigate={setRoute} />;
       case 'sources': return <SourcesPage navigate={setRoute} />;
