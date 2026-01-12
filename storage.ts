@@ -59,7 +59,13 @@ export const StorageAdapter = {
 };
 
 export const generateSlug = (text: string): string => {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  if (!text) return '';
+  return text
+    .normalize('NFD')                   // Decompose combined graphemes (e.g. ē -> e + ̄ )
+    .replace(/[\u0300-\u036f]/g, "")    // Remove diacritical marks (accents, macrons, etc.)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')        // Replace non-alphanumeric with dashes
+    .replace(/(^-|-$)+/g, '');          // Trim leading/trailing dashes
 };
 
 export const generateURN = (type: string, slug: string): string => {

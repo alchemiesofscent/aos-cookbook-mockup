@@ -8,6 +8,8 @@ export interface MasterEntity {
   slug: string;
   urn: string;
   name: string;
+  originalName?: string; // Ancient/Greek term
+  transliteratedName?: string; // Latinized ancient term
   description: string;
   family?: string; // For ingredients
   source?: string; // For ingredients (botanical source)
@@ -31,11 +33,14 @@ export interface RecipeItem {
   id: string; // unique instance id
   masterId: string | null;
   originalTerm: string;
+  transliteration?: string;
   displayTerm: string;
-  amount: string; // Human readable string
+  amount: string; // Human readable string (Translated, e.g. "5 lbs")
+  originalAmount?: string; // Original text (e.g. "litras pente")
   quantities: Quantity[]; // Structured data for normalization
   role: string;
   annotation?: string;
+  sequenceOrder?: number;
   type: 'ingredient' | 'tool' | 'process';
 }
 

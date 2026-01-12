@@ -25,6 +25,14 @@ const EXTERNAL_RESOURCE_TYPES = [
   "Website"
 ];
 
+const ITEM_ROLES = [
+  "base",
+  "aromatic",
+  "carrier",
+  "adjuvant",
+  "other"
+];
+
 // --- Styles for the Admin Console ---
 const AdminStyles = () => (
   <style>{`
@@ -45,7 +53,15 @@ const AdminStyles = () => (
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #5C4A3D; margin-bottom: 0.4rem; }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; font-family: 'Noto Sans', sans-serif; }
+    
+    /* Global Input Styling for Admin to prevent Dark Mode issues */
+    input, textarea, select {
+        background-color: #ffffff !important;
+        color: #333333 !important;
+        border: 1px solid #cccccc;
+    }
+
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.6rem; border-radius: 4px; font-family: 'Noto Sans', sans-serif; }
     .form-group input:focus, .form-group textarea:focus { border-color: #C9A227; outline: none; }
     .form-group .hint { font-size: 0.75rem; color: #888; margin-top: 0.25rem; }
     
@@ -63,8 +79,10 @@ const AdminStyles = () => (
     .btn-outline { background: transparent; border: 1px solid #ccc; color: #555; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
     .btn-danger { background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
     
-    .item-row { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: grid; grid-template-columns: 2fr 2fr 1fr 1fr auto; gap: 1rem; align-items: start; }
-    .qty-tag { display: inline-block; background: #e0e0e0; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-right: 0.3rem; margin-top: 0.2rem; border: 1px solid #ccc; }
+    .item-row { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: grid; grid-template-columns: 2fr 2fr 1.5fr 1.5fr 1fr auto; gap: 1rem; align-items: start; }
+    .item-row input, .item-row select, .item-row textarea { width: 100%; padding: 0.4rem; border-radius: 4px; font-size: 0.9rem; }
+
+    .qty-tag { display: inline-block; background: #e0e0e0; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-right: 0.3rem; margin-top: 0.2rem; border: 1px solid #ccc; color: #333; }
 
     .status-bar { position: fixed; bottom: 0; left: 250px; right: 0; background: #2D2A26; color: #9A9487; padding: 0.5rem 2rem; font-size: 0.8rem; display: flex; justify-content: space-between; }
     
@@ -93,8 +111,9 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Original</th>
+            <th>Transliteration</th>
             <th>Slug</th>
-            <th>URN</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -102,8 +121,9 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
           {filtered.map(item => (
             <tr key={item.id}>
               <td style={{fontWeight: 600}}>{item.name}</td>
+              <td style={{fontFamily: 'Gentium Plus, serif'}}>{item.originalName || '-'}</td>
+              <td style={{fontStyle: 'italic'}}>{item.transliteratedName || '-'}</td>
               <td>{item.slug}</td>
-              <td style={{fontSize: '0.8rem', color: '#888'}}>{item.urn}</td>
               <td>
                 <button className="text-btn" onClick={() => onEdit(item)}>Edit</button>
                 <span style={{margin: '0 0.5rem'}}>|</span>
@@ -117,7 +137,7 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
   );
 };
 
-const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existingPlaces }) => {
+const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, onCreateMaster, onBatchCreateMasters, existingPlaces }) => {
   const [formData, setFormData] = useState<Recipe>(recipe || {
     id: crypto.randomUUID(),
     slug: '',
@@ -129,6 +149,7 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
 
   const [activeTab, setActiveTab] = useState('meta');
   const [jsonInput, setJsonInput] = useState('');
+  const [autoCreateMasters, setAutoCreateMasters] = useState(true);
 
   // Helper to determine inherited metadata
   const inherited = useMemo(() => {
@@ -190,10 +211,12 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
         type,
         masterId: null,
         originalTerm: '',
+        transliteration: '',
         displayTerm: '',
         amount: '',
+        originalAmount: '',
         quantities: [],
-        role: ''
+        role: 'base'
       }]
     }));
   };
@@ -211,58 +234,221 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
 
   // LLM Helper Functions
   const generatePrompt = () => {
-    const prompt = `You are a specialized assistant for the "Alchemies of Scent" project. Your task is to extract ingredients, tools, and processes from ancient Greek recipe texts.
+    const prompt = `You are a specialized extraction assistant for the Alchemies of Scent project. Your task is to extract structured data from ancient Greek recipe texts.
 
-    CRITICAL TASK: Metrology and Unit Parsing.
-    You must extract measurements and parse them into a controlled vocabulary.
-    
-    1. Identify the 'originalTerm' (the full Greek phrase, e.g., "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ").
-    2. Create a 'displayTerm' (English translation, e.g., "5 litras 8 ounces of skhoinos").
-    3. Create an 'amount' string (e.g., "5 litras 8 ounces").
-    4. PARSE 'quantities': Create an array of objects for numerical normalization.
-       - Supported Units: litra, ouggia, drachma, gramma, mna, xestes, kotyle.
-       - Format: { "value": number, "unit": "string" }
-       - Example: "λίτρας πέντε οὐγγίας ὀκτώ" becomes [{"value": 5, "unit": "litra"}, {"value": 8, "unit": "ouggia"}]
+Input:
+1. The original recipe text in Greek
+2. A scholarly English translation
 
-    Output Format (JSON):
-    { 
-      "items": [ 
-        { 
-          "type": "ingredient|tool|process", 
-          "originalTerm": "string", 
-          "displayTerm": "string", 
-          "amount": "string",
-          "quantities": [ { "value": 0, "unit": "string" } ],
-          "role": "string" 
-        } 
-      ] 
+Output:
+Return a single JSON object with three keys: "ingredients", "tools", and "processes".
+
+CORE PRINCIPLES:
+- Philological Precision: Normalize Greek terms.
+- No Inference: Do not guess quantities not explicit in text.
+- Use controlled vocabulary for roles.
+
+METROLOGY & UNITS:
+1. Extract the quantity phrase into "quantity_raw". IMPORTANT: Normalize the measurement unit to the Nominative Singular (main term). Do not use the accusative case found in the text. (e.g., write "λίτρα πέντε" instead of "λίτρας πέντε").
+2. Translate to short-form English units in "quantity_translation" (e.g., use 'lb' for litra/mna, 'oz' for ouggia, 'pt' for xestes). 
+   Example: "5 lbs", "4 oz".
+
+MODERN IDENTIFICATION:
+- For ingredients, tools, and processes, provide a "modern_name" (e.g., "Myrrh", "Mortar", "Boiling") to help link to our master database.
+
+ROLES:
+- For ingredients, choose one: 'base', 'aromatic', 'carrier', 'adjuvant', 'other'.
+
+JSON SCHEMA:
+{
+  "ingredients": [
+    {
+      "ancient_term": "Greek term (Nominative Singular)",
+      "transliteration": "Latin script",
+      "modern_name": "English name of ingredient (e.g. Myrrh)",
+      "quantity_raw": "Greek quantity phrase (Normalized to Nominative Singular unit)",
+      "quantity_translation": "Short form English (e.g. 5 lbs)",
+      "quantities": [ { "value": number, "unit": "string" } ],
+      "role": "base|aromatic|carrier|adjuvant|other"
     }
-    
-    TEXT TO ANALYZE (Greek & Translation):
-    ${formData.text.original}
-    
-    ${formData.text.translation}
+  ],
+  "tools": [
+    {
+      "ancient_term": "Greek term",
+      "transliteration": "Latin script",
+      "modern_name": "English translation"
+    }
+  ],
+  "processes": [
+    {
+      "ancient_term": "Greek verb (Infinitive)",
+      "transliteration": "Latin script",
+      "modern_name": "English translation",
+      "sequence_order": number
+    }
+  ]
+}
+
+TEXT TO ANALYZE:
+Greek:
+${formData.text.original}
+
+Translation:
+${formData.text.translation}
     `;
     navigator.clipboard.writeText(prompt);
-    alert("Metrology Prompt copied to clipboard!");
+    alert("Structured Prompt copied to clipboard!");
   };
 
   const applyJson = () => {
     try {
-      const parsed = JSON.parse(jsonInput);
-      if (parsed.items && Array.isArray(parsed.items)) {
-        const newItems = parsed.items.map(i => ({
-           id: crypto.randomUUID(),
-           masterId: null, // Logic to auto-match could go here
-           quantities: i.quantities || [], // Ensure array exists
-           ...i
-        }));
+      let cleanJson = jsonInput.trim();
+      if (cleanJson.startsWith('```')) {
+          cleanJson = cleanJson.replace(/^```(json)?/, '').replace(/```$/, '');
+      }
+      cleanJson = cleanJson.trim();
+      
+      const parsed = JSON.parse(cleanJson);
+      const newItems: RecipeItem[] = [];
+
+      // Temporary storage for new masters created during this import
+      const newMastersBuffer = {
+          ingredients: [] as MasterEntity[],
+          tools: [] as MasterEntity[],
+          processes: [] as MasterEntity[]
+      };
+
+      // Helper to find master link or create new one
+      const resolveMasterId = (type: 'ingredient' | 'tool' | 'process', term: string, original?: string, translit?: string): string | null => {
+          if (!term) return null;
+          const search = term.toLowerCase().trim();
+          
+          let existingList: MasterEntity[] = [];
+          let newBufferList: MasterEntity[] = [];
+
+          if (type === 'ingredient') {
+              existingList = masters.ingredients;
+              newBufferList = newMastersBuffer.ingredients;
+          } else if (type === 'tool') {
+              existingList = masters.tools;
+              newBufferList = newMastersBuffer.tools;
+          } else if (type === 'process') {
+              existingList = masters.processes;
+              newBufferList = newMastersBuffer.processes;
+          }
+          
+          // 1. Check existing DB
+          const found = existingList.find(m => m.name.toLowerCase() === search || m.slug === search);
+          if (found) return found.id;
+
+          // 2. Check locally created buffer (duplicates within the same JSON)
+          const foundInBuffer = newBufferList.find(m => m.name.toLowerCase() === search || m.slug === search);
+          if (foundInBuffer) return foundInBuffer.id;
+
+          // 3. Auto-create if enabled
+          if (autoCreateMasters) {
+              // Prefer transliteration for slug if available, else name
+              const slugBase = translit || term;
+              const slug = generateSlug(slugBase);
+              
+              const newEntity: MasterEntity = {
+                  id: crypto.randomUUID(),
+                  name: term, // Use the proper casing from the term
+                  originalName: original,
+                  transliteratedName: translit,
+                  slug: slug,
+                  urn: generateURN(type, slug),
+                  description: 'Imported from recipe extraction.'
+              };
+              
+              if (type === 'ingredient') newMastersBuffer.ingredients.push(newEntity);
+              else if (type === 'tool') newMastersBuffer.tools.push(newEntity);
+              else if (type === 'process') newMastersBuffer.processes.push(newEntity);
+              
+              return newEntity.id;
+          }
+
+          return null;
+      };
+
+      // Process Ingredients
+      if (parsed.ingredients && Array.isArray(parsed.ingredients)) {
+        parsed.ingredients.forEach((i: any) => {
+          const modernName = i.modern_name || '';
+          newItems.push({
+            id: crypto.randomUUID(),
+            masterId: resolveMasterId('ingredient', modernName, i.ancient_term, i.transliteration),
+            type: 'ingredient',
+            originalTerm: i.ancient_term || '',
+            transliteration: i.transliteration || '',
+            displayTerm: modernName, 
+            originalAmount: i.quantity_raw || '',
+            amount: i.quantity_translation || '',
+            quantities: i.quantities || [],
+            role: i.role || 'other',
+            annotation: ''
+          });
+        });
+      }
+
+      // Process Tools
+      if (parsed.tools && Array.isArray(parsed.tools)) {
+        parsed.tools.forEach((t: any) => {
+          const modernName = t.modern_name || '';
+          newItems.push({
+            id: crypto.randomUUID(),
+            masterId: resolveMasterId('tool', modernName, t.ancient_term, t.transliteration),
+            type: 'tool',
+            originalTerm: t.ancient_term || '',
+            transliteration: t.transliteration || '',
+            displayTerm: modernName,
+            amount: '',
+            originalAmount: '',
+            quantities: [],
+            role: '',
+            annotation: ''
+          });
+        });
+      }
+
+      // Process Processes
+      if (parsed.processes && Array.isArray(parsed.processes)) {
+        parsed.processes.forEach((p: any) => {
+          const modernName = p.modern_name || '';
+          newItems.push({
+            id: crypto.randomUUID(),
+            masterId: resolveMasterId('process', modernName, p.ancient_term, p.transliteration),
+            type: 'process',
+            originalTerm: p.ancient_term || '',
+            transliteration: p.transliteration || '',
+            displayTerm: modernName,
+            amount: '',
+            originalAmount: '',
+            quantities: [],
+            role: '',
+            annotation: '',
+            sequenceOrder: p.sequence_order
+          });
+        });
+      }
+
+      if (newItems.length > 0) {
+        // Save newly created masters to parent state
+        if (onBatchCreateMasters && (newMastersBuffer.ingredients.length > 0 || newMastersBuffer.tools.length > 0 || newMastersBuffer.processes.length > 0)) {
+            onBatchCreateMasters(newMastersBuffer);
+        }
+
         setFormData(prev => ({ ...prev, items: [...prev.items, ...newItems] }));
         setJsonInput('');
-        alert(`Imported ${newItems.length} items with structured units.`);
+        
+        const totalNewMasters = newMastersBuffer.ingredients.length + newMastersBuffer.tools.length + newMastersBuffer.processes.length;
+        alert(`Imported ${newItems.length} items.\nCreated ${totalNewMasters} new Master Records.`);
+      } else {
+        alert("No items found in JSON.");
       }
     } catch (e) {
-      alert("Invalid JSON");
+      console.error(e);
+      alert("Invalid JSON format.");
     }
   };
 
@@ -300,11 +486,11 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
           </div>
           <div className="form-group">
              <label>Slug (ID) - Auto-generated from Title & Author</label>
-             <input value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} style={{background: '#f9f9f9'}} />
+             <input value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} style={{background: '#f9f9f9', color: '#555'}} />
           </div>
           <div className="form-group">
              <label>URN</label>
-             <input value={formData.urn} readOnly style={{background: '#f9f9f9'}} />
+             <input value={formData.urn} readOnly style={{background: '#f9f9f9', color: '#555'}} />
           </div>
           <div className="form-group">
              <label>Source Work</label>
@@ -390,28 +576,79 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
              <button className="btn-outline" style={{marginRight:'0.5rem'}} onClick={() => addItem('tool')}>+ Add Tool</button>
              <button className="btn-outline" onClick={() => addItem('process')}>+ Add Process</button>
            </div>
+           
+           {/* Header for Items */}
+           {formData.items.length > 0 && (
+               <div style={{display: 'grid', gridTemplateColumns: '2fr 2fr 1.5fr 1.5fr 1fr auto', gap: '1rem', padding: '0.5rem 1rem', fontSize: '0.75rem', fontWeight: 'bold', color: '#666'}}>
+                  <div>MASTER LINK</div>
+                  <div>TERM / TRANSLIT</div>
+                  <div>ORIGINAL (Weight)</div>
+                  <div>MODERN (Weight/Name)</div>
+                  <div>ROLE</div>
+                  <div></div>
+               </div>
+           )}
+
            {formData.items.map((item, idx) => (
              <div key={item.id} className="item-row">
+                {/* 1. Master Link */}
                 <div>
-                  <label style={{fontSize: '0.7rem'}}>Master Record</label>
                   <select 
                     value={item.masterId || ''} 
-                    onChange={e => updateItem(item.id, 'masterId', e.target.value)}
-                    style={{width: '100%', padding: '0.4rem'}}
+                    onChange={e => {
+                        if (e.target.value === 'CREATE_NEW') {
+                            onCreateMaster(item.type, { name: item.displayTerm || item.originalTerm, originalName: item.originalTerm, transliteratedName: item.transliteration }, (newId) => {
+                                updateItem(item.id, 'masterId', newId);
+                            });
+                        } else {
+                            updateItem(item.id, 'masterId', e.target.value);
+                        }
+                    }}
+                    style={{
+                        borderColor: item.masterId ? '#28a745' : '#ccc',
+                        backgroundColor: item.masterId ? '#f0fff4' : 'white'
+                    }}
                   >
                     <option value="">(Unlinked)</option>
-                    {item.type === 'ingredient' && masters.ingredients.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                    {item.type === 'tool' && masters.tools.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                    {item.type === 'process' && masters.processes.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                    <option value="CREATE_NEW" style={{fontWeight: 'bold', color: '#C9A227'}}>+ Create New {item.type}</option>
+                    <optgroup label="Existing Records">
+                        {item.type === 'ingredient' && masters.ingredients.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                        {item.type === 'tool' && masters.tools.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                        {item.type === 'process' && masters.processes.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                    </optgroup>
                   </select>
+                  <div style={{fontSize: '0.7rem', color: '#999', marginTop: '0.2rem', textTransform: 'uppercase'}}>{item.type}</div>
                 </div>
+
+                {/* 2. Ancient Term */}
                 <div>
-                   <label style={{fontSize: '0.7rem'}}>Original Term</label>
-                   <input value={item.originalTerm} onChange={e => updateItem(item.id, 'originalTerm', e.target.value)} placeholder="e.g. σμύρνα" style={{width: '100%'}} />
+                   <input value={item.originalTerm} onChange={e => updateItem(item.id, 'originalTerm', e.target.value)} placeholder="Ancient Term" />
+                   <input 
+                       value={item.transliteration || ''} 
+                       onChange={e => updateItem(item.id, 'transliteration', e.target.value)} 
+                       placeholder="Transliteration" 
+                       style={{marginTop: '0.3rem', fontStyle: 'italic'}}
+                   />
                 </div>
-                 <div>
-                   <label style={{fontSize: '0.7rem'}}>Amount (Display)</label>
-                   <input value={item.amount} onChange={e => updateItem(item.id, 'amount', e.target.value)} style={{width: '100%'}} />
+                
+                {/* 3. Original Amount / Weight */}
+                <div>
+                   {item.type === 'ingredient' ? (
+                       <input value={item.originalAmount || ''} onChange={e => updateItem(item.id, 'originalAmount', e.target.value)} placeholder="Original amount..." />
+                   ) : (
+                       <span style={{fontSize: '0.8rem', color: '#ccc'}}>—</span>
+                   )}
+                </div>
+
+                {/* 4. Modern Amount / Display Name */}
+                <div>
+                   {item.type === 'ingredient' ? (
+                       <input value={item.amount} onChange={e => updateItem(item.id, 'amount', e.target.value)} placeholder="e.g. 5 lbs" />
+                   ) : (
+                       <input value={item.displayTerm} onChange={e => updateItem(item.id, 'displayTerm', e.target.value)} placeholder="Modern Name" />
+                   )}
+                   
+                   {/* Normalized Quantities Display */}
                    <div style={{marginTop: '0.25rem'}}>
                      {item.quantities && item.quantities.map((q, qIdx) => (
                        <span key={qIdx} className="qty-tag">
@@ -420,11 +657,19 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
                      ))}
                    </div>
                 </div>
+
+                 {/* 5. Role */}
                  <div>
-                   <label style={{fontSize: '0.7rem'}}>Role</label>
-                   <input value={item.role} onChange={e => updateItem(item.id, 'role', e.target.value)} style={{width: '100%'}} />
+                   {item.type === 'ingredient' ? (
+                       <select value={item.role} onChange={e => updateItem(item.id, 'role', e.target.value)}>
+                           {ITEM_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                       </select>
+                   ) : (
+                       <input value={item.role} onChange={e => updateItem(item.id, 'role', e.target.value)} placeholder="Role" />
+                   )}
                 </div>
-                <button style={{background:'none', border:'none', cursor:'pointer', color:'#aaa', marginTop: '1.5rem'}} onClick={() => removeItem(item.id)}>✕</button>
+
+                <button style={{background:'none', border:'none', cursor:'pointer', color:'#aaa', marginTop: '0.5rem'}} onClick={() => removeItem(item.id)}>✕</button>
              </div>
            ))}
         </div>
@@ -440,11 +685,17 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
            <div style={{background: '#efe', padding: '1rem', borderRadius: '4px'}}>
             <h3>2. Apply JSON</h3>
             <p>Paste the JSON response from the LLM here to auto-populate the Extraction tab.</p>
+            <div style={{marginBottom: '0.5rem'}}>
+                <label style={{cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600}}>
+                    <input type="checkbox" checked={autoCreateMasters} onChange={e => setAutoCreateMasters(e.target.checked)} />
+                    Auto-create missing Master Records (Ingredients, Tools, Processes)
+                </label>
+            </div>
             <textarea 
               rows={6} 
               value={jsonInput} 
               onChange={e => setJsonInput(e.target.value)} 
-              placeholder='{ "items": [...] }'
+              placeholder='{ "ingredients": [...], "tools": [...], "processes": [...] }'
               style={{width: '100%', marginBottom: '1rem', fontFamily: 'monospace'}}
             />
             <button className="btn-action" onClick={applyJson}>Apply JSON</button>
@@ -458,7 +709,7 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existin
 export const AdminConsole = ({ navigate }) => {
   const [db, setDb] = useState<DatabaseState>({ recipes: [], masterIngredients: [], masterTools: [], masterProcesses: [], masterWorks: [], masterPeople: [] });
   const [view, setView] = useState('dashboard'); // dashboard, recipes, ingredients, tools, works, people, editor
-  const [editingItem, setEditingItem] = useState(null); // For Master Entity modal
+  const [editingItem, setEditingItem] = useState<{type: string, collection: keyof DatabaseState, data: MasterEntity, callback?: (id:string)=>void} | null>(null); 
   const [pendingParent, setPendingParent] = useState<{ collection: keyof DatabaseState, data: MasterEntity } | null>(null);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
 
@@ -502,13 +753,69 @@ export const AdminConsole = ({ navigate }) => {
   };
 
   // --- CRUD Handlers ---
-  const saveRecipe = (recipe: Recipe) => {
-    const isNew = !db.recipes.find(r => r.id === recipe.id);
-    const newRecipes = isNew 
-      ? [...db.recipes, recipe] 
-      : db.recipes.map(r => r.id === recipe.id ? recipe : r);
+  const saveRecipe = (recipeData: Recipe) => {
+    // Clone state to modify for potential auto-creation of masters
+    const nextDb = { ...db };
+    const nextRecipe = { ...recipeData };
     
-    saveDb({ ...db, recipes: newRecipes });
+    // Auto-harvest missing master records from recipe items
+    nextRecipe.items = nextRecipe.items.map(item => {
+        // If already linked, do nothing
+        if (item.masterId) return item;
+        
+        // If no name to link, do nothing
+        const name = item.displayTerm || item.originalTerm;
+        if (!name) return item;
+        
+        // Slug generation preference: Transliteration > Name
+        const slugBase = item.transliteration || name;
+        const slug = generateSlug(slugBase);
+        
+        // Determine collection
+        let collectionKey: keyof DatabaseState = 'masterIngredients';
+        let urnType = 'ingredient';
+        
+        if (item.type === 'tool') {
+            collectionKey = 'masterTools';
+            urnType = 'tool';
+        } else if (item.type === 'process') {
+            collectionKey = 'masterProcesses';
+            urnType = 'process';
+        }
+
+        const list = nextDb[collectionKey] as MasterEntity[];
+        
+        // Try to find existing
+        let master = list.find(m => m.slug === slug || m.name.toLowerCase() === name.toLowerCase());
+        
+        if (!master) {
+            // Create new
+            master = {
+                id: crypto.randomUUID(),
+                name: name,
+                originalName: item.originalTerm,
+                transliteratedName: item.transliteration,
+                slug: slug,
+                urn: generateURN(urnType, slug),
+                description: 'Auto-generated from recipe.'
+            };
+            // Append to DB state immediately so subsequent items in this loop can find it
+            (nextDb[collectionKey] as MasterEntity[]).push(master);
+        }
+        
+        // Link item
+        return { ...item, masterId: master.id };
+    });
+
+    // Save Updated Recipe
+    const isNew = !nextDb.recipes.find(r => r.id === nextRecipe.id);
+    if (isNew) {
+      nextDb.recipes = [...nextDb.recipes, nextRecipe];
+    } else {
+      nextDb.recipes = nextDb.recipes.map(r => r.id === nextRecipe.id ? nextRecipe : r);
+    }
+    
+    saveDb(nextDb);
     setView('recipes');
     setEditingRecipe(null);
   };
@@ -529,7 +836,6 @@ export const AdminConsole = ({ navigate }) => {
     
     // Logic to handle returning to parent modal (Work) after creating child (Person/Author)
     if (pendingParent && collection === 'masterPeople') {
-        // We just created a person that was meant to be the author of a pending work
         const updatedParent = {
             ...pendingParent.data,
             authorId: item.id,
@@ -541,15 +847,54 @@ export const AdminConsole = ({ navigate }) => {
             data: updatedParent
         });
         setPendingParent(null);
-    } else {
+    } 
+    // Handle inline creation callback
+    else if (editingItem && editingItem.callback) {
+        editingItem.callback(item.id);
         setEditingItem(null);
     }
+    else {
+        setEditingItem(null);
+    }
+  };
+
+  const handleBatchUpdateMasters = (newMasters: { ingredients: MasterEntity[], tools: MasterEntity[], processes: MasterEntity[] }) => {
+      const newDb = { ...db };
+      
+      if (newMasters.ingredients.length > 0) {
+          newDb.masterIngredients = [...newDb.masterIngredients, ...newMasters.ingredients];
+      }
+      if (newMasters.tools.length > 0) {
+          newDb.masterTools = [...newDb.masterTools, ...newMasters.tools];
+      }
+      if (newMasters.processes.length > 0) {
+          newDb.masterProcesses = [...newDb.masterProcesses, ...newMasters.processes];
+      }
+      
+      saveDb(newDb);
   };
   
   const deleteMaster = (collection: keyof DatabaseState, id: string) => {
      if (confirm("Are you sure?")) {
          saveDb({ ...db, [collection]: (db[collection] as MasterEntity[]).filter(i => i.id !== id) });
      }
+  };
+
+  const handleCreateMaster = (type: string, initialData: Partial<MasterEntity>, callback?: (id: string) => void) => {
+      // Map simplified type 'ingredient' to collection 'masterIngredients' etc
+      let collection: keyof DatabaseState = 'masterIngredients';
+      let uiType = 'Ingredient';
+      
+      if (type === 'ingredient') { collection = 'masterIngredients'; uiType = 'Ingredient'; }
+      if (type === 'tool') { collection = 'masterTools'; uiType = 'Tool'; }
+      if (type === 'process') { collection = 'masterProcesses'; uiType = 'Process'; }
+      
+      setEditingItem({
+          type: uiType,
+          collection: collection,
+          data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '', ...initialData } as MasterEntity,
+          callback
+      });
   };
 
   // --- Renderers ---
@@ -600,16 +945,28 @@ export const AdminConsole = ({ navigate }) => {
      const { type, data, collection } = editingItem;
      
      const handleNameChange = (newName) => {
-       const isClean = !data.slug || data.slug === generateSlug(data.name);
+       const isClean = !data.slug || data.slug === generateSlug(data.transliteratedName || data.name);
        const newData = { ...data, name: newName };
-       if (isClean) {
+       if (isClean && !data.transliteratedName) {
          newData.slug = generateSlug(newName);
        }
        setEditingItem({ ...editingItem, data: newData });
      };
+
+     const handleTranslitChange = (newTranslit) => {
+        const newData = { ...data, transliteratedName: newTranslit };
+        // If transliteration exists, it drives the slug
+        if (newTranslit) {
+            newData.slug = generateSlug(newTranslit);
+        } else if (data.name) {
+            newData.slug = generateSlug(data.name);
+        }
+        setEditingItem({ ...editingItem, data: newData });
+     };
      
      const handleSave = () => {
-         const slug = data.slug || generateSlug(data.name);
+         const slugBase = data.transliteratedName || data.name;
+         const slug = data.slug || generateSlug(slugBase);
          const urn = data.urn || generateURN(type, slug);
          saveMaster(collection, { ...data, slug, urn });
      };
@@ -644,10 +1001,25 @@ export const AdminConsole = ({ navigate }) => {
                  <h3>{data.id ? 'Edit' : 'Create'} {type}</h3>
                  
                  <div className="form-group">
-                     <label>Name</label>
-                     <input value={data.name} onChange={e => handleNameChange(e.target.value)} />
+                     <label>Modern Name</label>
+                     <input value={data.name} onChange={e => handleNameChange(e.target.value)} placeholder="e.g. Myrrh" />
                      {collection === 'masterWorks' && data.parentId && <div className="hint">Edition/Translation Name (e.g. "Wellmann 1907")</div>}
                  </div>
+
+                 {/* Fields for Ingredients, Tools, Processes */}
+                 {(collection === 'masterIngredients' || collection === 'masterTools' || collection === 'masterProcesses') && (
+                     <div className="form-grid" style={{marginBottom: '1rem'}}>
+                        <div className="form-group">
+                            <label>Ancient Name (Greek)</label>
+                            <input value={data.originalName || ''} onChange={e => setEditingItem({...editingItem, data: {...data, originalName: e.target.value}})} placeholder="e.g. σμύρνα" />
+                        </div>
+                        <div className="form-group">
+                            <label>Transliteration</label>
+                            <input value={data.transliteratedName || ''} onChange={e => handleTranslitChange(e.target.value)} placeholder="e.g. smyrna" />
+                            <div className="hint">Generates the Slug/URN</div>
+                        </div>
+                     </div>
+                 )}
                  
                  <div className="form-group">
                      <label>Slug (Auto-generated)</label>
@@ -750,7 +1122,6 @@ export const AdminConsole = ({ navigate }) => {
                             <select 
                                value={data.authorId || ''} 
                                onChange={handleWorkAuthorChange}
-                               disabled={!!data.parentId}
                             >
                                 <option value="">Select Author from People...</option>
                                 {db.masterPeople.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
@@ -760,8 +1131,7 @@ export const AdminConsole = ({ navigate }) => {
                             <input 
                                value={data.author || ''} 
                                onChange={e => setEditingItem({...editingItem, data: {...data, author: e.target.value}})} 
-                               disabled={!!data.parentId}
-                               placeholder={data.parentId ? "(Inherited from Parent)" : "Or type Author Name (Override/Fallback)"}
+                               placeholder="Or type Author Name (Override/Fallback)"
                             />
                         </div>
                      </div>
@@ -888,6 +1258,8 @@ export const AdminConsole = ({ navigate }) => {
                 onSave={saveRecipe}
                 onCancel={() => { setEditingRecipe(null); setView('recipes'); }}
                 onCreateWork={() => setEditingItem({ type: 'Work', collection: 'masterWorks', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '' } })}
+                onCreateMaster={handleCreateMaster}
+                onBatchCreateMasters={handleBatchUpdateMasters}
             />
         )}
 
