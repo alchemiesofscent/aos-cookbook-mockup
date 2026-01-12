@@ -66,7 +66,7 @@ const RECIPE_DATA = {
       term: "ἕψειν",
       transliteration: "hepsein",
       definition: "To boil or seethe. Indicates hot maceration process.",
-      links: []
+      links: [{ label: "View process", route: "process_enfleurage" }]
     }
   },
   ingredientsList: [
@@ -92,7 +92,8 @@ const INGREDIENT_DATA = {
       source: "Commiphora myrrha",
       citation: "Manniche (1999), pp. 45-47",
       confidence: "established", // established, probable, speculative
-      linkRoute: "product_myrrh"
+      linkRoute: "product_myrrh",
+      claimRoute: "identification_smyrna"
     },
     {
       id: "id2",
@@ -104,6 +105,20 @@ const INGREDIENT_DATA = {
       linkRoute: "product_myrrh" 
     }
   ]
+};
+
+const IDENTIFICATION_DATA = {
+  urn: "urn:aos:identification:smyrna-myrrh-resin-manniche-1999",
+  ancientTerm: { name: "σμύρνα (smyrna)", route: "ingredient_smyrna" },
+  identifiedAs: { name: "Myrrh resin", route: "product_myrrh" },
+  materialSource: { name: "Commiphora myrrha", route: "source_commiphora" },
+  confidence: "established",
+  source: {
+    citation: "Manniche, L. (1999). Sacred Luxuries: Fragrance, Aromatherapy, and Cosmetics in Ancient Egypt. Cornell University Press.",
+    pages: "45-47",
+    urn: "urn:isbn:9780801437205"
+  },
+  notes: "This identification is widely accepted in the scholarly literature. Manniche provides extensive botanical and historical evidence for the equation of Greek σμύρνα with the resin of Commiphora myrrha."
 };
 
 const PRODUCT_DATA = {
@@ -158,6 +173,43 @@ const COMMIPHORA_DATA = {
   ]
 };
 
+const PROCESS_DATA = {
+  name: "Enfleurage",
+  ancientTerm: "ἐξιποῦν (exipoun)",
+  urn: "urn:aos:process:enfleurage",
+  description: "A technique for extracting fragrance from delicate flowers by pressing them into fat or oil. The aromatic compounds transfer slowly over hours or days. The Greek term ἐξιποῦν literally means \"to press out.\"",
+  variations: [
+    { name: "Cold enfleurage", description: "Flowers pressed into solid fat (traditionally lard or tallow) at room temperature. Fat is replaced repeatedly until saturated." },
+    { name: "Hot enfleurage (maceration)", description: "Flowers steeped in warm oil. The heat accelerates extraction but may alter delicate notes." },
+    { name: "Multiple infusions", description: "Fresh flowers added repeatedly to the same fat/oil, building intensity. Dioscorides describes up to seven infusions for rose oil." }
+  ],
+  notes: "The ancient terminology is not always consistent. Dioscorides uses ἐξιποῦν and ἐκθλίβειν somewhat interchangeably. Context usually clarifies whether cold or hot infusion is meant.",
+  recipes: [
+    { name: "Rose Perfume (Dioscorides)", route: "recipe_rose" },
+    { name: "Lily Perfume (Dioscorides)", route: null },
+    { name: "Susinum (Dioscorides)", route: null }
+  ],
+  reading: [
+    { name: "Brun (2000), Les parfums dans l'antiquité", route: null }
+  ]
+};
+
+const TOOL_DATA = {
+  name: "Mortar and Pestle",
+  ancientNames: ["θυεία (thyeia)", "ἴγδις (igdis)"],
+  urn: "urn:aos:tool:mortar",
+  image: "Image: stone mortar",
+  imageCaption: "Photo: Museum of Antiquities",
+  description: "A vessel and tool used for crushing, grinding, and mixing ingredients. Essential for breaking down resins, barks, and tough plant materials before extraction.",
+  processes: [
+    { name: "Grinding", route: null },
+    { name: "Trituration", route: null }
+  ],
+  recipes: [
+    { name: "Rose Perfume", route: "recipe_rose" }
+  ]
+};
+
 const TERMS_LIST = [
   { id: 'smyrna', term: 'σμύρνα', transliteration: 'smyrna', language: 'Greek', category: 'Resin', def: 'Myrrh; a resinous gum used in perfumes and incense.' },
   { id: 'elaion', term: 'ἔλαιον', transliteration: 'elaion', language: 'Greek', category: 'Base', def: 'Olive oil; the standard liquid fat base for perfumes.' },
@@ -172,15 +224,17 @@ const TERMS_LIST = [
 ];
 
 const INGREDIENTS_LIST = [
-  { id: 'myrrh', name: 'Myrrh Resin', family: 'Resinous', form: 'Solid Resin', source: 'Commiphora myrrha' },
-  { id: 'omphacium', name: 'Omphacium Olive Oil', family: 'Fats/Oils', form: 'Liquid Oil', source: 'Olea europaea' },
-  { id: 'rose', name: 'Rose Petals', family: 'Floral', form: 'Fresh/Dry Petals', source: 'Rosa gallica' },
-  { id: 'lemongrass', name: 'Lemongrass', family: 'Green', form: 'Dried Grass', source: 'Cymbopogon schoenanthus' },
-  { id: 'honey', name: 'Honey', family: 'Sweet', form: 'Viscous Liquid', source: 'Apis mellifera' },
-  { id: 'galbanum', name: 'Galbanum', family: 'Resinous', form: 'Gum Resin', source: 'Ferula gummosa' },
-  { id: 'labdanum', name: 'Labdanum', family: 'Resinous', form: 'Oleoresin', source: 'Cistus ladanifer' },
-  { id: 'saffron', name: 'Saffron', family: 'Spice', form: 'Dried Stigmas', source: 'Crocus sativus' },
-  { id: 'cassia', name: 'Cassia', family: 'Spice', form: 'Bark', source: 'Cinnamomum cassia' },
+  { id: 'cardamom', name: 'Cardamom', family: 'Spice', form: 'Seeds', source: 'Elettaria cardamomum', def: 'Aromatic seeds with warm, spicy-sweet scent.', ancient: [{term: 'ἄμωμον', route: null}, {term: 'κάρδαμον', route: null}] },
+  { id: 'cassia', name: 'Cassia', family: 'Spice', form: 'Bark', source: 'Cinnamomum cassia', def: 'Bark with cinnamon-like aroma, more pungent than true cinnamon.', ancient: [{term: 'κασία', route: null}, {term: 'κάσια', route: null}] },
+  { id: 'cinnamon', name: 'Cinnamon', family: 'Spice', form: 'Bark', source: 'Cinnamomum verum', def: 'Aromatic bark with warm, sweet, woody scent.', ancient: [{term: 'κιννάμωμον', route: null}] },
+  { id: 'myrrh', name: 'Myrrh Resin', family: 'Resinous', form: 'Solid Resin', source: 'Commiphora myrrha', def: 'Aromatic resin with warm, balsamic, slightly medicinal scent.', ancient: [{term: 'σμύρνα', route: 'ingredient_smyrna'}, {term: 'ʿntyw', route: null}] },
+  { id: 'omphacium', name: 'Omphacium Olive Oil', family: 'Fats/Oils', form: 'Liquid Oil', source: 'Olea europaea', def: 'Oil from unripe olives, preferred for its low scent profile.', ancient: [] },
+  { id: 'rose', name: 'Rose Petals', family: 'Floral', form: 'Fresh/Dry Petals', source: 'Rosa gallica', def: 'Fresh or dried petals used for enfleurage.', ancient: [] },
+  { id: 'lemongrass', name: 'Lemongrass', family: 'Green', form: 'Dried Grass', source: 'Cymbopogon schoenanthus', def: 'Citrus-scented grass used as an aromatic.', ancient: [] },
+  { id: 'honey', name: 'Honey', family: 'Sweet', form: 'Viscous Liquid', source: 'Apis mellifera', def: 'Sweet viscous fluid produced by bees.', ancient: [] },
+  { id: 'galbanum', name: 'Galbanum', family: 'Resinous', form: 'Gum Resin', source: 'Ferula gummosa', def: 'Bitter, green, aromatic gum resin.', ancient: [] },
+  { id: 'labdanum', name: 'Labdanum', family: 'Resinous', form: 'Oleoresin', source: 'Cistus ladanifer', def: 'Sticky brown resin with a deep, amber scent.', ancient: [] },
+  { id: 'saffron', name: 'Saffron', family: 'Spice', form: 'Dried Stigmas', source: 'Crocus sativus', def: 'Dried stigmas of the crocus flower.', ancient: [] },
 ];
 
 const SOURCES_LIST = [
@@ -270,6 +324,24 @@ const Icons = {
       <line x1="19" y1="12" x2="5" y2="12" />
       <polyline points="12 5 5 12 12 19" />
     </svg>
+  ),
+  Grid: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="3" y="3" width="7" height="7" />
+      <rect x="14" y="3" width="7" height="7" />
+      <rect x="14" y="14" width="7" height="7" />
+      <rect x="3" y="14" width="7" height="7" />
+    </svg>
+  ),
+  List: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <line x1="8" y1="6" x2="21" y2="6" />
+      <line x1="8" y1="12" x2="21" y2="12" />
+      <line x1="8" y1="18" x2="21" y2="18" />
+      <line x1="3" y1="6" x2="3.01" y2="6" />
+      <line x1="3" y1="12" x2="3.01" y2="12" />
+      <line x1="3" y1="18" x2="3.01" y2="18" />
+    </svg>
   )
 };
 
@@ -292,9 +364,15 @@ const Header = ({ navigate }) => {
         <div className="nav-item">
           <span onClick={() => navigate('workshop')}>The Workshop</span> <Icons.ChevronDown />
           <div className="dropdown">
-            <div onClick={() => navigate('terms')}>Ancient Terms</div>
+             <div className="dropdown-section-title">Materials</div>
             <div onClick={() => navigate('ingredients')}>Ingredients</div>
+            <div onClick={() => navigate('terms')}>Ancient Terms</div>
             <div onClick={() => navigate('sources')}>Material Sources</div>
+            <div className="dropdown-section-title">Methods</div>
+            <div onClick={() => navigate('processes')}>Processes</div>
+            <div onClick={() => navigate('tools')}>Tools</div>
+             <div className="dropdown-section-title">Research</div>
+            <div onClick={() => navigate('experiments')}>Experiments</div>
           </div>
         </div>
         <div className="nav-item">
@@ -324,9 +402,10 @@ const Footer = ({ navigate }) => (
       </div>
       <div className="col">
         <h4 style={{cursor: 'pointer'}} onClick={() => navigate('workshop')}>The Workshop</h4>
-        <a style={{cursor: 'pointer'}} onClick={() => navigate('terms')}>Ancient Terms</a>
         <a style={{cursor: 'pointer'}} onClick={() => navigate('ingredients')}>Ingredients</a>
-        <a style={{cursor: 'pointer'}} onClick={() => navigate('sources')}>Material Sources</a>
+        <a style={{cursor: 'pointer'}} onClick={() => navigate('processes')}>Processes</a>
+        <a style={{cursor: 'pointer'}} onClick={() => navigate('tools')}>Tools</a>
+         <a style={{cursor: 'pointer'}} onClick={() => navigate('experiments')}>Experiments</a>
       </div>
       <div className="col">
         <h4 style={{cursor: 'pointer'}} onClick={() => navigate('about')}>About</h4>
@@ -577,6 +656,7 @@ const TermsPage = ({ navigate }) => {
 };
 
 const IngredientsPage = ({ navigate }) => {
+  const [viewMode, setViewMode] = useState('list'); // 'grid' or 'list' (A-Z)
   const [familyFilter, setFamilyFilter] = useState('All');
   const [formFilter, setFormFilter] = useState('All');
 
@@ -585,8 +665,18 @@ const IngredientsPage = ({ navigate }) => {
       const matchFam = familyFilter === 'All' || item.family === familyFilter;
       const matchForm = formFilter === 'All' || item.form.includes(formFilter);
       return matchFam && matchForm;
-    });
+    }).sort((a, b) => a.name.localeCompare(b.name));
   }, [familyFilter, formFilter]);
+
+  const azList = useMemo(() => {
+      const grouped = {};
+      filtered.forEach(item => {
+          const letter = item.name[0].toUpperCase();
+          if(!grouped[letter]) grouped[letter] = [];
+          grouped[letter].push(item);
+      });
+      return grouped;
+  }, [filtered]);
 
   return (
     <div className="page-container">
@@ -596,47 +686,100 @@ const IngredientsPage = ({ navigate }) => {
       
       <div className="archive-intro">
         <h1>INGREDIENTS</h1>
-        <p>Modern identifications and material profiles for substances used in reconstructions.</p>
+        <p>Explore the materials used in ancient perfumery.</p>
+        {viewMode === 'list' && <p style={{marginTop: '1rem', fontSize: '1rem', color: 'var(--color-earth)'}}>This index lists modern ingredient names. Click any entry to explore its modern definition and sensory profile, or to see the ancient terms that may correspond to it.</p>}
       </div>
 
       <div className="filters-bar">
         <div className="filter-group">
-          <select value={familyFilter} onChange={(e) => setFamilyFilter(e.target.value)}>
-            <option value="All">Family: All</option>
-            <option value="Resinous">Resinous</option>
-            <option value="Fats/Oils">Fats/Oils</option>
-            <option value="Floral">Floral</option>
-            <option value="Green">Green</option>
-            <option value="Sweet">Sweet</option>
-            <option value="Spice">Spice</option>
-          </select>
-          <select value={formFilter} onChange={(e) => setFormFilter(e.target.value)}>
-            <option value="All">Form: All</option>
-            <option value="Resin">Resin</option>
-            <option value="Oil">Oil</option>
-            <option value="Liquid">Liquid</option>
-            <option value="Petals">Petals</option>
-            <option value="Dried">Dried</option>
-          </select>
+          {viewMode === 'grid' && (
+            <>
+            <select value={familyFilter} onChange={(e) => setFamilyFilter(e.target.value)}>
+              <option value="All">Family: All</option>
+              <option value="Resinous">Resinous</option>
+              <option value="Fats/Oils">Fats/Oils</option>
+              <option value="Floral">Floral</option>
+              <option value="Green">Green</option>
+              <option value="Sweet">Sweet</option>
+              <option value="Spice">Spice</option>
+            </select>
+            <select value={formFilter} onChange={(e) => setFormFilter(e.target.value)}>
+              <option value="All">Form: All</option>
+              <option value="Resin">Resin</option>
+              <option value="Oil">Oil</option>
+              <option value="Liquid">Liquid</option>
+              <option value="Petals">Petals</option>
+              <option value="Dried">Dried</option>
+            </select>
+            </>
+          )}
+          {viewMode === 'list' && <div style={{padding: '0.6rem 0', fontWeight: 'bold', color: 'var(--color-amber)'}}>A-Z Index Mode</div>}
         </div>
-        <div className="filter-meta">
-          <button className="text-btn" onClick={() => { setFamilyFilter('All'); setFormFilter('All'); }}>Clear filters</button>
-          <span>Showing {filtered.length} ingredients</span>
+        
+        <div className="filter-meta" style={{gap: '1rem'}}>
+          <div className="view-toggles" style={{margin:0}}>
+             <button className={`icon-btn ${viewMode === 'list' ? 'active' : ''}`} onClick={() => setViewMode('list')} title="A-Z List View">A-Z</button>
+             <button className={`icon-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')} title="Grid View"><Icons.Grid /></button>
+          </div>
+          {viewMode === 'grid' && <button className="text-btn" onClick={() => { setFamilyFilter('All'); setFormFilter('All'); }}>Clear filters</button>}
+          <span>{filtered.length} items</span>
         </div>
       </div>
 
-      <div className="workshop-grid">
-        {filtered.map(item => (
-          <div className="workshop-card" key={item.id} onClick={() => item.id === 'myrrh' ? navigate('product_myrrh') : null}>
-            <div className="card-top">
-              <h3>{item.name}</h3>
-              <span className="type-tag">{item.family}</span>
-            </div>
-            <div className="def" style={{marginBottom: '0.5rem'}}>Form: {item.form}</div>
-            <div className="def" style={{fontStyle: 'italic', color: 'var(--color-stone)'}}>Source: {item.source}</div>
+      {viewMode === 'list' && (
+          <div className="az-container">
+             <div className="az-nav">
+                 {['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'].map(char => (
+                     <a key={char} href={`#az-${char}`} className={!azList[char] ? 'disabled' : ''}>{char}</a>
+                 ))}
+             </div>
+             <div className="az-content">
+                 {Object.keys(azList).sort().map(char => (
+                     <div key={char} id={`az-${char}`} className="az-group">
+                         <h2>{char}</h2>
+                         <div className="az-list">
+                             {azList[char].map(item => (
+                                 <div key={item.id} className="az-card">
+                                     <div className="az-card-header">
+                                        <h3>{item.name}</h3>
+                                     </div>
+                                     <p>{item.def}</p>
+                                     <div className="az-actions">
+                                         <button className="text-btn" onClick={() => item.id === 'myrrh' ? navigate('product_myrrh') : null}>[Modern definition →]</button>
+                                         {item.ancient && item.ancient.length > 0 && (
+                                            <span style={{marginLeft: '1rem', fontSize: '0.85rem'}}>
+                                                [Ancient terms: {item.ancient.map((a, i) => (
+                                                    <span key={i}>
+                                                        {a.route ? <span className="text-btn" onClick={() => navigate(a.route)}>{a.term}</span> : a.term}
+                                                        {i < item.ancient.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))} →]
+                                            </span>
+                                         )}
+                                     </div>
+                                 </div>
+                             ))}
+                         </div>
+                     </div>
+                 ))}
+             </div>
           </div>
-        ))}
-      </div>
+      )}
+
+      {viewMode === 'grid' && (
+        <div className="workshop-grid">
+          {filtered.map(item => (
+            <div className="workshop-card" key={item.id} onClick={() => item.id === 'myrrh' ? navigate('product_myrrh') : null}>
+              <div className="card-top">
+                <h3>{item.name}</h3>
+                <span className="type-tag">{item.family}</span>
+              </div>
+              <div className="def" style={{marginBottom: '0.5rem'}}>Form: {item.form}</div>
+              <div className="def" style={{fontStyle: 'italic', color: 'var(--color-stone)'}}>Source: {item.source}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -725,109 +868,314 @@ const WorkshopPage = ({ navigate }) => {
 
       <div className="workshop-section">
         <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '1.5rem'}}>
-            <h2 style={{margin:0, border: 'none'}}>ANCIENT TERMS</h2>
-            <button className="text-btn" onClick={() => navigate('terms')}>See all terms &rarr;</button>
-        </div>
-        <div className="workshop-grid">
-          <div className="workshop-card" onClick={() => navigate('ingredient_smyrna')}>
-            <div className="card-top">
-              <h3>σμύρνα</h3>
-              <span className="lang-tag">Greek</span>
-            </div>
-            <div className="translit">smyrna</div>
-            <div className="def">Myrrh; a resinous gum.</div>
-          </div>
-          <div className="workshop-card">
-            <div className="card-top">
-              <h3>ἔλαιον</h3>
-              <span className="lang-tag">Greek</span>
-            </div>
-            <div className="translit">elaion</div>
-            <div className="def">Olive oil; liquid fat base.</div>
-          </div>
-          <div className="workshop-card">
-            <div className="card-top">
-              <h3>ῥόδα</h3>
-              <span className="lang-tag">Greek</span>
-            </div>
-            <div className="translit">rhoda</div>
-            <div className="def">Roses; floral aromatic.</div>
-          </div>
-          <div className="workshop-card">
-            <div className="card-top">
-              <h3>σχοῖνος</h3>
-              <span className="lang-tag">Greek</span>
-            </div>
-            <div className="translit">skhoinos</div>
-            <div className="def">Rush/Reed; possibly lemongrass.</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="workshop-section">
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '1.5rem'}}>
-            <h2 style={{margin:0, border: 'none'}}>INGREDIENTS</h2>
+            <h2 style={{margin:0, border: 'none'}}>MATERIALS</h2>
             <button className="text-btn" onClick={() => navigate('ingredients')}>See all ingredients &rarr;</button>
         </div>
         <div className="workshop-grid">
+          <div className="workshop-card" onClick={() => navigate('ingredient_smyrna')}>
+             <div className="card-top">
+              <h3>σμύρνα (smyrna)</h3>
+              <span className="lang-tag">Term</span>
+            </div>
+            <div className="def">Myrrh; a resinous gum.</div>
+          </div>
           <div className="workshop-card" onClick={() => navigate('product_myrrh')}>
             <div className="card-top">
               <h3>Myrrh Resin</h3>
-              <span className="type-tag">Resin</span>
+              <span className="type-tag">Product</span>
             </div>
             <div className="def">Source: Commiphora myrrha</div>
           </div>
-          <div className="workshop-card">
-            <div className="card-top">
-              <h3>Omphacium Oil</h3>
-              <span className="type-tag">Base</span>
-            </div>
-            <div className="def">Source: Olea europaea (unripe)</div>
-          </div>
-          <div className="workshop-card">
+          <div className="workshop-card" onClick={() => navigate('source_commiphora')}>
              <div className="card-top">
-              <h3>Rose Petals</h3>
-              <span className="type-tag">Floral</span>
+              <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Commiphora myrrha</h3>
+              <span className="type-tag">Source</span>
             </div>
-            <div className="def">Source: Rosa gallica</div>
-          </div>
-           <div className="workshop-card">
-             <div className="card-top">
-              <h3>Honey</h3>
-              <span className="type-tag">Additive</span>
-            </div>
-            <div className="def">Source: Apis mellifera</div>
+            <div className="def">Family: Burseraceae</div>
           </div>
         </div>
       </div>
 
       <div className="workshop-section">
         <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom: '1.5rem'}}>
-            <h2 style={{margin:0, border: 'none'}}>MATERIAL SOURCES</h2>
-            <button className="text-btn" onClick={() => navigate('sources')}>See all sources &rarr;</button>
+            <h2 style={{margin:0, border: 'none'}}>METHODS</h2>
+            <button className="text-btn" onClick={() => navigate('processes')}>See all processes &rarr;</button>
         </div>
         <div className="workshop-grid">
-           <div className="workshop-card">
-            <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Commiphora myrrha</h3>
-            <div className="def">Family: Burseraceae</div>
+           <div className="workshop-card" onClick={() => navigate('process_enfleurage')}>
+            <div className="card-top">
+              <h3>Enfleurage</h3>
+              <span className="type-tag">Process</span>
+            </div>
+            <div className="def">Extraction via fat/oil.</div>
           </div>
-          <div className="workshop-card">
-            <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Olea europaea</h3>
-            <div className="def">Family: Oleaceae</div>
-          </div>
-          <div className="workshop-card">
-            <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Cymbopogon schoenanthus</h3>
-            <div className="def">Family: Poaceae</div>
-          </div>
-          <div className="workshop-card">
-            <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Rosa gallica</h3>
-            <div className="def">Family: Rosaceae</div>
+           <div className="workshop-card" onClick={() => navigate('tool_alembic')}>
+            <div className="card-top">
+              <h3>Mortar & Pestle</h3>
+              <span className="type-tag">Tool</span>
+            </div>
+            <div className="def">For grinding and crushing.</div>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const ProcessDetailPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('processes')}>
+        <Icons.ArrowLeft /> Back to Processes
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+        <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{PROCESS_DATA.name}</h1>
+        <div style={{fontSize: '1.5rem', color: 'var(--color-stone)', fontStyle: 'italic', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)'}}>{PROCESS_DATA.ancientTerm}</div>
+        <div className="urn" style={{display: 'inline-block'}}>URN: {PROCESS_DATA.urn}</div>
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{PROCESS_DATA.description}</p>
+      </div>
+
+      <div className="product-section">
+        <h2>VARIATIONS</h2>
+        {PROCESS_DATA.variations.map((v, i) => (
+          <div key={i} style={{marginBottom: '1.5rem'}}>
+            <h3 style={{fontSize: '1rem', color: 'var(--color-charcoal)', marginBottom: '0.5rem'}}>{v.name}</h3>
+            <p style={{marginTop: 0, color: 'var(--color-earth)'}}>{v.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="product-section">
+        <h2>INTERPRETATION NOTES</h2>
+        <p style={{maxWidth: '800px'}}>{PROCESS_DATA.notes}</p>
+      </div>
+
+      <div className="product-section">
+        <h2>RECIPES USING THIS PROCESS</h2>
+        <ul style={{listStyle: 'none', padding: 0}}>
+          {PROCESS_DATA.recipes.map((r, i) => (
+            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               {r.route ? (
+                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
+               ) : (
+                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
+               )}
+             </li>
+          ))}
+        </ul>
+        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all recipes →]</button>
+      </div>
+
+      <div className="product-section" style={{borderBottom: 'none'}}>
+        <h2>FURTHER READING</h2>
+        <ul style={{listStyle: 'none', padding: 0}}>
+          {PROCESS_DATA.reading.map((r, i) => (
+            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               <span style={{color: 'var(--color-earth)'}}>{r.name} →</span>
+             </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const ToolDetailPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate('tools')}>
+        <Icons.ArrowLeft /> Back to Tools
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+        <div style={{display: 'flex', gap: '3rem'}}>
+          <div style={{flex: 2}}>
+             <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0}}>{TOOL_DATA.name}</h1>
+             <div style={{marginBottom: '1.5rem'}}>
+               {TOOL_DATA.ancientNames.map((n, i) => (
+                 <span key={i} style={{fontSize: '1.25rem', color: 'var(--color-stone)', fontStyle: 'italic', marginRight: '1rem', fontFamily: 'var(--font-serif)'}}>{n}</span>
+               ))}
+             </div>
+             <p style={{fontSize: '1.1rem', lineHeight: '1.7'}}>{TOOL_DATA.description}</p>
+             <div className="urn" style={{display: 'inline-block', marginTop: '1rem'}}>URN: {TOOL_DATA.urn}</div>
+          </div>
+          <div style={{flex: 1}}>
+             <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem'}}>
+                {TOOL_DATA.image}
+             </div>
+             <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{TOOL_DATA.imageCaption}</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>RELATED PROCESSES</h2>
+        <ul style={{listStyle: 'none', padding: 0}}>
+           {TOOL_DATA.processes.map((p, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               {p.name}
+             </li>
+           ))}
+        </ul>
+      </div>
+
+       <div className="product-section" style={{borderBottom: 'none'}}>
+        <h2>RECIPES USING THIS TOOL</h2>
+        <ul style={{listStyle: 'none', padding: 0}}>
+           {TOOL_DATA.recipes.map((r, i) => (
+             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
+               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
+               <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
+             </li>
+           ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const IdentificationPage = ({ navigate }) => {
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate(IDENTIFICATION_DATA.ancientTerm.route)}>
+        <Icons.ArrowLeft /> Back to {IDENTIFICATION_DATA.ancientTerm.name.split(' ')[0]}
+      </div>
+
+      <div className="product-section" style={{paddingBottom: '2rem'}}>
+        <h1 style={{textTransform: 'uppercase', fontSize: '2rem'}}>IDENTIFICATION</h1>
+        <div style={{fontSize: '1.25rem', marginBottom: '1.5rem'}}>
+           {IDENTIFICATION_DATA.ancientTerm.name.split(' ')[0]} <span style={{color: 'var(--color-stone)'}}>→</span> {IDENTIFICATION_DATA.identifiedAs.name}
+        </div>
+        <div className="urn">URN: {IDENTIFICATION_DATA.urn}</div>
+      </div>
+
+      <div className="product-section">
+        <h2>THE CLAIM</h2>
+        <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+           <div style={{fontWeight: 600}}>Ancient term:</div>
+           <div><span className="text-btn" onClick={() => navigate(IDENTIFICATION_DATA.ancientTerm.route)}>{IDENTIFICATION_DATA.ancientTerm.name} →</span></div>
+        </div>
+        <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+           <div style={{fontWeight: 600}}>Identified as:</div>
+           <div><span className="text-btn" onClick={() => navigate(IDENTIFICATION_DATA.identifiedAs.route)}>{IDENTIFICATION_DATA.identifiedAs.name} →</span></div>
+        </div>
+        <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+           <div style={{fontWeight: 600}}>Material source:</div>
+           <div><span className="text-btn" onClick={() => navigate(IDENTIFICATION_DATA.materialSource.route)}>{IDENTIFICATION_DATA.materialSource.name} →</span></div>
+        </div>
+         <div className="term-row" style={{border: 'none', padding: '0.25rem 0', marginTop: '1rem'}}>
+           <div style={{fontWeight: 600}}>Confidence:</div>
+           <div><span className={`confidence-badge ${IDENTIFICATION_DATA.confidence}`}>{IDENTIFICATION_DATA.confidence}</span></div>
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>SOURCE</h2>
+        <p style={{marginBottom: '0.5rem'}}><strong>{IDENTIFICATION_DATA.source.citation}</strong></p>
+        <p style={{marginTop: 0}}>Pages: {IDENTIFICATION_DATA.source.pages}</p>
+        <button className="text-btn">[View work →]</button>
+      </div>
+
+      <div className="product-section" style={{borderBottom: 'none'}}>
+        <h2>NOTES</h2>
+        <p style={{maxWidth: '800px'}}>{IDENTIFICATION_DATA.notes}</p>
+      </div>
+    </div>
+  );
+};
+
+const ProcessesPage = ({ navigate }) => (
+    <div className="page-container">
+        <div className="back-link" onClick={() => navigate('workshop')}>
+            <Icons.ArrowLeft /> Back to Workshop
+        </div>
+        <div className="archive-intro">
+            <h1>PROCESSES</h1>
+            <p>Techniques for extracting and compounding aromatics.</p>
+        </div>
+        <div className="workshop-grid">
+             <div className="workshop-card" onClick={() => navigate('process_enfleurage')}>
+                <div className="card-top">
+                  <h3>Enfleurage</h3>
+                  <span className="type-tag">Extraction</span>
+                </div>
+                <div className="def">Cold or hot extraction of scent into fat/oil.</div>
+              </div>
+              <div className="workshop-card">
+                <div className="card-top">
+                  <h3>Maceration</h3>
+                  <span className="type-tag">Extraction</span>
+                </div>
+                <div className="def">Steeping ingredients in heated oil.</div>
+              </div>
+              <div className="workshop-card">
+                <div className="card-top">
+                  <h3>Distillation</h3>
+                  <span className="type-tag">Separation</span>
+                </div>
+                <div className="def">Separating components via boiling and condensation.</div>
+              </div>
+        </div>
+    </div>
+);
+
+const ToolsPage = ({ navigate }) => (
+    <div className="page-container">
+        <div className="back-link" onClick={() => navigate('workshop')}>
+            <Icons.ArrowLeft /> Back to Workshop
+        </div>
+        <div className="archive-intro">
+            <h1>TOOLS</h1>
+            <p>The equipment of the ancient laboratory.</p>
+        </div>
+        <div className="workshop-grid">
+             <div className="workshop-card" onClick={() => navigate('tool_alembic')}>
+                <div className="card-top">
+                  <h3>Mortar & Pestle</h3>
+                  <span className="type-tag">Processing</span>
+                </div>
+                <div className="def">Stone vessel for crushing materials.</div>
+              </div>
+              <div className="workshop-card">
+                <div className="card-top">
+                  <h3>Alembic</h3>
+                  <span className="type-tag">Distillation</span>
+                </div>
+                <div className="def">Apparatus for distilling liquids.</div>
+              </div>
+              <div className="workshop-card">
+                <div className="card-top">
+                  <h3>Unguentarium</h3>
+                  <span className="type-tag">Storage</span>
+                </div>
+                <div className="def">Small ceramic or glass bottle for perfume.</div>
+              </div>
+        </div>
+    </div>
+);
+
+const ExperimentsPage = ({ navigate }) => (
+    <div className="page-container">
+        <div className="back-link" onClick={() => navigate('workshop')}>
+            <Icons.ArrowLeft /> Back to Workshop
+        </div>
+        <div className="archive-intro">
+            <h1>EXPERIMENTS</h1>
+            <p>Replication stories and chemical analysis.</p>
+        </div>
+        <div className="section-block">
+            <p style={{fontStyle: 'italic', color: 'var(--color-stone)'}}>Coming soon...</p>
+        </div>
+    </div>
+);
 
 const RecipePage = ({ navigate }) => {
   const [activeAnnotationId, setActiveAnnotationId] = useState(null);
@@ -900,7 +1248,9 @@ const RecipePage = ({ navigate }) => {
 
           <div className="processes-section">
             <h2>PROCESSES</h2>
-            <p>Chopping → Softening → Boiling → Straining → Enfleurage → Storage</p>
+            <p>
+                Chopping → Softening → <span className="text-btn" style={{cursor:'pointer'}} onClick={() => navigate('process_enfleurage')}>Boiling (Hot Enfleurage)</span> → Straining → <span className="text-btn" style={{cursor:'pointer'}} onClick={() => navigate('process_enfleurage')}>Enfleurage</span> → Storage
+            </p>
           </div>
         </div>
 
@@ -976,7 +1326,7 @@ const AncientIngredientPage = ({ navigate }) => {
             {id.note && <div className="id-note">{id.note}</div>}
             <div className="id-actions">
               <button className="btn-secondary" onClick={() => navigate(id.linkRoute)}>View product</button>
-              <button className="btn-secondary">View source</button>
+              {id.claimRoute && <button className="btn-secondary" onClick={() => navigate(id.claimRoute)}>View claim</button>}
             </div>
           </div>
         ))}
@@ -989,75 +1339,90 @@ const ProductPage = ({ navigate }) => {
   return (
     <div className="page-container">
       <div className="back-link" onClick={() => navigate('ingredients')}>
-        <Icons.ArrowLeft /> Back to Products
+        <Icons.ArrowLeft /> Back to Ingredients
       </div>
 
       <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
-          <div style={{flex: 2}}>
-             <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0}}>{PRODUCT_DATA.name}</h1>
-             <div className="urn" style={{display: 'inline-block', marginBottom: '1.5rem'}}>URN: {PRODUCT_DATA.urn}</div>
-             <p style={{fontSize: '1.1rem', lineHeight: '1.7'}}>{PRODUCT_DATA.description}</p>
-          </div>
-          <div style={{flex: 1}}>
-             <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem'}}>
-                {PRODUCT_DATA.image}
-             </div>
-             <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{PRODUCT_DATA.imageCaption}</div>
-          </div>
+           <div style={{flex: 2}}>
+              <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0}}>{PRODUCT_DATA.name}</h1>
+              <div style={{fontSize: '1.25rem', color: 'var(--color-stone)', fontStyle: 'italic', marginBottom: '1.5rem'}}>{PRODUCT_DATA.family}</div>
+              <p style={{fontSize: '1.1rem', lineHeight: '1.7'}}>{PRODUCT_DATA.description}</p>
+              
+               <div className="urn" style={{display: 'inline-block', marginTop: '1rem'}}>URN: {PRODUCT_DATA.urn}</div>
+           </div>
+           <div style={{flex: 1}}>
+              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem'}}>
+                 {PRODUCT_DATA.image}
+              </div>
+              <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{PRODUCT_DATA.imageCaption}</div>
+           </div>
         </div>
       </div>
 
       <div className="product-section">
-        <h2>SCENT PROFILE</h2>
-        <div style={{fontFamily: 'var(--font-sans)', color: 'var(--color-earth)', marginBottom: '1.5rem', fontSize: '0.95rem'}}>Family: {PRODUCT_DATA.family}</div>
-        
-        <div className="profile-grid">
-          <div className="profile-col">
-            <h3>PRIMARY NOTES</h3>
-            <ul>
-              {PRODUCT_DATA.profile.primary.map((note, i) => <li key={i}>{note}</li>)}
-            </ul>
-            
-            <h3 style={{marginTop: '2rem'}}>SECONDARY</h3>
-            <p style={{marginBottom: 0, fontSize: '0.95rem'}}>{PRODUCT_DATA.profile.secondary.join(', ')}</p>
-          </div>
-          <div className="profile-col">
-            <h3>EVOLUTION</h3>
+         <h2>SENSORY PROFILE</h2>
+         <div className="profile-grid">
+            <div className="profile-col">
+               <h3>PRIMARY NOTES</h3>
+               <ul>
+                 {PRODUCT_DATA.profile.primary.map((note, i) => <li key={i}>{note}</li>)}
+               </ul>
+            </div>
+            <div className="profile-col">
+               <h3>SECONDARY NOTES</h3>
+               <ul>
+                 {PRODUCT_DATA.profile.secondary.map((note, i) => <li key={i}>{note}</li>)}
+               </ul>
+            </div>
+         </div>
+         <div style={{marginTop: '2rem'}}>
+            <h3 style={{fontSize: '0.875rem', color: 'var(--color-stone)', marginBottom: '0.5rem'}}>OLFACTORY EVOLUTION</h3>
             <p>{PRODUCT_DATA.profile.evolution}</p>
-            <h3 style={{marginTop: '2rem'}}>COMPARABLE TO</h3>
+         </div>
+         <div style={{marginTop: '1.5rem'}}>
+            <h3 style={{fontSize: '0.875rem', color: 'var(--color-stone)', marginBottom: '0.5rem'}}>COMPARABLE MATERIALS</h3>
             <p>{PRODUCT_DATA.profile.comparable}</p>
-          </div>
-        </div>
+         </div>
       </div>
 
       <div className="product-section">
-        <h2>MATERIAL SOURCE</h2>
-        <p style={{fontSize: '1.1rem', marginBottom: '0.25rem'}}><strong>{PRODUCT_DATA.source.name}</strong> ({PRODUCT_DATA.source.family})</p>
-        <p style={{margin: '0 0 1.5rem 0', color: 'var(--color-earth)'}}>
-          Part used: {PRODUCT_DATA.source.part} <br/>
-          Native to: {PRODUCT_DATA.source.native}
-        </p>
-        <button className="text-btn" onClick={() => navigate('source_commiphora')}>[View material source →]</button>
+         <h2>MATERIAL SOURCE</h2>
+         <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+             <div style={{fontWeight: 600}}>Botanical Source:</div>
+             <div><span className="text-btn" onClick={() => navigate('source_commiphora')}>{PRODUCT_DATA.source.name} →</span></div>
+         </div>
+         <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+             <div style={{fontWeight: 600}}>Family:</div>
+             <div>{PRODUCT_DATA.source.family}</div>
+         </div>
+         <div className="term-row" style={{border: 'none', padding: '0.25rem 0'}}>
+             <div style={{fontWeight: 600}}>Part Used:</div>
+             <div>{PRODUCT_DATA.source.part}</div>
+         </div>
       </div>
 
       <div className="product-section">
-         <h2>ANCIENT TERMS FOR THIS PRODUCT</h2>
-         <div style={{borderTop: '1px solid rgba(92, 74, 61, 0.2)'}}>
+         <h2>ANCIENT TERMINOLOGY</h2>
+         <div className="workshop-grid" style={{gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))'}}>
             {PRODUCT_DATA.ancientTerms.map((term, i) => (
-               <div className="term-row" key={i}>
-                  <div><strong>{term.term}</strong> ({term.language})</div>
-                  <div><span className={`confidence-badge ${term.confidence}`}>{term.confidence}</span></div>
-                  <div>{term.citation} →</div>
+               <div className="workshop-card" key={i} onClick={() => term.term === 'σμύρνα' ? navigate('ingredient_smyrna') : null}>
+                 <div className="card-top">
+                   <h3>{term.term}</h3>
+                   <span className="lang-tag">{term.language}</span>
+                 </div>
+                 <div className="def" style={{marginTop: '0.5rem', fontSize: '0.8rem'}}>
+                    Confidence: <span className={`confidence-badge ${term.confidence}`} style={{fontSize: '0.65rem'}}>{term.confidence}</span>
+                 </div>
                </div>
             ))}
          </div>
       </div>
 
       <div className="product-section" style={{borderBottom: 'none'}}>
-         <h2>AVAILABILITY</h2>
-         <p><strong>Status: {PRODUCT_DATA.availability.status}</strong></p>
-         <p style={{maxWidth: '700px'}}>{PRODUCT_DATA.availability.details}</p>
+         <h2>MODERN AVAILABILITY</h2>
+         <p><strong>{PRODUCT_DATA.availability.status}</strong></p>
+         <p>{PRODUCT_DATA.availability.details}</p>
       </div>
     </div>
   );
@@ -1072,59 +1437,52 @@ const SourceDetailPage = ({ navigate }) => {
 
       <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
-          <div style={{flex: 2}}>
-             <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0}}>{COMMIPHORA_DATA.name}</h1>
-             <div style={{fontSize: '1.25rem', color: 'var(--color-stone)', fontStyle: 'italic', marginBottom: '1rem'}}>{COMMIPHORA_DATA.commonName}</div>
-             
-             <div style={{fontFamily: 'var(--font-sans)', marginBottom: '0.5rem'}}>Family: {COMMIPHORA_DATA.family}</div>
-             <div style={{fontFamily: 'var(--font-sans)', marginBottom: '1.5rem'}}>Type: {COMMIPHORA_DATA.type}</div>
-
-             <div className="urn" style={{display: 'inline-block'}}>URN: {COMMIPHORA_DATA.urn}</div>
-          </div>
-          <div style={{flex: 1}}>
-             <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem', textAlign: 'center', padding: '1rem'}}>
-                {COMMIPHORA_DATA.image}
-             </div>
-             <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{COMMIPHORA_DATA.imageCaption}</div>
-          </div>
+           <div style={{flex: 2}}>
+              <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>{COMMIPHORA_DATA.name}</h1>
+              <div style={{fontSize: '1.25rem', color: 'var(--color-stone)', marginBottom: '1.5rem'}}>{COMMIPHORA_DATA.commonName} • {COMMIPHORA_DATA.family}</div>
+              <p style={{fontSize: '1.1rem', lineHeight: '1.7'}}>{COMMIPHORA_DATA.description}</p>
+              
+               <div className="urn" style={{display: 'inline-block', marginTop: '1rem'}}>URN: {COMMIPHORA_DATA.urn}</div>
+           </div>
+           <div style={{flex: 1}}>
+              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem'}}>
+                 {COMMIPHORA_DATA.image}
+              </div>
+              <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{COMMIPHORA_DATA.imageCaption}</div>
+           </div>
         </div>
       </div>
 
       <div className="product-section">
-        <h2>DESCRIPTION</h2>
-        <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{COMMIPHORA_DATA.description}</p>
+         <h2>NATIVE RANGE & ECOLOGY</h2>
+         <p>{COMMIPHORA_DATA.nativeRange}</p>
       </div>
 
       <div className="product-section">
-        <h2>NATIVE RANGE</h2>
-        <p style={{fontSize: '1.1rem'}}>{COMMIPHORA_DATA.nativeRange}</p>
-      </div>
-
-      <div className="product-section">
-        <h2>PRODUCTS DERIVED FROM THIS SOURCE</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-          {COMMIPHORA_DATA.products.map((prod, i) => (
+         <h2>PRODUCTS DERIVED</h2>
+          <ul style={{listStyle: 'none', padding: 0}}>
+           {COMMIPHORA_DATA.products.map((p, i) => (
              <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
                <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {prod.route ? (
-                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(prod.route)}>{prod.name} →</span>
+               {p.route ? (
+                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(p.route)}>{p.name} →</span>
                ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{prod.name}</span>
+                 <span style={{color: 'var(--color-earth)'}}>{p.name}</span>
                )}
              </li>
-          ))}
+           ))}
         </ul>
       </div>
 
       <div className="product-section" style={{borderBottom: 'none'}}>
-        <h2>EXTERNAL RESOURCES</h2>
+         <h2>EXTERNAL RESOURCES</h2>
          <ul style={{listStyle: 'none', padding: 0}}>
-          {COMMIPHORA_DATA.externalResources.map((res, i) => (
+           {COMMIPHORA_DATA.externalResources.map((r, i) => (
              <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
                <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               <a href={res.url} target="_blank" rel="noreferrer" style={{color: 'var(--color-earth)', textDecoration: 'underline'}}>{res.name} →</a>
+               <a href={r.url} target="_blank" rel="noopener noreferrer" style={{color: 'var(--color-earth)', textDecoration: 'underline'}}>{r.name} ↗</a>
              </li>
-          ))}
+           ))}
         </ul>
       </div>
     </div>
@@ -1186,6 +1544,21 @@ const ArchivePage = ({ navigate }) => {
           </div>
           <button className="btn-primary">View recipe</button>
         </div>
+         <div className="recipe-card">
+          <h3>CINNAMON PERFUME</h3>
+          <div className="card-sub">Dioscorides, Mat. Med. 1.61</div>
+          <div className="card-meta">
+            <div>Period: Roman</div>
+            <div>Ingredients: 5</div>
+          </div>
+          <button className="btn-primary">View recipe</button>
+        </div>
+      </div>
+      
+      <div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2rem', fontFamily: 'var(--font-sans)', fontSize: '0.875rem'}}>
+         <span>[← Previous]</span>
+         <span>Page 1 of 12</span>
+         <span style={{cursor: 'pointer', color: 'var(--color-amber)'}}>[Next →]</span>
       </div>
     </div>
   );
@@ -1299,6 +1672,8 @@ const GlobalStyles = () => (
     
     .text-btn { background: none; border: none; color: var(--color-amber); padding: 0; font-size: 0.875rem; text-decoration: underline; }
     .text-btn:hover { color: var(--color-amber-dark); }
+    .icon-btn { background: none; border: 1px solid transparent; color: var(--color-stone); padding: 0.2rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+    .icon-btn.active { background: rgba(201, 162, 39, 0.1); color: var(--color-amber); border-color: rgba(201, 162, 39, 0.3); }
 
     .btn-primary {
       background: var(--color-amber);
@@ -1347,7 +1722,7 @@ const GlobalStyles = () => (
       background: var(--color-warm-white);
       border: 1px solid rgba(92, 74, 61, 0.1);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      min-width: 160px;
+      min-width: 180px;
       z-index: 100;
       padding: 0.5rem 0;
       border-radius: 4px;
@@ -1355,6 +1730,8 @@ const GlobalStyles = () => (
     .nav-item:hover .dropdown { display: block; }
     .dropdown div { padding: 0.5rem 1rem; color: var(--color-earth); transition: background 0.1s; }
     .dropdown div:hover { background: var(--color-cream); color: var(--color-amber); }
+    .dropdown-section-title { font-size: 0.75rem; text-transform: uppercase; color: var(--color-stone) !important; font-weight: 600; padding: 0.5rem 1rem 0.2rem 1rem !important; letter-spacing: 0.05em; margin-top: 0.5rem; pointer-events: none; }
+    .dropdown-section-title:first-child { margin-top: 0; }
 
     /* Footer */
     .site-footer {
@@ -1409,6 +1786,21 @@ const GlobalStyles = () => (
     .lang-tag, .type-tag { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; background: rgba(92, 74, 61, 0.05); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
     .translit { font-style: italic; font-family: var(--font-serif); color: var(--color-amber-dark); margin-bottom: 0.75rem; font-size: 0.9375rem; }
     .def { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); }
+
+    /* AZ List */
+    .az-container { margin-top: 2rem; }
+    .az-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; font-family: var(--font-sans); border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1.5rem; }
+    .az-nav a { text-decoration: none; color: var(--color-amber); font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; transition: background 0.1s; }
+    .az-nav a:hover { background: rgba(201, 162, 39, 0.1); }
+    .az-nav a.disabled { color: var(--color-stone); opacity: 0.5; pointer-events: none; }
+    .az-group { margin-bottom: 3rem; }
+    .az-group h2 { color: var(--color-stone); border-bottom: 2px solid rgba(201, 162, 39, 0.3); display: inline-block; padding-bottom: 0.25rem; margin-bottom: 1.5rem; }
+    .az-list { display: flex; flex-direction: column; gap: 1rem; }
+    .az-card { background: white; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; border-radius: 4px; }
+    .az-card-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .az-card h3 { margin: 0; font-family: var(--font-serif); font-size: 1.25rem; }
+    .az-card p { margin: 0 0 1rem 0; color: var(--color-stone); font-family: var(--font-sans); font-size: 0.9rem; }
+    .az-actions { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-stone); }
 
     /* Library Page Styles */
     .library-hero { margin-bottom: 3rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -1727,6 +2119,12 @@ const App = () => {
       case 'ingredients': return <IngredientsPage navigate={setRoute} />;
       case 'sources': return <SourcesPage navigate={setRoute} />;
       case 'source_commiphora': return <SourceDetailPage navigate={setRoute} />;
+      case 'processes': return <ProcessesPage navigate={setRoute} />;
+      case 'process_enfleurage': return <ProcessDetailPage navigate={setRoute} />;
+      case 'tools': return <ToolsPage navigate={setRoute} />;
+      case 'tool_alembic': return <ToolDetailPage navigate={setRoute} />;
+      case 'identification_smyrna': return <IdentificationPage navigate={setRoute} />;
+      case 'experiments': return <ExperimentsPage navigate={setRoute} />;
       default: return <HomePage navigate={setRoute} />;
     }
   };
