@@ -7,9 +7,11 @@ export interface MasterEntity {
   family?: string; // For ingredients
   source?: string; // For ingredients (botanical source)
   type?: string; // For tools (Tool type)
+  role?: string; // For people (e.g. "Physician")
   parentId?: string; // For hierarchical works (e.g. Edition -> Work)
-  author?: string; // For works
-  date?: string; // For works
+  author?: string; // For works (Legacy/Display string)
+  authorId?: string; // For works (Link to Person)
+  date?: string; // For works (Date) or People (Period)
   language?: string; // For works
   place?: string; // For works
 }
@@ -58,4 +60,5 @@ export interface DatabaseState {
   masterTools: MasterEntity[];
   masterProcesses: MasterEntity[];
   masterWorks: MasterEntity[];
+  masterPeople: MasterEntity[];
 }

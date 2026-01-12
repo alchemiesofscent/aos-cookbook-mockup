@@ -5,7 +5,8 @@ const STORAGE_KEYS = {
   INGREDIENTS: 'AOS_MASTER_INGREDIENTS',
   TOOLS: 'AOS_MASTER_TOOLS',
   PROCESSES: 'AOS_MASTER_PROCESSES',
-  WORKS: 'AOS_MASTER_WORKS'
+  WORKS: 'AOS_MASTER_WORKS',
+  PEOPLE: 'AOS_MASTER_PEOPLE'
 };
 
 export const StorageAdapter = {
@@ -16,6 +17,7 @@ export const StorageAdapter = {
       masterTools: JSON.parse(localStorage.getItem(STORAGE_KEYS.TOOLS) || '[]'),
       masterProcesses: JSON.parse(localStorage.getItem(STORAGE_KEYS.PROCESSES) || '[]'),
       masterWorks: JSON.parse(localStorage.getItem(STORAGE_KEYS.WORKS) || '[]'),
+      masterPeople: JSON.parse(localStorage.getItem(STORAGE_KEYS.PEOPLE) || '[]'),
     };
   },
 
@@ -25,6 +27,7 @@ export const StorageAdapter = {
     localStorage.setItem(STORAGE_KEYS.TOOLS, JSON.stringify(data.masterTools));
     localStorage.setItem(STORAGE_KEYS.PROCESSES, JSON.stringify(data.masterProcesses));
     localStorage.setItem(STORAGE_KEYS.WORKS, JSON.stringify(data.masterWorks));
+    localStorage.setItem(STORAGE_KEYS.PEOPLE, JSON.stringify(data.masterPeople));
   },
   
   export: () => {
@@ -43,6 +46,8 @@ export const StorageAdapter = {
           reader.onload = (e) => {
               try {
                   const data = JSON.parse(e.target?.result as string);
+                  // Ensure masterPeople exists for older backups
+                  if (!data.masterPeople) data.masterPeople = [];
                   resolve(data);
               } catch (err) {
                   reject(err);

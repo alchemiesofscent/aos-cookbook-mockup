@@ -2,6 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import { DatabaseState, MasterEntity, Recipe, RecipeItem, Quantity } from "./types";
 import { StorageAdapter, generateSlug, generateURN } from "./storage";
 
+// --- Controlled Vocabularies ---
+const LANGUAGES = [
+  "Ancient Greek",
+  "Latin",
+  "Arabic",
+  "Akkadian",
+  "Sumerian",
+  "Egyptian",
+  "English",
+  "French",
+  "German",
+  "Italian"
+];
+
 // --- Styles for the Admin Console ---
 const AdminStyles = () => (
   <style>{`
@@ -94,7 +108,7 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
   );
 };
 
-const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork }) => {
+const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, existingPlaces }) => {
   const [formData, setFormData] = useState<Recipe>(recipe || {
     id: crypto.randomUUID(),
     slug: '',
@@ -315,11 +329,30 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork }) => {
           </div>
           <div className="form-group">
              <label>Language</label>
-             <input value={formData.metadata.language} onChange={e => updateMeta('language', e.target.value)} placeholder={inherited.language ? `Inherited: ${inherited.language}` : "Override inherited language..."} />
+             <select 
+               value={formData.metadata.language} 
+               onChange={e => updateMeta('language', e.target.value)}
+             >
+                <option value="">Select Language...</option>
+                {LANGUAGES.map(l => <option key={l} value={l}>{l}</option>)}
+                {/* Fallback for preserving existing values not in list */}
+                {formData.metadata.language && !LANGUAGES.includes(formData.metadata.language) && (
+                   <option value={formData.metadata.language}>{formData.metadata.language}</option>
+                )}
+             </select>
+             {inherited.language && <div className="hint">Inherited: {inherited.language}</div>}
           </div>
            <div className="form-group">
              <label>Place</label>
-             <input value={formData.metadata.place} onChange={e => updateMeta('place', e.target.value)} placeholder={inherited.place ? `Inherited: ${inherited.place}` : "Override inherited place..."} />
+             <input 
+               list="places-list"
+               value={formData.metadata.place} 
+               onChange={e => updateMeta('place', e.target.value)} 
+               placeholder={inherited.place ? `Inherited: ${inherited.place}` : "Select or type new place..."} 
+             />
+             <datalist id="places-list">
+                {existingPlaces.map((p, i) => <option key={i} value={p} />)}
+             </datalist>
           </div>
         </div>
       )}
@@ -414,8 +447,8 @@ const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork }) => {
 };
 
 export const AdminConsole = ({ navigate }) => {
-  const [db, setDb] = useState<DatabaseState>({ recipes: [], masterIngredients: [], masterTools: [], masterProcesses: [], masterWorks: [] });
-  const [view, setView] = useState('dashboard'); // dashboard, recipes, ingredients, tools, works, editor
+  const [db, setDb] = useState<DatabaseState>({ recipes: [], masterIngredients: [], masterTools: [], masterProcesses: [], masterWorks: [], masterPeople: [] });
+  const [view, setView] = useState('dashboard'); // dashboard, recipes, ingredients, tools, works, people, editor
   const [editingItem, setEditingItem] = useState(null); // For Master Entity modal
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
 
@@ -427,6 +460,14 @@ export const AdminConsole = ({ navigate }) => {
     setDb(newDb);
     StorageAdapter.save(newDb);
   };
+  
+  // Calculate unique places for controlled vocabulary (incremental)
+  const allPlaces = useMemo(() => {
+      const places = new Set<string>();
+      db.recipes.forEach(r => { if(r.metadata.place) places.add(r.metadata.place); });
+      db.masterWorks.forEach(w => { if(w.place) places.add(w.place); });
+      return Array.from(places).sort();
+  }, [db.recipes, db.masterWorks]);
 
   const handleExport = () => StorageAdapter.export();
   const handleImport = async (e) => {
@@ -521,9 +562,6 @@ export const AdminConsole = ({ navigate }) => {
      if (!editingItem) return null;
      const { type, data, collection } = editingItem;
      
-     // Automatic slug generation logic
-     // Effect logic moved inside the renderer implies we need a controlled component wrapper, 
-     // but for simplicity we'll just auto-update state on name change if slug is clean
      const handleNameChange = (newName) => {
        const isClean = !data.slug || data.slug === generateSlug(data.name);
        const newData = { ...data, name: newName };
@@ -534,10 +572,34 @@ export const AdminConsole = ({ navigate }) => {
      };
      
      const handleSave = () => {
-         // Final safety check on slug
          const slug = data.slug || generateSlug(data.name);
          const urn = data.urn || generateURN(type, slug);
          saveMaster(collection, { ...data, slug, urn });
+     };
+     
+     // Handle Work Author Change
+     const handleWorkAuthorChange = (e) => {
+         const val = e.target.value;
+         if (val === 'NEW_PERSON') {
+             // We can't easily nest modals here without more complex state.
+             // For now, we'll just alert or could switch context, but keeping it simple:
+             // Let's assume user must create person first, OR we allow simple string override.
+             // Actually, let's implement the shortcut in the dropdown logic below.
+         } else {
+             const person = db.masterPeople.find(p => p.id === val);
+             if (person) {
+                 setEditingItem({
+                     ...editingItem, 
+                     data: { ...data, authorId: person.id, author: person.name } 
+                 });
+             } else {
+                 // Clear link if empty
+                 setEditingItem({
+                     ...editingItem, 
+                     data: { ...data, authorId: '', author: '' } 
+                 });
+             }
+         }
      };
 
      return (
@@ -555,6 +617,31 @@ export const AdminConsole = ({ navigate }) => {
                      <label>Slug (Auto-generated)</label>
                      <input value={data.slug} readOnly style={{background: '#f9f9f9', color: '#666'}} />
                  </div>
+                 
+                 {collection === 'masterPeople' && (
+                    <>
+                        <div className="form-group">
+                            <label>Role</label>
+                            <input 
+                                value={data.role || ''} 
+                                onChange={e => setEditingItem({...editingItem, data: {...data, role: e.target.value}})}
+                                placeholder="e.g. Physician, Perfumer"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Period / Date</label>
+                            <input 
+                                value={data.date || ''} 
+                                onChange={e => setEditingItem({...editingItem, data: {...data, date: e.target.value}})}
+                                placeholder="e.g. 1st Century CE"
+                            />
+                        </div>
+                         <div className="form-group">
+                             <label>Bio / Description</label>
+                             <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
+                         </div>
+                    </>
+                 )}
 
                  {collection === 'masterWorks' && (
                    <>
@@ -573,11 +660,24 @@ export const AdminConsole = ({ navigate }) => {
                      </div>
                      <div className="form-group">
                         <label>Author</label>
+                        <div style={{display:'flex', gap: '0.5rem'}}>
+                            <select 
+                               value={data.authorId || ''} 
+                               onChange={handleWorkAuthorChange}
+                               disabled={!!data.parentId}
+                               style={{flex: 1}}
+                            >
+                                <option value="">Select Author from People...</option>
+                                {db.masterPeople.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                            </select>
+                            {/* Shortcut to create person could be added here if needed, but keeping UI clean */}
+                        </div>
                         <input 
+                           style={{marginTop: '0.5rem'}}
                            value={data.author || ''} 
                            onChange={e => setEditingItem({...editingItem, data: {...data, author: e.target.value}})} 
                            disabled={!!data.parentId}
-                           placeholder={data.parentId ? "(Inherited from Parent)" : "e.g. Dioscorides"}
+                           placeholder={data.parentId ? "(Inherited from Parent)" : "Or type Author Name (Override/Fallback)"}
                         />
                      </div>
                      <div className="form-group">
@@ -590,27 +690,38 @@ export const AdminConsole = ({ navigate }) => {
                      </div>
                      <div className="form-group">
                         <label>Language</label>
-                        <input 
+                        <select 
                            value={data.language || ''} 
                            onChange={e => setEditingItem({...editingItem, data: {...data, language: e.target.value}})} 
-                           placeholder="e.g. Ancient Greek"
-                        />
+                        >
+                            <option value="">Select Language...</option>
+                            {LANGUAGES.map(l => <option key={l} value={l}>{l}</option>)}
+                            {data.language && !LANGUAGES.includes(data.language) && <option value={data.language}>{data.language}</option>}
+                        </select>
                      </div>
                      <div className="form-group">
                         <label>Place</label>
                         <input 
+                           list="places-list"
                            value={data.place || ''} 
                            onChange={e => setEditingItem({...editingItem, data: {...data, place: e.target.value}})} 
                            placeholder="e.g. Anatolia"
                         />
                      </div>
+                     <div className="form-group">
+                        <label>Description</label>
+                        <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
+                     </div>
                    </>
                  )}
 
-                 <div className="form-group">
-                     <label>Description</label>
-                     <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
-                 </div>
+                 {/* Non-Work/Person specific description (Ingredients/Tools/Processes) */}
+                 {collection !== 'masterWorks' && collection !== 'masterPeople' && (
+                     <div className="form-group">
+                         <label>Description</label>
+                         <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
+                     </div>
+                 )}
 
                  <div style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem'}}>
                      <button className="btn-outline" onClick={() => setEditingItem(null)}>Cancel</button>
@@ -620,12 +731,20 @@ export const AdminConsole = ({ navigate }) => {
          </div>
      );
   };
+  
+  // Shortcut to create new person from Work Editor if needed (can be passed down)
+  const createPerson = () => setEditingItem({ type: 'Person', collection: 'masterPeople', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '', role: '' } });
 
   return (
     <div className="admin-layout">
       <AdminStyles />
       {renderMasterModal()}
       
+      {/* Hidden Datalist for Places (Shared) */}
+      <datalist id="places-list">
+         {allPlaces.map((p, i) => <option key={i} value={p} />)}
+      </datalist>
+
       <div className="admin-sidebar">
          <div className="admin-brand" onClick={() => navigate('home')}>← Back to Lab</div>
          
@@ -634,6 +753,7 @@ export const AdminConsole = ({ navigate }) => {
          <div className="admin-nav-section">Library</div>
          <div className={`admin-nav-item ${view === 'recipes' ? 'active' : ''}`} onClick={() => setView('recipes')}>Recipes</div>
          <div className={`admin-nav-item ${view === 'works' ? 'active' : ''}`} onClick={() => setView('works')}>Works</div>
+         <div className={`admin-nav-item ${view === 'people' ? 'active' : ''}`} onClick={() => setView('people')}>People</div>
          
          <div className="admin-nav-section">Workshop</div>
          <div className={`admin-nav-item ${view === 'ingredients' ? 'active' : ''}`} onClick={() => setView('ingredients')}>Ingredients</div>
@@ -674,6 +794,7 @@ export const AdminConsole = ({ navigate }) => {
             <RecipeEditor 
                 recipe={editingRecipe} 
                 masters={{ ingredients: db.masterIngredients, tools: db.masterTools, processes: db.masterProcesses, works: db.masterWorks }}
+                existingPlaces={allPlaces}
                 onSave={saveRecipe}
                 onCancel={() => { setEditingRecipe(null); setView('recipes'); }}
                 onCreateWork={() => setEditingItem({ type: 'Work', collection: 'masterWorks', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '' } })}
@@ -716,7 +837,20 @@ export const AdminConsole = ({ navigate }) => {
                 data={db.masterWorks} 
                 onDelete={id => deleteMaster('masterWorks', id)}
                 onEdit={item => setEditingItem({ type: 'Work', collection: 'masterWorks', data: item })}
-                onCreate={() => setEditingItem({ type: 'Work', collection: 'masterWorks', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '' } })}
+                onCreate={() => {
+                    // Pre-fill with existing fields but allow simple override in modal
+                    setEditingItem({ type: 'Work', collection: 'masterWorks', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '' } })
+                }}
+            />
+        )}
+
+        {view === 'people' && (
+            <MasterList 
+                title="People" 
+                data={db.masterPeople} 
+                onDelete={id => deleteMaster('masterPeople', id)}
+                onEdit={item => setEditingItem({ type: 'Person', collection: 'masterPeople', data: item })}
+                onCreate={() => setEditingItem({ type: 'Person', collection: 'masterPeople', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '', role: '' } })}
             />
         )}
 
@@ -724,7 +858,7 @@ export const AdminConsole = ({ navigate }) => {
       
       <div className="status-bar">
          <span>Local Storage Database Active</span>
-         <span>Total Records: {db.recipes.length + db.masterIngredients.length + db.masterTools.length + db.masterProcesses.length}</span>
+         <span>Total Records: {db.recipes.length + db.masterIngredients.length + db.masterTools.length + db.masterProcesses.length + db.masterWorks.length + db.masterPeople.length}</span>
       </div>
     </div>
   );
