@@ -1,3 +1,8 @@
+export interface ExternalLink {
+  label: string;
+  url: string;
+}
+
 export interface MasterEntity {
   id: string;
   slug: string;
@@ -14,6 +19,7 @@ export interface MasterEntity {
   date?: string; // For works (Date) or People (Period)
   language?: string; // For works
   place?: string; // For works
+  externalLinks?: ExternalLink[]; // For people/works (e.g. Wikipedia, VIAF)
 }
 
 export interface Quantity {

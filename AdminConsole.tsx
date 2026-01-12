@@ -16,6 +16,15 @@ const LANGUAGES = [
   "Italian"
 ];
 
+const EXTERNAL_RESOURCE_TYPES = [
+  "Wikipedia",
+  "VIAF",
+  "WorldCat",
+  "Orcid",
+  "OpenAlex",
+  "Website"
+];
+
 // --- Styles for the Admin Console ---
 const AdminStyles = () => (
   <style>{`
@@ -52,7 +61,7 @@ const AdminStyles = () => (
     .btn-action { background: #C9A227; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 500; }
     .btn-action:hover { background: #8B6914; }
     .btn-outline { background: transparent; border: 1px solid #ccc; color: #555; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
-    .btn-danger { background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; }
+    .btn-danger { background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
     
     .item-row { background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; display: grid; grid-template-columns: 2fr 2fr 1fr 1fr auto; gap: 1rem; align-items: start; }
     .qty-tag { display: inline-block; background: #e0e0e0; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-right: 0.3rem; margin-top: 0.2rem; border: 1px solid #ccc; }
@@ -60,7 +69,7 @@ const AdminStyles = () => (
     .status-bar { position: fixed; bottom: 0; left: 250px; right: 0; background: #2D2A26; color: #9A9487; padding: 0.5rem 2rem; font-size: 0.8rem; display: flex; justify-content: space-between; }
     
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: white; padding: 2rem; border-radius: 8px; width: 500px; max-width: 90%; }
+    .modal-content { background: white; padding: 2rem; border-radius: 8px; width: 500px; max-width: 90%; max-height: 90vh; overflow-y: auto; }
   `}</style>
 );
 
@@ -450,6 +459,7 @@ export const AdminConsole = ({ navigate }) => {
   const [db, setDb] = useState<DatabaseState>({ recipes: [], masterIngredients: [], masterTools: [], masterProcesses: [], masterWorks: [], masterPeople: [] });
   const [view, setView] = useState('dashboard'); // dashboard, recipes, ingredients, tools, works, people, editor
   const [editingItem, setEditingItem] = useState(null); // For Master Entity modal
+  const [pendingParent, setPendingParent] = useState<{ collection: keyof DatabaseState, data: MasterEntity } | null>(null);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
 
   useEffect(() => {
@@ -466,8 +476,16 @@ export const AdminConsole = ({ navigate }) => {
       const places = new Set<string>();
       db.recipes.forEach(r => { if(r.metadata.place) places.add(r.metadata.place); });
       db.masterWorks.forEach(w => { if(w.place) places.add(w.place); });
+      db.masterPeople.forEach(p => { if(p.place) places.add(p.place); });
       return Array.from(places).sort();
-  }, [db.recipes, db.masterWorks]);
+  }, [db.recipes, db.masterWorks, db.masterPeople]);
+
+  // Calculate unique roles for controlled vocabulary (incremental)
+  const allRoles = useMemo(() => {
+      const roles = new Set<string>();
+      db.masterPeople.forEach(p => { if(p.role) roles.add(p.role); });
+      return Array.from(roles).sort();
+  }, [db.masterPeople]);
 
   const handleExport = () => StorageAdapter.export();
   const handleImport = async (e) => {
@@ -505,8 +523,27 @@ export const AdminConsole = ({ navigate }) => {
     const list = db[collection] as MasterEntity[];
     const isNew = !list.find(i => i.id === item.id);
     const newList = isNew ? [...list, item] : list.map(i => i.id === item.id ? item : i);
-    saveDb({ ...db, [collection]: newList });
-    setEditingItem(null);
+    const newDb = { ...db, [collection]: newList };
+    
+    saveDb(newDb);
+    
+    // Logic to handle returning to parent modal (Work) after creating child (Person/Author)
+    if (pendingParent && collection === 'masterPeople') {
+        // We just created a person that was meant to be the author of a pending work
+        const updatedParent = {
+            ...pendingParent.data,
+            authorId: item.id,
+            author: item.name
+        };
+        setEditingItem({
+            type: 'Work',
+            collection: pendingParent.collection,
+            data: updatedParent
+        });
+        setPendingParent(null);
+    } else {
+        setEditingItem(null);
+    }
   };
   
   const deleteMaster = (collection: keyof DatabaseState, id: string) => {
@@ -581,10 +618,9 @@ export const AdminConsole = ({ navigate }) => {
      const handleWorkAuthorChange = (e) => {
          const val = e.target.value;
          if (val === 'NEW_PERSON') {
-             // We can't easily nest modals here without more complex state.
-             // For now, we'll just alert or could switch context, but keeping it simple:
-             // Let's assume user must create person first, OR we allow simple string override.
-             // Actually, let's implement the shortcut in the dropdown logic below.
+             // Save current work state as pending, switch to Person creation
+             setPendingParent({ collection: 'masterWorks', data: data });
+             setEditingItem({ type: 'Person', collection: 'masterPeople', data: { id: crypto.randomUUID(), name: '', slug: '', urn: '', description: '', role: '' } });
          } else {
              const person = db.masterPeople.find(p => p.id === val);
              if (person) {
@@ -623,6 +659,7 @@ export const AdminConsole = ({ navigate }) => {
                         <div className="form-group">
                             <label>Role</label>
                             <input 
+                                list="roles-list"
                                 value={data.role || ''} 
                                 onChange={e => setEditingItem({...editingItem, data: {...data, role: e.target.value}})}
                                 placeholder="e.g. Physician, Perfumer"
@@ -637,8 +674,57 @@ export const AdminConsole = ({ navigate }) => {
                             />
                         </div>
                          <div className="form-group">
+                            <label>Active In (Place)</label>
+                            <input 
+                               list="places-list"
+                               value={data.place || ''} 
+                               onChange={e => setEditingItem({...editingItem, data: {...data, place: e.target.value}})} 
+                               placeholder="e.g. Anatolia"
+                            />
+                        </div>
+                         <div className="form-group">
                              <label>Bio / Description</label>
                              <textarea rows={3} value={data.description} onChange={e => setEditingItem({...editingItem, data: {...data, description: e.target.value}})} />
+                         </div>
+
+                         <div className="form-group">
+                             <label>External Resources</label>
+                             <div style={{background: '#f9f9f9', padding: '0.5rem', borderRadius: '4px'}}>
+                                 {(data.externalLinks || []).map((link, idx) => (
+                                     <div key={idx} style={{display: 'flex', gap: '0.5rem', marginBottom: '0.5rem'}}>
+                                         <select 
+                                             value={link.label}
+                                             onChange={e => {
+                                                 const newLinks = [...(data.externalLinks || [])];
+                                                 newLinks[idx].label = e.target.value;
+                                                 setEditingItem({...editingItem, data: {...data, externalLinks: newLinks}});
+                                             }}
+                                             style={{width: '120px'}}
+                                         >
+                                            {EXTERNAL_RESOURCE_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                                            {!EXTERNAL_RESOURCE_TYPES.includes(link.label) && <option value={link.label}>{link.label}</option>}
+                                         </select>
+                                         <input 
+                                             value={link.url}
+                                             onChange={e => {
+                                                 const newLinks = [...(data.externalLinks || [])];
+                                                 newLinks[idx].url = e.target.value;
+                                                 setEditingItem({...editingItem, data: {...data, externalLinks: newLinks}});
+                                             }}
+                                             placeholder="https://..."
+                                             style={{flex: 1}}
+                                         />
+                                         <button className="btn-danger" onClick={() => {
+                                             const newLinks = data.externalLinks.filter((_, i) => i !== idx);
+                                             setEditingItem({...editingItem, data: {...data, externalLinks: newLinks}});
+                                         }}>×</button>
+                                     </div>
+                                 ))}
+                                 <button className="btn-outline" style={{fontSize: '0.8rem'}} onClick={() => {
+                                     const newLinks = [...(data.externalLinks || []), { label: 'Wikipedia', url: '' }];
+                                     setEditingItem({...editingItem, data: {...data, externalLinks: newLinks}});
+                                 }}>+ Add Resource</button>
+                             </div>
                          </div>
                     </>
                  )}
@@ -660,25 +746,24 @@ export const AdminConsole = ({ navigate }) => {
                      </div>
                      <div className="form-group">
                         <label>Author</label>
-                        <div style={{display:'flex', gap: '0.5rem'}}>
+                        <div style={{display:'flex', gap: '0.5rem', flexDirection: 'column'}}>
                             <select 
                                value={data.authorId || ''} 
                                onChange={handleWorkAuthorChange}
                                disabled={!!data.parentId}
-                               style={{flex: 1}}
                             >
                                 <option value="">Select Author from People...</option>
                                 {db.masterPeople.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                                <option value="NEW_PERSON" style={{fontWeight: 'bold', color: '#C9A227'}}>+ Add New Author</option>
                             </select>
-                            {/* Shortcut to create person could be added here if needed, but keeping UI clean */}
+                            
+                            <input 
+                               value={data.author || ''} 
+                               onChange={e => setEditingItem({...editingItem, data: {...data, author: e.target.value}})} 
+                               disabled={!!data.parentId}
+                               placeholder={data.parentId ? "(Inherited from Parent)" : "Or type Author Name (Override/Fallback)"}
+                            />
                         </div>
-                        <input 
-                           style={{marginTop: '0.5rem'}}
-                           value={data.author || ''} 
-                           onChange={e => setEditingItem({...editingItem, data: {...data, author: e.target.value}})} 
-                           disabled={!!data.parentId}
-                           placeholder={data.parentId ? "(Inherited from Parent)" : "Or type Author Name (Override/Fallback)"}
-                        />
                      </div>
                      <div className="form-group">
                         <label>Date</label>
@@ -724,7 +809,7 @@ export const AdminConsole = ({ navigate }) => {
                  )}
 
                  <div style={{display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem'}}>
-                     <button className="btn-outline" onClick={() => setEditingItem(null)}>Cancel</button>
+                     <button className="btn-outline" onClick={() => { setEditingItem(null); setPendingParent(null); }}>Cancel</button>
                      <button className="btn-action" onClick={handleSave}>Save</button>
                  </div>
              </div>
@@ -743,6 +828,11 @@ export const AdminConsole = ({ navigate }) => {
       {/* Hidden Datalist for Places (Shared) */}
       <datalist id="places-list">
          {allPlaces.map((p, i) => <option key={i} value={p} />)}
+      </datalist>
+
+      {/* Hidden Datalist for Roles (Shared) */}
+      <datalist id="roles-list">
+         {allRoles.map((r, i) => <option key={i} value={r} />)}
       </datalist>
 
       <div className="admin-sidebar">
