@@ -124,4 +124,4 @@ URL:
 
 ## Licence
 
-TBD.
+MIT. See `LICENSE`.
