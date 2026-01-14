@@ -27,6 +27,7 @@ export interface MasterEntity {
 export interface Quantity {
   value: number;
   unit: string;
+  isEstimate?: boolean;
 }
 
 export interface RecipeItem {

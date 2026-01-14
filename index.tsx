@@ -455,6 +455,9 @@ const Header = ({ navigate }) => {
         <div className="nav-item search-icon">
           <Icons.Search />
         </div>
+        <div className="nav-item" onClick={() => navigate('admin')} style={{borderLeft: '1px solid rgba(92, 74, 61, 0.2)', paddingLeft: '1.5rem', marginLeft: '0.5rem', color: 'var(--color-amber-dark)', fontWeight: 600}}>
+           Admin
+        </div>
       </nav>
     </header>
   );
@@ -486,7 +489,6 @@ const Footer = ({ navigate }) => (
     <div className="footer-bottom">
       <p>Content: CC-BY-4.0 • Data: CC0-1.0 • Code: GPL-3.0</p>
       <p>Institute of Philosophy, Czech Academy of Sciences</p>
-      <p style={{marginTop: '10px'}}><span onClick={() => navigate('admin')} style={{cursor:'pointer', opacity: 0.5}}>Admin Console</span></p>
     </div>
   </footer>
 );

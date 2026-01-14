@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { DatabaseState, MasterEntity, Recipe, RecipeItem, Quantity } from "./types";
 import { StorageAdapter, generateSlug, generateURN } from "./storage";
+import { VALID_UNITS, FLATTENED_UNITS } from "./units";
 
 // --- Controlled Vocabularies ---
 const LANGUAGES = [
@@ -137,6 +138,66 @@ const MasterList = ({ title, data, onEdit, onDelete, onCreate }) => {
   );
 };
 
+const QuantityEditor = ({ quantities, onChange }: { quantities: Quantity[], onChange: (q: Quantity[]) => void }) => {
+  const [val, setVal] = useState<string>('');
+  const [unit, setUnit] = useState<string>('g');
+
+  const add = () => {
+    const num = parseFloat(val);
+    if (!val || isNaN(num)) return;
+    onChange([...quantities, { value: num, unit, isEstimate: false }]);
+    setVal('');
+  };
+
+  const remove = (idx: number) => {
+    const next = [...quantities];
+    next.splice(idx, 1);
+    onChange(next);
+  };
+
+  return (
+    <div style={{marginTop: '0.5rem', border: '1px solid #eee', padding: '0.5rem', borderRadius: '4px', background: '#fafafa'}}>
+      <div style={{display:'flex', flexWrap:'wrap', gap:'0.5rem', marginBottom: quantities.length ? '0.5rem' : '0'}}>
+        {quantities.map((q, i) => (
+          <span key={i} className="qty-tag" style={{display:'flex', alignItems:'center', gap:'0.3rem', padding: '0.2rem 0.5rem', fontSize:'0.85rem'}}>
+            <strong>{q.value}</strong> {q.unit}
+            <span onClick={() => remove(i)} style={{cursor:'pointer', color:'#dc3545', marginLeft:'0.2rem', fontWeight:'bold'}}>×</span>
+          </span>
+        ))}
+      </div>
+      <div style={{display: 'flex', gap: '0.5rem'}}>
+         <input 
+           type="number" 
+           step="any" 
+           value={val} 
+           onChange={e => setVal(e.target.value)} 
+           placeholder="Qty" 
+           style={{width: '80px', padding: '0.3rem', borderRadius: '3px', border:'1px solid #ccc'}}
+         />
+         <select 
+            value={unit} 
+            onChange={e => setUnit(e.target.value)}
+            style={{padding: '0.3rem', borderRadius: '3px', border:'1px solid #ccc', flex: 1}}
+         >
+           {Object.entries(VALID_UNITS).map(([cat, units]) => (
+             <optgroup key={cat} label={cat}>
+               {units.map(u => <option key={u} value={u}>{u}</option>)}
+             </optgroup>
+           ))}
+         </select>
+         <button 
+           className="btn-action" 
+           onClick={add}
+           disabled={!val}
+           style={{padding: '0.3rem 0.8rem', fontSize:'0.9rem'}}
+         >
+           +
+         </button>
+      </div>
+    </div>
+  );
+};
+
 const RecipeEditor = ({ recipe, masters, onSave, onCancel, onCreateWork, onCreateMaster, onBatchCreateMasters, existingPlaces }) => {
   const [formData, setFormData] = useState<Recipe>(recipe || {
     id: crypto.randomUUID(),
@@ -252,6 +313,10 @@ METROLOGY & UNITS:
 1. Extract the quantity phrase into "quantity_raw". IMPORTANT: Normalize the measurement unit to the Nominative Singular (main term). Do not use the accusative case found in the text. (e.g., write "λίτρα πέντε" instead of "λίτρας πέντε").
 2. Translate to short-form English units in "quantity_translation" (e.g., use 'lb' for litra/mna, 'oz' for ouggia, 'pt' for xestes). 
    Example: "5 lbs", "4 oz".
+3. QUANTITY ARRAY:
+   Populate "quantities" with numeric value and unit.
+   ALLOWED UNITS: ${FLATTENED_UNITS.join(', ')}.
+   Example: { "value": 5, "unit": "litra" }
 
 MODERN IDENTIFICATION:
 - For ingredients, tools, and processes, provide a "modern_name" (e.g., "Myrrh", "Mortar", "Boiling") to help link to our master database.
@@ -648,14 +713,11 @@ ${formData.text.translation}
                        <input value={item.displayTerm} onChange={e => updateItem(item.id, 'displayTerm', e.target.value)} placeholder="Modern Name" />
                    )}
                    
-                   {/* Normalized Quantities Display */}
-                   <div style={{marginTop: '0.25rem'}}>
-                     {item.quantities && item.quantities.map((q, qIdx) => (
-                       <span key={qIdx} className="qty-tag">
-                         {q.value} {q.unit}
-                       </span>
-                     ))}
-                   </div>
+                   {/* Normalized Quantities Editor */}
+                   <QuantityEditor 
+                      quantities={item.quantities || []} 
+                      onChange={(newQuantities) => updateItem(item.id, 'quantities', newQuantities)} 
+                   />
                 </div>
 
                  {/* 5. Role */}
