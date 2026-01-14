@@ -6,8 +6,12 @@ const STORAGE_KEYS = {
   TOOLS: 'AOS_MASTER_TOOLS',
   PROCESSES: 'AOS_MASTER_PROCESSES',
   WORKS: 'AOS_MASTER_WORKS',
-  PEOPLE: 'AOS_MASTER_PEOPLE'
+  PEOPLE: 'AOS_MASTER_PEOPLE',
+  DB_VERSION: 'AOS_DB_VERSION',
+  DB_INITIALIZED: 'AOS_DB_INITIALIZED'
 };
+
+const CURRENT_DB_VERSION = "1";
 
 const SEED_DATA: DatabaseState = {
   masterPeople: [
@@ -111,18 +115,24 @@ const SEED_DATA: DatabaseState = {
   ]
 };
 
+const writeDatabaseToStorage = (data: DatabaseState) => {
+  localStorage.setItem(STORAGE_KEYS.RECIPES, JSON.stringify(data.recipes));
+  localStorage.setItem(STORAGE_KEYS.INGREDIENTS, JSON.stringify(data.masterIngredients));
+  localStorage.setItem(STORAGE_KEYS.TOOLS, JSON.stringify(data.masterTools));
+  localStorage.setItem(STORAGE_KEYS.PROCESSES, JSON.stringify(data.masterProcesses));
+  localStorage.setItem(STORAGE_KEYS.WORKS, JSON.stringify(data.masterWorks));
+  localStorage.setItem(STORAGE_KEYS.PEOPLE, JSON.stringify(data.masterPeople));
+  localStorage.setItem(STORAGE_KEYS.DB_VERSION, CURRENT_DB_VERSION);
+  localStorage.setItem(STORAGE_KEYS.DB_INITIALIZED, "true");
+};
+
 export const StorageAdapter = {
   load: (): DatabaseState => {
     const hasData = localStorage.getItem(STORAGE_KEYS.RECIPES);
     
     // Seed data if database is empty
     if (!hasData) {
-        localStorage.setItem(STORAGE_KEYS.RECIPES, JSON.stringify(SEED_DATA.recipes));
-        localStorage.setItem(STORAGE_KEYS.INGREDIENTS, JSON.stringify(SEED_DATA.masterIngredients));
-        localStorage.setItem(STORAGE_KEYS.TOOLS, JSON.stringify(SEED_DATA.masterTools));
-        localStorage.setItem(STORAGE_KEYS.PROCESSES, JSON.stringify(SEED_DATA.masterProcesses));
-        localStorage.setItem(STORAGE_KEYS.WORKS, JSON.stringify(SEED_DATA.masterWorks));
-        localStorage.setItem(STORAGE_KEYS.PEOPLE, JSON.stringify(SEED_DATA.masterPeople));
+        writeDatabaseToStorage(SEED_DATA);
         return JSON.parse(JSON.stringify(SEED_DATA));
     }
 
@@ -137,12 +147,7 @@ export const StorageAdapter = {
   },
 
   save: (data: DatabaseState) => {
-    localStorage.setItem(STORAGE_KEYS.RECIPES, JSON.stringify(data.recipes));
-    localStorage.setItem(STORAGE_KEYS.INGREDIENTS, JSON.stringify(data.masterIngredients));
-    localStorage.setItem(STORAGE_KEYS.TOOLS, JSON.stringify(data.masterTools));
-    localStorage.setItem(STORAGE_KEYS.PROCESSES, JSON.stringify(data.masterProcesses));
-    localStorage.setItem(STORAGE_KEYS.WORKS, JSON.stringify(data.masterWorks));
-    localStorage.setItem(STORAGE_KEYS.PEOPLE, JSON.stringify(data.masterPeople));
+    writeDatabaseToStorage(data);
   },
   
   export: () => {
@@ -186,3 +191,31 @@ export const generateSlug = (text: string): string => {
 export const generateURN = (type: string, slug: string): string => {
   return `urn:aos:${type}:${slug}`;
 };
+
+const shouldInitializeFromSeed = (): boolean => {
+  const version = localStorage.getItem(STORAGE_KEYS.DB_VERSION);
+  const initialized = localStorage.getItem(STORAGE_KEYS.DB_INITIALIZED);
+  const hasRecipes = localStorage.getItem(STORAGE_KEYS.RECIPES);
+  return version !== CURRENT_DB_VERSION || initialized !== "true" || !hasRecipes;
+};
+
+export const loadState = async (): Promise<DatabaseState> => {
+  if (!shouldInitializeFromSeed()) return StorageAdapter.load();
+
+  try {
+    const seedUrl = new URL("./data/seed.json", import.meta.env.BASE_URL).toString();
+    const response = await fetch(seedUrl, { cache: "no-cache" });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch seed.json: ${response.status} ${response.statusText}`);
+    }
+    const seed = (await response.json()) as DatabaseState;
+    writeDatabaseToStorage(seed);
+    return StorageAdapter.load();
+  } catch (error) {
+    console.warn("Seed overlay failed; falling back to in-code SEED_DATA.", error);
+    writeDatabaseToStorage(SEED_DATA);
+    return StorageAdapter.load();
+  }
+};
+
+export const saveState = (data: DatabaseState) => StorageAdapter.save(data);

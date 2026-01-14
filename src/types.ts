@@ -3,6 +3,26 @@ export interface ExternalLink {
   url: string;
 }
 
+export interface TextSegment {
+  text: string;
+  type?: "annotation";
+  id?: string;
+}
+
+export interface AnnotationLink {
+  label: string;
+  route: string;
+}
+
+export interface AnnotationRecord {
+  term: string;
+  transliteration?: string;
+  definition?: string;
+  annotationType?: string;
+  lemma?: string;
+  links?: AnnotationLink[];
+}
+
 export interface MasterEntity {
   id: string;
   slug: string;
@@ -28,6 +48,12 @@ export interface Quantity {
   value: number;
   unit: string;
   isEstimate?: boolean;
+  unitRaw?: {
+    term: string;
+    transliteration?: string;
+    kind?: "mass" | "volume" | "count" | "other";
+  };
+  needsReview?: boolean;
 }
 
 export interface RecipeItem {
@@ -62,7 +88,9 @@ export interface Recipe {
     original: string;
     translation: string;
     notes: string;
+    combinedSegments?: TextSegment[];
   };
+  annotations?: Record<string, AnnotationRecord>;
   items: RecipeItem[];
 }
 

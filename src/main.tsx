@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { AdminConsole } from "./AdminConsole";
+import { assertRecipeAnnotationInvariants } from "./invariants";
+import { loadState, StorageAdapter } from "./storage";
+import type { DatabaseState, Recipe } from "./types";
 
 // --- Debugging / Error Handling ---
 window.onerror = function(message, source, lineno, colno, error) {
@@ -25,7 +28,7 @@ const RECIPE_DATA = {
   source: "Dioscorides, De materia medica 1.43",
   sourceDetail: "Edition: Wellmann (1907), pp. 42-43",
   urn: "urn:aos:recipe:rose-perfume-dioscorides",
-  textSegments: [
+  combinedSegments: [
     { text: "Preparation of rose oil: Take five litras of " },
     { text: "σχοῖνος", type: "annotation", id: "skhoinos" },
     { text: ", twenty litras of " },
@@ -77,6 +80,15 @@ const RECIPE_DATA = {
     { name: "μέλι (meli)", amount: "—", role: "other" }
   ]
 };
+
+if (import.meta.env.DEV) {
+  const segments = (RECIPE_DATA as any).combinedSegments ?? (RECIPE_DATA as any).textSegments ?? [];
+  assertRecipeAnnotationInvariants({
+    recipeId: RECIPE_DATA.id,
+    segments,
+    annotations: RECIPE_DATA.annotations,
+  });
+}
 
 const INGREDIENT_DATA = {
   term: "σμύρνα",
@@ -1316,10 +1328,18 @@ const ExperimentsPage = ({ navigate }) => (
     </div>
 );
 
-const RecipePage = ({ navigate }) => {
+const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const [activeAnnotationId, setActiveAnnotationId] = useState(null);
-  
-  const activeAnnotation = activeAnnotationId ? RECIPE_DATA.annotations[activeAnnotationId] : null;
+  const recipe = (db.recipes.find((r) => r.slug === "rose-perfume-dioscorides") ?? db.recipes[0]) as
+    | Recipe
+    | undefined;
+  const sourceWork = recipe?.metadata?.sourceWorkId
+    ? db.masterWorks.find((w) => w.id === recipe.metadata.sourceWorkId)
+    : undefined;
+
+  const segments = recipe?.text?.combinedSegments ?? [];
+  const annotations = recipe?.annotations ?? {};
+  const activeAnnotation = activeAnnotationId ? (annotations as any)[activeAnnotationId] : null;
 
   return (
     <div className="page-container recipe-page">
@@ -1328,15 +1348,17 @@ const RecipePage = ({ navigate }) => {
       </div>
       
       <div className="recipe-header">
-        <h1>{RECIPE_DATA.title}</h1>
-        <div className="subtitle">{RECIPE_DATA.source}</div>
+        <h1>{recipe?.metadata?.title ?? "Recipe"}</h1>
+        <div className="subtitle">
+          {[recipe?.metadata?.author, sourceWork?.name].filter(Boolean).join(", ")}
+        </div>
         
         <div className="metadata-box source-box">
           <div className="meta-row">
-            <span>{RECIPE_DATA.sourceDetail}</span>
+            <span>{sourceWork?.description ?? ""}</span>
           </div>
           <div className="meta-row">
-            <span className="urn">{RECIPE_DATA.urn}</span>
+            <span className="urn">{recipe?.urn ?? ""}</span>
             <div className="actions">
               <button className="text-btn">[Copy]</button>
               <button className="text-btn">[JSON-LD]</button>
@@ -1355,7 +1377,7 @@ const RecipePage = ({ navigate }) => {
         <div className="text-column">
           <h2>THE TEXT</h2>
           <div className="recipe-text">
-            {RECIPE_DATA.textSegments.map((seg, i) => {
+            {segments.map((seg, i) => {
               if (seg.type === 'annotation') {
                 return (
                   <span 
@@ -1374,9 +1396,14 @@ const RecipePage = ({ navigate }) => {
           <div className="ingredients-section">
             <h2>INGREDIENTS</h2>
             <div className="ingredients-table">
-              {RECIPE_DATA.ingredientsList.map((ing, i) => (
+              {(recipe?.items ?? [])
+                .filter((item) => item.type === "ingredient")
+                .map((ing, i) => (
                 <div className="ing-row" key={i}>
-                  <span className="ing-name">{ing.name}</span>
+                  <span className="ing-name">
+                    {ing.originalTerm}
+                    {ing.transliteration ? ` (${ing.transliteration})` : ""}
+                  </span>
                   <span className="ing-amt">{ing.amount}</span>
                   <span className="ing-role">{ing.role}</span>
                   <span className="ing-link" onClick={() => navigate('ingredient_smyrna')}>→ identifications</span>
@@ -1401,14 +1428,14 @@ const RecipePage = ({ navigate }) => {
                 <h3>{activeAnnotation.term}</h3>
                 <span className="transliteration">{activeAnnotation.transliteration}</span>
               </div>
-              <p>{activeAnnotation.definition}</p>
+              {activeAnnotation.definition && <p>{activeAnnotation.definition}</p>}
               <div className="anno-links">
-                {activeAnnotation.links.map((link, i) => (
+                {(activeAnnotation.links ?? []).map((link, i) => (
                   <button key={i} className="text-btn" onClick={() => navigate(link.route)}>
                     → {link.label}
                   </button>
                 ))}
-                {activeAnnotation.links.length === 0 && (
+                {(activeAnnotation.links ?? []).length === 0 && (
                    <button className="text-btn" onClick={() => navigate('ingredient_smyrna')}>
                    → View ancient term
                  </button>
@@ -2469,7 +2496,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-const App = () => {
+const App = ({ db }: { db: DatabaseState }) => {
   const [route, setRoute] = useState('home'); 
 
   useEffect(() => {
@@ -2483,7 +2510,7 @@ const App = () => {
       case 'archive': return <ArchivePage navigate={setRoute} />;
       case 'works': return <WorksPage navigate={setRoute} />;
       case 'people': return <PeoplePage navigate={setRoute} />;
-      case 'recipe_rose': return <RecipePage navigate={setRoute} />;
+      case 'recipe_rose': return <RecipePage navigate={setRoute} db={db} />;
       case 'ingredient_smyrna': return <AncientIngredientPage navigate={setRoute} />;
       case 'product_myrrh': return <ProductPage navigate={setRoute} />;
       case 'about': return <AboutPage navigate={setRoute} />;
@@ -2525,5 +2552,49 @@ const App = () => {
   );
 };
 
+const Bootstrap = () => {
+  const [db, setDb] = useState<DatabaseState | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    loadState()
+      .then((loaded) => {
+        if (!isMounted) return;
+        if (import.meta.env.DEV) {
+          for (const recipe of loaded.recipes ?? []) {
+            const segments = recipe.text?.combinedSegments ?? [];
+            assertRecipeAnnotationInvariants({
+              recipeId: recipe.id,
+              segments,
+              annotations: recipe.annotations,
+            });
+          }
+        }
+        setDb(loaded);
+      })
+      .catch((e) => {
+        console.error("Failed to initialize database state:", e);
+        setError("Failed to initialize application state.");
+        setDb(StorageAdapter.load());
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (!db) {
+    return (
+      <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+        <div style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Loading…</div>
+        <div style={{ color: "#666" }}>Initializing local data.</div>
+        {error && <div style={{ marginTop: "1rem", color: "#b00020" }}>{error}</div>}
+      </div>
+    );
+  }
+
+  return <App db={db} />;
+};
+
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(<Bootstrap />);
