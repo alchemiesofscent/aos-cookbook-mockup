@@ -203,7 +203,9 @@ export const loadState = async (): Promise<DatabaseState> => {
   if (!shouldInitializeFromSeed()) return StorageAdapter.load();
 
   try {
-    const seedUrl = new URL("./data/seed.json", import.meta.env.BASE_URL).toString();
+    const base = import.meta.env.BASE_URL || "/";
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+    const seedUrl = `${normalizedBase}data/seed.json`;
     const response = await fetch(seedUrl, { cache: "no-cache" });
     if (!response.ok) {
       throw new Error(`Failed to fetch seed.json: ${response.status} ${response.statusText}`);
