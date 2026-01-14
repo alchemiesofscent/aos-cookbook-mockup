@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # Alchemies of Scent — The Laboratory (Cookbook mockup)
 
 A small web app for turning ancient recipe texts into structured, linkable data while preserving scholarly uncertainty. It supports close reading (original text + translation), a curated “Combined view” for readable annotation, and a lightweight editing workflow that can run entirely on GitHub Pages.
