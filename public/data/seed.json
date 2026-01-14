@@ -1,0 +1,213 @@
+{
+  "recipes": [
+    {
+      "id": "r-rose-perfume",
+      "slug": "rose-perfume-dioscorides",
+      "urn": "urn:aos:recipe:rose-perfume-dioscorides",
+      "metadata": {
+        "title": "Rose Perfume",
+        "sourceWorkId": "w-materia-medica",
+        "author": "Dioscorides",
+        "attribution": "",
+        "language": "Ancient Greek",
+        "date": "1st c. CE",
+        "place": "Roman Empire"
+      },
+      "text": {
+        "original": "1 ῥοδίνου σκευασία· σχοίνου λίτρας πέντε οὐγγίας ὀκτώ ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε κόψας καὶ φυράσας ἐν ὕδατι ἕψε ἀνακινῶν, εἶτα ἀπηθήσας εἰς τὰς εἴκοσι λίτρας καὶ οὐγγίας πέντε τοῦ ἐλαίου βάλε ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα, καὶ τὰς χεῖρας μέλιτι χρίσας εὐώδει ἀνακίνει πλεονάκις ὑποθλίβων ἠρέμα, ἔπειτα ἐάσας τὴν νύκτα ἔκθλιβε.",
+        "translation": "Preparation of rose oil: Take five litras, eight ounces of skhoinos, twenty litras and five ounces of oil. Cut and soften [the skhoinos] in water, then boil [in the oil] while stirring. Afterward, strain the mixture and place the petals of one thousand roses into the oil. Rub your hands with fragrant honey and stir repeatedly, pressing gently.",
+        "notes": "",
+        "combinedSegments": [
+          { "text": "Preparation of rose oil: Take five litras, eight ounces of " },
+          { "text": "σχοῖνος", "type": "annotation", "id": "skhoinos" },
+          { "text": ", twenty litras and five ounces of " },
+          { "text": "ἔλαιον", "type": "annotation", "id": "elaion" },
+          { "text": ". Cut and soften in water, then " },
+          { "text": "Boiling", "type": "annotation", "id": "hepsein" },
+          { "text": " while stirring.\n\nAfterward, strain and place the petals of one thousand " },
+          { "text": "ῥόδα", "type": "annotation", "id": "rhoda" },
+          { "text": " into the oil. Rub your hands with fragrant " },
+          { "text": "μέλι", "type": "annotation", "id": "meli" },
+          { "text": " and stir repeatedly.\n\nLet stand overnight, then strain through a cloth. Store in a vessel smeared with honey." }
+        ]
+      },
+      "annotations": {
+        "skhoinos": {
+          "term": "σχοῖνος",
+          "transliteration": "skhoinos",
+          "definition": "A rush or reed. Most scholars identify this as lemongrass (Cymbopogon schoenanthus).",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ancient term", "route": "ingredient_smyrna" }]
+        },
+        "elaion": {
+          "term": "ἔλαιον",
+          "transliteration": "elaion",
+          "definition": "Olive oil, typically specifically 'omphacium' or unripe olive oil in perfume contexts for its stability.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "rhoda": {
+          "term": "ῥόδα",
+          "transliteration": "rhoda",
+          "definition": "Roses. The specific species is debated, but Rosa gallica or Rosa damascena are primary candidates.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "meli": {
+          "term": "μέλι",
+          "transliteration": "meli",
+          "definition": "Honey. Used here likely to prevent adhesion or as a fixative agent.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "hepsein": {
+          "term": "Boiling",
+          "transliteration": "hepsein",
+          "lemma": "ἕψειν",
+          "definition": "To boil or seethe. Indicates hot maceration.",
+          "annotationType": "process",
+          "links": [{ "label": "View process", "route": "process_enfleurage" }]
+        }
+      },
+      "items": [
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-lemongrass",
+          "originalTerm": "σχοῖνος",
+          "transliteration": "skhoinos",
+          "displayTerm": "Lemongrass",
+          "amount": "5 lbs 8 oz",
+          "originalAmount": "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Olive Oil",
+          "amount": "20 lbs 5 oz",
+          "originalAmount": "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε",
+          "quantities": [],
+          "role": "base"
+        },
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": "i-rose",
+          "originalTerm": "ῥόδα",
+          "transliteration": "rhoda",
+          "displayTerm": "Rose petals (dry)",
+          "amount": "1000",
+          "originalAmount": "ἀριθμῷ χιλίων",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-honey",
+          "originalTerm": "μέλι",
+          "transliteration": "meli",
+          "displayTerm": "Honey",
+          "amount": "QS",
+          "originalAmount": "χρίσας",
+          "quantities": [],
+          "role": "adjuvant"
+        },
+        {
+          "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-boiling",
+          "originalTerm": "ἕψειν",
+          "transliteration": "hepsein",
+          "displayTerm": "Boiling",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        }
+      ]
+    }
+  ],
+  "masterIngredients": [
+    {
+      "id": "i-rose",
+      "name": "Rose",
+      "originalName": "ῥόδα",
+      "transliteratedName": "rhoda",
+      "slug": "rhoda",
+      "urn": "urn:aos:ingredient:rhoda",
+      "description": "Rosa gallica or Rosa centifolia petals."
+    },
+    {
+      "id": "i-honey",
+      "name": "Honey",
+      "originalName": "μέλι",
+      "transliteratedName": "meli",
+      "slug": "meli",
+      "urn": "urn:aos:ingredient:meli",
+      "description": "Sweet viscous fluid produced by bees."
+    },
+    {
+      "id": "i-oil",
+      "name": "Olive Oil",
+      "originalName": "ἔλαιον",
+      "transliteratedName": "elaion",
+      "slug": "elaion",
+      "urn": "urn:aos:ingredient:elaion",
+      "description": "Base oil, preferably omphacium (unripe)."
+    },
+    {
+      "id": "i-lemongrass",
+      "name": "Lemongrass",
+      "originalName": "σχοῖνος",
+      "transliteratedName": "skhoinos",
+      "slug": "skhoinos",
+      "urn": "urn:aos:ingredient:skhoinos",
+      "description": "Aromatic rush or reed, likely Cymbopogon schoenanthus."
+    }
+  ],
+  "masterTools": [],
+  "masterProcesses": [
+    {
+      "id": "pr-boiling",
+      "name": "Boiling",
+      "originalName": "ἕψειν",
+      "transliteratedName": "hepsein",
+      "slug": "hepsein",
+      "urn": "urn:aos:process:hepsein",
+      "description": "Heating ingredients in liquid."
+    }
+  ],
+  "masterWorks": [
+    {
+      "id": "w-materia-medica",
+      "name": "De materia medica",
+      "slug": "de-materia-medica",
+      "urn": "urn:aos:work:de-materia-medica",
+      "description": "Encyclopedic pharmacological treatise.",
+      "author": "Pedanius Dioscorides",
+      "authorId": "p-dioscorides",
+      "date": "c. 50-70 CE",
+      "language": "Ancient Greek",
+      "place": "Roman Empire"
+    }
+  ],
+  "masterPeople": [
+    {
+      "id": "p-dioscorides",
+      "name": "Pedanius Dioscorides",
+      "slug": "pedanius-dioscorides",
+      "urn": "urn:aos:person:pedanius-dioscorides",
+      "description": "Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica.",
+      "role": "Physician",
+      "place": "Anazarbus",
+      "date": "1st Century CE"
+    }
+  ]
+}
+
