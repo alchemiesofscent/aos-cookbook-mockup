@@ -502,21 +502,6 @@
           "role": "other"
         },
         {
-          "id": "ri-6",
-          "type": "ingredient",
-          "masterId": "i-oil",
-          "originalTerm": "ἔλαιον",
-          "transliteration": "elaion",
-          "displayTerm": "Olive Oil (pressed portion)",
-          "amount": "8 lb 3 oz",
-          "originalAmount": "λίτρας ὀκτὼ οὐγγίας τρεῖς τοῦ ἐστυμμένου ἐλαίου",
-          "quantities": [
-            { "value": 8, "unit": "lb" },
-            { "value": 3, "unit": "oz" }
-          ],
-          "role": "carrier"
-        },
-        {
           "id": "ri-7",
           "type": "ingredient",
           "masterId": "i-kalamos",
