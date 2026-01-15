@@ -5,6 +5,9 @@ import { assertRecipeAnnotationInvariants } from "./invariants";
 import { loadState, StorageAdapter } from "./storage";
 import type { DatabaseState, Recipe } from "./types";
 
+type ThemeMode = "light" | "dark";
+const THEME_STORAGE_KEY = "AOS_THEME";
+
 // --- Debugging / Error Handling ---
 window.onerror = function(message, source, lineno, colno, error) {
   console.error("Global Error Caught:", message, error);
@@ -428,10 +431,36 @@ const Icons = {
       <line x1="3" y1="12" x2="3.01" y2="12" />
       <line x1="3" y1="18" x2="3.01" y2="18" />
     </svg>
-  )
+  ),
+  Moon: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg>
+  ),
+  Sun: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="4" />
+      <line x1="12" y1="2" x2="12" y2="5" />
+      <line x1="12" y1="19" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="5" y2="12" />
+      <line x1="19" y1="12" x2="22" y2="12" />
+      <line x1="4.2" y1="4.2" x2="6.3" y2="6.3" />
+      <line x1="17.7" y1="17.7" x2="19.8" y2="19.8" />
+      <line x1="4.2" y1="19.8" x2="6.3" y2="17.7" />
+      <line x1="17.7" y1="6.3" x2="19.8" y2="4.2" />
+    </svg>
+  ),
 };
 
-const Header = ({ navigate }) => {
+const Header = ({
+  navigate,
+  theme,
+  toggleTheme,
+}: {
+  navigate: (route: string) => void;
+  theme: ThemeMode;
+  toggleTheme: () => void;
+}) => {
   return (
     <header className="site-header">
       <div className="logo-section" onClick={() => navigate('home')}>
@@ -467,7 +496,16 @@ const Header = ({ navigate }) => {
         <div className="nav-item search-icon">
           <Icons.Search />
         </div>
-        <div className="nav-item" onClick={() => navigate('admin')} style={{borderLeft: '1px solid rgba(92, 74, 61, 0.2)', paddingLeft: '1.5rem', marginLeft: '0.5rem', color: 'var(--color-amber-dark)', fontWeight: 600}}>
+        <button
+          type="button"
+          className="icon-btn theme-toggle"
+          onClick={toggleTheme}
+          aria-label={theme === "dark" ? "Switch to day mode" : "Switch to night mode"}
+          title={theme === "dark" ? "Day mode" : "Night mode"}
+        >
+          {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
+        </button>
+        <div className="nav-item" onClick={() => navigate('admin')} style={{borderLeft: '1px solid var(--color-border-strong)', paddingLeft: '1.5rem', marginLeft: '0.5rem', color: 'var(--color-amber-dark)', fontWeight: 600}}>
            Admin
         </div>
       </nav>
@@ -1080,7 +1118,7 @@ const ProcessDetailPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Processes
       </div>
 
-      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{PROCESS_DATA.name}</h1>
         <div style={{fontSize: '1.5rem', color: 'var(--color-stone)', fontStyle: 'italic', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)'}}>{PROCESS_DATA.ancientTerm}</div>
         <div className="urn" style={{display: 'inline-block'}}>URN: {PROCESS_DATA.urn}</div>
@@ -1145,7 +1183,7 @@ const ToolDetailPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Tools
       </div>
 
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
           <div style={{flex: 2}}>
              <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0}}>{TOOL_DATA.name}</h1>
@@ -1508,7 +1546,7 @@ const ProductPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Ingredients
       </div>
 
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
            <div style={{flex: 2}}>
               <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0}}>{PRODUCT_DATA.name}</h1>
@@ -1601,7 +1639,7 @@ const SourceDetailPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Sources
       </div>
 
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
            <div style={{flex: 2}}>
               <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>{COMMIPHORA_DATA.name}</h1>
@@ -1805,7 +1843,7 @@ const HistoricalPersonPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to People
       </div>
 
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
            <div style={{flex: 2}}>
               <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{DIOSCORIDES_DETAIL.shortName}</h1>
@@ -1884,7 +1922,7 @@ const TeamMemberPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Team
       </div>
 
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <div style={{display: 'flex', gap: '3rem'}}>
            <div style={{flex: 2}}>
               <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0, textTransform: 'uppercase'}}>{SEAN_DETAIL.name}</h1>
@@ -1945,7 +1983,7 @@ const WorkDetailPage = ({ navigate }) => {
         <Icons.ArrowLeft /> Back to Works
       </div>
 
-      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid rgba(92, 74, 61, 0.2)'}}>
+      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid var(--color-border-strong)'}}>
         <h1 style={{textTransform: 'uppercase', fontSize: '2.5rem', marginBottom: '0.5rem'}}>{MATERIA_MEDICA_DETAIL.title}</h1>
         <div style={{fontSize: '1.5rem', marginBottom: '1.5rem'}}>
            <span className="text-btn" style={{fontSize: '1.5rem', cursor: 'pointer'}} onClick={() => navigate(MATERIA_MEDICA_DETAIL.author.route)}>{MATERIA_MEDICA_DETAIL.author.name} →</span>
@@ -2017,8 +2055,37 @@ const GlobalStyles = () => (
       --color-earth: #5C4A3D;
       --color-charcoal: #2D2A26;
       --color-stone: #9A9487;
+      --color-border: rgba(92, 74, 61, 0.1);
+      --color-border-strong: rgba(92, 74, 61, 0.2);
+      --color-chip-bg: rgba(92, 74, 61, 0.05);
+      --color-muted-bg: rgba(0,0,0,0.03);
+      --shadow-soft: 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-hover: 0 8px 16px rgba(0,0,0,0.05);
+      --shadow-raised: 0 12px 24px rgba(92, 74, 61, 0.08);
+      --shadow-raised-strong: 0 12px 30px rgba(92, 74, 61, 0.1);
       --font-serif: 'Gentium Plus', 'Gentium', serif;
       --font-sans: 'Noto Sans', 'Arial', sans-serif;
+      color-scheme: light;
+    }
+
+    :root[data-theme="dark"] {
+      --color-cream: #0f0e0c;
+      --color-warm-white: #191512;
+      --color-amber: #e2c35c;
+      --color-amber-dark: #cda33b;
+      --color-sage: #8ea089;
+      --color-earth: #e7dfd1;
+      --color-charcoal: #f3eee5;
+      --color-stone: #b7ad9d;
+      --color-border: rgba(255,255,255,0.10);
+      --color-border-strong: rgba(255,255,255,0.16);
+      --color-chip-bg: rgba(255,255,255,0.07);
+      --color-muted-bg: rgba(255,255,255,0.06);
+      --shadow-soft: 0 8px 22px rgba(0,0,0,0.55);
+      --shadow-hover: 0 10px 26px rgba(0,0,0,0.6);
+      --shadow-raised: 0 14px 36px rgba(0,0,0,0.55);
+      --shadow-raised-strong: 0 16px 46px rgba(0,0,0,0.6);
+      color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
@@ -2030,6 +2097,7 @@ const GlobalStyles = () => (
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      transition: background-color 180ms ease, color 180ms ease;
     }
 
     h1, h2, h3, h4 {
@@ -2039,7 +2107,7 @@ const GlobalStyles = () => (
     }
     
     h1 { font-size: 2.5rem; font-weight: 600; line-height: 1.2; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(92, 74, 61, 0.2); padding-bottom: 0.5rem; margin-bottom: 1.5rem; margin-top: 2rem; }
+    h2 { font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--color-border-strong); padding-bottom: 0.5rem; margin-bottom: 1.5rem; margin-top: 2rem; }
     h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
 
     button { font-family: var(--font-sans); cursor: pointer; }
@@ -2048,6 +2116,7 @@ const GlobalStyles = () => (
     .text-btn:hover { color: var(--color-amber-dark); }
     .icon-btn { background: none; border: 1px solid transparent; color: var(--color-stone); padding: 0.2rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
     .icon-btn.active { background: rgba(201, 162, 39, 0.1); color: var(--color-amber); border-color: rgba(201, 162, 39, 0.3); }
+    .theme-toggle:hover { background: var(--color-chip-bg); color: var(--color-amber); border-color: var(--color-border); }
 
     .btn-primary {
       background: var(--color-amber);
@@ -2074,7 +2143,7 @@ const GlobalStyles = () => (
     /* Header */
     .site-header {
       background: var(--color-warm-white);
-      border-bottom: 1px solid rgba(92, 74, 61, 0.1);
+      border-bottom: 1px solid var(--color-border);
       padding: 1.5rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -2094,8 +2163,8 @@ const GlobalStyles = () => (
       top: 100%;
       left: 0;
       background: var(--color-warm-white);
-      border: 1px solid rgba(92, 74, 61, 0.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-soft);
       min-width: 180px;
       z-index: 100;
       padding: 0.5rem 0;
@@ -2110,7 +2179,7 @@ const GlobalStyles = () => (
     /* Footer */
     .site-footer {
       background: var(--color-warm-white);
-      border-top: 1px solid rgba(92, 74, 61, 0.1);
+      border-top: 1px solid var(--color-border);
       padding: 3rem 2rem;
       margin-top: 4rem;
     }
@@ -2119,7 +2188,7 @@ const GlobalStyles = () => (
     .col h4 { font-size: 0.875rem; color: var(--color-stone); text-transform: uppercase; margin-bottom: 0.5rem; }
     .col a { text-decoration: none; color: var(--color-earth); font-family: var(--font-sans); font-size: 0.9375rem; }
     .col a:hover { color: var(--color-amber); }
-    .footer-bottom { border-top: 1px solid rgba(92, 74, 61, 0.1); padding-top: 1.5rem; font-size: 0.75rem; color: var(--color-stone); font-family: var(--font-sans); }
+    .footer-bottom { border-top: 1px solid var(--color-border); padding-top: 1.5rem; font-size: 0.75rem; color: var(--color-stone); font-family: var(--font-sans); }
 
     /* Layout Utilities */
     .page-container {
@@ -2139,7 +2208,7 @@ const GlobalStyles = () => (
       cursor: pointer;
     }
     .back-link:hover { color: var(--color-amber); }
-    .urn { font-family: monospace; font-size: 0.75rem; color: var(--color-stone); background: rgba(0,0,0,0.03); padding: 0.2rem 0.4rem; border-radius: 3px; }
+    .urn { font-family: monospace; font-size: 0.75rem; color: var(--color-stone); background: var(--color-muted-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
     
     /* Workshop Styles */
     .workshop-header { margin-bottom: 3rem; }
@@ -2148,16 +2217,16 @@ const GlobalStyles = () => (
     .workshop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
     .workshop-card {
       background: var(--color-warm-white);
-      border: 1px solid rgba(92, 74, 61, 0.1);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       padding: 1.5rem;
       transition: all 0.2s;
       cursor: pointer;
     }
-    .workshop-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.05); border-color: rgba(201, 162, 39, 0.3); }
+    .workshop-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: rgba(201, 162, 39, 0.3); }
     .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem; }
     .workshop-card h3 { font-size: 1.125rem; margin: 0; color: var(--color-charcoal); }
-    .lang-tag, .type-tag { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; background: rgba(92, 74, 61, 0.05); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
+    .lang-tag, .type-tag { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; background: var(--color-chip-bg); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
     .translit { font-style: italic; font-family: var(--font-serif); color: var(--color-amber-dark); margin-bottom: 0.75rem; font-size: 0.9375rem; }
     .def { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); }
 
@@ -2166,7 +2235,7 @@ const GlobalStyles = () => (
       display: flex;
       gap: 0.5rem;
       margin-bottom: 2rem;
-      border-bottom: 1px solid rgba(92, 74, 61, 0.2);
+      border-bottom: 1px solid var(--color-border-strong);
       padding-bottom: 0.5rem;
     }
     .materials-nav button {
@@ -2192,14 +2261,14 @@ const GlobalStyles = () => (
 
     /* AZ List */
     .az-container { margin-top: 2rem; }
-    .az-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; font-family: var(--font-sans); border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1.5rem; }
+    .az-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; font-family: var(--font-sans); border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; }
     .az-nav a { text-decoration: none; color: var(--color-amber); font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; transition: background 0.1s; }
     .az-nav a:hover { background: rgba(201, 162, 39, 0.1); }
     .az-nav a.disabled { color: var(--color-stone); opacity: 0.5; pointer-events: none; }
     .az-group { margin-bottom: 3rem; }
     .az-group h2 { color: var(--color-stone); border-bottom: 2px solid rgba(201, 162, 39, 0.3); display: inline-block; padding-bottom: 0.25rem; margin-bottom: 1.5rem; }
     .az-list { display: flex; flex-direction: column; gap: 1rem; }
-    .az-card { background: white; border: 1px solid rgba(0,0,0,0.05); padding: 1.5rem; border-radius: 4px; }
+    .az-card { background: var(--color-warm-white); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 4px; }
     .az-card-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
     .az-card h3 { margin: 0; font-family: var(--font-serif); font-size: 1.25rem; }
     .az-card p { margin: 0 0 1rem 0; color: var(--color-stone); font-family: var(--font-sans); font-size: 0.9rem; }
@@ -2218,7 +2287,7 @@ const GlobalStyles = () => (
     }
     .library-section-card {
       background: var(--color-warm-white);
-      border: 1px solid rgba(92, 74, 61, 0.1);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       padding: 2.5rem 2rem;
       display: flex;
@@ -2232,7 +2301,7 @@ const GlobalStyles = () => (
     }
     .library-section-card:hover {
        transform: translateY(-5px);
-       box-shadow: 0 12px 24px rgba(92, 74, 61, 0.08);
+       box-shadow: var(--shadow-raised);
        border-color: rgba(201, 162, 39, 0.4);
     }
     .library-section-card h2 {
@@ -2263,7 +2332,7 @@ const GlobalStyles = () => (
       padding: 6rem 2rem;
       text-align: center;
       background: linear-gradient(to bottom, var(--color-warm-white), var(--color-cream));
-      border-bottom: 1px solid rgba(92, 74, 61, 0.1);
+      border-bottom: 1px solid var(--color-border);
       margin: -2rem -2rem 4rem -2rem; /* breakout of page container padding */
     }
     .hero-super {
@@ -2297,9 +2366,9 @@ const GlobalStyles = () => (
         margin-top: 2rem;
     }
     .home-card {
-        background: white;
+        background: var(--color-warm-white);
         padding: 3rem 2rem;
-        border: 1px solid rgba(92, 74, 61, 0.1);
+        border: 1px solid var(--color-border);
         text-align: center;
         transition: all 0.3s ease;
         cursor: pointer;
@@ -2309,7 +2378,7 @@ const GlobalStyles = () => (
     }
     .home-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 30px rgba(92, 74, 61, 0.1);
+        box-shadow: var(--shadow-raised-strong);
         border-color: rgba(201, 162, 39, 0.4);
     }
     .home-card h2 {
@@ -2342,7 +2411,7 @@ const GlobalStyles = () => (
     /* Recipe Page Specifics */
     .recipe-header { margin-bottom: 3rem; }
     .subtitle { font-size: 1.5rem; color: var(--color-stone); font-weight: 300; margin-bottom: 1.5rem; }
-    .metadata-box { background: var(--color-warm-white); border: 1px solid rgba(92, 74, 61, 0.1); padding: 1rem; border-radius: 4px; margin-bottom: 2rem; display: inline-block; min-width: 50%; }
+    .metadata-box { background: var(--color-warm-white); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; margin-bottom: 2rem; display: inline-block; min-width: 50%; }
     .meta-row { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); font-size: 0.875rem; margin-bottom: 0.25rem; }
     .view-toggles { display: flex; gap: 1.5rem; font-family: var(--font-sans); font-size: 0.875rem; margin-top: 1rem; }
     
@@ -2358,7 +2427,7 @@ const GlobalStyles = () => (
     .annotated-term.active { background: rgba(201, 162, 39, 0.2); border-color: var(--color-amber); color: var(--color-amber-dark); font-weight: 500; }
 
     .ingredients-table { font-family: var(--font-sans); font-size: 0.9375rem; }
-    .ing-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 0.75rem 0; }
+    .ing-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; border-bottom: 1px solid var(--color-border); padding: 0.75rem 0; }
     .ing-name { font-weight: 600; color: var(--color-earth); }
     .ing-link { color: var(--color-stone); font-size: 0.8125rem; cursor: pointer; text-align: right; }
     .ing-link:hover { color: var(--color-amber); }
@@ -2372,7 +2441,7 @@ const GlobalStyles = () => (
       padding: 1.5rem;
       box-shadow: 0 4px 12px rgba(139, 105, 20, 0.1);
     }
-    .anno-header { border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .anno-header { border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
     .anno-header h3 { margin: 0; color: var(--color-amber-dark); font-family: var(--font-serif); }
     .transliteration { font-style: italic; color: var(--color-stone); }
     .anno-links { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
@@ -2382,7 +2451,7 @@ const GlobalStyles = () => (
     /* Archive & Cards */
     .filters-bar { 
       background: var(--color-warm-white); 
-      border: 1px solid rgba(92, 74, 61, 0.2); 
+      border: 1px solid var(--color-border-strong); 
       padding: 1.25rem; 
       border-radius: 4px; 
       margin-bottom: 2rem;
@@ -2396,11 +2465,11 @@ const GlobalStyles = () => (
     
     select { 
       padding: 0.6rem 1rem; 
-      border: 1px solid var(--color-stone); 
+      border: 1px solid var(--color-border-strong); 
       border-radius: 4px; 
       font-family: var(--font-sans); 
       color: var(--color-charcoal); 
-      background-color: white;
+      background-color: var(--color-warm-white);
       font-size: 0.9rem;
       min-width: 140px;
     }
@@ -2422,12 +2491,12 @@ const GlobalStyles = () => (
     .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
     .recipe-card {
       background: var(--color-warm-white);
-      border: 1px solid rgba(92, 74, 61, 0.1);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       padding: 1.5rem;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .recipe-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.05); }
+    .recipe-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
     .card-sub { font-style: italic; color: var(--color-stone); margin-bottom: 1rem; font-family: var(--font-serif); }
     .card-meta { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); margin-bottom: 1.5rem; }
 
@@ -2437,7 +2506,7 @@ const GlobalStyles = () => (
     
     .id-card {
       background: var(--color-warm-white);
-      border: 1px solid rgba(92, 74, 61, 0.1);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       padding: 1.5rem;
       margin-bottom: 1.5rem;
@@ -2465,7 +2534,7 @@ const GlobalStyles = () => (
 
     /* New Product Page styles */
     .product-section {
-      border-bottom: 1px solid rgba(92, 74, 61, 0.2);
+      border-bottom: 1px solid var(--color-border-strong);
       padding: 3rem 0;
     }
     .product-section:last-child { border-bottom: none; }
@@ -2474,7 +2543,7 @@ const GlobalStyles = () => (
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid var(--color-border);
       font-family: var(--font-sans);
       font-size: 0.9375rem;
       align-items: center;
@@ -2489,14 +2558,22 @@ const GlobalStyles = () => (
       .main-nav { flex-wrap: wrap; gap: 1rem; }
       .footer-columns { flex-direction: column; gap: 2rem; }
       .filters-bar { flex-direction: column; align-items: flex-start; }
-      .filter-meta { width: 100%; justify-content: space-between; margin-left: 0; padding-top: 1rem; border-top: 1px solid rgba(92, 74, 61, 0.1); }
+      .filter-meta { width: 100%; justify-content: space-between; margin-left: 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
       
       .product-section > div[style*="flex"] { flex-direction: column; }
     }
   `}</style>
 );
 
-const App = ({ db }: { db: DatabaseState }) => {
+const App = ({
+  db,
+  theme,
+  setTheme,
+}: {
+  db: DatabaseState;
+  theme: ThemeMode;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
+}) => {
   const [route, setRoute] = useState('home'); 
 
   useEffect(() => {
@@ -2543,7 +2620,13 @@ const App = ({ db }: { db: DatabaseState }) => {
   return (
     <>
       <GlobalStyles />
-      {route !== 'admin' && <Header navigate={setRoute} />}
+      {route !== 'admin' && (
+        <Header
+          navigate={setRoute}
+          theme={theme}
+          toggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+        />
+      )}
       <main>
         {renderPage()}
       </main>
@@ -2555,6 +2638,20 @@ const App = ({ db }: { db: DatabaseState }) => {
 const Bootstrap = () => {
   const [db, setDb] = useState<DatabaseState | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    try {
+      const stored = localStorage.getItem(THEME_STORAGE_KEY);
+      if (stored === "light" || stored === "dark") return stored;
+    } catch {}
+    return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {}
+  }, [theme]);
 
   useEffect(() => {
     let isMounted = true;
@@ -2593,7 +2690,7 @@ const Bootstrap = () => {
     );
   }
 
-  return <App db={db} />;
+  return <App db={db} theme={theme} setTheme={setTheme} />;
 };
 
 const root = createRoot(document.getElementById("root"));
