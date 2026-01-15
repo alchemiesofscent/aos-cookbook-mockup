@@ -87,6 +87,26 @@ const getIngredientOptions = (recipeId: string, ingredientKey: string): StudioId
   return studioIdentifications[recipeId]?.[ingredientKey] ?? [];
 };
 
+const getIngredientBaseEnglishName = (ing: RecipeItem, hasOptions: boolean): string => {
+  const display = ing.displayTerm?.trim();
+  if (display) return display;
+  if (hasOptions) return "Aromatic plant material";
+  return "Ingredient";
+};
+
+const getIngredientDisplayName = (params: {
+  recipeId: string;
+  ing: RecipeItem;
+  session: StudioSession;
+}): string => {
+  const { recipeId, ing, session } = params;
+  const hasOptions = getIngredientOptions(recipeId, ing.id).length > 0;
+  const base = getIngredientBaseEnglishName(ing, hasOptions);
+  const selectedId = session.selectedOptionByIngredientKey[ing.id];
+  const opt = selectedId ? getIngredientOptions(recipeId, ing.id).find((o) => o.id === selectedId) ?? null : null;
+  return opt?.label ?? base;
+};
+
 const getSelectedOption = (params: {
   recipeId: string;
   ingredientKey: string;
@@ -111,7 +131,8 @@ const buildExportText = (params: {
     .map((ing) => {
       const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
       const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
-      return `- ${ing.originalTerm}: ${amount}`;
+      const displayName = getIngredientDisplayName({ recipeId: recipe.id, ing, session });
+      return `- ${displayName}: ${amount}`;
     });
 
   const selected = recipe.items
@@ -119,9 +140,9 @@ const buildExportText = (params: {
     .map((ing) => {
       const opt = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
       if (!opt) return null;
-      const ingredientKeyLabel = ing.transliteration || ing.id;
+      const baseName = getIngredientBaseEnglishName(ing, getIngredientOptions(recipe.id, ing.id).length > 0);
       const badge = opt.placeholder ? " (demo placeholder; not citable)" : "";
-      return `- ${ingredientKeyLabel} → ${opt.label} [${opt.confidence}]${badge}`;
+      return `- ${baseName} → ${opt.label} [${opt.confidence}]${badge}`;
     })
     .filter(Boolean) as string[];
 
@@ -130,8 +151,8 @@ const buildExportText = (params: {
     .flatMap((ing) => {
       const opt = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
       if (!opt || !isCitableStudioOption(opt)) return [];
-      const ingredientKeyLabel = ing.transliteration || ing.id;
-      return opt.citations.map((c) => `- ${ingredientKeyLabel}: ${c}`);
+      const baseName = getIngredientBaseEnglishName(ing, getIngredientOptions(recipe.id, ing.id).length > 0);
+      return opt.citations.map((c) => `- ${baseName}: ${c}`);
     });
 
   const yieldBasis = studio?.yieldBasisIngredientKey
@@ -150,17 +171,18 @@ const buildExportText = (params: {
     `URN: ${recipe.urn}`,
     `Scale: ${numberFormat.format(session.scale)}×`,
     `Yield: ${yieldDisplay}`,
-    `Time: ${studio?.time ?? "time unavailable"}`,
+    `Time note: ${studio?.time?.note ?? "time unavailable"}`,
     "",
   ];
 
   const introBlock = studio?.intro ? ["Intro", studio.intro, ""] : [];
+  const disclaimersBlock = studio?.disclaimers?.length ? ["Notes", ...studio.disclaimers.map((d) => `- ${d}`), ""] : [];
   const ingredientsBlock = ["Ingredients", ...ingredientLines, ""];
   const stepsBlock = ["Steps", ...(studio?.steps?.length ? studio.steps.map((s, i) => `${i + 1}. ${s}`) : ["1. Steps unavailable."]), ""];
   const selectedBlock = selected.length ? ["Selected interpretations", ...selected, ""] : [];
   const citationsBlock = ["Citations", ...(citations.length ? citations : ["- (No citable sources for selected options.)"]), ""];
 
-  return [...header, ...introBlock, ...ingredientsBlock, ...stepsBlock, ...selectedBlock, ...citationsBlock].join("\n");
+  return [...header, ...introBlock, ...disclaimersBlock, ...ingredientsBlock, ...stepsBlock, ...selectedBlock, ...citationsBlock].join("\n");
 };
 
 export default function StudioPage({ db }: StudioPageProps) {
@@ -209,7 +231,8 @@ export default function StudioPage({ db }: StudioPageProps) {
         const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
         const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
         const selected = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
-        return { ing, amount, hasOptions, selected };
+        const displayName = getIngredientDisplayName({ recipeId: recipe.id, ing, session });
+        return { ing, amount, hasOptions, selected, displayName };
       });
   }, [equivalents, recipe, session]);
 
@@ -268,7 +291,7 @@ export default function StudioPage({ db }: StudioPageProps) {
                 <strong style={{ color: "var(--color-charcoal)" }}>Yield:</strong> {yieldDisplay}
               </div>
               <div>
-                <strong style={{ color: "var(--color-charcoal)" }}>Time:</strong> {studio?.time ?? "time unavailable"}
+                <strong style={{ color: "var(--color-charcoal)" }}>Time:</strong> {studio?.time?.note ?? "time unavailable"}
               </div>
               <div className="urn">{recipe.urn}</div>
             </div>
@@ -281,6 +304,13 @@ export default function StudioPage({ db }: StudioPageProps) {
             <div style={{ marginTop: "0.75rem", color: "var(--color-stone)", fontSize: "0.9rem" }}>
               Read-only composer. Interpretations are selectable in the drawer; no claims can be created or edited.
             </div>
+            {studio?.disclaimers?.length ? (
+              <ul style={{ marginTop: "0.75rem", paddingLeft: "1.25rem", color: "var(--color-stone)", lineHeight: 1.6 }}>
+                {studio.disclaimers.map((d, idx) => (
+                  <li key={idx}>{d}</li>
+                ))}
+              </ul>
+            ) : null}
           </div>
           <div aria-hidden="true">
             <div
@@ -296,7 +326,7 @@ export default function StudioPage({ db }: StudioPageProps) {
                 fontFamily: "var(--font-sans)",
               }}
             >
-              {studio?.heroImageAlt ?? "Hero image placeholder"}
+              {studio?.heroImage?.alt ?? "Hero image placeholder"}
             </div>
           </div>
         </div>
@@ -313,9 +343,9 @@ export default function StudioPage({ db }: StudioPageProps) {
               </label>
               <input
                 type="range"
-                min="0.25"
+                min="0.1"
                 max="4"
-                step="0.25"
+                step="0.1"
                 value={session?.scale ?? 1}
                 onChange={(e) => updateSession({ scale: Number(e.target.value) })}
                 style={{ width: "100%" }}
@@ -325,7 +355,7 @@ export default function StudioPage({ db }: StudioPageProps) {
           </div>
 
           <div className="ingredients-table" style={{ marginTop: "1rem" }}>
-            {ingredientRows.map(({ ing, amount, hasOptions, selected }) => (
+            {ingredientRows.map(({ ing, amount, hasOptions, selected, displayName }) => (
               <div
                 key={ing.id}
                 className="ing-row"
@@ -339,7 +369,7 @@ export default function StudioPage({ db }: StudioPageProps) {
                 }}
               >
                 <span className="ing-name" style={{ fontFamily: "var(--font-serif)" }}>
-                  {ing.originalTerm}
+                  {displayName}
                 </span>
                 <span className="ing-amt" style={{ justifySelf: "end" }}>
                   {equivalents ? amount : "loading…"}
@@ -401,6 +431,7 @@ export default function StudioPage({ db }: StudioPageProps) {
               const ingredient = recipe.items.find((i) => i.id === drawerIngredientId) as RecipeItem | undefined;
               const options = getIngredientOptions(recipe.id, drawerIngredientId);
               const selected = session ? getSelectedOption({ recipeId: recipe.id, ingredientKey: drawerIngredientId, session }) : null;
+              const ingredientName = ingredient && session ? getIngredientDisplayName({ recipeId: recipe.id, ing: ingredient, session }) : "";
 
               return (
                 <>
@@ -418,8 +449,12 @@ export default function StudioPage({ db }: StudioPageProps) {
 
                   <div className="product-section" style={{ borderBottom: "1px solid var(--color-border-strong)", marginTop: "1.25rem" }}>
                     <div className="term-row" style={{ border: "none", padding: "0.25rem 0" }}>
-                      <div style={{ fontWeight: 700 }}>Ancient term:</div>
-                      <div style={{ fontFamily: "var(--font-serif)" }}>{ingredient?.originalTerm ?? ""}</div>
+                      <div style={{ fontWeight: 700 }}>Ancient term (transliteration):</div>
+                      <div style={{ fontFamily: "var(--font-serif)" }}>{ingredient?.transliteration ?? ""}</div>
+                    </div>
+                    <div className="term-row" style={{ border: "none", padding: "0.25rem 0" }}>
+                      <div style={{ fontWeight: 700 }}>Ingredient:</div>
+                      <div>{ingredientName}</div>
                     </div>
                     <div className="term-row" style={{ border: "none", padding: "0.25rem 0" }}>
                       <div style={{ fontWeight: 700 }}>Selected:</div>
