@@ -9,8 +9,7 @@ export interface StudioSession {
   createdAt: string;
   updatedAt: string;
   scale: number;
-  selectedOptions: Record<string, string>;
-  notes: string;
+  selectedOptionByIngredientKey: Record<string, string | undefined>;
 }
 
 const safeJsonParse = <T,>(value: string | null, fallback: T): T => {
@@ -74,8 +73,7 @@ export const upsertStudioSession = (session: StudioSession): StudioSession => {
 export const createStudioSession = (params: {
   recipeId: string;
   scale?: number;
-  selectedOptions?: Record<string, string>;
-  notes?: string;
+  selectedOptionByIngredientKey?: Record<string, string | undefined>;
 }): StudioSession => {
   const now = new Date().toISOString();
   return {
@@ -84,8 +82,19 @@ export const createStudioSession = (params: {
     createdAt: now,
     updatedAt: now,
     scale: typeof params.scale === "number" && Number.isFinite(params.scale) ? params.scale : 1,
-    selectedOptions: params.selectedOptions ?? {},
-    notes: params.notes ?? "",
+    selectedOptionByIngredientKey: params.selectedOptionByIngredientKey ?? {},
   };
 };
 
+export const findMostRecentSessionForRecipe = (recipeId: string): StudioSession | undefined => {
+  const sessions = loadStudioSessions();
+  return sessions.find((s) => s.recipeId === recipeId);
+};
+
+export const createOrResumeStudioSession = (recipeId: string): StudioSession => {
+  const existing = findMostRecentSessionForRecipe(recipeId);
+  const session = existing ?? createStudioSession({ recipeId, scale: 1, selectedOptionByIngredientKey: {} });
+  const saved = upsertStudioSession(session);
+  setActiveStudioSessionId(saved.id);
+  return saved;
+};

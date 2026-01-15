@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import type { DatabaseState, Recipe, RecipeItem } from "../../types";
-import { studioCatalog } from "../../content/studioCatalog";
+import type { DatabaseState, Recipe, RecipeItem, Quantity } from "../../types";
+import { studioRecipes } from "../../content/studioRecipes";
+import { isCitableStudioOption, studioIdentifications, type StudioIdentificationOption } from "../../content/studioIdentifications";
+import { loadUnitEquivalents, type UnitEquivalentsLookup, type UnitTypeKey } from "../../studio/unitEquivalents";
 import {
-  createStudioSession,
+  createOrResumeStudioSession,
   getActiveStudioSessionId,
   loadStudioSessions,
   setActiveStudioSessionId,
@@ -15,233 +17,219 @@ type StudioPageProps = {
   db: DatabaseState;
 };
 
-const isFiniteNumber = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value);
+const DEFAULT_RECIPE_ID = "r-rose-perfume";
 
-const formatNumber = (value: number) => {
-  const rounded = Math.round(value * 100) / 100;
-  return Number.isInteger(rounded) ? String(rounded) : String(rounded);
+const numberFormat = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 2,
+  minimumFractionDigits: 0,
+});
+
+const formatMetric = (params: { unitType: UnitTypeKey; value: number }): string => {
+  const { unitType, value } = params;
+  if (unitType === "n/a") {
+    return `${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(value))} count`;
+  }
+
+  if (unitType === "weight") {
+    if (value >= 1000) return `${numberFormat.format(value / 1000)} kg`;
+    return `${numberFormat.format(value)} g`;
+  }
+
+  if (value >= 1000) return `${numberFormat.format(value / 1000)} l`;
+  return `${numberFormat.format(value)} ml`;
 };
 
-const formatScaledQuantities = (item: RecipeItem, scale: number) => {
-  if (!item.quantities?.length || !isFiniteNumber(scale)) return null;
-  return item.quantities
-    .map((q) => `${formatNumber(q.value * scale)} ${q.unit}`)
-    .join(", ");
+const normalizeQuantityType = (quantity: Quantity, equivalents: UnitEquivalentsLookup): UnitTypeKey | null => {
+  if (quantity.unitType) return quantity.unitType;
+  const key = quantity.unitKey ?? quantity.unit;
+  const candidates: UnitTypeKey[] = ["weight", "volume", "n/a"].filter((t) => key in equivalents[t]) as UnitTypeKey[];
+  if (candidates.length === 1) return candidates[0];
+  return null;
 };
 
-const optionIsCitable = (option: { placeholder: boolean; source?: { kind: string; citation: string } }) => {
-  const hasRealSource = Boolean(option.source && option.source.kind !== "none" && option.source.citation.trim());
-  if (!option.placeholder) return hasRealSource;
-  return hasRealSource;
+const normalizeQuantityKey = (quantity: Quantity): string => {
+  return quantity.unitKey ?? quantity.unit;
 };
 
-const buildPracticalRecipeCard = (params: {
-  recipe: Recipe;
+const computeConvertibleMetricTotal = (params: {
+  quantities: Quantity[];
+  scale: number;
+  equivalents: UnitEquivalentsLookup;
+}):
+  | { ok: true; unitType: UnitTypeKey; metricTotal: number }
+  | { ok: false } => {
+  const { quantities, scale, equivalents } = params;
+  if (!quantities.length) return { ok: false };
+  if (!Number.isFinite(scale) || scale <= 0) return { ok: false };
+
+  let unitType: UnitTypeKey | null = null;
+  let total = 0;
+
+  for (const q of quantities) {
+    if (!Number.isFinite(q.value)) return { ok: false };
+    const resolvedType = normalizeQuantityType(q, equivalents);
+    if (!resolvedType) return { ok: false };
+    const key = normalizeQuantityKey(q);
+    const factor = equivalents[resolvedType]?.[key];
+    if (!Number.isFinite(factor)) return { ok: false };
+    if (unitType && unitType !== resolvedType) return { ok: false };
+    unitType = resolvedType;
+
+    const scaledValue = q.value * scale;
+    total += scaledValue * factor;
+  }
+
+  if (!unitType) return { ok: false };
+  return { ok: true, unitType, metricTotal: total };
+};
+
+const getIngredientOptions = (recipeId: string, ingredientKey: string): StudioIdentificationOption[] => {
+  return studioIdentifications[recipeId]?.[ingredientKey] ?? [];
+};
+
+const getSelectedOption = (params: {
+  recipeId: string;
+  ingredientKey: string;
   session: StudioSession;
-  selections: Array<{
-    termId: string;
-    term: string;
-    transliteration?: string;
-    option: {
-      id: string;
-      label: string;
-      confidence: string;
-      placeholder: boolean;
-      source?: { kind: string; citation: string };
-    };
-  }>;
-  ingredientLines: Array<{
-    label: string;
-    originalAmount: string;
-    scaledAmount: string | null;
-    scalable: boolean;
-  }>;
-}) => {
-  const { recipe, session, selections, ingredientLines } = params;
+}): StudioIdentificationOption | null => {
+  const options = getIngredientOptions(params.recipeId, params.ingredientKey);
+  const selectedId = params.session.selectedOptionByIngredientKey[params.ingredientKey];
+  if (!selectedId) return null;
+  return options.find((o) => o.id === selectedId) ?? null;
+};
 
-  const header = [
-    "ALCHEMIES OF SCENT — THE STUDIO (PREVIEW)",
-    "Practical recipe card (local draft; read-only composer)",
-    "",
-    `Recipe: ${recipe.metadata.title} — ${recipe.urn}`,
-    `Session: ${session.id}`,
-    `Updated: ${new Date(session.updatedAt).toLocaleString()}`,
-    `Scale: ${formatNumber(session.scale)}×`,
-    "",
-  ];
+const buildExportText = (params: {
+  recipe: Recipe;
+  studio: (typeof studioRecipes)[string] | undefined;
+  session: StudioSession;
+  equivalents: UnitEquivalentsLookup;
+}): string => {
+  const { recipe, studio, session, equivalents } = params;
 
-  const selectedBlock = selections.length
-    ? [
-        "Selected interpretations",
-        ...selections.map((s) => {
-          const termLabel = [s.term, s.transliteration ? `(${s.transliteration})` : ""].filter(Boolean).join(" ");
-          const flags = s.option.placeholder ? " [demo placeholder]" : "";
-          return `- ${termLabel} → ${s.option.label} [${s.option.confidence}]${flags}`;
-        }),
-        "",
-      ]
-    : [];
-
-  const sources = selections
-    .filter((s) => optionIsCitable(s.option))
-    .map((s) => {
-      const prefix = s.option.placeholder ? "Demo source" : "Source";
-      return `- ${prefix} for ${s.term} → ${s.option.label}: ${s.option.source?.citation ?? ""}`;
+  const ingredientLines = recipe.items
+    .filter((i) => i.type === "ingredient")
+    .map((ing) => {
+      const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
+      const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
+      return `- ${ing.originalTerm}: ${amount}`;
     });
 
-  const sourcesBlock = sources.length ? ["Sources", ...sources, ""] : ["Sources", "- (No citable sources for selected options.)", ""];
+  const selected = recipe.items
+    .filter((i) => i.type === "ingredient")
+    .map((ing) => {
+      const opt = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
+      if (!opt) return null;
+      const ingredientKeyLabel = ing.transliteration || ing.id;
+      const badge = opt.placeholder ? " (demo placeholder; not citable)" : "";
+      return `- ${ingredientKeyLabel} → ${opt.label} [${opt.confidence}]${badge}`;
+    })
+    .filter(Boolean) as string[];
 
-  const ingredientsBlock = [
-    "Ingredients",
-    ...ingredientLines.map((line) => {
-      if (!line.scalable) return `- ${line.label} — ${line.originalAmount} (not scalable; no structured quantity)`;
-      return `- ${line.label} — ${line.originalAmount} → ${line.scaledAmount ?? line.originalAmount}`;
-    }),
+  const citations = recipe.items
+    .filter((i) => i.type === "ingredient")
+    .flatMap((ing) => {
+      const opt = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
+      if (!opt || !isCitableStudioOption(opt)) return [];
+      const ingredientKeyLabel = ing.transliteration || ing.id;
+      return opt.citations.map((c) => `- ${ingredientKeyLabel}: ${c}`);
+    });
+
+  const yieldBasis = studio?.yieldBasisIngredientKey
+    ? recipe.items.find((i) => i.id === studio.yieldBasisIngredientKey) ?? null
+    : null;
+  const yieldMetric = yieldBasis
+    ? computeConvertibleMetricTotal({ quantities: yieldBasis.quantities ?? [], scale: session.scale, equivalents })
+    : { ok: false as const };
+  const yieldDisplay = yieldMetric.ok ? formatMetric({ unitType: yieldMetric.unitType, value: yieldMetric.metricTotal }) : "yield unavailable";
+
+  const header = [
+    "ALCHEMIES OF SCENT — STUDIO (PREVIEW)",
+    "Practical recipe card (local draft; read-only composer)",
+    "",
+    `Title: ${studio?.titleOverride ?? recipe.metadata.title}`,
+    `URN: ${recipe.urn}`,
+    `Scale: ${numberFormat.format(session.scale)}×`,
+    `Yield: ${yieldDisplay}`,
+    `Time: ${studio?.time ?? "time unavailable"}`,
     "",
   ];
 
-  const notesBlock = session.notes?.trim()
-    ? ["Notes", session.notes.trim(), ""]
-    : [];
+  const introBlock = studio?.intro ? ["Intro", studio.intro, ""] : [];
+  const ingredientsBlock = ["Ingredients", ...ingredientLines, ""];
+  const stepsBlock = ["Steps", ...(studio?.steps?.length ? studio.steps.map((s, i) => `${i + 1}. ${s}`) : ["1. Steps unavailable."]), ""];
+  const selectedBlock = selected.length ? ["Selected interpretations", ...selected, ""] : [];
+  const citationsBlock = ["Citations", ...(citations.length ? citations : ["- (No citable sources for selected options.)"]), ""];
 
-  return [...header, ...selectedBlock, ...sourcesBlock, ...ingredientsBlock, ...notesBlock].join("\n");
+  return [...header, ...introBlock, ...ingredientsBlock, ...stepsBlock, ...selectedBlock, ...citationsBlock].join("\n");
 };
 
-export default function StudioPage({ navigate, db }: StudioPageProps) {
-  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+export default function StudioPage({ db }: StudioPageProps) {
   const [session, setSession] = useState<StudioSession | null>(null);
+  const [equivalents, setEquivalents] = useState<UnitEquivalentsLookup | null>(null);
+  const [drawerIngredientId, setDrawerIngredientId] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
 
-  const sessions = useMemo(() => loadStudioSessions(), [activeSessionId, session?.updatedAt]);
+  useEffect(() => {
+    loadUnitEquivalents().then(setEquivalents);
+  }, []);
 
-  const activeRecipe = useMemo(() => {
+  useEffect(() => {
+    const sessions = loadStudioSessions();
+    const active = getActiveStudioSessionId();
+    const found = active ? sessions.find((s) => s.id === active) : undefined;
+    if (found) {
+      setSession(found);
+      return;
+    }
+    const created = createOrResumeStudioSession(DEFAULT_RECIPE_ID);
+    setSession(created);
+  }, []);
+
+  const recipe = useMemo(() => {
     if (!session) return null;
     return db.recipes.find((r) => r.id === session.recipeId) ?? null;
   }, [db.recipes, session]);
 
-  useEffect(() => {
-    const stored = getActiveStudioSessionId();
-    if (!stored) {
-      setActiveSessionId(null);
-      setSession(null);
-      return;
-    }
-    const loaded = sessions.find((s) => s.id === stored) ?? null;
-    if (!loaded) {
-      setActiveStudioSessionId(null);
-      setActiveSessionId(null);
-      setSession(null);
-      return;
-    }
-    setActiveSessionId(loaded.id);
-    setSession(loaded);
-  }, [sessions]);
+  const studio = recipe ? studioRecipes[recipe.id] : undefined;
 
-  const startSession = (recipeId: string) => {
-    const created = createStudioSession({ recipeId, scale: 1, selectedOptions: {}, notes: "" });
-    const saved = upsertStudioSession(created);
-    setActiveStudioSessionId(saved.id);
-    setActiveSessionId(saved.id);
-    setSession(saved);
-  };
+  const yieldDisplay = useMemo(() => {
+    if (!recipe || !studio || !equivalents || !session) return "yield unavailable";
+    const basis = recipe.items.find((i) => i.id === studio.yieldBasisIngredientKey);
+    if (!basis) return "yield unavailable";
+    const metric = computeConvertibleMetricTotal({ quantities: basis.quantities ?? [], scale: session.scale, equivalents });
+    return metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "yield unavailable";
+  }, [equivalents, recipe, session, studio]);
 
-  const clearActive = () => {
-    setActiveStudioSessionId(null);
-    setActiveSessionId(null);
-    setSession(null);
-  };
+  const ingredientRows = useMemo(() => {
+    if (!recipe || !equivalents || !session) return [];
+    return recipe.items
+      .filter((i) => i.type === "ingredient")
+      .map((ing) => {
+        const hasOptions = getIngredientOptions(recipe.id, ing.id).length > 0;
+        const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
+        const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
+        const selected = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
+        return { ing, amount, hasOptions, selected };
+      });
+  }, [equivalents, recipe, session]);
 
   const updateSession = (patch: Partial<StudioSession>) => {
     if (!session) return;
     const next = upsertStudioSession({ ...session, ...patch });
+    setActiveStudioSessionId(next.id);
     setSession(next);
   };
 
-  const ensureDefaults = () => {
-    if (!session || !activeRecipe) return;
-    const nextSelected = { ...session.selectedOptions };
-    let changed = false;
-
-    for (const item of activeRecipe.items) {
-      if (item.type !== "ingredient") continue;
-      const termId = item.transliteration ?? "";
-      if (!termId) continue;
-      const entry = studioCatalog.find((t) => t.termId === termId);
-      if (!entry?.options?.length) continue;
-      if (!nextSelected[termId]) {
-        nextSelected[termId] = entry.options[0].id;
-        changed = true;
-      }
-    }
-
-    if (changed) updateSession({ selectedOptions: nextSelected });
+  const handleSelectOption = (ingredientKey: string, optionId: string) => {
+    if (!session) return;
+    updateSession({
+      selectedOptionByIngredientKey: { ...session.selectedOptionByIngredientKey, [ingredientKey]: optionId },
+    });
   };
 
-  useEffect(() => {
-    ensureDefaults();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeRecipe?.id, session?.id]);
-
-  const landingRecipe = db.recipes.find((r) => r.slug === "rose-perfume-dioscorides") ?? db.recipes[0];
-
-  const selections = useMemo(() => {
-    if (!session || !activeRecipe) return [];
-    const selectionsList: Array<{
-      termId: string;
-      term: string;
-      transliteration?: string;
-      option: (typeof studioCatalog)[number]["options"][number];
-    }> = [];
-
-    for (const item of activeRecipe.items) {
-      if (item.type !== "ingredient") continue;
-      const termId = item.transliteration ?? "";
-      if (!termId) continue;
-      const entry = studioCatalog.find((t) => t.termId === termId);
-      if (!entry) continue;
-      const selectedId = session.selectedOptions[termId] ?? entry.options[0]?.id;
-      const option = entry.options.find((o) => o.id === selectedId) ?? entry.options[0];
-      if (!option) continue;
-      selectionsList.push({
-        termId,
-        term: entry.term,
-        transliteration: entry.transliteration,
-        option,
-      });
-    }
-
-    // Deduplicate by termId
-    return selectionsList.filter((s, idx) => selectionsList.findIndex((x) => x.termId === s.termId) === idx);
-  }, [activeRecipe, session]);
-
-  const ingredientLines = useMemo(() => {
-    if (!session || !activeRecipe) return [];
-    const scale = session.scale;
-    return activeRecipe.items
-      .filter((i) => i.type === "ingredient")
-      .map((ing) => {
-        const scaled = formatScaledQuantities(ing, scale);
-        const scalable = Boolean(ing.quantities?.length);
-        const label = [ing.originalTerm, ing.transliteration ? `(${ing.transliteration})` : "", ing.displayTerm ? `— ${ing.displayTerm}` : ""]
-          .filter(Boolean)
-          .join(" ");
-        return {
-          label,
-          originalAmount: ing.amount || ing.originalAmount || "—",
-          scaledAmount: scaled,
-          scalable,
-        };
-      });
-  }, [activeRecipe, session]);
-
   const handleCopy = async () => {
-    if (!session || !activeRecipe) return;
-    const text = buildPracticalRecipeCard({
-      recipe: activeRecipe,
-      session,
-      selections,
-      ingredientLines,
-    });
+    if (!recipe || !equivalents || !session) return;
+    const text = buildExportText({ recipe, studio, session, equivalents });
     try {
       await navigator.clipboard.writeText(text);
       setCopyStatus("Copied to clipboard.");
@@ -252,216 +240,257 @@ export default function StudioPage({ navigate, db }: StudioPageProps) {
     }
   };
 
-  const renderLanding = () => (
-    <div className="page-container">
-      <div className="archive-intro">
-        <h1>
-          THE STUDIO <span className="type-tag" style={{ marginLeft: "0.5rem" }}>Preview</span>
-        </h1>
-        <p style={{ maxWidth: 820 }}>
-          A Phase 2 preview: a <strong>read-only</strong> composer over existing interpretations. No accounts, no editing, no new claims — sessions save only to this browser.
-        </p>
-      </div>
-
-      <div className="section-block">
-        <h2>START</h2>
-        <button type="button" className="btn-primary" onClick={() => startSession(landingRecipe.id)}>
-          Start with {landingRecipe.metadata.title} →
-        </button>
-      </div>
-
-      <div className="section-block">
-        <h2>RECENT SESSIONS</h2>
-        {!sessions.length ? (
-          <p style={{ color: "var(--color-stone)" }}>No sessions yet.</p>
-        ) : (
-          <div className="ingredients-table" style={{ borderTop: "none" }}>
-            {sessions.slice(0, 8).map((s) => {
-              const recipe = db.recipes.find((r) => r.id === s.recipeId);
-              return (
-                <div key={s.id} className="ing-row" style={{ gridTemplateColumns: "1.5fr 1fr auto", alignItems: "center" }}>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {recipe?.metadata?.title ?? "Recipe"}
-                    </div>
-                    <div style={{ color: "var(--color-stone)", fontSize: "0.9rem" }}>Updated {new Date(s.updatedAt).toLocaleString()}</div>
-                  </div>
-                  <div style={{ color: "var(--color-stone)", fontSize: "0.9rem" }}>Scale {formatNumber(s.scale)}×</div>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    onClick={() => {
-                      setActiveStudioSessionId(s.id);
-                      setActiveSessionId(s.id);
-                      setSession(s);
-                    }}
-                  >
-                    Resume
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
-  const renderBuilder = () => {
-    if (!session || !activeRecipe) {
-      return (
-        <div className="page-container">
-          <div className="archive-intro">
-            <h1>THE STUDIO</h1>
-            <p style={{ color: "var(--color-stone)" }}>Session not found.</p>
-          </div>
-          <button type="button" className="btn-secondary" onClick={clearActive}>
-            Back to Studio home
-          </button>
-        </div>
-      );
-    }
-
+  if (!recipe) {
     return (
       <div className="page-container">
-        <div className="back-link" onClick={clearActive}>
-          ← Back to Studio home
-        </div>
-
-        <div className="recipe-header" style={{ paddingBottom: "1rem" }}>
-          <h1 style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            Studio Builder <span className="type-tag">Preview</span>
-          </h1>
-          <div className="subtitle">{activeRecipe.metadata.title}</div>
-          <div className="metadata-box source-box" style={{ marginTop: "1rem" }}>
-            <div className="meta-row">
-              <span className="urn">{activeRecipe.urn}</span>
-              <div className="actions" style={{ display: "flex", gap: "0.75rem" }}>
-                <button type="button" className="text-btn" onClick={() => navigate("recipe_rose")}>
-                  [Back to recipe]
-                </button>
-                <button type="button" className="text-btn" onClick={handleCopy}>
-                  [Copy practical recipe card]
-                </button>
-              </div>
-            </div>
-            {copyStatus ? <div className="meta-row" style={{ color: "var(--color-amber-dark)" }}>{copyStatus}</div> : null}
-          </div>
-        </div>
-
-        <div className="section-block">
-          <h2>SESSION</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", maxWidth: 900 }}>
-            <div>
-              <label style={{ display: "block", fontWeight: 700, marginBottom: "0.5rem" }}>Scale</label>
-              <input
-                type="number"
-                step="0.1"
-                min="0"
-                value={session.scale}
-                onChange={(e) => updateSession({ scale: Number(e.target.value) })}
-                style={{ width: "100%", padding: "0.6rem", borderRadius: 8, border: "1px solid var(--color-border-strong)" }}
-              />
-              <div style={{ marginTop: "0.5rem", color: "var(--color-stone)", fontSize: "0.9rem" }}>
-                Scales only items with structured quantities; others remain unchanged and flagged.
-              </div>
-            </div>
-            <div>
-              <label style={{ display: "block", fontWeight: 700, marginBottom: "0.5rem" }}>Private session notes (local only)</label>
-              <textarea
-                value={session.notes}
-                onChange={(e) => updateSession({ notes: e.target.value })}
-                rows={4}
-                style={{ width: "100%", padding: "0.6rem", borderRadius: 8, border: "1px solid var(--color-border-strong)" }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="section-block">
-          <h2>INTERPRETATIONS</h2>
-          {!selections.length ? (
-            <p style={{ color: "var(--color-stone)" }}>No configurable terms for this recipe in the demo catalog.</p>
-          ) : (
-            <div style={{ display: "grid", gap: "1rem", maxWidth: 900 }}>
-              {selections.map((s) => (
-                <div key={s.termId} className="metadata-box" style={{ padding: "1rem" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "flex-start" }}>
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>
-                        {s.term} {s.transliteration ? <span style={{ color: "var(--color-stone)", fontWeight: 600 }}>({s.transliteration})</span> : null}
-                      </div>
-                      <div style={{ marginTop: "0.35rem", color: "var(--color-stone)" }}>
-                        Select among provided options only. No editing or creation.
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-                      {s.option.placeholder ? (
-                        <span className="type-tag" style={{ background: "rgba(201,162,39,0.15)", color: "var(--color-amber-dark)" }}>
-                          Demo placeholder
-                        </span>
-                      ) : null}
-                      <span className={`confidence-badge ${s.option.confidence}`}>{s.option.confidence}</span>
-                    </div>
-                  </div>
-
-                  <div style={{ marginTop: "0.85rem", display: "grid", gap: "0.75rem" }}>
-                    <label style={{ fontWeight: 700 }}>Option</label>
-                    <select
-                      value={session.selectedOptions[s.termId] ?? s.option.id}
-                      onChange={(e) =>
-                        updateSession({
-                          selectedOptions: { ...session.selectedOptions, [s.termId]: e.target.value },
-                        })
-                      }
-                      style={{ padding: "0.6rem", borderRadius: 8, border: "1px solid var(--color-border-strong)" }}
-                    >
-                      {studioCatalog
-                        .find((t) => t.termId === s.termId)
-                        ?.options.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.label}
-                            {opt.placeholder ? " (demo placeholder)" : ""}
-                          </option>
-                        ))}
-                    </select>
-
-                    <div style={{ color: "var(--color-stone)", fontSize: "0.95rem" }}>
-                      {s.option.source?.citation ? (
-                        <>
-                          <strong>Source:</strong> {s.option.source.citation}
-                        </>
-                      ) : (
-                        <>
-                          <strong>Source:</strong> (none)
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="section-block">
-          <h2>INGREDIENTS (SCALED)</h2>
-          <div className="ingredients-table">
-            {ingredientLines.map((line) => (
-              <div key={line.label} className="ing-row" style={{ gridTemplateColumns: "2.5fr 1fr 1.25fr", gap: "1rem" }}>
-                <span className="ing-name">{line.label}</span>
-                <span className="ing-amt">{line.originalAmount}</span>
-                <span className="ing-role" style={{ justifySelf: "end", color: line.scalable ? "inherit" : "var(--color-stone)" }}>
-                  {line.scalable ? line.scaledAmount ?? line.originalAmount : "not scalable"}
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="archive-intro">
+          <h1>STUDIO (PREVIEW)</h1>
+          <p style={{ color: "var(--color-stone)" }}>Loading…</p>
         </div>
       </div>
     );
-  };
+  }
 
-  return activeSessionId && session ? renderBuilder() : renderLanding();
+  return (
+    <div className="page-container">
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: "2rem", alignItems: "start" }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <h1 style={{ margin: 0 }}>{studio?.titleOverride ?? recipe.metadata.title}</h1>
+              <span className="type-tag" style={{ fontSize: "0.7rem" }}>
+                Studio (Preview)
+              </span>
+            </div>
+            <p style={{ marginTop: "0.75rem", maxWidth: 860, lineHeight: 1.7 }}>{studio?.intro ?? ""}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", color: "var(--color-stone)" }}>
+              <div>
+                <strong style={{ color: "var(--color-charcoal)" }}>Yield:</strong> {yieldDisplay}
+              </div>
+              <div>
+                <strong style={{ color: "var(--color-charcoal)" }}>Time:</strong> {studio?.time ?? "time unavailable"}
+              </div>
+              <div className="urn">{recipe.urn}</div>
+            </div>
+            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", alignItems: "center" }}>
+              <button type="button" className="btn-primary" onClick={handleCopy} disabled={!equivalents}>
+                Copy recipe card
+              </button>
+              {copyStatus ? <span style={{ color: "var(--color-amber-dark)" }}>{copyStatus}</span> : null}
+            </div>
+            <div style={{ marginTop: "0.75rem", color: "var(--color-stone)", fontSize: "0.9rem" }}>
+              Read-only composer. Interpretations are selectable in the drawer; no claims can be created or edited.
+            </div>
+          </div>
+          <div aria-hidden="true">
+            <div
+              style={{
+                border: "1px solid var(--color-border-strong)",
+                borderRadius: 16,
+                background: "var(--color-muted-bg)",
+                height: 220,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--color-stone)",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              {studio?.heroImageAlt ?? "Hero image placeholder"}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", alignItems: "start" }}>
+        <section className="section-block" style={{ marginTop: "2rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "flex-end" }}>
+            <h2 style={{ margin: 0 }}>INGREDIENTS</h2>
+            <div style={{ minWidth: 260 }}>
+              <label style={{ display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: "0.9rem" }}>
+                <span>Scale</span>
+                <span style={{ color: "var(--color-stone)" }}>{numberFormat.format(session?.scale ?? 1)}×</span>
+              </label>
+              <input
+                type="range"
+                min="0.25"
+                max="4"
+                step="0.25"
+                value={session?.scale ?? 1}
+                onChange={(e) => updateSession({ scale: Number(e.target.value) })}
+                style={{ width: "100%" }}
+                aria-label="Scale recipe"
+              />
+            </div>
+          </div>
+
+          <div className="ingredients-table" style={{ marginTop: "1rem" }}>
+            {ingredientRows.map(({ ing, amount, hasOptions, selected }) => (
+              <div
+                key={ing.id}
+                className="ing-row"
+                style={{ gridTemplateColumns: "1.5fr 1fr auto", gap: "1rem", cursor: hasOptions ? "pointer" : "default" }}
+                onClick={() => (hasOptions ? setDrawerIngredientId(ing.id) : null)}
+                role={hasOptions ? "button" : undefined}
+                tabIndex={hasOptions ? 0 : -1}
+                onKeyDown={(e) => {
+                  if (!hasOptions) return;
+                  if (e.key === "Enter" || e.key === " ") setDrawerIngredientId(ing.id);
+                }}
+              >
+                <span className="ing-name" style={{ fontFamily: "var(--font-serif)" }}>
+                  {ing.originalTerm}
+                </span>
+                <span className="ing-amt" style={{ justifySelf: "end" }}>
+                  {equivalents ? amount : "loading…"}
+                </span>
+                {hasOptions ? (
+                  <span style={{ color: "var(--color-stone)", fontSize: "0.85rem" }}>
+                    {selected ? "Interpretation" : "Select meaning"} →
+                  </span>
+                ) : (
+                  <span style={{ color: "var(--color-stone)", fontSize: "0.85rem" }}> </span>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: "0.75rem", color: "var(--color-stone)", fontSize: "0.9rem" }}>
+            Metric-only display. If conversion fails, amount is shown as unavailable.
+          </div>
+        </section>
+
+        <section className="section-block" style={{ marginTop: "2rem" }}>
+          <h2 style={{ marginTop: 0 }}>PREPARATION</h2>
+          <ol style={{ margin: 0, paddingLeft: "1.25rem", display: "grid", gap: "0.75rem", lineHeight: 1.7 }}>
+            {(studio?.steps?.length ? studio.steps : ["Steps unavailable."]).map((step, idx) => (
+              <li key={idx}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      </div>
+
+      {drawerIngredientId ? (
+        <>
+          <div
+            onClick={() => setDrawerIngredientId(null)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(0,0,0,0.35)",
+              zIndex: 2000,
+            }}
+            aria-hidden="true"
+          />
+          <aside
+            style={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: "min(420px, 92vw)",
+              background: "var(--color-warm-white)",
+              borderLeft: "1px solid var(--color-border-strong)",
+              boxShadow: "var(--shadow-raised-strong)",
+              zIndex: 2001,
+              padding: "1.25rem 1.25rem",
+              overflowY: "auto",
+            }}
+            aria-label="Interpretation drawer"
+          >
+            {(() => {
+              const ingredient = recipe.items.find((i) => i.id === drawerIngredientId) as RecipeItem | undefined;
+              const options = getIngredientOptions(recipe.id, drawerIngredientId);
+              const selected = session ? getSelectedOption({ recipeId: recipe.id, ingredientKey: drawerIngredientId, session }) : null;
+
+              return (
+                <>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "flex-start" }}>
+                    <div>
+                      <h2 style={{ margin: 0 }}>Interpretation</h2>
+                      <div style={{ marginTop: "0.25rem", color: "var(--color-stone)" }}>
+                        Select among pre-authored options only.
+                      </div>
+                    </div>
+                    <button type="button" className="btn-secondary" onClick={() => setDrawerIngredientId(null)}>
+                      Close
+                    </button>
+                  </div>
+
+                  <div className="product-section" style={{ borderBottom: "1px solid var(--color-border-strong)", marginTop: "1.25rem" }}>
+                    <div className="term-row" style={{ border: "none", padding: "0.25rem 0" }}>
+                      <div style={{ fontWeight: 700 }}>Ancient term:</div>
+                      <div style={{ fontFamily: "var(--font-serif)" }}>{ingredient?.originalTerm ?? ""}</div>
+                    </div>
+                    <div className="term-row" style={{ border: "none", padding: "0.25rem 0" }}>
+                      <div style={{ fontWeight: 700 }}>Selected:</div>
+                      <div style={{ color: "var(--color-earth)" }}>{selected ? selected.label : "Not selected"}</div>
+                    </div>
+                  </div>
+
+                  {!options.length ? (
+                    <p style={{ color: "var(--color-stone)" }}>No options available for this ingredient in the demo dataset.</p>
+                  ) : (
+                    <div style={{ display: "grid", gap: "0.75rem" }}>
+                      {options.map((opt) => {
+                        const isSelected = selected?.id === opt.id;
+                        return (
+                          <label
+                            key={opt.id}
+                            style={{
+                              border: "1px solid var(--color-border-strong)",
+                              borderRadius: 12,
+                              padding: "0.75rem 0.85rem",
+                              display: "grid",
+                              gap: "0.5rem",
+                              background: isSelected ? "rgba(201,162,39,0.08)" : "transparent",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <div style={{ display: "flex", justifyContent: "space-between", gap: "0.75rem", alignItems: "flex-start" }}>
+                              <div style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+                                <input
+                                  type="radio"
+                                  name={`studio-opt-${drawerIngredientId}`}
+                                  checked={isSelected}
+                                  onChange={() => handleSelectOption(drawerIngredientId, opt.id)}
+                                />
+                                <div style={{ fontWeight: 800 }}>{opt.label}</div>
+                              </div>
+                              <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                                {opt.placeholder ? (
+                                  <span className="type-tag" style={{ background: "rgba(201,162,39,0.15)", color: "var(--color-amber-dark)" }}>
+                                    Demo placeholder
+                                  </span>
+                                ) : null}
+                                <span className={`confidence-badge ${opt.confidence}`}>{opt.confidence}</span>
+                              </div>
+                            </div>
+
+                            {isCitableStudioOption(opt) ? (
+                              <div style={{ color: "var(--color-earth)", fontSize: "0.95rem", lineHeight: 1.5 }}>
+                                <strong>Source:</strong>
+                                <ul style={{ margin: "0.5rem 0 0", paddingLeft: "1.25rem" }}>
+                                  {opt.citations.map((c, idx) => (
+                                    <li key={idx}>{c}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ) : (
+                              <div style={{ color: "var(--color-stone)", fontSize: "0.95rem" }}>
+                                Source: project placeholder (not citable)
+                              </div>
+                            )}
+                          </label>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
+              );
+            })()}
+          </aside>
+        </>
+      ) : null}
+    </div>
+  );
 }
-

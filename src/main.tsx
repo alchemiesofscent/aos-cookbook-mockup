@@ -8,7 +8,7 @@ import seed from "@seed.json";
 import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
-import { createStudioSession, setActiveStudioSessionId, upsertStudioSession } from "./studio/storage";
+import { createOrResumeStudioSession, setActiveStudioSessionId } from "./studio/storage";
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
@@ -1022,8 +1022,7 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
   
   const openInStudio = () => {
     if (!recipe) return;
-    const created = createStudioSession({ recipeId: recipe.id, scale: 1, selectedOptions: {}, notes: "" });
-    const saved = upsertStudioSession(created);
+    const saved = createOrResumeStudioSession(recipe.id);
     setActiveStudioSessionId(saved.id);
     navigate("studio");
   };
@@ -2195,6 +2194,9 @@ const GlobalStyles = () => (
     .confidence-badge.probable { background: rgba(201, 162, 39, 0.2); color: var(--color-amber-dark); }
     .confidence-badge.possible { background: rgba(92, 74, 61, 0.12); color: var(--color-earth); }
     .confidence-badge.speculative { background: rgba(92, 74, 61, 0.10); color: var(--color-stone); }
+    .confidence-badge.high { background: rgba(122, 139, 110, 0.2); color: var(--color-sage); }
+    .confidence-badge.medium { background: rgba(201, 162, 39, 0.2); color: var(--color-amber-dark); }
+    .confidence-badge.low { background: rgba(92, 74, 61, 0.10); color: var(--color-stone); }
     
     .id-source { font-size: 1.125rem; margin-bottom: 0.25rem; }
     .id-citation { font-size: 0.875rem; color: var(--color-stone); font-family: var(--font-sans); }

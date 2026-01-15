@@ -438,15 +438,15 @@
         {
           "id": "ri-1",
           "type": "ingredient",
-          "masterId": "i-lemongrass",
+          "masterId": null,
           "originalTerm": "σχοῖνος",
           "transliteration": "skhoinos",
-          "displayTerm": "Lemongrass",
+          "displayTerm": "",
           "amount": "5 lb 8 oz",
           "originalAmount": "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ",
           "quantities": [
-            { "value": 5, "unit": "lb" },
-            { "value": 8, "unit": "oz" }
+            { "value": 5, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
+            { "value": 8, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
           ],
           "role": "aromatic"
         },
@@ -460,8 +460,8 @@
           "amount": "20 lb 5 oz",
           "originalAmount": "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε",
           "quantities": [
-            { "value": 20, "unit": "lb" },
-            { "value": 5, "unit": "oz" }
+            { "value": 20, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
+            { "value": 5, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
           ],
           "role": "carrier"
         },
@@ -474,7 +474,7 @@
           "displayTerm": "Rose petals (dry)",
           "amount": "1000 (count)",
           "originalAmount": "ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα",
-          "quantities": [],
+          "quantities": [{ "value": 1000, "unit": "count", "unitKey": "count", "unitType": "n/a" }],
           "role": "aromatic"
         },
         {

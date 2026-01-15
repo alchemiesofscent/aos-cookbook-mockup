@@ -1,0 +1,259 @@
+{
+  "version": "1.0",
+  "notes": "metricEquivalent is grams for weight, millilitres for volume, and count for n/a. baseEquivalent expresses each unit in multiples of the base unit for its type (weight base: oungia-weight; volume base: xestes-volume; n/a base: number-n/a).",
+  "bases": {
+    "weight": "oungia-weight",
+    "volume": "xestes-volume",
+    "n/a": "number-n/a"
+  },
+  "units": [
+    {
+      "greek": "κεράτιον",
+      "transliteration": "ceration",
+      "type": "weight",
+      "key": "ceration-weight",
+      "metricEquivalent": 0.189,
+      "baseEquivalent": "1/99"
+    },
+    {
+      "greek": "θερμός",
+      "transliteration": "thermos",
+      "type": "weight",
+      "key": "thermos-weight",
+      "metricEquivalent": 0.378,
+      "baseEquivalent": "1/72"
+    },
+    {
+      "greek": "ὀβολός",
+      "transliteration": "obol",
+      "type": "weight",
+      "key": "obol-weight",
+      "metricEquivalent": 0.568,
+      "baseEquivalent": "1/48"
+    },
+    {
+      "greek": "διχάλκον",
+      "transliteration": "dichalcon",
+      "type": "weight",
+      "key": "dichalcon-weight",
+      "metricEquivalent": 0.379,
+      "baseEquivalent": "1/72"
+    },
+    {
+      "greek": "κύαμος Αἰγύπτιος",
+      "transliteration": "cyamos aigyptios",
+      "type": "weight",
+      "key": "cyamos aigyptios-weight",
+      "metricEquivalent": 0.852,
+      "baseEquivalent": "1/32"
+    },
+    {
+      "greek": "γράμμα",
+      "transliteration": "gramma",
+      "type": "weight",
+      "key": "gramma-weight",
+      "metricEquivalent": 1.137,
+      "baseEquivalent": "1/24"
+    },
+    {
+      "greek": "τριώβολον",
+      "transliteration": "triobolon",
+      "type": "weight",
+      "key": "triobolon-weight",
+      "metricEquivalent": 1.794,
+      "baseEquivalent": "5/76"
+    },
+    {
+      "greek": "δραχμή",
+      "transliteration": "drachme",
+      "type": "weight",
+      "key": "drachme-weight",
+      "metricEquivalent": 3.411,
+      "baseEquivalent": "1/8"
+    },
+    {
+      "greek": "ὁλκή",
+      "transliteration": "holce",
+      "type": "weight",
+      "key": "holce-weight",
+      "metricEquivalent": 3.411,
+      "baseEquivalent": "1/8"
+    },
+    {
+      "greek": "κάρυον Ποντικόν",
+      "transliteration": "caryon ponticon",
+      "type": "weight",
+      "key": "caryon ponticon-weight",
+      "metricEquivalent": 3.4,
+      "baseEquivalent": "1/8"
+    },
+    {
+      "greek": "κάρυον Βασιλικόν",
+      "transliteration": "caryon basilikon",
+      "type": "weight",
+      "key": "caryon basilikon-weight",
+      "metricEquivalent": 13.644,
+      "baseEquivalent": "1/2"
+    },
+    {
+      "greek": "οὐγγία",
+      "transliteration": "oungia",
+      "type": "weight",
+      "key": "oungia-weight",
+      "metricEquivalent": 27.288,
+      "baseEquivalent": "1"
+    },
+    {
+      "greek": "ξέστης",
+      "transliteration": "xestes",
+      "type": "weight",
+      "key": "xestes-weight",
+      "metricEquivalent": 54.58,
+      "baseEquivalent": "2"
+    },
+    {
+      "greek": "τέταρτον",
+      "transliteration": "tetarton",
+      "type": "weight",
+      "key": "tetarton-weight",
+      "metricEquivalent": 81.86,
+      "baseEquivalent": "3"
+    },
+    {
+      "greek": "λίτρα",
+      "transliteration": "litra",
+      "type": "weight",
+      "key": "litra-weight",
+      "metricEquivalent": 327.45,
+      "baseEquivalent": "12"
+    },
+    {
+      "greek": "μνᾶ",
+      "transliteration": "mna",
+      "type": "weight",
+      "key": "mna-weight",
+      "metricEquivalent": 436.6,
+      "baseEquivalent": "16"
+    },
+    {
+      "greek": "χήμη",
+      "transliteration": "cheme",
+      "type": "volume",
+      "key": "cheme-volume",
+      "metricEquivalent": 11.4,
+      "baseEquivalent": "1/48"
+    },
+    {
+      "greek": "κοχλιάριον",
+      "transliteration": "cochlarion",
+      "type": "volume",
+      "key": "cochlarion-volume",
+      "metricEquivalent": 12,
+      "baseEquivalent": "2/91"
+    },
+    {
+      "greek": "κύαθος",
+      "transliteration": "cyathos",
+      "type": "volume",
+      "key": "cyathos-volume",
+      "metricEquivalent": 45.6,
+      "baseEquivalent": "1/12"
+    },
+    {
+      "greek": "μύστρον",
+      "transliteration": "mystron",
+      "type": "volume",
+      "key": "mystron-volume",
+      "metricEquivalent": 68,
+      "baseEquivalent": "1/8"
+    },
+    {
+      "greek": "ὀξύβαφον",
+      "transliteration": "oxybaphon",
+      "type": "volume",
+      "key": "oxybaphon-volume",
+      "metricEquivalent": 68.4,
+      "baseEquivalent": "1/8"
+    },
+    {
+      "greek": "τέταρτον",
+      "transliteration": "tetarton",
+      "type": "volume",
+      "key": "tetarton-volume",
+      "metricEquivalent": 137,
+      "baseEquivalent": "1/4"
+    },
+    {
+      "greek": "κοτύλη",
+      "transliteration": "cotyle",
+      "type": "volume",
+      "key": "cotyle-volume",
+      "metricEquivalent": 274,
+      "baseEquivalent": "1/2"
+    },
+    {
+      "greek": "ξέστης",
+      "transliteration": "xestes",
+      "type": "volume",
+      "key": "xestes-volume",
+      "metricEquivalent": 547,
+      "baseEquivalent": "1"
+    },
+    {
+      "greek": "χοῖνιξ",
+      "transliteration": "choinix",
+      "type": "volume",
+      "key": "choinix-volume",
+      "metricEquivalent": 1094,
+      "baseEquivalent": "2"
+    },
+    {
+      "greek": "χοῦς",
+      "transliteration": "chous",
+      "type": "volume",
+      "key": "chous-volume",
+      "metricEquivalent": 3282,
+      "baseEquivalent": "6"
+    },
+    {
+      "greek": "οὔρνα",
+      "transliteration": "ouma",
+      "type": "volume",
+      "key": "ouma-volume",
+      "metricEquivalent": 13130,
+      "baseEquivalent": "24"
+    },
+    {
+      "greek": "ἀμφορεύς",
+      "transliteration": "amphoreus",
+      "type": "volume",
+      "key": "amphoreus-volume",
+      "metricEquivalent": 26260,
+      "baseEquivalent": "48"
+    },
+    {
+      "greek": "κεράμιον",
+      "transliteration": "ceramion",
+      "type": "volume",
+      "key": "ceramion-volume",
+      "metricEquivalent": 26260,
+      "baseEquivalent": "48"
+    },
+    {
+      "greek": "μετρήτης",
+      "transliteration": "metretes",
+      "type": "volume",
+      "key": "metretes-volume",
+      "metricEquivalent": 39360,
+      "baseEquivalent": "72"
+    },
+    {
+      "greek": "ἀριθμός",
+      "transliteration": "number",
+      "type": "n/a",
+      "key": "number-n/a",
+      "metricEquivalent": 1,
+      "baseEquivalent": "1"
+    }
+  ]
+}

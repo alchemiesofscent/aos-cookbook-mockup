@@ -47,6 +47,8 @@ export interface MasterEntity {
 export interface Quantity {
   value: number;
   unit: string;
+  unitKey?: string;
+  unitType?: "weight" | "volume" | "n/a";
   isEstimate?: boolean;
   unitRaw?: {
     term: string;
