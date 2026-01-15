@@ -474,7 +474,7 @@
           "displayTerm": "Rose petals (dry)",
           "amount": "1000 (count)",
           "originalAmount": "ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα",
-          "quantities": [{ "value": 1000, "unit": "roses", "unitKey": "count", "unitType": "n/a" }],
+          "quantities": [{ "value": 1000, "unit": "roses", "unitKey": "roses", "unitType": "n/a" }],
           "role": "aromatic"
         },
         {
