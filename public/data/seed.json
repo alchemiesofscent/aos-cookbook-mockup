@@ -20,9 +20,9 @@
         "combinedSegments": [
           { "text": "Preparation of rose oil (ῥόδινον): Take 5 lbs., 8 oz. of " },
           { "text": "σχοῖνος", "type": "annotation", "id": "ing-skhoinos" },
-          { "text": ", 20 lbs. and 5 oz. of " },
+          { "text": ", and 20 lbs., 5 oz. of " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
-          { "text": "." },
+          { "text": ". " },
 
           { "text": "Chop ", "type": "annotation", "id": "pr-koptein" },
           { "text": "and " },
@@ -45,9 +45,9 @@
 
           { "text": "Rub your hands with " },
           { "text": "fragrant μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": "and " },
+          { "text": " and " },
           { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
-          { "text": " repeatedly, " },
+          { "text": " continuously, " },
           { "text": "pressing", "type": "annotation", "id": "pr-hypothlibein" },
           { "text": " gently.\n\n" },
           
@@ -74,7 +74,7 @@
           { "text": "λουτηρίδιον", "type": "annotation", "id": "tool-louteridion" },
           { "text": ". " },
 
-          { "text": "Pour in 8 lbs. and 3 oz. of the pressed " },
+          { "text": "Pour in 8 lbs., 3 oz. of the pressed " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-8-3" },
           { "text": " and " },
           { "text": "strain", "type": "annotation", "id": "pr-exipoun" },
