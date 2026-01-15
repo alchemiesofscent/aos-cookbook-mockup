@@ -49,6 +49,7 @@ export interface Quantity {
   unit: string;
   unitKey?: string;
   unitType?: "weight" | "volume" | "n/a";
+  displayUnit?: string;
   isEstimate?: boolean;
   unitRaw?: {
     term: string;

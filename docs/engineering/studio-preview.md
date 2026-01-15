@@ -35,7 +35,7 @@ This repo includes a Phase 2 **Studio (Preview)** page that renders a modern rec
 
 - Seed DB (recipes/items): `public/data/seed.json`
   - Rose Perfume ingredient `ri-1` (skhoinos) is neutral (no pre-selected modern identification)
-  - Rose petals (`ri-3`) uses a structured `count` quantity for deterministic scaling
+  - Count-style lines can include a per-line display label via `Quantity.displayUnit` (e.g., `roses`) for deterministic scaling without showing `count`
 - Unit equivalents (ancient + base units): `public/data/unit_equivalents.json`
   - Studio also merges a built-in modern conversion map for `lb`, `oz`, and `count` at runtime
 - Studio recipe copy (curated intro/time/steps/disclaimers): `src/content/studioRecipes.ts`

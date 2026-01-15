@@ -24,10 +24,11 @@ const numberFormat = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 0,
 });
 
-const formatMetric = (params: { unitType: UnitTypeKey; value: number }): string => {
-  const { unitType, value } = params;
+const formatMetric = (params: { unitType: UnitTypeKey; value: number; countUnitLabel?: string | null }): string => {
+  const { unitType, value, countUnitLabel } = params;
   if (unitType === "n/a") {
-    return `${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(value))} count`;
+    const label = (countUnitLabel ?? "").trim() || "count";
+    return `${new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(value))} ${label}`;
   }
 
   if (unitType === "weight") {
@@ -56,7 +57,7 @@ const computeConvertibleMetricTotal = (params: {
   scale: number;
   equivalents: UnitEquivalentsLookup;
 }):
-  | { ok: true; unitType: UnitTypeKey; metricTotal: number }
+  | { ok: true; unitType: UnitTypeKey; metricTotal: number; countUnitLabel: string | null }
   | { ok: false } => {
   const { quantities, scale, equivalents } = params;
   if (!quantities.length) return { ok: false };
@@ -64,6 +65,7 @@ const computeConvertibleMetricTotal = (params: {
 
   let unitType: UnitTypeKey | null = null;
   let total = 0;
+  let countUnitLabel: string | null = null;
 
   for (const q of quantities) {
     if (!Number.isFinite(q.value)) return { ok: false };
@@ -75,12 +77,22 @@ const computeConvertibleMetricTotal = (params: {
     if (unitType && unitType !== resolvedType) return { ok: false };
     unitType = resolvedType;
 
+    if (resolvedType === "n/a") {
+      const label =
+        (q.displayUnit?.trim() || "") ||
+        (q.unit && q.unit !== "count" && q.unit !== "number-n/a" ? q.unit.trim() : "");
+      if (label) {
+        if (countUnitLabel && countUnitLabel !== label) return { ok: false };
+        countUnitLabel = label;
+      }
+    }
+
     const scaledValue = q.value * scale;
     total += scaledValue * factor;
   }
 
   if (!unitType) return { ok: false };
-  return { ok: true, unitType, metricTotal: total };
+  return { ok: true, unitType, metricTotal: total, countUnitLabel };
 };
 
 const getIngredientOptions = (recipeId: string, ingredientKey: string): StudioIdentificationOption[] => {
@@ -130,7 +142,7 @@ const buildExportText = (params: {
     .filter((i) => i.type === "ingredient")
     .map((ing) => {
       const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
-      const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
+      const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal, countUnitLabel: metric.countUnitLabel }) : "amount unavailable";
       const displayName = getIngredientDisplayName({ recipeId: recipe.id, ing, session });
       return `- ${displayName}: ${amount}`;
     });
@@ -161,7 +173,9 @@ const buildExportText = (params: {
   const yieldMetric = yieldBasis
     ? computeConvertibleMetricTotal({ quantities: yieldBasis.quantities ?? [], scale: session.scale, equivalents })
     : { ok: false as const };
-  const yieldDisplay = yieldMetric.ok ? formatMetric({ unitType: yieldMetric.unitType, value: yieldMetric.metricTotal }) : "yield unavailable";
+  const yieldDisplay = yieldMetric.ok
+    ? formatMetric({ unitType: yieldMetric.unitType, value: yieldMetric.metricTotal, countUnitLabel: yieldMetric.countUnitLabel })
+    : "yield unavailable";
 
   const header = [
     "ALCHEMIES OF SCENT — STUDIO (PREVIEW)",
@@ -219,7 +233,7 @@ export default function StudioPage({ db }: StudioPageProps) {
     const basis = recipe.items.find((i) => i.id === studio.yieldBasisIngredientKey);
     if (!basis) return "yield unavailable";
     const metric = computeConvertibleMetricTotal({ quantities: basis.quantities ?? [], scale: session.scale, equivalents });
-    return metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "yield unavailable";
+    return metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal, countUnitLabel: metric.countUnitLabel }) : "yield unavailable";
   }, [equivalents, recipe, session, studio]);
 
   const ingredientRows = useMemo(() => {
@@ -229,7 +243,9 @@ export default function StudioPage({ db }: StudioPageProps) {
       .map((ing) => {
         const hasOptions = getIngredientOptions(recipe.id, ing.id).length > 0;
         const metric = computeConvertibleMetricTotal({ quantities: ing.quantities ?? [], scale: session.scale, equivalents });
-        const amount = metric.ok ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal }) : "amount unavailable";
+        const amount = metric.ok
+          ? formatMetric({ unitType: metric.unitType, value: metric.metricTotal, countUnitLabel: metric.countUnitLabel })
+          : "amount unavailable";
         const selected = getSelectedOption({ recipeId: recipe.id, ingredientKey: ing.id, session });
         const displayName = getIngredientDisplayName({ recipeId: recipe.id, ing, session });
         return { ing, amount, hasOptions, selected, displayName };

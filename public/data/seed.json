@@ -472,9 +472,9 @@
           "originalTerm": "ῥόδων",
           "transliteration": "rhodon",
           "displayTerm": "Rose petals (dry)",
-          "amount": "1000 (count)",
+          "amount": "1000 roses",
           "originalAmount": "ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα",
-          "quantities": [{ "value": 1000, "unit": "roses", "unitKey": "roses", "unitType": "n/a" }],
+          "quantities": [{ "value": 1000, "unit": "count", "unitKey": "count", "unitType": "n/a", "displayUnit": "roses" }],
           "role": "aromatic"
         },
         {
