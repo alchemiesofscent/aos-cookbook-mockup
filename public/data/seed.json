@@ -18,9 +18,9 @@
         "translation": "Preparation of rose oil: Take five litras, eight ounces of skhoinos, twenty litras and five ounces of oil. Cut and soften [the skhoinos] in water, then boil [in the oil] while stirring. Afterward, strain the mixture and place the unmoistened petals of one thousand roses into the twenty litras and five ounces of oil. Rub your hands with fragrant honey and stir repeatedly, pressing gently. Then, let it sit overnight and strain the oil. When the sediment has settled, transfer the oil into a different container and store it in a jar that has been smeared with honey. Put the strained roses into a small basin, pour in eight litras and three ounces of the pressed oil, and strain again.\n\nThis will be your second batch, and if you wish, you may continue up to the third and fourth infusion by pouring and straining. The first, second, third, and fourth infusions produce the oil. Whenever you prepare this, coat the jars with honey beforehand. If you want to make a second infusion, add the same number of fresh dry roses to the previously strained oil, stir them with hands that have been coated in honey, press, and repeat the straining for the second, third, and fourth infusions. Whenever you do this, add fresh roses, as this increases the potency.\n\nThe oil can undergo up to seven infusions of roses, but no more after that. The tub should also be smeared with honey. You must carefully separate the oil from the juice, as even the smallest amount left behind spoils the oil. Some people crush only the roses and soak them in oil, changing the oil every seven days up to the third infusion. Others pre-treat the oil, adding in addition kalamos and aspalathos, and some also add anchusa for its color and salt to prevent spoilage.",
         "notes": "Edition consulted: Wellmann (pp. 42–43). Translator: Coughlin. Citation: De materia medica 1.43.1–3.",
         "combinedSegments": [
-          { "text": "Preparation of rose oil (ῥόδινον): Take 5 lbs., 8 oz. of " },
+          { "text": "Preparation of rose oil (ῥόδινον): Take 5 lbs. 8 oz. of " },
           { "text": "σχοῖνος", "type": "annotation", "id": "ing-skhoinos" },
-          { "text": ", and 20 lbs., 5 oz. of " },
+          { "text": ", and 20 lbs. 5 oz. of " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
           { "text": ". " },
 
@@ -74,7 +74,7 @@
           { "text": "λουτηρίδιον", "type": "annotation", "id": "tool-louteridion" },
           { "text": ". " },
 
-          { "text": "Pour in 8 lbs., 3 oz. of the pressed " },
+          { "text": "Pour in 8 lbs. 3 oz. of the pressed " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-8-3" },
           { "text": " and " },
           { "text": "strain", "type": "annotation", "id": "pr-exipoun" },
