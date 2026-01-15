@@ -1,0 +1,131 @@
+.searchPageHeader {
+  margin-bottom: 2rem;
+}
+
+.searchPageHeader p {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-sans);
+  color: var(--color-stone);
+  max-width: 48rem;
+}
+
+.searchPageForm {
+  max-width: 48rem;
+  margin-bottom: 2rem;
+}
+
+.searchPageField {
+  position: relative;
+}
+
+.searchPageInput {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  background: var(--color-warm-white);
+  box-shadow: var(--shadow-soft);
+  padding: 0.9rem 3.25rem 0.9rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-earth);
+  outline: none;
+}
+
+.searchPageInput:focus {
+  border-color: var(--color-border-strong);
+}
+
+.searchPageBtn {
+  position: absolute;
+  right: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+.searchPageBtn:hover {
+  filter: brightness(1.05);
+}
+
+.searchResultsCard {
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  background: var(--color-warm-white);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.searchResultsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.searchResultRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.searchResultRow:first-child {
+  border-top: none;
+}
+
+.searchResultTitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+}
+
+.searchResultMeta {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-stone);
+}
+
+.searchResultBadge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-chip-bg);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: var(--color-earth);
+  margin-right: 0.6rem;
+}
+
+.searchResultOpen {
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-earth);
+  cursor: pointer;
+}
+
+.searchResultOpen:hover {
+  background: var(--color-chip-bg);
+}
+
+.searchEmpty {
+  padding: 1.25rem;
+  font-family: var(--font-sans);
+  color: var(--color-stone);
+}
+

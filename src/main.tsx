@@ -5,6 +5,8 @@ import { assertRecipeAnnotationInvariants } from "./invariants";
 import { loadState, StorageAdapter } from "./storage";
 import type { DatabaseState, Recipe } from "./types";
 import seed from "@seed.json";
+import HomePage from "./pages/home/HomePage";
+import SearchPage from "./pages/search/SearchPage";
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
@@ -156,7 +158,7 @@ const Header = ({
             <div onClick={() => navigate('news')}>News</div>
           </div>
         </div>
-        <div className="nav-item search-icon">
+        <div className="nav-item search-icon" onClick={() => navigate('search')} title="Search">
           <Icons.Search />
         </div>
         <button
@@ -218,42 +220,6 @@ const MaterialsSubNav = ({ navigate, active }) => (
 );
 
 // --- Page Views ---
-
-const HomePage = ({ navigate }) => {
-  return (
-    <div className="page-container home-page">
-      <div className="home-hero">
-         <div className="hero-content">
-            <div className="hero-super">The Laboratory</div>
-            <h1>ALCHEMIES OF SCENT</h1>
-            <p className="hero-text">Reconstructing the sensory past of antiquity through the interdisciplinary study of perfumery.</p>
-            <div className="hero-actions">
-              <button className="btn-primary" onClick={() => navigate('library')}>Enter The Library</button>
-              <button className="btn-secondary" onClick={() => navigate('workshop')}>Enter The Workshop</button>
-            </div>
-         </div>
-      </div>
-
-      <div className="home-grid">
-         <div className="home-card" onClick={() => navigate('library')}>
-            <h2>The Library</h2>
-            <p>The textual heart of the project. Explore ancient recipes, primary source texts, and biographies of the people who created them.</p>
-            <span className="link-text">Browse Collection &rarr;</span>
-         </div>
-         <div className="home-card" onClick={() => navigate('workshop')}>
-            <h2>The Workshop</h2>
-            <p>The experimental laboratory. Dive into the chemical data, botanical identifications, and material analysis of ancient ingredients.</p>
-             <span className="link-text">Explore Materials &rarr;</span>
-         </div>
-         <div className="home-card" onClick={() => navigate('about')}>
-            <h2>About the Project</h2>
-            <p>Meet the interdisciplinary team of historians, linguists, and chemists working to bring the past back to life.</p>
-             <span className="link-text">Read More &rarr;</span>
-         </div>
-      </div>
-    </div>
-  );
-};
 
 const LibraryPage = ({ navigate }) => {
   return (
@@ -2238,6 +2204,7 @@ const App = ({
   setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
 }) => {
   const [route, setRoute] = useState('home'); 
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     document.title = "Alchemies of Scent — The Laboratory";
@@ -2245,7 +2212,7 @@ const App = ({
 
   const renderPage = () => {
     switch(route) {
-      case 'home': return <HomePage navigate={setRoute} />;
+      case 'home': return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
       case 'library': return <LibraryPage navigate={setRoute} />;
       case 'archive': return <ArchivePage navigate={setRoute} />;
       case 'works': return <WorksPage navigate={setRoute} />;
@@ -2269,6 +2236,7 @@ const App = ({
       case 'tool_alembic': return <ToolDetailPage navigate={setRoute} />;
       case 'identification_smyrna': return <IdentificationPage navigate={setRoute} />;
       case 'experiments': return <ExperimentsPage navigate={setRoute} />;
+      case 'search': return <SearchPage navigate={setRoute} db={db} query={searchQuery} setQuery={setSearchQuery} />;
       
       // New Routes
       case 'person_dioscorides': return <HistoricalPersonPage navigate={setRoute} />;
@@ -2276,7 +2244,7 @@ const App = ({
       case 'work_materia_medica': return <WorkDetailPage navigate={setRoute} />;
       case 'admin': return <AdminConsole navigate={setRoute} />;
 
-      default: return <HomePage navigate={setRoute} />;
+      default: return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
     }
   };
 
