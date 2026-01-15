@@ -21,7 +21,7 @@ export const studioIdentifications: StudioIdentificationsByRecipe = {
     "ri-1": [
       {
         id: "schoinos-opt-01",
-        label: "Cymbopogon schoenanthus (camel grass)",
+        label: "Camel grass (Cymbopogon schoenanthus)",
         confidence: "high",
         citations: [
           "Project placeholder: add your preferred published authority supporting Cymbopogon schoenanthus for σχοῖνος.",
@@ -32,7 +32,7 @@ export const studioIdentifications: StudioIdentificationsByRecipe = {
       },
       {
         id: "schoinos-opt-02",
-        label: "Cymbopogon citratus (lemongrass)",
+        label: "Lemongrass (Cymbopogon citratus)",
         confidence: "medium",
         citations: [
           "Project placeholder: add your preferred published authority supporting Cymbopogon citratus for σχοῖνος.",

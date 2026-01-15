@@ -343,9 +343,9 @@ export default function StudioPage({ db }: StudioPageProps) {
               </label>
               <input
                 type="range"
-                min="0.1"
-                max="4"
-                step="0.1"
+                min="0.05"
+                max="2"
+                step="0.05"
                 value={session?.scale ?? 1}
                 onChange={(e) => updateSession({ scale: Number(e.target.value) })}
                 style={{ width: "100%" }}
