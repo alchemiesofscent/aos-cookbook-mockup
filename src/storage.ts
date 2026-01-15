@@ -102,8 +102,8 @@ const SEED_DATA: DatabaseState = {
             notes: "A standard recipe for Rhodion from Dioscorides Book 1. Note the specific emphasis on 'skhoinos' (lemongrass) for stypsis and the repeated enfleurage process."
         },
         items: [
-            { id: "ri-1", type: "ingredient", masterId: "i-lemongrass", originalTerm: "σχοῖνος", transliteration: "skhoinos", displayTerm: "Lemongrass", amount: "5 lbs 8 oz", originalAmount: "λίτρας πέντε οὐγγίας ὀκτώ", quantities: [], role: "aromatic" },
-            { id: "ri-2", type: "ingredient", masterId: "i-oil", originalTerm: "ἔλαιον", transliteration: "elaion", displayTerm: "Olive Oil", amount: "20 lbs 5 oz", originalAmount: "λίτρας εἴκοσι οὐγγίας πέντε", quantities: [], role: "base" },
+            { id: "ri-1", type: "ingredient", masterId: "i-lemongrass", originalTerm: "σχοῖνος", transliteration: "skhoinos", displayTerm: "Lemongrass", amount: "5 lb 8 oz", originalAmount: "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ", quantities: [{ value: 5, unit: "lb" }, { value: 8, unit: "oz" }], role: "aromatic" },
+            { id: "ri-2", type: "ingredient", masterId: "i-oil", originalTerm: "ἔλαιον", transliteration: "elaion", displayTerm: "Olive Oil", amount: "20 lb 5 oz", originalAmount: "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε", quantities: [{ value: 20, unit: "lb" }, { value: 5, unit: "oz" }], role: "carrier" },
             { id: "ri-3", type: "ingredient", masterId: "i-rose", originalTerm: "ῥόδα", transliteration: "rhoda", displayTerm: "Rose petals (dry)", amount: "1000", originalAmount: "ἀριθμῷ χιλίων", quantities: [], role: "aromatic" },
             { id: "ri-4", type: "ingredient", masterId: "i-honey", originalTerm: "μέλι", transliteration: "meli", displayTerm: "Honey", amount: "QS", originalAmount: "χρίσας", quantities: [], role: "adjuvant" },
             { id: "ri-5", type: "ingredient", masterId: "i-kalamos", originalTerm: "κάλαμος", transliteration: "kalamos", displayTerm: "Kalamos", amount: "QS", originalAmount: "παρεμβάλλοντες", quantities: [], role: "adjuvant" },

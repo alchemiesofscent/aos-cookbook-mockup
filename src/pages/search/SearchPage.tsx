@@ -41,6 +41,7 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
       { title: "Home", kind: "Page", route: "home", keywords: ["laboratory", "alchemies of scent"] },
       { title: "The Library", kind: "Page", route: "library", keywords: ["recipes", "works", "people"] },
       { title: "The Workshop", kind: "Page", route: "workshop", keywords: ["materials", "processes", "tools"] },
+      { title: "The Studio (Preview)", kind: "Page", route: "studio", keywords: ["builder", "composer", "phase 2"] },
       { title: "About", kind: "Page", route: "about", keywords: ["project", "team", "news"] },
 
       { title: "Recipes", kind: "Index", route: "archive", subtitle: `${db.recipes.length} recipe${db.recipes.length === 1 ? "" : "s"}` },
@@ -187,4 +188,3 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
     </div>
   );
 }
-
