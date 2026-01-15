@@ -1040,7 +1040,7 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
         </div>
       </div>
 
-      <div className="recipe-split-view">
+      <div className={`recipe-split-view ${activeAnnotation ? 'has-annotation' : ''}`}>
         <div className="text-column">
           <h2>THE TEXT</h2>
           <div className="recipe-text">
@@ -1050,7 +1050,7 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
                   <span 
                     key={i} 
                     className={`annotated-term ${activeAnnotationId === seg.id ? 'active' : ''}`}
-                    onClick={() => setActiveAnnotationId(seg.id)}
+                    onClick={() => setActiveAnnotationId((prev) => (prev === seg.id ? null : seg.id))}
                   >
                     {seg.text}
                   </span>
@@ -1092,8 +1092,19 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
           {activeAnnotation ? (
             <div className="annotation-card fade-in">
               <div className="anno-header">
-                <h3>{activeAnnotation.term}</h3>
-                <span className="transliteration">{activeAnnotation.transliteration}</span>
+                <div className="anno-title">
+                  <h3>{activeAnnotation.term}</h3>
+                  <span className="transliteration">{activeAnnotation.transliteration}</span>
+                </div>
+                <button
+                  type="button"
+                  className="anno-close"
+                  onClick={() => setActiveAnnotationId(null)}
+                  aria-label="Close annotation"
+                  title="Close"
+                >
+                  ×
+                </button>
               </div>
               {activeAnnotation.definition && <p>{activeAnnotation.definition}</p>}
               <div className="anno-links">
@@ -2070,9 +2081,26 @@ const GlobalStyles = () => (
       padding: 1.5rem;
       box-shadow: 0 4px 12px rgba(139, 105, 20, 0.1);
     }
-    .anno-header { border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .anno-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .anno-title { display: flex; flex-direction: column; min-width: 0; }
     .anno-header h3 { margin: 0; color: var(--color-amber-dark); font-family: var(--font-serif); }
     .transliteration { font-style: italic; color: var(--color-stone); }
+    .anno-close {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: transparent;
+      color: var(--color-stone);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .anno-close:hover { background: var(--color-chip-bg); color: var(--color-amber-dark); }
     .anno-links { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
     .fade-in { animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -2181,8 +2209,25 @@ const GlobalStyles = () => (
 
     @media (max-width: 768px) {
       .recipe-split-view { grid-template-columns: 1fr; }
-      .notes-column { display: none; /* In full implementation would be bottom sheet */ }
-      .recipe-split-view .has-content.notes-column { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; border-top: 2px solid var(--color-amber); }
+      .recipe-split-view.has-annotation { padding-bottom: 14rem; }
+      .notes-column { display: none; }
+      .recipe-split-view .has-content.notes-column {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        border-top: 2px solid var(--color-amber);
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        background: var(--color-warm-white);
+        box-shadow: var(--shadow-raised-strong);
+        padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+        max-height: 45vh;
+        overflow-y: auto;
+      }
+      .recipe-split-view .has-content.notes-column h2 { margin-top: 0; }
       .site-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
       .main-nav { flex-wrap: wrap; gap: 1rem; }
       .footer-columns { flex-direction: column; gap: 2rem; }

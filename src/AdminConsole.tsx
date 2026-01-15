@@ -89,6 +89,33 @@ const AdminStyles = () => (
     
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .modal-content { background: white; padding: 2rem; border-radius: 8px; width: 500px; max-width: 90%; max-height: 90vh; overflow-y: auto; }
+
+    /* Mobile: turn sidebar into a top tab bar */
+    @media (max-width: 900px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .admin-content { padding: 1rem; }
+
+      .admin-brand { margin-bottom: 0; font-size: 1rem; white-space: nowrap; }
+      .admin-nav-section { display: none; }
+      .admin-nav-item { margin-bottom: 0; white-space: nowrap; border: 1px solid rgba(255,255,255,0.08); }
+      .admin-nav-item.active { border-color: rgba(0,0,0,0.15); }
+
+      .status-bar { left: 0; padding: 0.6rem 1rem; font-size: 0.75rem; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .item-row { grid-template-columns: 1fr; }
+    }
   `}</style>
 );
 
