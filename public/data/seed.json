@@ -22,47 +22,41 @@
           { "text": "σχοῖνος", "type": "annotation", "id": "ing-skhoinos" },
           { "text": ", 20 lbs. and 5 oz. of " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
-          { "text": ".\n\n" },
+          { "text": "." },
 
-          { "text": "Cut and soften the σχοῖνος in " },
+          { "text": "Chop ", "type": "annotation", "id": "pr-koptein" },
+          { "text": "and " },
+          { "text": "soften ", "type": "annotation", "id": "pr-phyrein" },
+          { "text": "the σχοῖνος in " },
           { "text": "ὕδωρ", "type": "annotation", "id": "ing-hydor" },
-          { "text": ".\n\n" },
 
-          { "text": "Then " },
-          { "text": "cut", "type": "annotation", "id": "pr-koptein" },
-          { "text": " and " },
-          { "text": "soften", "type": "annotation", "id": "pr-phyrein" },
-          { "text": " it.\n\n" },
-
-          { "text": "Boil while " },
+          { "text": ", then " },
+          { "text": "boil", "type": "annotation", "id": "pr-hepsein" },
+          { "text": " while " },
           { "text": "stirring", "type": "annotation", "id": "pr-anakinein" },
           { "text": ".\n\n" },
 
           { "text": "Afterward, " },
-          { "text": "strain", "type": "annotation", "id": "pr-apodiēthein" },
-          { "text": " the mixture.\n\n" },
-
-          { "text": "Add the petals of one thousand dry " },
+          { "text": "strain ", "type": "annotation", "id": "pr-apodiēthein" },
+          
+          { "text": "and place the petals of one thousand dry " },
           { "text": "ῥόδα", "type": "annotation", "id": "ing-rhodon-1000" },
-          { "text": " to the oil.\n\n" },
+          { "text": " into the oil. " },
 
           { "text": "Rub your hands with " },
-          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": ".\n\n" },
-
-          { "text": "Then " },
+          { "text": "fragrant μέλι", "type": "annotation", "id": "ing-meli" },
+          { "text": "and " },
           { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
           { "text": " repeatedly, " },
           { "text": "pressing", "type": "annotation", "id": "pr-hypothlibein" },
           { "text": " gently.\n\n" },
-
-          { "text": "Then " },
-          { "text": "let it rest", "type": "annotation", "id": "pr-ean" },
-          { "text": " overnight.\n\n" },
+          
+          { "text": "Let it rest", "type": "annotation", "id": "pr-ean" },
+          { "text": " overnight. " },
 
           { "text": "Then " },
           { "text": "press out", "type": "annotation", "id": "pr-ekthlibein" },
-          { "text": ".\n\n" },
+          { "text": ". " },
 
           { "text": "When the sediment has " },
           { "text": "settled", "type": "annotation", "id": "pr-hyphistasthai" },
@@ -70,7 +64,7 @@
           { "text": "transfer", "type": "annotation", "id": "pr-allassein" },
           { "text": " the oil into another " },
           { "text": "ἀγγεῖον", "type": "annotation", "id": "tool-angeion" },
-          { "text": ".\n\n" },
+          { "text": ".\ " },
 
           { "text": "Store it in a " },
           { "text": "κρατήρ", "type": "annotation", "id": "tool-krater" },
@@ -78,13 +72,13 @@
 
           { "text": "Put the strained roses into a " },
           { "text": "λουτηρίδιον", "type": "annotation", "id": "tool-louteridion" },
-          { "text": ".\n\n" },
+          { "text": ". " },
 
           { "text": "Pour in 8 lbs. and 3 oz. of the pressed " },
           { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-8-3" },
           { "text": " and " },
           { "text": "strain", "type": "annotation", "id": "pr-exipoun" },
-          { "text": " again.\n\n" },
+          { "text": " again. " },
 
           { "text": "This will be your second batch.\n\n" },
 
@@ -92,7 +86,7 @@
           { "text": "pouring", "type": "annotation", "id": "pr-epicheein" },
           { "text": " and " },
           { "text": "straining", "type": "annotation", "id": "pr-exipoun" },
-          { "text": ".\n\n" },
+          { "text": ". " },
 
           { "text": "Whenever you prepare this, pre-coat the κρατήρ with " },
           { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
@@ -100,7 +94,7 @@
 
           { "text": "If you want a second infusion, " },
           { "text": "add", "type": "annotation", "id": "pr-emballein" },
-          { "text": " the same number of fresh dry ῥόδα to the first strained oil.\n\n" },
+          { "text": " the same number of fresh dry ῥόδα to the first strained oil. " },
 
           { "text": "Then " },
           { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
@@ -112,7 +106,7 @@
 
           { "text": "Each time you do this, " },
           { "text": "add", "type": "annotation", "id": "pr-prosballein" },
-          { "text": " fresh ῥόδα; it becomes more potent.\n\n" },
+          { "text": " fresh ῥόδα; it becomes more potent." },
 
           { "text": "The ἔλαιον can receive the ῥόδον charge up to the seventh infusion, but no more after that.\n\n" },
 
@@ -120,7 +114,7 @@
           { "text": "ληνός", "type": "annotation", "id": "tool-lenos" },
           { "text": " also be smeared with " },
           { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": ".\n\n" },
+          { "text": ". " },
 
           { "text": "Carefully " },
           { "text": "separate", "type": "annotation", "id": "pr-chōrizein" },
@@ -146,7 +140,7 @@
           { "text": "κάλαμος", "type": "annotation", "id": "ing-kalamos" },
           { "text": " and " },
           { "text": "ἀσπάλαθος", "type": "annotation", "id": "ing-aspalathos" },
-          { "text": ".\n\n" },
+          { "text": ". " },
 
           { "text": "Some also add " },
           { "text": "ἄγχουσα", "type": "annotation", "id": "ing-anchousa" },
