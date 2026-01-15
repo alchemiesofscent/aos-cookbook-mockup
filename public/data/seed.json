@@ -52,9 +52,9 @@
           { "text": " gently.\n\n" },
           
           { "text": "Let it rest", "type": "annotation", "id": "pr-ean" },
-          { "text": " overnight. " },
+          { "text": " overnight, " },
 
-          { "text": "Then " },
+          { "text": "then " },
           { "text": "press out", "type": "annotation", "id": "pr-ekthlibein" },
           { "text": ". " },
 
@@ -64,7 +64,7 @@
           { "text": "transfer", "type": "annotation", "id": "pr-allassein" },
           { "text": " the oil into another " },
           { "text": "ἀγγεῖον", "type": "annotation", "id": "tool-angeion" },
-          { "text": ".\ " },
+          { "text": ". " },
 
           { "text": "Store it in a " },
           { "text": "κρατήρ", "type": "annotation", "id": "tool-krater" },
