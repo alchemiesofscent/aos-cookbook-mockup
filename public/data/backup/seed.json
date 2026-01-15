@@ -1,0 +1,212 @@
+{
+  "recipes": [
+    {
+      "id": "r-rose-perfume",
+      "slug": "rose-perfume-dioscorides",
+      "urn": "urn:aos:recipe:rose-perfume-dioscorides",
+      "metadata": {
+        "title": "Rose Perfume",
+        "sourceWorkId": "w-materia-medica",
+        "author": "Dioscorides",
+        "attribution": "De materia medica 1.43.1–3 (Wellmann, pp. 42–43), trans. Coughlin",
+        "language": "Ancient Greek",
+        "date": "first century",
+        "place": "Turkey"
+      },
+      "text": {
+        "original": "43\n1 ῥοδίνου σκευασία· σχοίνου λίτρας πέντε οὐγγίας ὀκτώ ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε κόψας καὶ φυράσας ἐν ὕδατι ἕψε ἀνακινῶν, εἶτα ἀπηθήσας εἰς τὰς εἴκοσι λίτρας καὶ οὐγγίας πέντε τοῦ ἐλαίου βάλε ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα, καὶ τὰς χεῖρας μέλιτι χρίσας εὐώδει ἀνακίνει πλεονάκις ὑποθλίβων ἠρέμα, ἔπειτα ἐάσας τὴν νύκτα ἔκθλιβε. ὅταν δὲ τὸ τρυγῶδες ὑποστῇ, ἄλλαξον τὸ ὑποδεχόμενον ἀγγεῖον, ἀποτίθεσο δὲ εἰς κρατῆρα μέλιτι κατακεχρισμένον. βαλὼν δὲ εἰς λουτηρίδιον τὰ ἐξιπωθέντα ῥόδα ἐπίχει λίτρας ὀκτὼ οὐγγίας τρεῖς τοῦ ἐστυμμένου ἐλαίου καὶ πάλιν ἐξίπου.\n\n2 ἔσται δέ σοι τοῦτο δεύτερον, κἂν βουληθῇς, ἄχρι τρίτης καὶ τετάρτης βροχῆς ἐπιχέων ἐξίπου· γίνεται γὰρ τὸ μὲν πρῶτον, τὸ δὲ δεύτερον, τὸ δὲ τρίτον, τὸ δὲ τέταρτον τὸ μύρον. ὁσάκις δ᾿  ἂν ποιῇς, τοὺς κρατῆρας προκατάχριε μέλιτι. εἰ δὲ θέλεις δευτέραν ἐμβολὴν ποιήσασθαι, εἰς τὸ πρῶτον ἐξιπωθὲν ἔλαιον τὸν ἴσον ἀριθμὸν προσφάτων ῥόδων ἀβρόχων ἔμβαλε, καὶ ἀνακινήσας ταῖς χερσὶ προδεδευμέναις μέλιτι ἐκπίεζε καὶ ποίει τὸ δεύτερον καὶ τρίτον καὶ τέταρτον ὁμοίως ἐκθλίβων. καὶ ὁσάκις δ᾿  ἂν ποιῇς τοῦτο, νεαρὰ πρόσβαλε ῥόδα· δυναμικώτερον γὰρ γίνεται.\n\n3 ἄχρι δὲ ἑβδόμης ἐμβροχῆς ἐπιδέχεται τὸ ἔλαιον τὴν ἐμβολὴν τῶν ῥόδων, ἔπειτα δὲ οὐκέτι· κεχρίσθω δὲ καὶ ἡ ληνὸς μέλιτι. δεῖ δὲ ἐπιμελῶς τὸ ἔλαιον τοῦ χυλοῦ χωρίζειν. συναπολειφθὲν γὰρ κἂν τοὐλάχιστον φθείρει τὸ μύρον. ἔνιοι δὲ αὐτὰ μόνα τὰ ῥόδα θλάσαντες ἐναποβρέχουσι τῷ ἐλαίῳ καὶ ἀλλάσσοντες παῤ ἡμέρας ἑπτὰ ἄχρι τρίτης βροχῆς οὕτως ἀποτίθενται. ἔνιοι δὲ προστύφουσι τὸ ἔλαιον, κάλαμον καὶ ἀσπάλαθον παρεμβάλλοντες, οἱ δὲ καὶ ἄγχουσαν ἕνεκα εὐχροίας καὶ ἅλας πρὸς τὸ μὴ φθείρεσθαι.",
+        "translation": "Preparation of rose oil: Take five litras, eight ounces of skhoinos, twenty litras and five ounces of oil. Cut and soften [the skhoinos] in water, then boil [in the oil] while stirring. Afterward, strain the mixture and place the unmoistened petals of one thousand roses into the twenty litras and five ounces of oil. Rub your hands with fragrant honey and stir repeatedly, pressing gently. Then, let it sit overnight and strain the oil. When the sediment has settled, transfer the oil into a different container and store it in a jar that has been smeared with honey. Put the strained roses into a small basin, pour in eight litras and three ounces of the pressed oil, and strain again.\n\nThis will be your second batch, and if you wish, you may continue up to the third and fourth infusion by pouring and straining. The first, second, third, and fourth infusions produce the oil. Whenever you prepare this, coat the jars with honey beforehand. If you want to make a second infusion, add the same number of fresh dry roses to the previously strained oil, stir them with hands that have been coated in honey, press, and repeat the straining for the second, third, and fourth infusions. Whenever you do this, add fresh roses, as this increases the potency.\n\nThe oil can undergo up to seven infusions of roses, but no more after that. The tub should also be smeared with honey. You must carefully separate the oil from the juice, as even the smallest amount left behind spoils the oil. Some people crush only the roses and soak them in oil, changing the oil every seven days up to the third infusion. Others pre-treat the oil, adding in addition kalamos and aspalathos, and some also add anchusa for its color and salt to prevent spoilage.",
+        "notes": "Edition consulted: Wellmann (pp. 42–43). Translator: Coughlin. Citation: De materia medica 1.43.1–3.",
+        "combinedSegments": [
+          { "text": "Preparation of rose oil: Take five litras, eight ounces of " },
+          { "text": "σχοῖνος", "type": "annotation", "id": "skhoinos" },
+          { "text": ", twenty litras and five ounces of " },
+          { "text": "ἔλαιον", "type": "annotation", "id": "elaion" },
+          { "text": ". Cut and soften in water, then " },
+          { "text": "boil", "type": "annotation", "id": "hepsein" },
+          { "text": " while stirring. Afterward, strain the mixture and place the unmoistened petals of one thousand " },
+          { "text": "ῥόδα", "type": "annotation", "id": "rhoda" },
+          { "text": " into the twenty litras and five ounces of oil. Rub your hands with fragrant " },
+          { "text": "μέλι", "type": "annotation", "id": "meli" },
+          { "text": " and stir repeatedly, pressing gently. Then, let it sit overnight and strain the oil. When the sediment has settled, transfer the oil into a different container and store it in a jar that has been smeared with honey. Put the strained roses into a small basin, pour in eight litras and three ounces of the pressed oil, and strain again.\n\nThis will be your second batch, and if you wish, you may continue up to the third and fourth infusion by pouring and straining. The first, second, third, and fourth infusions produce the oil. Whenever you prepare this, coat the jars with honey beforehand. If you want to make a second infusion, add the same number of fresh dry roses to the previously strained oil, stir them with hands that have been coated in honey, press, and repeat the straining for the second, third, and fourth infusions. Whenever you do this, add fresh roses, as this increases the potency.\n\nThe oil can undergo up to seven infusions of roses, but no more after that. The tub should also be smeared with honey. You must carefully separate the oil from the juice, as even the smallest amount left behind spoils the oil. Some people crush only the roses and soak them in oil, changing the oil every seven days up to the third infusion. Others pre-treat the oil, adding in addition kalamos and aspalathos, and some also add anchusa for its color and salt to prevent spoilage." }
+        ]
+      },
+      "annotations": {
+        "skhoinos": {
+          "term": "σχοῖνος",
+          "transliteration": "skhoinos",
+          "definition": "A rush or reed. Most scholars identify this as lemongrass (Cymbopogon schoenanthus).",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ancient term", "route": "ingredient_smyrna" }]
+        },
+        "elaion": {
+          "term": "ἔλαιον",
+          "transliteration": "elaion",
+          "definition": "Olive oil, typically specifically 'omphacium' or unripe olive oil in perfume contexts for its stability.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "rhoda": {
+          "term": "ῥόδα",
+          "transliteration": "rhoda",
+          "definition": "Roses. The specific species is debated, but Rosa gallica or Rosa damascena are primary candidates.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "meli": {
+          "term": "μέλι",
+          "transliteration": "meli",
+          "definition": "Honey. Used here likely to prevent adhesion or as a fixative agent.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "hepsein": {
+          "term": "Boiling",
+          "transliteration": "hepsein",
+          "lemma": "ἕψειν",
+          "definition": "To boil or seethe. Indicates hot maceration.",
+          "annotationType": "process",
+          "links": [{ "label": "View process", "route": "process_enfleurage" }]
+        }
+      },
+      "items": [
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-lemongrass",
+          "originalTerm": "σχοῖνος",
+          "transliteration": "skhoinos",
+          "displayTerm": "Lemongrass",
+          "amount": "5 lbs 8 oz",
+          "originalAmount": "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Olive Oil",
+          "amount": "20 lbs 5 oz",
+          "originalAmount": "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε",
+          "quantities": [],
+          "role": "base"
+        },
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": "i-rose",
+          "originalTerm": "ῥόδα",
+          "transliteration": "rhoda",
+          "displayTerm": "Rose petals (dry)",
+          "amount": "1000",
+          "originalAmount": "ἀριθμῷ χιλίων",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-honey",
+          "originalTerm": "μέλι",
+          "transliteration": "meli",
+          "displayTerm": "Honey",
+          "amount": "QS",
+          "originalAmount": "χρίσας",
+          "quantities": [],
+          "role": "adjuvant"
+        },
+        {
+          "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-boiling",
+          "originalTerm": "ἕψειν",
+          "transliteration": "hepsein",
+          "displayTerm": "Boiling",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        }
+      ]
+    }
+  ],
+  "masterIngredients": [
+    {
+      "id": "i-rose",
+      "name": "Rose",
+      "originalName": "ῥόδα",
+      "transliteratedName": "rhoda",
+      "slug": "rhoda",
+      "urn": "urn:aos:ingredient:rhoda",
+      "description": "Rosa gallica or Rosa centifolia petals."
+    },
+    {
+      "id": "i-honey",
+      "name": "Honey",
+      "originalName": "μέλι",
+      "transliteratedName": "meli",
+      "slug": "meli",
+      "urn": "urn:aos:ingredient:meli",
+      "description": "Sweet viscous fluid produced by bees."
+    },
+    {
+      "id": "i-oil",
+      "name": "Olive Oil",
+      "originalName": "ἔλαιον",
+      "transliteratedName": "elaion",
+      "slug": "elaion",
+      "urn": "urn:aos:ingredient:elaion",
+      "description": "Base oil, preferably omphacium (unripe)."
+    },
+    {
+      "id": "i-lemongrass",
+      "name": "Lemongrass",
+      "originalName": "σχοῖνος",
+      "transliteratedName": "skhoinos",
+      "slug": "skhoinos",
+      "urn": "urn:aos:ingredient:skhoinos",
+      "description": "Aromatic rush or reed, likely Cymbopogon schoenanthus."
+    }
+  ],
+  "masterTools": [],
+  "masterProcesses": [
+    {
+      "id": "pr-boiling",
+      "name": "Boiling",
+      "originalName": "ἕψειν",
+      "transliteratedName": "hepsein",
+      "slug": "hepsein",
+      "urn": "urn:aos:process:hepsein",
+      "description": "Heating ingredients in liquid."
+    }
+  ],
+  "masterWorks": [
+    {
+      "id": "w-materia-medica",
+      "name": "De materia medica",
+      "slug": "de-materia-medica",
+      "urn": "urn:aos:work:de-materia-medica",
+      "description": "Encyclopedic pharmacological treatise.",
+      "author": "Pedanius Dioscorides",
+      "authorId": "p-dioscorides",
+      "date": "c. 50-70 CE",
+      "language": "Ancient Greek",
+      "place": "Roman Empire"
+    }
+  ],
+  "masterPeople": [
+    {
+      "id": "p-dioscorides",
+      "name": "Pedanius Dioscorides",
+      "slug": "pedanius-dioscorides",
+      "urn": "urn:aos:person:pedanius-dioscorides",
+      "description": "Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica.",
+      "role": "Physician",
+      "place": "Anazarbus",
+      "date": "1st Century CE"
+    }
+  ]
+}

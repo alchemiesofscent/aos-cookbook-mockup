@@ -19,54 +19,449 @@
         "notes": "Edition consulted: Wellmann (pp. 42–43). Translator: Coughlin. Citation: De materia medica 1.43.1–3.",
         "combinedSegments": [
           { "text": "Preparation of rose oil: Take five litras, eight ounces of " },
-          { "text": "σχοῖνος", "type": "annotation", "id": "skhoinos" },
+          { "text": "σχοῖνος", "type": "annotation", "id": "ing-skhoinos" },
           { "text": ", twenty litras and five ounces of " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "elaion" },
-          { "text": ". Cut and soften in water, then " },
-          { "text": "boil", "type": "annotation", "id": "hepsein" },
-          { "text": " while stirring. Afterward, strain the mixture and place the unmoistened petals of one thousand " },
-          { "text": "ῥόδα", "type": "annotation", "id": "rhoda" },
-          { "text": " into the twenty litras and five ounces of oil. Rub your hands with fragrant " },
-          { "text": "μέλι", "type": "annotation", "id": "meli" },
-          { "text": " and stir repeatedly, pressing gently. Then, let it sit overnight and strain the oil. When the sediment has settled, transfer the oil into a different container and store it in a jar that has been smeared with honey. Put the strained roses into a small basin, pour in eight litras and three ounces of the pressed oil, and strain again.\n\nThis will be your second batch, and if you wish, you may continue up to the third and fourth infusion by pouring and straining. The first, second, third, and fourth infusions produce the oil. Whenever you prepare this, coat the jars with honey beforehand. If you want to make a second infusion, add the same number of fresh dry roses to the previously strained oil, stir them with hands that have been coated in honey, press, and repeat the straining for the second, third, and fourth infusions. Whenever you do this, add fresh roses, as this increases the potency.\n\nThe oil can undergo up to seven infusions of roses, but no more after that. The tub should also be smeared with honey. You must carefully separate the oil from the juice, as even the smallest amount left behind spoils the oil. Some people crush only the roses and soak them in oil, changing the oil every seven days up to the third infusion. Others pre-treat the oil, adding in addition kalamos and aspalathos, and some also add anchusa for its color and salt to prevent spoilage." }
+          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
+          { "text": ".\n" },
+
+          { "text": "Cut and soften the skhoinos in " },
+          { "text": "ὕδωρ", "type": "annotation", "id": "ing-hydor" },
+          { "text": ", then " },
+          { "text": "κόπτειν", "type": "annotation", "id": "pr-koptein" },
+          { "text": " and " },
+          { "text": "φυρᾶν", "type": "annotation", "id": "pr-phyrein" },
+          { "text": "; boil while " },
+          { "text": "ἀνακινεῖν", "type": "annotation", "id": "pr-anakinein" },
+          { "text": " (" },
+          { "text": "ἕψειν", "type": "annotation", "id": "pr-hepsein" },
+          { "text": ").\n" },
+
+          { "text": "Afterward, " },
+          { "text": "ἀποδιηθεῖν", "type": "annotation", "id": "pr-apodiēthein" },
+          { "text": " the mixture, and add the petals of one thousand dry " },
+          { "text": "ῥόδον", "type": "annotation", "id": "ing-rhodon-1000" },
+          { "text": " to the oil (" },
+          { "text": "βάλλειν", "type": "annotation", "id": "pr-ballein" },
+          { "text": ").\n" },
+
+          { "text": "Rub your hands with " },
+          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
+          { "text": " (" },
+          { "text": "χρίειν", "type": "annotation", "id": "pr-chriein" },
+          { "text": "), stir repeatedly (" },
+          { "text": "ἀνακινεῖν", "type": "annotation", "id": "pr-anakinein" },
+          { "text": "), pressing gently (" },
+          { "text": "ὑποθλίβειν", "type": "annotation", "id": "pr-hypothlibein" },
+          { "text": ").\n" },
+
+          { "text": "Then let it sit overnight (" },
+          { "text": "ἐᾶν", "type": "annotation", "id": "pr-ean" },
+          { "text": ") and press out (" },
+          { "text": "ἐκθλίβειν", "type": "annotation", "id": "pr-ekthlibein" },
+          { "text": ").\n" },
+
+          { "text": "When the sediment has settled (" },
+          { "text": "ὑφίστασθαι", "type": "annotation", "id": "pr-hyphistasthai" },
+          { "text": "), transfer the oil (" },
+          { "text": "ἀλλάσσειν", "type": "annotation", "id": "pr-allassein" },
+          { "text": ") into another " },
+          { "text": "ἀγγεῖον", "type": "annotation", "id": "tool-angeion" },
+          { "text": ", and store it (" },
+          { "text": "ἀποτίθεσθαι", "type": "annotation", "id": "pr-apotithesthai" },
+          { "text": ") in a " },
+          { "text": "κρατήρ", "type": "annotation", "id": "tool-krater" },
+          { "text": " that has been smeared with honey (" },
+          { "text": "καταχρίειν", "type": "annotation", "id": "pr-katachriein" },
+          { "text": ").\n" },
+
+          { "text": "Put the strained roses into a " },
+          { "text": "λουτηρίδιον", "type": "annotation", "id": "tool-louteridion" },
+          { "text": ", pour in eight litras and three ounces of the pressed " },
+          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-8-3" },
+          { "text": " (" },
+          { "text": "ἐπιχέειν", "type": "annotation", "id": "pr-epicheein" },
+          { "text": "), and strain again (" },
+          { "text": "ἐξίπου", "type": "annotation", "id": "pr-exipoun" },
+          { "text": ").\n\n" },
+
+          { "text": "This will be your second batch; if you wish, continue to the third and fourth infusion by pouring (" },
+          { "text": "ἐπιχέειν", "type": "annotation", "id": "pr-epicheein" },
+          { "text": ") and straining (" },
+          { "text": "ἐξίπου", "type": "annotation", "id": "pr-exipoun" },
+          { "text": ").\n" },
+
+          { "text": "Whenever you prepare this, pre-coat the kraters with " },
+          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
+          { "text": " (" },
+          { "text": "προκαταχρίειν", "type": "annotation", "id": "pr-prokatachriein" },
+          { "text": ").\n" },
+
+          { "text": "If you want a second charge/infusion, add the same number of fresh dry roses to the first strained oil (" },
+          { "text": "ἔμβαλε", "type": "annotation", "id": "pr-emballein" },
+          { "text": "); stir (" },
+          { "text": "ἀνακινεῖν", "type": "annotation", "id": "pr-anakinein" },
+          { "text": ") with honey-coated hands, press (" },
+          { "text": "ἐκπιέζειν", "type": "annotation", "id": "pr-ekpiezein" },
+          { "text": "), and repeat the pressing-out (" },
+          { "text": "ἐκθλίβειν", "type": "annotation", "id": "pr-ekthlibein" },
+          { "text": ") likewise for the second, third, and fourth.\n" },
+
+          { "text": "Each time you do this, add fresh roses (" },
+          { "text": "προσβάλλειν", "type": "annotation", "id": "pr-prosballein" },
+          { "text": "); it becomes more potent.\n\n" },
+
+          { "text": "The oil can receive the rose charge up to the seventh infusion.\n" },
+
+          { "text": "Let the " },
+          { "text": "ληνός", "type": "annotation", "id": "tool-lenos" },
+          { "text": " also be smeared with " },
+          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
+          { "text": " (" },
+          { "text": "χρίειν", "type": "annotation", "id": "pr-chriein" },
+          { "text": ").\n" },
+
+          { "text": "Carefully separate the " },
+          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
+          { "text": " from the " },
+          { "text": "χυλός", "type": "annotation", "id": "ing-chylos" },
+          { "text": " (" },
+          { "text": "χωρίζειν", "type": "annotation", "id": "pr-chōrizein" },
+          { "text": "); even a small amount left behind spoils the oil.\n" },
+
+          { "text": "Some crush only the " },
+          { "text": "ῥόδον", "type": "annotation", "id": "ing-rhodon-1000" },
+          { "text": " (" },
+          { "text": "θλάειν", "type": "annotation", "id": "pr-thlaein" },
+          { "text": ") and soak them in " },
+          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
+          { "text": " (" },
+          { "text": "ἐναποβρέχειν", "type": "annotation", "id": "pr-enapobrechein" },
+          { "text": "), changing the oil (" },
+          { "text": "ἀλλάσσειν", "type": "annotation", "id": "pr-allassein" },
+          { "text": ") every seven days.\n" },
+
+          { "text": "Others pre-treat the oil (" },
+          { "text": "προστύφειν", "type": "annotation", "id": "pr-prostychein" },
+          { "text": "), inserting " },
+          { "text": "κάλαμος", "type": "annotation", "id": "ing-kalamos" },
+          { "text": " and " },
+          { "text": "ἀσπάλαθος", "type": "annotation", "id": "ing-aspalathos" },
+          { "text": " (" },
+          { "text": "παρεμβάλλειν", "type": "annotation", "id": "pr-paremballein" },
+          { "text": "); some also add " },
+          { "text": "ἄγχουσα", "type": "annotation", "id": "ing-anchousa" },
+          { "text": " for colour and " },
+          { "text": "ἅλς", "type": "annotation", "id": "ing-hals" },
+          { "text": " to prevent spoilage.\n" }
         ]
       },
       "annotations": {
-        "skhoinos": {
+        "ing-skhoinos": {
           "term": "σχοῖνος",
           "transliteration": "skhoinos",
-          "definition": "A rush or reed. Most scholars identify this as lemongrass (Cymbopogon schoenanthus).",
+          "definition": "A rush or reed; identification varies in the secondary literature.",
           "annotationType": "ingredient",
           "links": [{ "label": "View ancient term", "route": "ingredient_smyrna" }]
         },
-        "elaion": {
+        "ing-elaion-20-5": {
           "term": "ἔλαιον",
           "transliteration": "elaion",
-          "definition": "Olive oil, typically specifically 'omphacium' or unripe olive oil in perfume contexts for its stability.",
+          "definition": "Oil; here the carrier oil for the perfume.",
           "annotationType": "ingredient",
           "links": []
         },
-        "rhoda": {
-          "term": "ῥόδα",
-          "transliteration": "rhoda",
-          "definition": "Roses. The specific species is debated, but Rosa gallica or Rosa damascena are primary candidates.",
+        "ing-elaion-8-3": {
+          "term": "ἔλαιον",
+          "transliteration": "elaion",
+          "definition": "Pressed oil portion reused for subsequent straining/infusion.",
           "annotationType": "ingredient",
           "links": []
         },
-        "meli": {
+        "ing-rhodon-1000": {
+          "term": "ῥόδον",
+          "transliteration": "rhodon",
+          "definition": "Rose; petals are specified in this recipe.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-meli": {
           "term": "μέλι",
           "transliteration": "meli",
-          "definition": "Honey. Used here likely to prevent adhesion or as a fixative agent.",
+          "definition": "Honey; used to coat hands and vessels.",
           "annotationType": "ingredient",
           "links": []
         },
-        "hepsein": {
-          "term": "Boiling",
+        "ing-hydor": {
+          "term": "ὕδωρ",
+          "transliteration": "hydōr",
+          "definition": "Water; used as the medium for softening/mixing.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-chylos": {
+          "term": "χυλός",
+          "transliteration": "chylos",
+          "definition": "Juice/liquid residue from the plant material; must be separated from the oil.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-kalamos": {
+          "term": "κάλαμος",
+          "transliteration": "kalamos",
+          "definition": "Kalamos; an optional additive mentioned by some practitioners.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-aspalathos": {
+          "term": "ἀσπάλαθος",
+          "transliteration": "aspalathos",
+          "definition": "Aspalathos; an optional additive mentioned by some practitioners.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-anchousa": {
+          "term": "ἄγχουσα",
+          "transliteration": "anchousa",
+          "definition": "Anchousa; added for colour (εὐχροία).",
+          "annotationType": "ingredient",
+          "links": []
+        },
+        "ing-hals": {
+          "term": "ἅλς",
+          "transliteration": "hals",
+          "definition": "Salt; added to prevent spoilage.",
+          "annotationType": "ingredient",
+          "links": []
+        },
+
+        "tool-angeion": {
+          "term": "ἀγγεῖον",
+          "transliteration": "angeion",
+          "definition": "Receiving/storage vessel.",
+          "annotationType": "tool",
+          "links": []
+        },
+        "tool-krater": {
+          "term": "κρατήρ",
+          "transliteration": "kratēr",
+          "definition": "Mixing/storage bowl; here coated with honey.",
+          "annotationType": "tool",
+          "links": []
+        },
+        "tool-louteridion": {
+          "term": "λουτηρίδιον",
+          "transliteration": "loutēridion",
+          "definition": "Small basin.",
+          "annotationType": "tool",
+          "links": []
+        },
+        "tool-lenos": {
+          "term": "ληνός",
+          "transliteration": "lēnos",
+          "definition": "Tub/vat.",
+          "annotationType": "tool",
+          "links": []
+        },
+
+        "pr-koptein": {
+          "term": "κόπτειν",
+          "transliteration": "koptein",
+          "lemma": "κόπτειν",
+          "definition": "To cut.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-phyrein": {
+          "term": "φυρᾶν",
+          "transliteration": "phyrein",
+          "lemma": "φυρᾶν",
+          "definition": "To soften/to mix (in liquid).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-hepsein": {
+          "term": "ἕψειν",
           "transliteration": "hepsein",
           "lemma": "ἕψειν",
-          "definition": "To boil or seethe. Indicates hot maceration.",
+          "definition": "To boil.",
           "annotationType": "process",
           "links": [{ "label": "View process", "route": "process_enfleurage" }]
+        },
+        "pr-anakinein": {
+          "term": "ἀνακινεῖν",
+          "transliteration": "anakinein",
+          "lemma": "ἀνακινεῖν",
+          "definition": "To stir/agitate.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-apodiēthein": {
+          "term": "ἀποδιηθεῖν",
+          "transliteration": "apodiēthein",
+          "lemma": "ἀποδιηθεῖν",
+          "definition": "To strain/filter.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-exipoun": {
+          "term": "ἐξίπου",
+          "transliteration": "exipou(n)",
+          "lemma": "ἐξίπου",
+          "definition": "To strain out (as used here in the imperative).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-ballein": {
+          "term": "βάλλειν",
+          "transliteration": "ballein",
+          "lemma": "βάλλειν",
+          "definition": "To add/throw in.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-emballein": {
+          "term": "ἐμβάλλειν",
+          "transliteration": "emballein",
+          "lemma": "ἐμβάλλειν",
+          "definition": "To put in/add (used for the second charge).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-chriein": {
+          "term": "χρίειν",
+          "transliteration": "chriein",
+          "lemma": "χρίειν",
+          "definition": "To smear/anoint.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-katachriein": {
+          "term": "καταχρίειν",
+          "transliteration": "katachriein",
+          "lemma": "καταχρίειν",
+          "definition": "To smear over/coat (vessels with honey).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-prokatachriein": {
+          "term": "προκαταχρίειν",
+          "transliteration": "prokatachriein",
+          "lemma": "προκαταχρίειν",
+          "definition": "To pre-coat beforehand.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-hypothlibein": {
+          "term": "ὑποθλίβειν",
+          "transliteration": "hypothlibein",
+          "lemma": "ὑποθλίβειν",
+          "definition": "To press gently.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-ekthlibein": {
+          "term": "ἐκθλίβειν",
+          "transliteration": "ekthlibein",
+          "lemma": "ἐκθλίβειν",
+          "definition": "To press out.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-ekpiezein": {
+          "term": "ἐκπιέζειν",
+          "transliteration": "ekpiezein",
+          "lemma": "ἐκπιέζειν",
+          "definition": "To press/squeeze out.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-ean": {
+          "term": "ἐᾶν",
+          "transliteration": "ean",
+          "lemma": "ἐᾶν",
+          "definition": "To let be/allow to rest.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-hyphistasthai": {
+          "term": "ὑφίστασθαι",
+          "transliteration": "hyphistasthai",
+          "lemma": "ὑφίστασθαι",
+          "definition": "To settle (of sediment).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-allassein": {
+          "term": "ἀλλάσσειν",
+          "transliteration": "allassein",
+          "lemma": "ἀλλάσσειν",
+          "definition": "To change/transfer.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-apotithesthai": {
+          "term": "ἀποτίθεσθαι",
+          "transliteration": "apotithesthai",
+          "lemma": "ἀποτίθεσθαι",
+          "definition": "To store/put away.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-epicheein": {
+          "term": "ἐπιχέειν",
+          "transliteration": "epicheein",
+          "lemma": "ἐπιχέειν",
+          "definition": "To pour over.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-chōrizein": {
+          "term": "χωρίζειν",
+          "transliteration": "chōrizein",
+          "lemma": "χωρίζειν",
+          "definition": "To separate.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-thlaein": {
+          "term": "θλάειν",
+          "transliteration": "thlaein",
+          "lemma": "θλάειν",
+          "definition": "To crush.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-enapobrechein": {
+          "term": "ἐναποβρέχειν",
+          "transliteration": "enapobrechein",
+          "lemma": "ἐναποβρέχειν",
+          "definition": "To soak (in).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-prostychein": {
+          "term": "προστύφειν",
+          "transliteration": "prostychein",
+          "lemma": "προστύφειν",
+          "definition": "To pre-treat/astringe (as used here of the oil).",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-paremballein": {
+          "term": "παρεμβάλλειν",
+          "transliteration": "paremballein",
+          "lemma": "παρεμβάλλειν",
+          "definition": "To insert/add in between.",
+          "annotationType": "process",
+          "links": []
+        },
+        "pr-prosballein": {
+          "term": "προσβάλλειν",
+          "transliteration": "prosballein",
+          "lemma": "προσβάλλειν",
+          "definition": "To add in addition.",
+          "annotationType": "process",
+          "links": []
         }
       },
       "items": [
@@ -77,9 +472,12 @@
           "originalTerm": "σχοῖνος",
           "transliteration": "skhoinos",
           "displayTerm": "Lemongrass",
-          "amount": "5 lbs 8 oz",
+          "amount": "5 lb 8 oz",
           "originalAmount": "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ",
-          "quantities": [],
+          "quantities": [
+            { "value": 5, "unit": "lb" },
+            { "value": 8, "unit": "oz" }
+          ],
           "role": "aromatic"
         },
         {
@@ -89,20 +487,23 @@
           "originalTerm": "ἔλαιον",
           "transliteration": "elaion",
           "displayTerm": "Olive Oil",
-          "amount": "20 lbs 5 oz",
+          "amount": "20 lb 5 oz",
           "originalAmount": "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε",
-          "quantities": [],
-          "role": "base"
+          "quantities": [
+            { "value": 20, "unit": "lb" },
+            { "value": 5, "unit": "oz" }
+          ],
+          "role": "carrier"
         },
         {
           "id": "ri-3",
           "type": "ingredient",
           "masterId": "i-rose",
-          "originalTerm": "ῥόδα",
-          "transliteration": "rhoda",
+          "originalTerm": "ῥόδων",
+          "transliteration": "rhodon",
           "displayTerm": "Rose petals (dry)",
-          "amount": "1000",
-          "originalAmount": "ἀριθμῷ χιλίων",
+          "amount": "1000 (count)",
+          "originalAmount": "ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα",
           "quantities": [],
           "role": "aromatic"
         },
@@ -113,20 +514,349 @@
           "originalTerm": "μέλι",
           "transliteration": "meli",
           "displayTerm": "Honey",
-          "amount": "QS",
-          "originalAmount": "χρίσας",
+          "amount": "",
+          "originalAmount": "μέλιτι χρίσας; μέλιτι κατακεχρισμένον; μέλιτι",
           "quantities": [],
           "role": "adjuvant"
         },
         {
+          "id": "ri-5",
+          "type": "ingredient",
+          "masterId": "i-water",
+          "originalTerm": "ὕδωρ",
+          "transliteration": "hydōr",
+          "displayTerm": "Water",
+          "amount": "",
+          "originalAmount": "ἐν ὕδατι",
+          "quantities": [],
+          "role": "other"
+        },
+        {
+          "id": "ri-6",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Olive Oil (pressed portion)",
+          "amount": "8 lb 3 oz",
+          "originalAmount": "λίτρας ὀκτὼ οὐγγίας τρεῖς τοῦ ἐστυμμένου ἐλαίου",
+          "quantities": [
+            { "value": 8, "unit": "lb" },
+            { "value": 3, "unit": "oz" }
+          ],
+          "role": "carrier"
+        },
+        {
+          "id": "ri-7",
+          "type": "ingredient",
+          "masterId": "i-kalamos",
+          "originalTerm": "κάλαμος",
+          "transliteration": "kalamos",
+          "displayTerm": "Kalamos",
+          "amount": "",
+          "originalAmount": "κάλαμον",
+          "quantities": [],
+          "role": "other"
+        },
+        {
+          "id": "ri-8",
+          "type": "ingredient",
+          "masterId": "i-aspalathos",
+          "originalTerm": "ἀσπάλαθος",
+          "transliteration": "aspalathos",
+          "displayTerm": "Aspalathos",
+          "amount": "",
+          "originalAmount": "ἀσπάλαθον",
+          "quantities": [],
+          "role": "other"
+        },
+        {
+          "id": "ri-9",
+          "type": "ingredient",
+          "masterId": "i-anchousa",
+          "originalTerm": "ἄγχουσα",
+          "transliteration": "anchousa",
+          "displayTerm": "Anchousa",
+          "amount": "",
+          "originalAmount": "ἄγχουσαν",
+          "quantities": [],
+          "role": "adjuvant"
+        },
+        {
+          "id": "ri-10",
+          "type": "ingredient",
+          "masterId": "i-salt",
+          "originalTerm": "ἅλς",
+          "transliteration": "hals",
+          "displayTerm": "Salt",
+          "amount": "",
+          "originalAmount": "ἅλας",
+          "quantities": [],
+          "role": "adjuvant"
+        },
+
+        {
+          "id": "rt-1",
+          "type": "tool",
+          "masterId": "t-angeion",
+          "originalTerm": "ἀγγεῖον",
+          "transliteration": "angeion",
+          "displayTerm": "Vessel",
+          "amount": "",
+          "originalAmount": "ἀγγεῖον",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rt-2",
+          "type": "tool",
+          "masterId": "t-krater",
+          "originalTerm": "κρατήρ",
+          "transliteration": "kratēr",
+          "displayTerm": "Kratēr",
+          "amount": "",
+          "originalAmount": "κρατῆρα; κρατῆρας",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rt-3",
+          "type": "tool",
+          "masterId": "t-louteridion",
+          "originalTerm": "λουτηρίδιον",
+          "transliteration": "loutēridion",
+          "displayTerm": "Small basin",
+          "amount": "",
+          "originalAmount": "λουτηρίδιον",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rt-4",
+          "type": "tool",
+          "masterId": "t-lenos",
+          "originalTerm": "ληνός",
+          "transliteration": "lēnos",
+          "displayTerm": "Tub/vat",
+          "amount": "",
+          "originalAmount": "ληνὸς",
+          "quantities": [],
+          "role": ""
+        },
+
+        {
           "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-cutting",
+          "originalTerm": "κόπτειν",
+          "transliteration": "koptein",
+          "displayTerm": "Cutting",
+          "amount": "",
+          "originalAmount": "κόψας",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-2",
+          "type": "process",
+          "masterId": "pr-mixing",
+          "originalTerm": "φυρᾶν",
+          "transliteration": "phyrein",
+          "displayTerm": "Softening/mixing",
+          "amount": "",
+          "originalAmount": "φυράσας",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-3",
           "type": "process",
           "masterId": "pr-boiling",
           "originalTerm": "ἕψειν",
           "transliteration": "hepsein",
           "displayTerm": "Boiling",
           "amount": "",
-          "originalAmount": "",
+          "originalAmount": "ἕψε",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-4",
+          "type": "process",
+          "masterId": "pr-stirring",
+          "originalTerm": "ἀνακινεῖν",
+          "transliteration": "anakinein",
+          "displayTerm": "Stirring",
+          "amount": "",
+          "originalAmount": "ἀνακινῶν; ἀνακίνει; ἀνακινήσας",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-5",
+          "type": "process",
+          "masterId": "pr-straining",
+          "originalTerm": "ἀποδιηθεῖν",
+          "transliteration": "apodiēthein",
+          "displayTerm": "Straining",
+          "amount": "",
+          "originalAmount": "ἀπηθήσας; ἐξίπου",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-6",
+          "type": "process",
+          "masterId": "pr-adding",
+          "originalTerm": "βάλλειν",
+          "transliteration": "ballein",
+          "displayTerm": "Adding",
+          "amount": "",
+          "originalAmount": "βάλε; βαλών; ἔμβαλε",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-7",
+          "type": "process",
+          "masterId": "pr-anointing",
+          "originalTerm": "χρίειν",
+          "transliteration": "chriein",
+          "displayTerm": "Smearing/coating",
+          "amount": "",
+          "originalAmount": "χρίσας; κατακεχρισμένον; προκατάχριε; κεχρίσθω",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-8",
+          "type": "process",
+          "masterId": "pr-pressing",
+          "originalTerm": "ἐκθλίβειν",
+          "transliteration": "ekthlibein",
+          "displayTerm": "Pressing out",
+          "amount": "",
+          "originalAmount": "ὑποθλίβων; ἔκθλιβε; ἐκπίεζε; ἐκθλίβων",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-9",
+          "type": "process",
+          "masterId": "pr-resting",
+          "originalTerm": "ἐᾶν",
+          "transliteration": "ean",
+          "displayTerm": "Resting",
+          "amount": "",
+          "originalAmount": "ἐάσας τὴν νύκτα",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-10",
+          "type": "process",
+          "masterId": "pr-settling",
+          "originalTerm": "ὑφίστασθαι",
+          "transliteration": "hyphistasthai",
+          "displayTerm": "Settling",
+          "amount": "",
+          "originalAmount": "ὑποστῇ",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-11",
+          "type": "process",
+          "masterId": "pr-transferring",
+          "originalTerm": "ἀλλάσσειν",
+          "transliteration": "allassein",
+          "displayTerm": "Transferring",
+          "amount": "",
+          "originalAmount": "ἄλλαξον; ἀλλάσσοντες",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-12",
+          "type": "process",
+          "masterId": "pr-storing",
+          "originalTerm": "ἀποτίθεσθαι",
+          "transliteration": "apotithesthai",
+          "displayTerm": "Storing",
+          "amount": "",
+          "originalAmount": "ἀποτίθεσο; ἀποτίθενται",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-13",
+          "type": "process",
+          "masterId": "pr-pouring",
+          "originalTerm": "ἐπιχέειν",
+          "transliteration": "epicheein",
+          "displayTerm": "Pouring over",
+          "amount": "",
+          "originalAmount": "ἐπίχει; ἐπιχέων",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-14",
+          "type": "process",
+          "masterId": "pr-separating",
+          "originalTerm": "χωρίζειν",
+          "transliteration": "chōrizein",
+          "displayTerm": "Separating",
+          "amount": "",
+          "originalAmount": "χωρίζειν",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-15",
+          "type": "process",
+          "masterId": "pr-crushing",
+          "originalTerm": "θλάειν",
+          "transliteration": "thlaein",
+          "displayTerm": "Crushing",
+          "amount": "",
+          "originalAmount": "θλάσαντες",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-16",
+          "type": "process",
+          "masterId": "pr-soaking",
+          "originalTerm": "ἐναποβρέχειν",
+          "transliteration": "enapobrechein",
+          "displayTerm": "Soaking",
+          "amount": "",
+          "originalAmount": "ἐναποβρέχουσι",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-17",
+          "type": "process",
+          "masterId": "pr-pretreating",
+          "originalTerm": "προστύφειν",
+          "transliteration": "prostychein",
+          "displayTerm": "Pre-treating",
+          "amount": "",
+          "originalAmount": "προστύφουσι",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-18",
+          "type": "process",
+          "masterId": "pr-inserting",
+          "originalTerm": "παρεμβάλλειν",
+          "transliteration": "paremballein",
+          "displayTerm": "Inserting",
+          "amount": "",
+          "originalAmount": "παρεμβάλλοντες",
           "quantities": [],
           "role": ""
         }
@@ -137,11 +867,11 @@
     {
       "id": "i-rose",
       "name": "Rose",
-      "originalName": "ῥόδα",
-      "transliteratedName": "rhoda",
-      "slug": "rhoda",
-      "urn": "urn:aos:ingredient:rhoda",
-      "description": "Rosa gallica or Rosa centifolia petals."
+      "originalName": "ῥόδον",
+      "transliteratedName": "rhodon",
+      "slug": "rhodon",
+      "urn": "urn:aos:ingredient:rhodon",
+      "description": "Rose petals (species unspecified)."
     },
     {
       "id": "i-honey",
@@ -150,7 +880,7 @@
       "transliteratedName": "meli",
       "slug": "meli",
       "urn": "urn:aos:ingredient:meli",
-      "description": "Sweet viscous fluid produced by bees."
+      "description": "Honey used to coat hands and vessels."
     },
     {
       "id": "i-oil",
@@ -159,7 +889,7 @@
       "transliteratedName": "elaion",
       "slug": "elaion",
       "urn": "urn:aos:ingredient:elaion",
-      "description": "Base oil, preferably omphacium (unripe)."
+      "description": "Carrier oil for the perfume."
     },
     {
       "id": "i-lemongrass",
@@ -168,10 +898,92 @@
       "transliteratedName": "skhoinos",
       "slug": "skhoinos",
       "urn": "urn:aos:ingredient:skhoinos",
-      "description": "Aromatic rush or reed, likely Cymbopogon schoenanthus."
+      "description": "Aromatic rush/reed (identification debated)."
+    },
+    {
+      "id": "i-water",
+      "name": "Water",
+      "originalName": "ὕδωρ",
+      "transliteratedName": "hydōr",
+      "slug": "hydor",
+      "urn": "urn:aos:ingredient:hydor",
+      "description": "Water used for softening/mixing."
+    },
+    {
+      "id": "i-kalamos",
+      "name": "Kalamos",
+      "originalName": "κάλαμος",
+      "transliteratedName": "kalamos",
+      "slug": "kalamos",
+      "urn": "urn:aos:ingredient:kalamos",
+      "description": "Optional additive (unidentified here)."
+    },
+    {
+      "id": "i-aspalathos",
+      "name": "Aspalathos",
+      "originalName": "ἀσπάλαθος",
+      "transliteratedName": "aspalathos",
+      "slug": "aspalathos",
+      "urn": "urn:aos:ingredient:aspalathos",
+      "description": "Optional additive (unidentified here)."
+    },
+    {
+      "id": "i-anchousa",
+      "name": "Anchousa",
+      "originalName": "ἄγχουσα",
+      "transliteratedName": "anchousa",
+      "slug": "anchousa",
+      "urn": "urn:aos:ingredient:anchousa",
+      "description": "Added for colour."
+    },
+    {
+      "id": "i-salt",
+      "name": "Salt",
+      "originalName": "ἅλς",
+      "transliteratedName": "hals",
+      "slug": "hals",
+      "urn": "urn:aos:ingredient:hals",
+      "description": "Added to prevent spoilage."
     }
   ],
-  "masterTools": [],
+  "masterTools": [
+    {
+      "id": "t-angeion",
+      "name": "Vessel",
+      "originalName": "ἀγγεῖον",
+      "transliteratedName": "angeion",
+      "slug": "angeion",
+      "urn": "urn:aos:tool:angeion",
+      "description": "Receiving/storage vessel."
+    },
+    {
+      "id": "t-krater",
+      "name": "Kratēr",
+      "originalName": "κρατήρ",
+      "transliteratedName": "kratēr",
+      "slug": "krater",
+      "urn": "urn:aos:tool:krater",
+      "description": "Mixing/storage bowl."
+    },
+    {
+      "id": "t-louteridion",
+      "name": "Small basin",
+      "originalName": "λουτηρίδιον",
+      "transliteratedName": "loutēridion",
+      "slug": "louteridion",
+      "urn": "urn:aos:tool:louteridion",
+      "description": "Small basin used to hold strained roses."
+    },
+    {
+      "id": "t-lenos",
+      "name": "Tub/vat",
+      "originalName": "ληνός",
+      "transliteratedName": "lēnos",
+      "slug": "lenos",
+      "urn": "urn:aos:tool:lenos",
+      "description": "Tub/vat mentioned for coating with honey."
+    }
+  ],
   "masterProcesses": [
     {
       "id": "pr-boiling",
@@ -181,6 +993,159 @@
       "slug": "hepsein",
       "urn": "urn:aos:process:hepsein",
       "description": "Heating ingredients in liquid."
+    },
+    {
+      "id": "pr-cutting",
+      "name": "Cutting",
+      "originalName": "κόπτειν",
+      "transliteratedName": "koptein",
+      "slug": "koptein",
+      "urn": "urn:aos:process:koptein",
+      "description": "Cutting an ingredient into pieces."
+    },
+    {
+      "id": "pr-mixing",
+      "name": "Softening/mixing",
+      "originalName": "φυρᾶν",
+      "transliteratedName": "phyrein",
+      "slug": "phyrein",
+      "urn": "urn:aos:process:phyrein",
+      "description": "Mixing/softening in liquid."
+    },
+    {
+      "id": "pr-stirring",
+      "name": "Stirring",
+      "originalName": "ἀνακινεῖν",
+      "transliteratedName": "anakinein",
+      "slug": "anakinein",
+      "urn": "urn:aos:process:anakinein",
+      "description": "Agitating/stirring a mixture."
+    },
+    {
+      "id": "pr-straining",
+      "name": "Straining",
+      "originalName": "ἀποδιηθεῖν",
+      "transliteratedName": "apodiēthein",
+      "slug": "apodiēthein",
+      "urn": "urn:aos:process:apodiēthein",
+      "description": "Filtering/straining a mixture."
+    },
+    {
+      "id": "pr-adding",
+      "name": "Adding",
+      "originalName": "βάλλειν",
+      "transliteratedName": "ballein",
+      "slug": "ballein",
+      "urn": "urn:aos:process:ballein",
+      "description": "Adding an ingredient to a mixture."
+    },
+    {
+      "id": "pr-anointing",
+      "name": "Smearing/coating",
+      "originalName": "χρίειν",
+      "transliteratedName": "chriein",
+      "slug": "chriein",
+      "urn": "urn:aos:process:chriein",
+      "description": "Smearing/coating hands or vessels."
+    },
+    {
+      "id": "pr-pressing",
+      "name": "Pressing out",
+      "originalName": "ἐκθλίβειν",
+      "transliteratedName": "ekthlibein",
+      "slug": "ekthlibein",
+      "urn": "urn:aos:process:ekthlibein",
+      "description": "Pressing/squeezing out liquid."
+    },
+    {
+      "id": "pr-resting",
+      "name": "Resting",
+      "originalName": "ἐᾶν",
+      "transliteratedName": "ean",
+      "slug": "ean",
+      "urn": "urn:aos:process:ean",
+      "description": "Letting the mixture rest."
+    },
+    {
+      "id": "pr-settling",
+      "name": "Settling",
+      "originalName": "ὑφίστασθαι",
+      "transliteratedName": "hyphistasthai",
+      "slug": "hyphistasthai",
+      "urn": "urn:aos:process:hyphistasthai",
+      "description": "Allowing sediment to settle."
+    },
+    {
+      "id": "pr-transferring",
+      "name": "Transferring",
+      "originalName": "ἀλλάσσειν",
+      "transliteratedName": "allassein",
+      "slug": "allassein",
+      "urn": "urn:aos:process:allassein",
+      "description": "Changing/transferring to another vessel."
+    },
+    {
+      "id": "pr-storing",
+      "name": "Storing",
+      "originalName": "ἀποτίθεσθαι",
+      "transliteratedName": "apotithesthai",
+      "slug": "apotithesthai",
+      "urn": "urn:aos:process:apotithesthai",
+      "description": "Storing/putting away."
+    },
+    {
+      "id": "pr-pouring",
+      "name": "Pouring over",
+      "originalName": "ἐπιχέειν",
+      "transliteratedName": "epicheein",
+      "slug": "epicheein",
+      "urn": "urn:aos:process:epicheein",
+      "description": "Pouring liquid over something."
+    },
+    {
+      "id": "pr-separating",
+      "name": "Separating",
+      "originalName": "χωρίζειν",
+      "transliteratedName": "chōrizein",
+      "slug": "chōrizein",
+      "urn": "urn:aos:process:chōrizein",
+      "description": "Separating oil from another liquid."
+    },
+    {
+      "id": "pr-crushing",
+      "name": "Crushing",
+      "originalName": "θλάειν",
+      "transliteratedName": "thlaein",
+      "slug": "thlaein",
+      "urn": "urn:aos:process:thlaein",
+      "description": "Crushing plant material."
+    },
+    {
+      "id": "pr-soaking",
+      "name": "Soaking",
+      "originalName": "ἐναποβρέχειν",
+      "transliteratedName": "enapobrechein",
+      "slug": "enapobrechein",
+      "urn": "urn:aos:process:enapobrechein",
+      "description": "Soaking material in a liquid."
+    },
+    {
+      "id": "pr-pretreating",
+      "name": "Pre-treating",
+      "originalName": "προστύφειν",
+      "transliteratedName": "prostychein",
+      "slug": "prostychein",
+      "urn": "urn:aos:process:prostychein",
+      "description": "Pre-treating the oil (as described here)."
+    },
+    {
+      "id": "pr-inserting",
+      "name": "Inserting",
+      "originalName": "παρεμβάλλειν",
+      "transliteratedName": "paremballein",
+      "slug": "paremballein",
+      "urn": "urn:aos:process:paremballein",
+      "description": "Inserting/adding additional materials."
     }
   ],
   "masterWorks": [
