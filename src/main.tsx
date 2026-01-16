@@ -22,6 +22,14 @@ import {
   PRODUCT_DATA,
   SEAN_DETAIL,
 } from "./legacy/legacyFixtures";
+import {
+  parseInterpretationRoute,
+  parsePersonRoute,
+  parseRecipeRoute,
+  parseWorkRoute,
+  parseWorkshopEntityRoute,
+  type WorkshopEntityKind,
+} from "./app/router";
 import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
@@ -30,39 +38,6 @@ import { resolveAncientTermIdForRecipeAnnotation, resolveAncientTermIdForRecipeI
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
-
-type WorkshopEntityKind = "ingredient" | "tool" | "process";
-
-type WorkshopEntityRoute =
-  | { kind: WorkshopEntityKind; mode: "master"; id: string }
-  | { kind: WorkshopEntityKind; mode: "unlinked"; recipeId: string; itemId: string };
-
-const parseWorkshopEntityRoute = (route: string): WorkshopEntityRoute | null => {
-  if (route.startsWith("workshop-unlinked:")) {
-    const [, kindRaw, recipeId, itemId] = route.split(":");
-    if (!kindRaw || !recipeId || !itemId) return null;
-    if (kindRaw !== "ingredient" && kindRaw !== "tool" && kindRaw !== "process") return null;
-    return { kind: kindRaw, mode: "unlinked", recipeId, itemId };
-  }
-
-  if (route.startsWith("workshop-ingredient:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "ingredient", mode: "master", id };
-  }
-  if (route.startsWith("workshop-tool:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "tool", mode: "master", id };
-  }
-  if (route.startsWith("workshop-process:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "process", mode: "master", id };
-  }
-
-  return null;
-};
 
 const formatAncientName = (entity: Pick<MasterEntity, "originalName" | "transliteratedName">): string => {
   if (!entity.originalName) return "";
@@ -161,62 +136,6 @@ const buildWorkshopCardsFromRecipes = (
     tools: toCards("tool"),
     processes: toCards("process"),
   };
-};
-
-type InterpretationRoute =
-  | { kind: "ancient-term"; id: string }
-  | { kind: "identification"; id: string }
-  | { kind: "ingredient-product"; id: string }
-  | { kind: "material-source"; id: string };
-
-type RecipeRoute = { id: string };
-
-const parseInterpretationRoute = (route: string): InterpretationRoute | null => {
-  if (route.startsWith("ancient-term:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "ancient-term", id };
-  }
-  if (route.startsWith("identification:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "identification", id };
-  }
-  if (route.startsWith("ingredient-product:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "ingredient-product", id };
-  }
-  if (route.startsWith("material-source:")) {
-    const [, id] = route.split(":");
-    if (!id) return null;
-    return { kind: "material-source", id };
-  }
-  return null;
-};
-
-const parseRecipeRoute = (route: string): RecipeRoute | null => {
-  if (!route.startsWith("recipe:")) return null;
-  const [, id] = route.split(":");
-  if (!id) return null;
-  return { id };
-};
-
-type PersonRoute = { id: string };
-type WorkRoute = { id: string };
-
-const parsePersonRoute = (route: string): PersonRoute | null => {
-  if (!route.startsWith("person:")) return null;
-  const [, id] = route.split(":");
-  if (!id) return null;
-  return { id };
-};
-
-const parseWorkRoute = (route: string): WorkRoute | null => {
-  if (!route.startsWith("work:")) return null;
-  const [, id] = route.split(":");
-  if (!id) return null;
-  return { id };
 };
 
 const DemoBadge = ({ placeholder }: { placeholder?: boolean }) => {
