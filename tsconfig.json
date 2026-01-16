@@ -22,9 +22,6 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "paths": {
-      "@seed.json": [
-        "src/seed.json"
-      ],
       "@/*": [
         "src/*"
       ]

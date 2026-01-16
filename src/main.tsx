@@ -13,7 +13,15 @@ import type {
   Recipe,
   RecipeItem,
 } from "./types";
-import seed from "@seed.json";
+import {
+  COMMIPHORA_DATA,
+  DIOSCORIDES_DETAIL,
+  IDENTIFICATION_DATA,
+  INGREDIENT_DATA,
+  MATERIA_MEDICA_DETAIL,
+  PRODUCT_DATA,
+  SEAN_DETAIL,
+} from "./content/legacyFixtures";
 import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
@@ -263,31 +271,6 @@ window.onerror = function(message, source, lineno, colno, error) {
 };
 
 // --- Data Models & Content ---
-
-const RECIPE_DATA = seed.recipeData;
-const INGREDIENT_DATA = seed.ingredientData;
-const IDENTIFICATION_DATA = seed.identificationData;
-const PRODUCT_DATA = seed.productData;
-const COMMIPHORA_DATA = seed.commiphoraData;
-const PROCESS_DATA = seed.processData;
-const TOOL_DATA = seed.toolData;
-const TERMS_LIST = seed.termsList;
-const INGREDIENTS_LIST = seed.ingredientsList;
-const SOURCES_LIST = seed.sourcesList;
-const WORKS_DATA = seed.worksData;
-const PEOPLE_DATA = seed.peopleData;
-const DIOSCORIDES_DETAIL = seed.dioscoridesDetail;
-const SEAN_DETAIL = seed.seanDetail;
-const MATERIA_MEDICA_DETAIL = seed.materiaMedicaDetail;
-
-if (import.meta.env.DEV) {
-  const segments = (RECIPE_DATA as any).combinedSegments ?? (RECIPE_DATA as any).textSegments ?? [];
-  assertRecipeAnnotationInvariants({
-    recipeId: RECIPE_DATA.id,
-    segments,
-    annotations: RECIPE_DATA.annotations,
-  });
-}
 
 // --- Components ---
 
