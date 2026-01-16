@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Guardrails
+        run: bash scripts/guardrails.sh
+
       - name: Build
         env:
           VITE_BASE: "/${{ github.event.repository.name }}/"

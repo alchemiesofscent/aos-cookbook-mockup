@@ -1,6 +1,10 @@
 /*
- * Legacy fixtures used only to keep legacy hardcoded routes/pages working during repo hygiene.
- * Do not use these as a second dataset; canonical runtime data is loaded from public/data/seed.json.
+ * TEMPORARY legacy support.
+ *
+ * These fixtures exist only to keep legacy hardcoded routes/pages working after removing the bundled seed.json.
+ * Canonical runtime data is loaded from `public/data/seed.json` via `src/storage.ts`.
+ *
+ * Remove this file once legacy routes redirect to canonical DB-driven pages.
  */
 
 export const INGREDIENT_DATA = {

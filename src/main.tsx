@@ -21,7 +21,7 @@ import {
   MATERIA_MEDICA_DETAIL,
   PRODUCT_DATA,
   SEAN_DETAIL,
-} from "./content/legacyFixtures";
+} from "./legacy/legacyFixtures";
 import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
