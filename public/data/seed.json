@@ -2048,57 +2048,57 @@
     }
   ],
   "ingredientProducts": [
-    { "id": "ip-skhoinos-a", "label": "Candidate A — aromatic reed (placeholder)", "description": "A possible modern interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-skhoinos-b", "label": "Candidate B — aromatic grass (placeholder)", "description": "A second interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-skhoinos-a", "label": "Reed, Aromatic (Candidate A)", "description": "A possible modern interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-skhoinos-b", "label": "Grass, Aromatic (Candidate B)", "description": "A second interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-elaion-a", "label": "Candidate A — common base oil (placeholder)", "description": "A common base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-elaion-b", "label": "Candidate B — alternative base oil (placeholder)", "description": "An alternative base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-elaion-a", "label": "Oil, Base, Common (Candidate A)", "description": "A common base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-elaion-b", "label": "Oil, Base, Alternative (Candidate B)", "description": "An alternative base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-rhodon-a", "label": "Candidate A — rose material (placeholder)", "description": "A possible modern interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-rhodon-b", "label": "Candidate B — rose material (variant) (placeholder)", "description": "A second interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-rhodon-a", "label": "Rose, Material (Candidate A)", "description": "A possible modern interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-rhodon-b", "label": "Rose, Material, Variant (Candidate B)", "description": "A second interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
 
     { "id": "ip-meli", "label": "Honey (placeholder scaffold)", "description": "A non-ambiguous scaffold product for μέλι.", "placeholder": true, "sourceKind": "project" },
     { "id": "ip-hydor", "label": "Water (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ὕδωρ.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-kalamos-a", "label": "Candidate A — aromatic cane (placeholder)", "description": "A possible modern interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kalamos-b", "label": "Candidate B — aromatic reed (placeholder)", "description": "A second interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kalamos-a", "label": "Cane, Aromatic (Candidate A)", "description": "A possible modern interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kalamos-b", "label": "Reed, Aromatic (Candidate B)", "description": "A second interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-aspalathos-a", "label": "Candidate A — woody aromatic (placeholder)", "description": "A possible modern interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-aspalathos-b", "label": "Candidate B — woody aromatic (placeholder)", "description": "A second interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-aspalathos-a", "label": "Aromatic, Woody (Candidate A)", "description": "A possible modern interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-aspalathos-b", "label": "Aromatic, Woody (Candidate B)", "description": "A second interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-anchousa-a", "label": "Candidate A — dye plant (placeholder)", "description": "A possible modern interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-anchousa-b", "label": "Candidate B — dye plant (placeholder)", "description": "A second interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-anchousa-a", "label": "Plant, Dye (Candidate A)", "description": "A possible modern interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-anchousa-b", "label": "Plant, Dye (Candidate B)", "description": "A second interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
 
     { "id": "ip-hals", "label": "Salt (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ἅλς.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-smyrna-a", "label": "Candidate A — myrrh resin (placeholder)", "description": "A possible modern interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-smyrna-b", "label": "Candidate B — myrrh resin (variant) (placeholder)", "description": "A second interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-smyrna-a", "label": "Resin, Myrrh (Candidate A)", "description": "A possible modern interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-smyrna-b", "label": "Resin, Myrrh, Variant (Candidate B)", "description": "A second interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-oinos-a", "label": "Candidate A — aromatic wine (placeholder)", "description": "A possible interpretation slot for οἶνος in perfumery contexts.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-oinos-b", "label": "Candidate B — grape must/wine (placeholder)", "description": "A second interpretation slot for οἶνος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-oinos-a", "label": "Wine, Aromatic (Candidate A)", "description": "A possible interpretation slot for οἶνος in perfumery contexts.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-oinos-b", "label": "Wine/Must, Grape (Candidate B)", "description": "A second interpretation slot for οἶνος.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-kardamomon-a", "label": "Candidate A — cardamom-like spice (placeholder)", "description": "A possible modern interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kardamomon-b", "label": "Candidate B — aromatic seed spice (placeholder)", "description": "A second interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kardamomon-a", "label": "Spice, Cardamom-like (Candidate A)", "description": "A possible modern interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kardamomon-b", "label": "Spice, Seed, Aromatic (Candidate B)", "description": "A second interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
 
     { "id": "ip-hydor-ombrion", "label": "Rainwater (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ὕδωρ ὄμβριον.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-krinon-a", "label": "Candidate A — lily material (placeholder)", "description": "A possible modern interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-krinon-b", "label": "Candidate B — lily material (variant) (placeholder)", "description": "A second interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-krinon-a", "label": "Lily, Material (Candidate A)", "description": "A possible modern interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-krinon-b", "label": "Lily, Material, Variant (Candidate B)", "description": "A second interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-kinamomon-a", "label": "Candidate A — cinnamon-like spice (placeholder)", "description": "A possible modern interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kinamomon-b", "label": "Candidate B — aromatic bark spice (placeholder)", "description": "A second interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kinamomon-a", "label": "Spice, Cinnamon-like (Candidate A)", "description": "A possible modern interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kinamomon-b", "label": "Spice, Bark, Aromatic (Candidate B)", "description": "A second interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-kassia-a", "label": "Candidate A — kassia-like aromatic (placeholder)", "description": "A possible modern interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kassia-b", "label": "Candidate B — kassia-like bark/spice (placeholder)", "description": "A second interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kassia-a", "label": "Aromatic, Kassia-like (Candidate A)", "description": "A possible modern interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kassia-b", "label": "Spice, Bark, Kassia-like (Candidate B)", "description": "A second interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-krokos-a", "label": "Candidate A — saffron-like material (placeholder)", "description": "A possible modern interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-krokos-b", "label": "Candidate B — yellow dye spice (placeholder)", "description": "A second interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-krokos-a", "label": "Material, Saffron-like (Candidate A)", "description": "A possible modern interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-krokos-b", "label": "Spice, Dye, Yellow (Candidate B)", "description": "A second interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-kommi-a", "label": "Candidate A — plant gum (placeholder)", "description": "A possible modern interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kommi-b", "label": "Candidate B — resinous gum (placeholder)", "description": "A second interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kommi-a", "label": "Gum, Plant (Candidate A)", "description": "A possible modern interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kommi-b", "label": "Gum, Resinous (Candidate B)", "description": "A second interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
 
-    { "id": "ip-balaninon-a", "label": "Candidate A — nut/seed oil (placeholder)", "description": "A possible modern interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-balaninon-b", "label": "Candidate B — alternative base oil (placeholder)", "description": "A second interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" }
+    { "id": "ip-balaninon-a", "label": "Oil, Nut/Seed (Candidate A)", "description": "A possible modern interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-balaninon-b", "label": "Oil, Base, Alternative (Candidate B)", "description": "A second interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" }
   ],
   "materialSources": [
     { "id": "ms-skhoinos-a", "label": "Material source A for σχοῖνος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
