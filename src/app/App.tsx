@@ -14,6 +14,10 @@ import { DemoBadge } from "../components/DemoBadge";
 import { Icons } from "../components/Icons";
 import { MaterialsSubNav } from "../components/MaterialsSubNav";
 import { RecipeLinkCards } from "../components/RecipeLinkCards";
+import { AboutPage } from "../pages/about/AboutPage";
+import { NewsPage } from "../pages/about/NewsPage";
+import { ProjectPage } from "../pages/about/ProjectPage";
+import { TeamPage } from "../pages/about/TeamPage";
 import {
   COMMIPHORA_DATA,
   DIOSCORIDES_DETAIL,
@@ -294,43 +298,6 @@ const LibraryPage = ({ navigate }) => {
             <h2>People</h2>
             <p>Biographies of ancient authors, perfumers, and historical figures related to the trade.</p>
             <button className="text-btn">Browse People &rarr;</button>
-         </div>
-      </div>
-    </div>
-  );
-};
-
-const AboutPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="library-hero">
-        <h1>About Alchemies of Scent</h1>
-        <p className="intro-text">
-            Unlocking the olfactory heritage of the ancient world through history, science, and experimental reconstruction.
-        </p>
-      </div>
-
-      <div className="library-grid">
-         {/* Card 1: Project */}
-         <div className="library-section-card" onClick={() => navigate('project')}>
-            <span className="library-count">Mission & Methods</span>
-            <h2>The Project</h2>
-            <p>Our methodology combines text-based historical research with chemical analysis to recreate ancient perfumes.</p>
-            <button className="text-btn">Read Mission &rarr;</button>
-         </div>
-         {/* Card 2: Team */}
-         <div className="library-section-card" onClick={() => navigate('team')}>
-            <span className="library-count">Researchers</span>
-            <h2>The Team</h2>
-            <p>An international collaboration of historians of science, classicists, and organic chemists.</p>
-            <button className="text-btn">Meet the Team &rarr;</button>
-         </div>
-         {/* Card 3: News */}
-         <div className="library-section-card" onClick={() => navigate('news')}>
-             <span className="library-count">Updates</span>
-            <h2>News & Events</h2>
-            <p>Recent publications, media coverage, and conference presentations from the research group.</p>
-            <button className="text-btn">View Updates &rarr;</button>
          </div>
       </div>
     </div>
@@ -2329,80 +2296,6 @@ const ArchivePage = ({ navigate, db }: { navigate: (route: string) => void; db: 
     </div>
   );
 };
-
-const ProjectPage = ({ navigate }) => (
-  <div className="page-container">
-    <div className="back-link" onClick={() => navigate('about')}>
-      <Icons.ArrowLeft /> Back to About
-    </div>
-    <h1>About the Project</h1>
-    <div className="section-block">
-      <p style={{fontSize: '1.25rem', marginBottom: '2rem'}}>Alchemies of Scent reconstructs the sensory past of antiquity through the interdisciplinary study of perfumery.</p>
-      <p>Combining historical analysis, linguistic studies, and experimental archaeology, we aim to understand how ancient civilizations created, used, and understood scent.</p>
-    </div>
-  </div>
-);
-
-const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
-  const team = [...(db.masterPeople ?? [])]
-    .filter((p) => (p.categories ?? []).includes("team"))
-    .sort((a, b) => a.name.localeCompare(b.name));
-
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate("about")}>
-        <Icons.ArrowLeft /> Back to About
-      </div>
-      <h1>The Team</h1>
-      <div className="section-block">
-        <div className="recipe-grid" style={{ marginTop: "2rem" }}>
-          {team.map((person) => (
-            <div
-              key={person.id}
-              className="recipe-card"
-              onClick={() => navigate(`person:${person.id}`)}
-              style={{ cursor: "pointer" }}
-            >
-              <h3>{person.role || "Team member"}</h3>
-              <div className="card-sub">{person.name}</div>
-              <p>{person.description}</p>
-            </div>
-          ))}
-          {!team.length ? (
-            <div className="metadata-box" style={{ width: "100%" }}>
-              No team members in the database yet.
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const NewsPage = ({ navigate }) => (
-  <div className="page-container">
-    <div className="back-link" onClick={() => navigate('about')}>
-      <Icons.ArrowLeft /> Back to About
-    </div>
-    <h1>News & Updates</h1>
-    <div className="section-block">
-      <div className="metadata-box" style={{width: '100%', marginBottom: '1.5rem'}}>
-        <div className="meta-row">
-          <span style={{fontWeight: 600}}>Publication Release</span>
-          <span style={{color: 'var(--color-stone)'}}>October 2023</span>
-        </div>
-        <p>Our latest paper on the reconstruction of the Mendesian perfume has been published in the American Journal of Archaeology.</p>
-      </div>
-      <div className="metadata-box" style={{width: '100%', marginBottom: '1.5rem'}}>
-        <div className="meta-row">
-          <span style={{fontWeight: 600}}>Conference Presentation</span>
-          <span style={{color: 'var(--color-stone)'}}>September 2023</span>
-        </div>
-        <p>The team presented findings on resin distillation at the International Conference on History of Chemistry.</p>
-      </div>
-    </div>
-  </div>
-);
 
 // --- New Pages: Historical Person, Team Member, Work Detail ---
 
