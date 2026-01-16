@@ -222,6 +222,31 @@ const formatRecipeLabel = (recipe: Pick<Recipe, "id" | "metadata">): string => {
   return parenthetical ? `${title} (${parenthetical})` : title;
 };
 
+const RecipeLinkCards = ({
+  recipes,
+  db,
+  navigate,
+}: {
+  recipes: Recipe[];
+  db: DatabaseState;
+  navigate: (route: string) => void;
+}) => {
+  return (
+    <div className="workshop-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}>
+      {recipes.map((recipe) => {
+        return (
+          <div key={recipe.id} className="workshop-card" onClick={() => navigate(`recipe:${recipe.id}`)}>
+            <div className="card-top">
+              <h3>{formatRecipeLabel(recipe)} →</h3>
+              <span className="type-tag">Recipe</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 // --- Debugging / Error Handling ---
 window.onerror = function(message, source, lineno, colno, error) {
   console.error("Global Error Caught:", message, error);
@@ -682,20 +707,7 @@ const PersonDetailPageDb = ({
         {!recipesByPerson.length ? (
           <p style={{ color: "var(--color-stone)" }}>No recipes linked yet.</p>
         ) : (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {recipesByPerson.map((recipe) => (
-              <li
-                key={recipe.id}
-                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
-                onClick={() => navigate(`recipe:${recipe.id}`)}
-              >
-                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
-                  {formatRecipeLabel(recipe)} →
-                </span>
-              </li>
-            ))}
-          </ul>
+          <RecipeLinkCards recipes={recipesByPerson} db={db} navigate={navigate} />
         )}
       </div>
     </div>
@@ -748,20 +760,7 @@ const WorkDetailPageDb = ({
         {!recipesInWork.length ? (
           <p style={{ color: "var(--color-stone)" }}>No recipes linked yet.</p>
         ) : (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {recipesInWork.map((recipe) => (
-              <li
-                key={recipe.id}
-                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
-                onClick={() => navigate(`recipe:${recipe.id}`)}
-              >
-                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
-                  {formatRecipeLabel(recipe)} →
-                </span>
-              </li>
-            ))}
-          </ul>
+          <RecipeLinkCards recipes={recipesInWork} db={db} navigate={navigate} />
         )}
       </div>
     </div>
@@ -1146,20 +1145,7 @@ const AncientTermDetailPage = ({
         {recipesUsing.length === 0 ? (
           <p style={{ color: "var(--color-stone)" }}>No recipes found.</p>
         ) : (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {recipesUsing.map((r) => (
-              <li
-                key={r.id}
-                style={{ marginBottom: "0.5rem", fontSize: "1.05rem", cursor: "pointer" }}
-                onClick={() => navigate(`recipe:${r.id}`)}
-              >
-                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.05rem" }}>
-                  {formatRecipeLabel(r)} →
-                </span>
-              </li>
-            ))}
-          </ul>
+          <RecipeLinkCards recipes={recipesUsing} db={db} navigate={navigate} />
         )}
       </div>
     </div>
@@ -1594,35 +1580,15 @@ const WorkshopEntityDetailPage = ({
       <div className="product-section" style={{ borderBottom: "none" }}>
         <h2>RECIPES</h2>
         {routeInfo.mode === "master" ? (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {recipesUsingEntity.map((r, i) => (
-              <li
-                key={r.id}
-                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
-                onClick={() => navigate(`recipe:${r.id}`)}
-              >
-                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
-                  {formatRecipeLabel(r)} →
-                </span>
-              </li>
-            ))}
-            {recipesUsingEntity.length === 0 && <li style={{ color: "var(--color-stone)" }}>No recipes found.</li>}
-          </ul>
+          recipesUsingEntity.length === 0 ? (
+            <p style={{ color: "var(--color-stone)" }}>No recipes found.</p>
+          ) : (
+            <RecipeLinkCards recipes={recipesUsingEntity} db={db} navigate={navigate} />
+          )
         ) : (
           <>
             {unlinkedRecipe ? (
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                <li
-                  style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
-                  onClick={() => navigate(`recipe:${unlinkedRecipe.id}`)}
-                >
-                  <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                  <span className="text-btn" style={{ fontSize: "1.1rem" }}>
-                    {formatRecipeLabel(unlinkedRecipe)} →
-                  </span>
-                </li>
-              </ul>
+              <RecipeLinkCards recipes={[unlinkedRecipe]} db={db} navigate={navigate} />
             ) : (
               <p style={{ color: "var(--color-stone)" }}>No recipe found.</p>
             )}
