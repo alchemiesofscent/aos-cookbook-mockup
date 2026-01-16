@@ -18,6 +18,9 @@ import { AboutPage } from "../pages/about/AboutPage";
 import { NewsPage } from "../pages/about/NewsPage";
 import { ProjectPage } from "../pages/about/ProjectPage";
 import { TeamPage } from "../pages/about/TeamPage";
+import { LibraryPage } from "../pages/library/LibraryPage";
+import { PeoplePage } from "../pages/library/PeoplePage";
+import { WorksPage } from "../pages/library/WorksPage";
 import {
   COMMIPHORA_DATA,
   DIOSCORIDES_DETAIL,
@@ -266,113 +269,6 @@ const Footer = ({ navigate }) => (
 // --- Reusable Components ---
 
 // --- Page Views ---
-
-const LibraryPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="library-hero">
-        <h1>The Library</h1>
-        <p className="intro-text">
-            The central repository for the Alchemies of Scent project, containing primary sources, translations, and prosopographical data.
-        </p>
-      </div>
-
-      <div className="library-grid">
-         {/* Card 1: Recipes */}
-         <div className="library-section-card" onClick={() => navigate('archive')}>
-            <span className="library-count">47 Items</span>
-            <h2>Recipes</h2>
-            <p>A curated collection of perfume recipes from Greco-Egyptian antiquity, annotated with linguistic and chemical data.</p>
-            <button className="text-btn">Browse Recipes &rarr;</button>
-         </div>
-         {/* Card 2: Works */}
-         <div className="library-section-card" onClick={() => navigate('works')}>
-            <span className="library-count">12 Items</span>
-            <h2>Works</h2>
-            <p>Full texts and treatises on botany, medicine, and pharmacology from the classical period.</p>
-            <button className="text-btn">Browse Works &rarr;</button>
-         </div>
-         {/* Card 3: People */}
-         <div className="library-section-card" onClick={() => navigate('people')}>
-             <span className="library-count">28 Items</span>
-            <h2>People</h2>
-            <p>Biographies of ancient authors, perfumers, and historical figures related to the trade.</p>
-            <button className="text-btn">Browse People &rarr;</button>
-         </div>
-      </div>
-    </div>
-  );
-};
-
-const WorksPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
-  const works = [...(db.masterWorks ?? [])].sort((a, b) => a.name.localeCompare(b.name));
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-
-      <div className="archive-intro">
-        <h1>WORKS</h1>
-        <p>Key treatises on botany, pharmacology, and perfumery from the ancient world.</p>
-      </div>
-
-      <div className="recipe-grid">
-        {works.map((work) => (
-          <div className="recipe-card" key={work.id}>
-            <h3>{work.name}</h3>
-            <div className="card-sub">
-              {[work.author, work.date].filter(Boolean).join(" • ")}
-            </div>
-            <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
-              {work.description}
-            </p>
-            <div className="card-meta">
-              <span className="urn">{work.urn}</span>
-            </div>
-            <button className="btn-primary" onClick={() => navigate(`work:${work.id}`)}>
-              View work
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
-  const people = [...(db.masterPeople ?? [])]
-    .filter((p) => !(p.categories ?? []).includes("team"))
-    .sort((a, b) => a.name.localeCompare(b.name));
-
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-
-      <div className="archive-intro">
-        <h1>PEOPLE</h1>
-        <p>The authors, perfumers, and botanical explorers of antiquity.</p>
-      </div>
-
-      <div className="recipe-grid">
-        {people.map((person) => (
-          <div className="recipe-card" key={person.id}>
-            <h3>{person.name}</h3>
-            <div className="card-sub">{[person.role, person.date].filter(Boolean).join(" • ")}</div>
-            <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
-              {person.description}
-            </p>
-            <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
-              View profile
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const PersonDetailPageDb = ({
   navigate,
