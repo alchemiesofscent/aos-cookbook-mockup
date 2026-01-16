@@ -2622,10 +2622,44 @@
       "name": "Pedanius Dioscorides",
       "slug": "pedanius-dioscorides",
       "urn": "urn:aos:person:pedanius-dioscorides",
+      "categories": ["historical"],
       "description": "Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica.",
       "role": "Physician",
       "place": "Anazarbus",
       "date": "1st Century CE"
+    },
+    {
+      "id": "p-sean-coughlin",
+      "name": "Sean Coughlin",
+      "slug": "sean-coughlin",
+      "urn": "urn:aos:person:sean-coughlin",
+      "categories": ["team"],
+      "description": "Principal Investigator. Works on ancient perfumery texts, data modelling, and experimental reconstruction (demo profile).",
+      "role": "Principal Investigator",
+      "place": "Alchemies of Scent",
+      "date": "Contemporary"
+    },
+    {
+      "id": "p-team-research-associate",
+      "name": "Research Associate (Demo)",
+      "slug": "research-associate-demo",
+      "urn": "urn:aos:person:research-associate-demo",
+      "categories": ["team"],
+      "description": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
+      "role": "Research Associate",
+      "place": "Alchemies of Scent",
+      "date": "Contemporary"
+    },
+    {
+      "id": "p-team-chemist",
+      "name": "Chemist (Demo)",
+      "slug": "chemist-demo",
+      "urn": "urn:aos:person:chemist-demo",
+      "categories": ["team"],
+      "description": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
+      "role": "Chemist",
+      "place": "Alchemies of Scent",
+      "date": "Contemporary"
     }
   ]
 }

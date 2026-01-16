@@ -105,6 +105,21 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
         subtitle: process.originalName ? `${process.originalName}${process.transliteratedName ? ` (${process.transliteratedName})` : ""}` : process.urn,
         route: `workshop-process:${process.id}`,
       })),
+
+      ...(db.masterPeople ?? []).map((person) => ({
+        title: person.name,
+        kind: "Person",
+        subtitle: [person.role, person.date].filter(Boolean).join(" • ") || person.urn,
+        route: `person:${person.id}`,
+        keywords: person.categories ?? [],
+      })),
+
+      ...(db.masterWorks ?? []).map((work) => ({
+        title: work.name,
+        kind: "Work",
+        subtitle: [work.author, work.date].filter(Boolean).join(" • ") || work.urn,
+        route: `work:${work.id}`,
+      })),
     ];
   }, [db]);
 

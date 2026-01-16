@@ -28,6 +28,7 @@ export interface MasterEntity {
   slug: string;
   urn: string;
   name: string;
+  categories?: string[];
   originalName?: string; // Ancient/Greek term
   transliteratedName?: string; // Latinized ancient term
   description: string;

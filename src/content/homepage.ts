@@ -83,7 +83,7 @@ export const homepageContent = {
     {
       label: "Source work",
       items: [
-        { label: "Dioscorides", route: "work_materia_medica" },
+        { label: "Dioscorides", route: "work:w-materia-medica" },
         { label: "Theophrastus", route: "works" },
         { label: "Pliny", route: "works" },
       ],

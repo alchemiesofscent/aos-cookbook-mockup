@@ -194,6 +194,23 @@ const parseRecipeRoute = (route: string): RecipeRoute | null => {
   return { id };
 };
 
+type PersonRoute = { id: string };
+type WorkRoute = { id: string };
+
+const parsePersonRoute = (route: string): PersonRoute | null => {
+  if (!route.startsWith("person:")) return null;
+  const [, id] = route.split(":");
+  if (!id) return null;
+  return { id };
+};
+
+const parseWorkRoute = (route: string): WorkRoute | null => {
+  if (!route.startsWith("work:")) return null;
+  const [, id] = route.split(":");
+  if (!id) return null;
+  return { id };
+};
+
 const DemoBadge = ({ placeholder }: { placeholder?: boolean }) => {
   if (!placeholder) return null;
   return <span className="type-tag">Demo data</span>;
@@ -493,7 +510,8 @@ const AboutPage = ({ navigate }) => {
   );
 };
 
-const WorksPage = ({ navigate }) => {
+const WorksPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const works = [...(db.masterWorks ?? [])].sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="page-container">
       <div className="back-link" onClick={() => navigate('library')}>
@@ -506,17 +524,21 @@ const WorksPage = ({ navigate }) => {
       </div>
 
       <div className="recipe-grid">
-        {WORKS_DATA.map((work) => (
+        {works.map((work) => (
           <div className="recipe-card" key={work.id}>
-            <h3>{work.title}</h3>
-            <div className="card-sub">{work.author} ({work.date})</div>
-             <p style={{fontSize: '0.9rem', color: 'var(--color-earth)', marginBottom: '1.5rem'}}>
+            <h3>{work.name}</h3>
+            <div className="card-sub">
+              {[work.author, work.date].filter(Boolean).join(" • ")}
+            </div>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
               {work.description}
             </p>
             <div className="card-meta">
-               <span className="urn">{work.urn}</span>
+              <span className="urn">{work.urn}</span>
             </div>
-            <button className="btn-primary" onClick={() => work.route ? navigate(work.route) : null}>View text</button>
+            <button className="btn-primary" onClick={() => navigate(`work:${work.id}`)}>
+              View work
+            </button>
           </div>
         ))}
       </div>
@@ -524,7 +546,11 @@ const WorksPage = ({ navigate }) => {
   );
 };
 
-const PeoplePage = ({ navigate }) => {
+const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const people = [...(db.masterPeople ?? [])]
+    .filter((p) => !(p.categories ?? []).includes("team"))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="page-container">
       <div className="back-link" onClick={() => navigate('library')}>
@@ -537,16 +563,192 @@ const PeoplePage = ({ navigate }) => {
       </div>
 
       <div className="recipe-grid">
-        {PEOPLE_DATA.map((person) => (
+        {people.map((person) => (
           <div className="recipe-card" key={person.id}>
             <h3>{person.name}</h3>
-            <div className="card-sub">{person.role} • {person.period}</div>
-            <p style={{fontSize: '0.9rem', color: 'var(--color-earth)', marginBottom: '1.5rem'}}>
-              {person.bio}
+            <div className="card-sub">{[person.role, person.date].filter(Boolean).join(" • ")}</div>
+            <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
+              {person.description}
             </p>
-            <button className="btn-secondary" onClick={() => person.route ? navigate(person.route) : null}>View profile</button>
+            <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
+              View profile
+            </button>
           </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+const PersonDetailPageDb = ({
+  navigate,
+  db,
+  personId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  personId: string;
+}) => {
+  const person = (db.masterPeople ?? []).find((p) => p.id === personId) ?? null;
+  const isTeam = (person?.categories ?? []).includes("team");
+
+  const authoredWorks = (db.masterWorks ?? []).filter((w) => w.authorId === personId);
+  const authoredWorkIds = new Set(authoredWorks.map((w) => w.id));
+  const recipesByPerson = (db.recipes ?? []).filter((r) => authoredWorkIds.has(r.metadata?.sourceWorkId));
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate(isTeam ? "team" : "people")}>
+        <Icons.ArrowLeft /> Back to {isTeam ? "Team" : "People"}
+      </div>
+
+      <div
+        className="product-section"
+        style={{ paddingBottom: "3rem", borderBottom: "1px solid var(--color-border-strong)" }}
+      >
+        <div style={{ display: "flex", gap: "3rem" }}>
+          <div style={{ flex: 2 }}>
+            <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>
+              {person?.name ?? "Person"}
+            </h1>
+            <div style={{ fontSize: "1.25rem", color: "var(--color-charcoal)", marginBottom: "0.5rem" }}>
+              {person?.role ?? (isTeam ? "Team member" : "")}
+            </div>
+            <div style={{ fontSize: "1rem", color: "var(--color-stone)", marginBottom: "1.5rem" }}>
+              {person?.date ? <div>{isTeam ? "Period" : "Floruit"}: {person.date}</div> : null}
+              {person?.place ? <div>{isTeam ? "Affiliation" : "Associated place"}: {person.place}</div> : null}
+              {person?.categories?.length ? <div>Categories: {person.categories.join(", ")}</div> : null}
+            </div>
+            {person?.urn ? <div className="urn" style={{ display: "inline-block", marginBottom: "1rem" }}>{person.urn}</div> : null}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div
+              className="product-image-placeholder"
+              style={{
+                background: "#F0F0F0",
+                border: "1px solid #ccc",
+                height: "200px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "var(--font-sans)",
+                color: "#666",
+              }}
+            >
+              [Portrait placeholder]
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="product-section">
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", maxWidth: "800px" }}>
+          {person?.description ?? "No description yet."}
+        </p>
+      </div>
+
+      {!isTeam && (
+        <div className="product-section">
+          <h2>WORKS</h2>
+          {!authoredWorks.length ? (
+            <p style={{ color: "var(--color-stone)" }}>No works linked yet.</p>
+          ) : (
+            <ul style={{ listStyle: "none", padding: 0 }}>
+              {authoredWorks.map((work) => (
+                <li key={work.id} style={{ marginBottom: "1rem", fontSize: "1.1rem" }}>
+                  <span className="text-btn" style={{ fontSize: "1.1rem", cursor: "pointer" }} onClick={() => navigate(`work:${work.id}`)}>
+                    {work.name} →
+                  </span>
+                  {work.description ? (
+                    <div style={{ fontSize: "0.9rem", color: "var(--color-stone)", marginTop: "0.2rem", paddingLeft: "1rem" }}>
+                      {work.description}
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>RECIPES</h2>
+        {!recipesByPerson.length ? (
+          <p style={{ color: "var(--color-stone)" }}>No recipes linked yet.</p>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {recipesByPerson.map((recipe) => (
+              <li key={recipe.id} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
+                <span className="text-btn" style={{ fontSize: "1.1rem", cursor: "pointer" }} onClick={() => navigate(`recipe:${recipe.id}`)}>
+                  {recipe.metadata?.title ?? recipe.id} →
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const WorkDetailPageDb = ({
+  navigate,
+  db,
+  workId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  workId: string;
+}) => {
+  const work = (db.masterWorks ?? []).find((w) => w.id === workId) ?? null;
+  const author = work?.authorId ? (db.masterPeople ?? []).find((p) => p.id === work.authorId) : null;
+  const recipesInWork = (db.recipes ?? []).filter((r) => r.metadata?.sourceWorkId === workId);
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("works")}>
+        <Icons.ArrowLeft /> Back to Works
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>{work?.name ?? "Work"}</h1>
+        <div style={{ fontSize: "1.25rem", color: "var(--color-charcoal)", marginBottom: "0.5rem" }}>
+          {author ? (
+            <span className="text-btn" style={{ fontSize: "1.25rem", cursor: "pointer" }} onClick={() => navigate(`person:${author.id}`)}>
+              {author.name} →
+            </span>
+          ) : (
+            <span>{work?.author ?? ""}</span>
+          )}
+        </div>
+        <div style={{ fontSize: "1rem", color: "var(--color-stone)", marginBottom: "1.25rem" }}>
+          {[work?.date, work?.language, work?.place].filter(Boolean).join(" • ")}
+        </div>
+        {work?.urn ? <div className="urn">URN: {work.urn}</div> : null}
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", maxWidth: "800px" }}>{work?.description ?? "No description yet."}</p>
+      </div>
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>RECIPES IN THIS WORK</h2>
+        {!recipesInWork.length ? (
+          <p style={{ color: "var(--color-stone)" }}>No recipes linked yet.</p>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {recipesInWork.map((recipe) => (
+              <li key={recipe.id} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
+                <span className="text-btn" style={{ fontSize: "1.1rem", cursor: "pointer" }} onClick={() => navigate(`recipe:${recipe.id}`)}>
+                  {recipe.metadata?.title ?? recipe.id} →
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
@@ -2329,33 +2531,41 @@ const ProjectPage = ({ navigate }) => (
   </div>
 );
 
-const TeamPage = ({ navigate }) => (
-  <div className="page-container">
-    <div className="back-link" onClick={() => navigate('about')}>
-      <Icons.ArrowLeft /> Back to About
-    </div>
-    <h1>The Team</h1>
-    <div className="section-block">
-      <div className="recipe-grid" style={{marginTop: '2rem'}}>
-        <div className="recipe-card" onClick={() => navigate('team_sean')} style={{cursor: 'pointer'}}>
-          <h3>Principal Investigator</h3>
-          <div className="card-sub">History of Science</div>
-          <p>Leading the historical and chemical analysis of ancient recipes.</p>
-        </div>
-        <div className="recipe-card">
-          <h3>Research Associate</h3>
-          <div className="card-sub">Classic Philology</div>
-          <p>Specializing in ancient Greek and Latin botanical terminology.</p>
-        </div>
-        <div className="recipe-card">
-          <h3>Chemist</h3>
-          <div className="card-sub">Organic Chemistry</div>
-          <p>Conducting gas chromatography and mass spectrometry on reproductions.</p>
+const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const team = [...(db.masterPeople ?? [])]
+    .filter((p) => (p.categories ?? []).includes("team"))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("about")}>
+        <Icons.ArrowLeft /> Back to About
+      </div>
+      <h1>The Team</h1>
+      <div className="section-block">
+        <div className="recipe-grid" style={{ marginTop: "2rem" }}>
+          {team.map((person) => (
+            <div
+              key={person.id}
+              className="recipe-card"
+              onClick={() => navigate(`person:${person.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <h3>{person.role || "Team member"}</h3>
+              <div className="card-sub">{person.name}</div>
+              <p>{person.description}</p>
+            </div>
+          ))}
+          {!team.length ? (
+            <div className="metadata-box" style={{ width: "100%" }}>
+              No team members in the database yet.
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const NewsPage = ({ navigate }) => (
   <div className="page-container">
@@ -3195,18 +3405,28 @@ const App = ({
       return <RecipePage navigate={setRoute} db={db} recipeId={recipeRoute.id} />;
     }
 
+    const personRoute = parsePersonRoute(route);
+    if (personRoute) {
+      return <PersonDetailPageDb navigate={setRoute} db={db} personId={personRoute.id} />;
+    }
+
+    const workRoute = parseWorkRoute(route);
+    if (workRoute) {
+      return <WorkDetailPageDb navigate={setRoute} db={db} workId={workRoute.id} />;
+    }
+
     switch(route) {
       case 'home': return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
       case 'library': return <LibraryPage navigate={setRoute} />;
       case 'archive': return <ArchivePage navigate={setRoute} db={db} />;
-      case 'works': return <WorksPage navigate={setRoute} />;
-      case 'people': return <PeoplePage navigate={setRoute} />;
+      case 'works': return <WorksPage navigate={setRoute} db={db} />;
+      case 'people': return <PeoplePage navigate={setRoute} db={db} />;
       case 'recipe_rose': return <RecipePage navigate={setRoute} db={db} recipeId="r-rose-perfume" />;
       case 'ingredient_smyrna': return <AncientIngredientPage navigate={setRoute} />;
       case 'product_myrrh': return <ProductPage navigate={setRoute} />;
       case 'about': return <AboutPage navigate={setRoute} />;
       case 'project': return <ProjectPage navigate={setRoute} />;
-      case 'team': return <TeamPage navigate={setRoute} />;
+      case 'team': return <TeamPage navigate={setRoute} db={db} />;
       case 'news': return <NewsPage navigate={setRoute} />;
       case 'workshop': return <WorkshopPage navigate={setRoute} db={db} />;
       case 'materials': return <MaterialsDashboardPage navigate={setRoute} />;
@@ -3224,9 +3444,9 @@ const App = ({
       case 'studio': return <StudioPage navigate={setRoute} db={db} />;
       
       // New Routes
-      case 'person_dioscorides': return <HistoricalPersonPage navigate={setRoute} />;
-      case 'team_sean': return <TeamMemberPage navigate={setRoute} />;
-      case 'work_materia_medica': return <WorkDetailPage navigate={setRoute} />;
+      case 'person_dioscorides': return <PersonDetailPageDb navigate={setRoute} db={db} personId="p-dioscorides" />;
+      case 'team_sean': return <PersonDetailPageDb navigate={setRoute} db={db} personId="p-sean-coughlin" />;
+      case 'work_materia_medica': return <WorkDetailPageDb navigate={setRoute} db={db} workId="w-materia-medica" />;
       case 'admin': return <AdminConsole navigate={setRoute} />;
 
       default: return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
