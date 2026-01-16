@@ -62,6 +62,7 @@ export interface Quantity {
 export interface RecipeItem {
   id: string; // unique instance id
   masterId: string | null;
+  ancientTermId?: string;
   originalTerm: string;
   transliteration?: string;
   displayTerm: string;
@@ -97,6 +98,43 @@ export interface Recipe {
   items: RecipeItem[];
 }
 
+export type PlaceholderSourceKind = "project" | "work" | "bibliography" | "none";
+
+export interface PlaceholderStamped {
+  placeholder: boolean;
+  sourceKind: PlaceholderSourceKind;
+}
+
+export interface AncientIngredient extends PlaceholderStamped {
+  id: string; // ai-*
+  term: string; // Greek/Latin term
+  transliteration?: string;
+  description?: string;
+}
+
+export interface IngredientProduct extends PlaceholderStamped {
+  id: string; // ip-*
+  label: string;
+  description?: string;
+}
+
+export interface MaterialSource extends PlaceholderStamped {
+  id: string; // ms-*
+  label: string;
+  description?: string;
+}
+
+export interface Identification extends PlaceholderStamped {
+  id: string; // id-*
+  ancientIngredientId: string; // ai-*
+  ingredientProductId: string; // ip-*
+  materialSourceId?: string; // ms-*
+  confidence?: "established" | "probable" | "speculative";
+  workId?: string;
+  locator?: string;
+  notes?: string;
+}
+
 export interface DatabaseState {
   recipes: Recipe[];
   masterIngredients: MasterEntity[];
@@ -104,4 +142,8 @@ export interface DatabaseState {
   masterProcesses: MasterEntity[];
   masterWorks: MasterEntity[];
   masterPeople: MasterEntity[];
+  ancientIngredients: AncientIngredient[];
+  ingredientProducts: IngredientProduct[];
+  materialSources: MaterialSource[];
+  identifications: Identification[];
 }

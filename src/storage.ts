@@ -1,4 +1,5 @@
-import { DatabaseState, MasterEntity, Recipe } from "./types";
+import { DatabaseState, MasterEntity, Recipe, RecipeItem } from "./types";
+import { recipeItemToAncientTermId } from "./content/pins";
 
 const STORAGE_KEYS = {
   RECIPES: 'AOS_RECIPES',
@@ -7,6 +8,10 @@ const STORAGE_KEYS = {
   PROCESSES: 'AOS_MASTER_PROCESSES',
   WORKS: 'AOS_MASTER_WORKS',
   PEOPLE: 'AOS_MASTER_PEOPLE',
+  ANCIENT_INGREDIENTS: "AOS_ANCIENT_INGREDIENTS",
+  INGREDIENT_PRODUCTS: "AOS_INGREDIENT_PRODUCTS",
+  MATERIAL_SOURCES: "AOS_MATERIAL_SOURCES",
+  IDENTIFICATIONS: "AOS_IDENTIFICATIONS",
   DB_VERSION: 'AOS_DB_VERSION',
   DB_INITIALIZED: 'AOS_DB_INITIALIZED'
 };
@@ -20,6 +25,10 @@ const writeDatabaseToStorage = (data: DatabaseState) => {
   localStorage.setItem(STORAGE_KEYS.PROCESSES, JSON.stringify(data.masterProcesses));
   localStorage.setItem(STORAGE_KEYS.WORKS, JSON.stringify(data.masterWorks));
   localStorage.setItem(STORAGE_KEYS.PEOPLE, JSON.stringify(data.masterPeople));
+  localStorage.setItem(STORAGE_KEYS.ANCIENT_INGREDIENTS, JSON.stringify((data as any).ancientIngredients ?? []));
+  localStorage.setItem(STORAGE_KEYS.INGREDIENT_PRODUCTS, JSON.stringify((data as any).ingredientProducts ?? []));
+  localStorage.setItem(STORAGE_KEYS.MATERIAL_SOURCES, JSON.stringify((data as any).materialSources ?? []));
+  localStorage.setItem(STORAGE_KEYS.IDENTIFICATIONS, JSON.stringify((data as any).identifications ?? []));
   localStorage.setItem(STORAGE_KEYS.DB_VERSION, CURRENT_DB_VERSION);
   localStorage.setItem(STORAGE_KEYS.DB_INITIALIZED, "true");
 };
@@ -33,6 +42,10 @@ export const StorageAdapter = {
       masterProcesses: JSON.parse(localStorage.getItem(STORAGE_KEYS.PROCESSES) || '[]'),
       masterWorks: JSON.parse(localStorage.getItem(STORAGE_KEYS.WORKS) || '[]'),
       masterPeople: JSON.parse(localStorage.getItem(STORAGE_KEYS.PEOPLE) || '[]'),
+      ancientIngredients: JSON.parse(localStorage.getItem(STORAGE_KEYS.ANCIENT_INGREDIENTS) || "[]"),
+      ingredientProducts: JSON.parse(localStorage.getItem(STORAGE_KEYS.INGREDIENT_PRODUCTS) || "[]"),
+      materialSources: JSON.parse(localStorage.getItem(STORAGE_KEYS.MATERIAL_SOURCES) || "[]"),
+      identifications: JSON.parse(localStorage.getItem(STORAGE_KEYS.IDENTIFICATIONS) || "[]"),
     };
   },
 
@@ -90,7 +103,71 @@ const shouldInitializeFromSeed = (): boolean => {
 };
 
 export const loadState = async (): Promise<DatabaseState> => {
-  if (!shouldInitializeFromSeed()) return StorageAdapter.load();
+  const tryFetchSeedDb = async (): Promise<DatabaseState | null> => {
+    try {
+      const base = import.meta.env.BASE_URL || "/";
+      const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+      const seedUrl = `${normalizedBase}data/seed.json`;
+      const response = await fetch(seedUrl, { cache: "no-cache" });
+      if (!response.ok) return null;
+      return (await response.json()) as DatabaseState;
+    } catch {
+      return null;
+    }
+  };
+
+  const backfillAncientTermIds = (db: DatabaseState): boolean => {
+    let changed = false;
+    for (const recipe of db.recipes ?? []) {
+      for (const item of recipe.items ?? []) {
+        if (item.type !== "ingredient") continue;
+        if ((item as RecipeItem).ancientTermId) continue;
+        const pinned = recipeItemToAncientTermId[`${recipe.id}:${item.id}`];
+        if (pinned) {
+          (item as RecipeItem).ancientTermId = pinned;
+          changed = true;
+        }
+      }
+    }
+    return changed;
+  };
+
+  const mergeMissingCollectionsFromSeed = (db: DatabaseState, seedDb: DatabaseState | null): boolean => {
+    const seed = seedDb ?? ({} as DatabaseState);
+    let changed = false;
+
+    const ensureArrayKey = <K extends keyof DatabaseState>(key: K): void => {
+      const currentValue = (db as any)[key];
+      const seedValue = (seed as any)[key];
+
+      if (Array.isArray(currentValue)) {
+        if (currentValue.length === 0 && Array.isArray(seedValue) && seedValue.length > 0) {
+          (db as any)[key] = seedValue;
+          changed = true;
+        }
+        return;
+      }
+
+      (db as any)[key] = Array.isArray(seedValue) ? seedValue : [];
+      changed = true;
+    };
+
+    ensureArrayKey("ancientIngredients");
+    ensureArrayKey("ingredientProducts");
+    ensureArrayKey("materialSources");
+    ensureArrayKey("identifications");
+    return changed;
+  };
+
+  if (!shouldInitializeFromSeed()) {
+    const current = StorageAdapter.load();
+    const seedDb = await tryFetchSeedDb();
+    const changed =
+      mergeMissingCollectionsFromSeed(current, seedDb) ||
+      backfillAncientTermIds(current);
+    if (changed) writeDatabaseToStorage(current);
+    return current;
+  }
 
   try {
     const base = import.meta.env.BASE_URL || "/";
@@ -101,11 +178,16 @@ export const loadState = async (): Promise<DatabaseState> => {
       throw new Error(`Failed to fetch seed.json: ${response.status} ${response.statusText}`);
     }
     const seed = (await response.json()) as DatabaseState;
+    backfillAncientTermIds(seed);
+    mergeMissingCollectionsFromSeed(seed, seed);
     writeDatabaseToStorage(seed);
     return StorageAdapter.load();
   } catch (error) {
     console.warn("Seed overlay failed; falling back to existing localStorage state.", error);
-    return StorageAdapter.load();
+    const current = StorageAdapter.load();
+    const changed = backfillAncientTermIds(current) || mergeMissingCollectionsFromSeed(current, null);
+    if (changed) writeDatabaseToStorage(current);
+    return current;
   }
 };
 

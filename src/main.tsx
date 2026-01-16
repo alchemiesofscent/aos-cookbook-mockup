@@ -3,15 +3,192 @@ import { createRoot } from "react-dom/client";
 import { AdminConsole } from "./AdminConsole";
 import { assertRecipeAnnotationInvariants } from "./invariants";
 import { loadState, StorageAdapter } from "./storage";
-import type { DatabaseState, Recipe } from "./types";
+import type {
+  AncientIngredient,
+  DatabaseState,
+  Identification,
+  IngredientProduct,
+  MasterEntity,
+  MaterialSource,
+  Recipe,
+  RecipeItem,
+} from "./types";
 import seed from "@seed.json";
 import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
 import { createOrResumeStudioSession, setActiveStudioSessionId } from "./studio/storage";
+import { resolveAncientTermIdForRecipeItem } from "./workshop/resolveAncientTermId";
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
+
+type WorkshopEntityKind = "ingredient" | "tool" | "process";
+
+type WorkshopEntityRoute =
+  | { kind: WorkshopEntityKind; mode: "master"; id: string }
+  | { kind: WorkshopEntityKind; mode: "unlinked"; recipeId: string; itemId: string };
+
+const parseWorkshopEntityRoute = (route: string): WorkshopEntityRoute | null => {
+  if (route.startsWith("workshop-unlinked:")) {
+    const [, kindRaw, recipeId, itemId] = route.split(":");
+    if (!kindRaw || !recipeId || !itemId) return null;
+    if (kindRaw !== "ingredient" && kindRaw !== "tool" && kindRaw !== "process") return null;
+    return { kind: kindRaw, mode: "unlinked", recipeId, itemId };
+  }
+
+  if (route.startsWith("workshop-ingredient:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "ingredient", mode: "master", id };
+  }
+  if (route.startsWith("workshop-tool:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "tool", mode: "master", id };
+  }
+  if (route.startsWith("workshop-process:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "process", mode: "master", id };
+  }
+
+  return null;
+};
+
+const formatAncientName = (entity: Pick<MasterEntity, "originalName" | "transliteratedName">): string => {
+  if (!entity.originalName) return "";
+  if (entity.transliteratedName) return `${entity.originalName} (${entity.transliteratedName})`;
+  return entity.originalName;
+};
+
+type WorkshopCardModel = {
+  key: string;
+  title: string;
+  tag: string;
+  ancientLabel: string | null;
+  description: string | null;
+  usageLabel: string;
+  route: string;
+};
+
+const buildWorkshopCardsFromRecipes = (
+  db: DatabaseState,
+): { ingredients: WorkshopCardModel[]; tools: WorkshopCardModel[]; processes: WorkshopCardModel[] } => {
+  const usageByMasterId = {
+    ingredient: new Map<string, Set<string>>(),
+    tool: new Map<string, Set<string>>(),
+    process: new Map<string, Set<string>>(),
+  } as const;
+
+  const unlinked = {
+    ingredient: new Map<string, { recipeId: string; itemId: string; item: RecipeItem; recipeTitle: string }>(),
+    tool: new Map<string, { recipeId: string; itemId: string; item: RecipeItem; recipeTitle: string }>(),
+    process: new Map<string, { recipeId: string; itemId: string; item: RecipeItem; recipeTitle: string }>(),
+  } as const;
+
+  for (const recipe of db.recipes) {
+    const recipeTitle = recipe.metadata?.title ?? recipe.id;
+    for (const item of recipe.items ?? []) {
+      if (item.type !== "ingredient" && item.type !== "tool" && item.type !== "process") continue;
+
+      if (item.masterId) {
+        const existing = usageByMasterId[item.type].get(item.masterId) ?? new Set<string>();
+        existing.add(recipe.id);
+        usageByMasterId[item.type].set(item.masterId, existing);
+        continue;
+      }
+
+      const key = `${recipe.id}:${item.id}`;
+      unlinked[item.type].set(key, { recipeId: recipe.id, itemId: item.id, item, recipeTitle });
+    }
+  }
+
+  const mastersById = {
+    ingredient: new Map<string, MasterEntity>(db.masterIngredients.map((m) => [m.id, m])),
+    tool: new Map<string, MasterEntity>(db.masterTools.map((m) => [m.id, m])),
+    process: new Map<string, MasterEntity>(db.masterProcesses.map((m) => [m.id, m])),
+  } as const;
+
+  const toCards = (kind: WorkshopEntityKind): WorkshopCardModel[] => {
+    const cards: WorkshopCardModel[] = [];
+
+    for (const [masterId, recipeIds] of usageByMasterId[kind].entries()) {
+      const entity = mastersById[kind].get(masterId);
+      if (!entity) continue;
+      const ancientLabel = formatAncientName(entity) || null;
+      const recipeCount = recipeIds.size;
+      cards.push({
+        key: `${kind}:${masterId}`,
+        title: entity.name,
+        tag: kind === "ingredient" ? "Ingredient" : kind === "tool" ? "Tool" : "Process",
+        ancientLabel,
+        description: entity.description || null,
+        usageLabel: `Used in ${recipeCount} recipe${recipeCount === 1 ? "" : "s"}`,
+        route: `workshop-${kind}:${masterId}`,
+      });
+    }
+
+    for (const { recipeId, itemId, item, recipeTitle } of unlinked[kind].values()) {
+      const title = (item.displayTerm || "").trim() || item.originalTerm || item.id;
+      const ancientLabel =
+        item.transliteration && item.originalTerm ? `${item.originalTerm} (${item.transliteration})` : item.originalTerm;
+      cards.push({
+        key: `${kind}:unlinked:${recipeId}:${itemId}`,
+        title,
+        tag: kind === "ingredient" ? "Ingredient" : kind === "tool" ? "Tool" : "Process",
+        ancientLabel: ancientLabel || null,
+        description: `Unlinked term from ${recipeTitle} (placeholder).`,
+        usageLabel: "Used in 1 recipe",
+        route: `workshop-unlinked:${kind}:${recipeId}:${itemId}`,
+      });
+    }
+
+    cards.sort((a, b) => a.title.localeCompare(b.title));
+    return cards;
+  };
+
+  return {
+    ingredients: toCards("ingredient"),
+    tools: toCards("tool"),
+    processes: toCards("process"),
+  };
+};
+
+type InterpretationRoute =
+  | { kind: "ancient-term"; id: string }
+  | { kind: "identification"; id: string }
+  | { kind: "ingredient-product"; id: string }
+  | { kind: "material-source"; id: string };
+
+const parseInterpretationRoute = (route: string): InterpretationRoute | null => {
+  if (route.startsWith("ancient-term:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "ancient-term", id };
+  }
+  if (route.startsWith("identification:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "identification", id };
+  }
+  if (route.startsWith("ingredient-product:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "ingredient-product", id };
+  }
+  if (route.startsWith("material-source:")) {
+    const [, id] = route.split(":");
+    if (!id) return null;
+    return { kind: "material-source", id };
+  }
+  return null;
+};
+
+const DemoBadge = ({ placeholder }: { placeholder?: boolean }) => {
+  if (!placeholder) return null;
+  return <span className="type-tag">Demo data</span>;
+};
 
 // --- Debugging / Error Handling ---
 window.onerror = function(message, source, lineno, colno, error) {
@@ -366,63 +543,62 @@ const PeoplePage = ({ navigate }) => {
   );
 };
 
-const TermsPage = ({ navigate }) => {
-  const [langFilter, setLangFilter] = useState('All');
-  const [catFilter, setCatFilter] = useState('All');
+const TermsPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    return TERMS_LIST.filter(item => {
-      const matchLang = langFilter === 'All' || item.language === langFilter;
-      const matchCat = catFilter === 'All' || item.category === catFilter;
-      return matchLang && matchCat;
-    });
-  }, [langFilter, catFilter]);
+    const q = query.trim().toLowerCase();
+    const items = db.ancientIngredients ?? [];
+    if (!q) return [...items].sort((a, b) => a.term.localeCompare(b.term));
+    return items
+      .filter((item) => {
+        return (
+          item.term.toLowerCase().includes(q) ||
+          (item.transliteration ?? "").toLowerCase().includes(q) ||
+          (item.description ?? "").toLowerCase().includes(q)
+        );
+      })
+      .sort((a, b) => a.term.localeCompare(b.term));
+  }, [db.ancientIngredients, query]);
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('workshop')}>
+      <div className="back-link" onClick={() => navigate("workshop")}>
         <Icons.ArrowLeft /> Back to Workshop
       </div>
-      
+
       <div className="archive-intro">
         <h1>ANCIENT TERMS</h1>
         <MaterialsSubNav navigate={navigate} active="terms" />
-        <p>A dictionary of botanical, chemical, and technical terminology from ancient sources.</p>
+        <p>Recipes link to ancient terms only. These pages are a demo scaffold for the interpretation chain.</p>
       </div>
 
       <div className="filters-bar">
         <div className="filter-group">
-          <select value={langFilter} onChange={(e) => setLangFilter(e.target.value)}>
-            <option value="All">Language: All</option>
-            <option value="Greek">Greek</option>
-            <option value="Latin">Latin</option>
-          </select>
-          <select value={catFilter} onChange={(e) => setCatFilter(e.target.value)}>
-            <option value="All">Category: All</option>
-            <option value="Resin">Resin</option>
-            <option value="Base">Base</option>
-            <option value="Floral">Floral</option>
-            <option value="Herb">Herb</option>
-            <option value="Additive">Additive</option>
-            <option value="Wood">Wood</option>
-          </select>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search terms…"
+            style={{ padding: "0.6rem 0.75rem", borderRadius: "10px", border: "1px solid var(--color-border)" }}
+          />
         </div>
         <div className="filter-meta">
-          <button className="text-btn" onClick={() => { setLangFilter('All'); setCatFilter('All'); }}>Clear filters</button>
+          <button className="text-btn" onClick={() => setQuery("")}>
+            Clear
+          </button>
           <span>Showing {filtered.length} terms</span>
         </div>
       </div>
 
       <div className="workshop-grid">
-        {filtered.map(item => (
-           <div className="workshop-card" key={item.id} onClick={() => item.id === 'smyrna' ? navigate('ingredient_smyrna') : null}>
+        {filtered.map((item) => (
+          <div className="workshop-card" key={item.id} onClick={() => navigate(`ancient-term:${item.id}`)}>
             <div className="card-top">
               <h3>{item.term}</h3>
-              <span className="lang-tag">{item.language}</span>
+              <DemoBadge placeholder={item.placeholder} />
             </div>
-            <div className="translit">{item.transliteration}</div>
-            <div style={{marginBottom:'0.5rem'}}><span className="type-tag">{item.category}</span></div>
-            <div className="def">{item.def}</div>
+            {item.transliteration && <div className="translit">{item.transliteration}</div>}
+            <div className="def">{item.description ?? "Demo term record."}</div>
           </div>
         ))}
       </div>
@@ -430,128 +606,126 @@ const TermsPage = ({ navigate }) => {
   );
 };
 
-const IngredientsPage = ({ navigate }) => {
-  const [viewMode, setViewMode] = useState('list'); // 'grid' or 'list' (A-Z)
-  const [familyFilter, setFamilyFilter] = useState('All');
-  const [formFilter, setFormFilter] = useState('All');
+const IngredientsPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    return INGREDIENTS_LIST.filter(item => {
-      const matchFam = familyFilter === 'All' || item.family === familyFilter;
-      const matchForm = formFilter === 'All' || item.form.includes(formFilter);
-      return matchFam && matchForm;
-    }).sort((a, b) => a.name.localeCompare(b.name));
-  }, [familyFilter, formFilter]);
+    const q = query.trim().toLowerCase();
+    const items = db.ingredientProducts ?? [];
+    const next = !q
+      ? [...items]
+      : items.filter((item) => {
+          return (
+            item.label.toLowerCase().includes(q) || (item.description ?? "").toLowerCase().includes(q)
+          );
+        });
+    next.sort((a, b) => a.label.localeCompare(b.label));
+    return next;
+  }, [db.ingredientProducts, query]);
 
   const azList = useMemo(() => {
-      const grouped = {};
-      filtered.forEach(item => {
-          const letter = item.name[0].toUpperCase();
-          if(!grouped[letter]) grouped[letter] = [];
-          grouped[letter].push(item);
-      });
-      return grouped;
+    const grouped: Record<string, IngredientProduct[]> = {};
+    for (const item of filtered) {
+      const letter = (item.label[0] ?? "#").toUpperCase();
+      if (!grouped[letter]) grouped[letter] = [];
+      grouped[letter].push(item);
+    }
+    return grouped;
   }, [filtered]);
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('workshop')}>
+      <div className="back-link" onClick={() => navigate("workshop")}>
         <Icons.ArrowLeft /> Back to Workshop
       </div>
-      
+
       <div className="archive-intro">
         <h1>INGREDIENTS</h1>
         <MaterialsSubNav navigate={navigate} active="ingredients" />
-        <p>Explore the materials used in ancient perfumery.</p>
-        {viewMode === 'list' && <p style={{marginTop: '1rem', fontSize: '1rem', color: 'var(--color-earth)'}}>This index lists modern ingredient names. Click any entry to explore its modern definition and sensory profile, or to see the ancient terms that may correspond to it.</p>}
+        <p>Ingredient Products are the modern interpretive targets linked from Ancient Terms via Identifications (demo scaffold).</p>
       </div>
 
       <div className="filters-bar">
         <div className="filter-group">
-          {viewMode === 'grid' && (
-            <>
-            <select value={familyFilter} onChange={(e) => setFamilyFilter(e.target.value)}>
-              <option value="All">Family: All</option>
-              <option value="Resinous">Resinous</option>
-              <option value="Fats/Oils">Fats/Oils</option>
-              <option value="Floral">Floral</option>
-              <option value="Green">Green</option>
-              <option value="Sweet">Sweet</option>
-              <option value="Spice">Spice</option>
-            </select>
-            <select value={formFilter} onChange={(e) => setFormFilter(e.target.value)}>
-              <option value="All">Form: All</option>
-              <option value="Resin">Resin</option>
-              <option value="Oil">Oil</option>
-              <option value="Liquid">Liquid</option>
-              <option value="Petals">Petals</option>
-              <option value="Dried">Dried</option>
-            </select>
-            </>
-          )}
-          {viewMode === 'list' && <div style={{padding: '0.6rem 0', fontWeight: 'bold', color: 'var(--color-amber)'}}>A-Z Index Mode</div>}
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search ingredient products…"
+            style={{ padding: "0.6rem 0.75rem", borderRadius: "10px", border: "1px solid var(--color-border)" }}
+          />
         </div>
-        
-        <div className="filter-meta" style={{gap: '1rem'}}>
-          <div className="view-toggles" style={{margin:0}}>
-             <button className={`icon-btn ${viewMode === 'list' ? 'active' : ''}`} onClick={() => setViewMode('list')} title="A-Z List View">A-Z</button>
-             <button className={`icon-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')} title="Grid View"><Icons.Grid /></button>
+
+        <div className="filter-meta" style={{ gap: "1rem" }}>
+          <div className="view-toggles" style={{ margin: 0 }}>
+            <button
+              className={`icon-btn ${viewMode === "list" ? "active" : ""}`}
+              onClick={() => setViewMode("list")}
+              title="A-Z List View"
+            >
+              A-Z
+            </button>
+            <button
+              className={`icon-btn ${viewMode === "grid" ? "active" : ""}`}
+              onClick={() => setViewMode("grid")}
+              title="Grid View"
+            >
+              <Icons.Grid />
+            </button>
           </div>
-          {viewMode === 'grid' && <button className="text-btn" onClick={() => { setFamilyFilter('All'); setFormFilter('All'); }}>Clear filters</button>}
+          <button className="text-btn" onClick={() => setQuery("")}>
+            Clear
+          </button>
           <span>{filtered.length} items</span>
         </div>
       </div>
 
-      {viewMode === 'list' && (
-          <div className="az-container">
-             <div className="az-nav">
-                 {['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'].map(char => (
-                     <a key={char} href={`#az-${char}`} className={!azList[char] ? 'disabled' : ''}>{char}</a>
-                 ))}
-             </div>
-             <div className="az-content">
-                 {Object.keys(azList).sort().map(char => (
-                     <div key={char} id={`az-${char}`} className="az-group">
-                         <h2>{char}</h2>
-                         <div className="az-list">
-                             {azList[char].map(item => (
-                                 <div key={item.id} className="az-card">
-                                     <div className="az-card-header">
-                                        <h3>{item.name}</h3>
-                                     </div>
-                                     <p>{item.def}</p>
-                                     <div className="az-actions">
-                                         <button className="text-btn" onClick={() => item.id === 'myrrh' ? navigate('product_myrrh') : null}>[Modern definition →]</button>
-                                         {item.ancient && item.ancient.length > 0 && (
-                                            <span style={{marginLeft: '1rem', fontSize: '0.85rem'}}>
-                                                [Ancient terms: {item.ancient.map((a, i) => (
-                                                    <span key={i}>
-                                                        {a.route ? <span className="text-btn" onClick={() => navigate(a.route)}>{a.term}</span> : a.term}
-                                                        {i < item.ancient.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))} →]
-                                            </span>
-                                         )}
-                                     </div>
-                                 </div>
-                             ))}
-                         </div>
-                     </div>
-                 ))}
-             </div>
+      {viewMode === "list" && (
+        <div className="az-container">
+          <div className="az-nav">
+            {["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"].map((char) => (
+              <a key={char} href={`#az-${char}`} className={!azList[char] ? "disabled" : ""}>
+                {char}
+              </a>
+            ))}
           </div>
+          <div className="az-content">
+            {Object.keys(azList)
+              .sort()
+              .map((char) => (
+                <div key={char} id={`az-${char}`} className="az-group">
+                  <h2>{char}</h2>
+                  <div className="az-list">
+                    {azList[char].map((item) => (
+                      <div key={item.id} className="az-card">
+                        <div className="az-card-header" style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                          <h3>{item.label}</h3>
+                          <DemoBadge placeholder={item.placeholder} />
+                        </div>
+                        <p>{item.description ?? "Demo product record."}</p>
+                        <div className="az-actions">
+                          <button className="text-btn" onClick={() => navigate(`ingredient-product:${item.id}`)}>
+                            [View product →]
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
       )}
 
-      {viewMode === 'grid' && (
+      {viewMode === "grid" && (
         <div className="workshop-grid">
-          {filtered.map(item => (
-            <div className="workshop-card" key={item.id} onClick={() => item.id === 'myrrh' ? navigate('product_myrrh') : null}>
+          {filtered.map((item) => (
+            <div className="workshop-card" key={item.id} onClick={() => navigate(`ingredient-product:${item.id}`)}>
               <div className="card-top">
-                <h3>{item.name}</h3>
-                <span className="type-tag">{item.family}</span>
+                <h3>{item.label}</h3>
+                <DemoBadge placeholder={item.placeholder} />
               </div>
-              <div className="def" style={{marginBottom: '0.5rem'}}>Form: {item.form}</div>
-              <div className="def" style={{fontStyle: 'italic', color: 'var(--color-stone)'}}>Source: {item.source}</div>
+              <div className="def">{item.description ?? "Demo product record."}</div>
             </div>
           ))}
         </div>
@@ -560,70 +734,455 @@ const IngredientsPage = ({ navigate }) => {
   );
 };
 
-const SourcesPage = ({ navigate }) => {
-  const [typeFilter, setTypeFilter] = useState('All');
-  const [bioFamilyFilter, setBioFamilyFilter] = useState('All');
+const SourcesPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    return SOURCES_LIST.filter(item => {
-      const matchType = typeFilter === 'All' || item.type === typeFilter;
-      const matchFam = bioFamilyFilter === 'All' || item.family === bioFamilyFilter;
-      return matchType && matchFam;
-    });
-  }, [typeFilter, bioFamilyFilter]);
+    const q = query.trim().toLowerCase();
+    const items = db.materialSources ?? [];
+    const next = !q
+      ? [...items]
+      : items.filter((item) => {
+          return item.label.toLowerCase().includes(q) || (item.description ?? "").toLowerCase().includes(q);
+        });
+    next.sort((a, b) => a.label.localeCompare(b.label));
+    return next;
+  }, [db.materialSources, query]);
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('workshop')}>
+      <div className="back-link" onClick={() => navigate("workshop")}>
         <Icons.ArrowLeft /> Back to Workshop
       </div>
-      
+
       <div className="archive-intro">
         <h1>MATERIAL SOURCES</h1>
         <MaterialsSubNav navigate={navigate} active="sources" />
-        <p>The biological sources—plants, animals, and minerals—yielding the raw materials of perfumery.</p>
+        <p>Material Sources are the (placeholder) foundations for Ingredient Products in the interpretation chain.</p>
       </div>
 
       <div className="filters-bar">
         <div className="filter-group">
-          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
-            <option value="All">Type: All</option>
-            <option value="Tree">Tree</option>
-            <option value="Shrub">Shrub</option>
-            <option value="Grass">Grass</option>
-            <option value="Flower">Flower</option>
-            <option value="Insect">Insect</option>
-            <option value="Herbaceous">Herbaceous</option>
-          </select>
-          <select value={bioFamilyFilter} onChange={(e) => setBioFamilyFilter(e.target.value)}>
-            <option value="All">Family: All</option>
-            <option value="Burseraceae">Burseraceae</option>
-            <option value="Oleaceae">Oleaceae</option>
-            <option value="Rosaceae">Rosaceae</option>
-            <option value="Poaceae">Poaceae</option>
-            <option value="Apidae">Apidae</option>
-            <option value="Apiaceae">Apiaceae</option>
-            <option value="Cistaceae">Cistaceae</option>
-            <option value="Iridaceae">Iridaceae</option>
-          </select>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search sources…"
+            style={{ padding: "0.6rem 0.75rem", borderRadius: "10px", border: "1px solid var(--color-border)" }}
+          />
         </div>
         <div className="filter-meta">
-          <button className="text-btn" onClick={() => { setTypeFilter('All'); setBioFamilyFilter('All'); }}>Clear filters</button>
+          <button className="text-btn" onClick={() => setQuery("")}>
+            Clear
+          </button>
           <span>Showing {filtered.length} sources</span>
         </div>
       </div>
 
       <div className="workshop-grid">
-        {filtered.map(item => (
-           <div className="workshop-card" key={item.id} onClick={() => item.id === 'commiphora' ? navigate('source_commiphora') : null}>
+        {filtered.map((item) => (
+          <div className="workshop-card" key={item.id} onClick={() => navigate(`material-source:${item.id}`)}>
             <div className="card-top">
-              <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>{item.name}</h3>
-              <span className="type-tag">{item.type}</span>
+              <h3>{item.label}</h3>
+              <DemoBadge placeholder={item.placeholder} />
             </div>
-            <div className="def">Family: {item.family}</div>
-            <div className="def" style={{color: 'var(--color-stone)'}}>Native Region: {item.region}</div>
+            <div className="def">{item.description ?? "Demo source record."}</div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+const AncientTermDetailPage = ({
+  navigate,
+  db,
+  termId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  termId: string;
+}) => {
+  const term = (db.ancientIngredients ?? []).find((t) => t.id === termId) ?? null;
+  const identifications = (db.identifications ?? []).filter((i) => i.ancientIngredientId === termId);
+
+  const productsById = new Map<string, IngredientProduct>((db.ingredientProducts ?? []).map((p) => [p.id, p]));
+  const sourcesById = new Map<string, MaterialSource>((db.materialSources ?? []).map((s) => [s.id, s]));
+
+  const recipesUsing = (db.recipes ?? []).filter((r) =>
+    (r.items ?? []).some((item) => item.type === "ingredient" && item.ancientTermId === termId),
+  );
+
+  const displayTerm = term?.term ?? termId;
+  const displayTranslit = term?.transliteration ?? "";
+  const urn = `urn:aos:ancient-ingredient:${termId}`;
+
+  const demoQuotes = [
+    {
+      author: "Dioscorides",
+      work: "De materia medica",
+      locator: "Demo citation",
+      text: `In this wireframe, ${displayTerm} is presented as an ancient ingredient term that may admit multiple modern identifications.`,
+    },
+    {
+      author: "Project demo",
+      work: "Demo Workshop Notes",
+      locator: "Demo §0",
+      text: `The quotation panel is placeholder content designed to preview layout and navigation, not scholarship.`,
+    },
+  ];
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("terms")}>
+        <Icons.ArrowLeft /> Back to Ancient Terms
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+          <div>
+            <h1 style={{ marginTop: 0, marginBottom: "0.25rem" }}>{displayTerm}</h1>
+            {displayTranslit && (
+              <div style={{ fontSize: "1.25rem", color: "var(--color-stone)", fontStyle: "italic", fontFamily: "var(--font-serif)" }}>
+                {displayTranslit}
+              </div>
+            )}
+          </div>
+          <DemoBadge placeholder={term?.placeholder ?? true} />
+        </div>
+        <div className="urn" style={{ display: "inline-block", marginTop: "1rem" }}>
+          URN: {urn}
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{ maxWidth: "900px" }}>{term?.description ?? "Demo term record."}</p>
+      </div>
+
+      <div className="product-section">
+        <h2>WHAT THE ANCIENTS SAID</h2>
+        {demoQuotes.map((q, idx) => (
+          <div className="quote-block" key={idx}>
+            <strong>
+              {q.author} — {q.work} ({q.locator})
+            </strong>
+            <p>"{q.text}"</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="product-section">
+        <h2>IDENTIFICATIONS</h2>
+        {identifications.length === 0 ? (
+          <p style={{ color: "var(--color-stone)" }}>No identifications found.</p>
+        ) : (
+          <div className="workshop-grid">
+            {identifications.map((ident) => {
+              const product = productsById.get(ident.ingredientProductId) ?? null;
+              const source = ident.materialSourceId ? sourcesById.get(ident.materialSourceId) ?? null : null;
+              return (
+                <div className="workshop-card" key={ident.id} onClick={() => navigate(`identification:${ident.id}`)}>
+                  <div className="card-top">
+                    <h3>{product?.label ?? ident.ingredientProductId}</h3>
+                    <DemoBadge placeholder={ident.placeholder} />
+                  </div>
+                  <div className="def" style={{ marginBottom: "0.5rem" }}>
+                    Confidence: <span className="type-tag">{ident.confidence ?? "—"}</span>
+                  </div>
+                  {source && <div className="def">Source: {source.label}</div>}
+                  {!source && <div className="def" style={{ color: "var(--color-stone)" }}>Source: —</div>}
+                  <div className="def" style={{ marginTop: "0.75rem" }}>
+                    <span className="text-btn" onClick={(e) => { e.stopPropagation(); navigate(`ingredient-product:${ident.ingredientProductId}`); }}>
+                      → View product
+                    </span>
+                    {ident.materialSourceId && (
+                      <span style={{ marginLeft: "1rem" }}>
+                        <span
+                          className="text-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`material-source:${ident.materialSourceId}`);
+                          }}
+                        >
+                          → View source
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>RECIPES USING THIS TERM</h2>
+        {recipesUsing.length === 0 ? (
+          <p style={{ color: "var(--color-stone)" }}>No recipes found.</p>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {recipesUsing.map((r) => (
+              <li key={r.id} style={{ marginBottom: "0.5rem", fontSize: "1.05rem" }}>
+                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
+                <span style={{ color: "var(--color-earth)" }}>{r.metadata?.title ?? r.id}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const IdentificationDetailPage = ({
+  navigate,
+  db,
+  identificationId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  identificationId: string;
+}) => {
+  const ident = (db.identifications ?? []).find((i) => i.id === identificationId) ?? null;
+  const term = ident ? (db.ancientIngredients ?? []).find((t) => t.id === ident.ancientIngredientId) ?? null : null;
+  const product = ident ? (db.ingredientProducts ?? []).find((p) => p.id === ident.ingredientProductId) ?? null : null;
+  const source = ident?.materialSourceId ? (db.materialSources ?? []).find((s) => s.id === ident.materialSourceId) ?? null : null;
+  const work = ident?.workId ? (db.masterWorks ?? []).find((w) => w.id === ident.workId) ?? null : null;
+
+  if (!ident) {
+    return (
+      <div className="page-container">
+        <div className="back-link" onClick={() => navigate("terms")}>
+          <Icons.ArrowLeft /> Back to Ancient Terms
+        </div>
+        <h1>Identification not found</h1>
+      </div>
+    );
+  }
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate(`ancient-term:${ident.ancientIngredientId}`)}>
+        <Icons.ArrowLeft /> Back to Term
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+          <div>
+            <h1 style={{ marginTop: 0, marginBottom: "0.25rem" }}>IDENTIFICATION</h1>
+            <div style={{ fontSize: "1.25rem" }}>
+              {(term?.term ?? ident.ancientIngredientId) + " "} <span style={{ color: "var(--color-stone)" }}>→</span>{" "}
+              {product?.label ?? ident.ingredientProductId}
+            </div>
+          </div>
+          <DemoBadge placeholder={ident.placeholder} />
+        </div>
+        <div className="urn" style={{ display: "inline-block", marginTop: "1rem" }}>
+          URN: urn:aos:identification:{identificationId}
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>THE CLAIM</h2>
+        <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr" }}>
+          <div style={{ fontWeight: 600 }}>Ancient term</div>
+          <div>
+            <span className="text-btn" onClick={() => navigate(`ancient-term:${ident.ancientIngredientId}`)}>
+              {term?.term ?? ident.ancientIngredientId} →
+            </span>
+          </div>
+        </div>
+        <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr" }}>
+          <div style={{ fontWeight: 600 }}>Ingredient product</div>
+          <div>
+            <span className="text-btn" onClick={() => navigate(`ingredient-product:${ident.ingredientProductId}`)}>
+              {product?.label ?? ident.ingredientProductId} →
+            </span>
+          </div>
+        </div>
+        <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr" }}>
+          <div style={{ fontWeight: 600 }}>Material source</div>
+          <div>
+            {ident.materialSourceId ? (
+              <span className="text-btn" onClick={() => navigate(`material-source:${ident.materialSourceId}`)}>
+                {source?.label ?? ident.materialSourceId} →
+              </span>
+            ) : (
+              <span style={{ color: "var(--color-stone)" }}>—</span>
+            )}
+          </div>
+        </div>
+        <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr" }}>
+          <div style={{ fontWeight: 600 }}>Confidence</div>
+          <div>
+            <span className="type-tag">{ident.confidence ?? "—"}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>SOURCE</h2>
+        <p style={{ marginBottom: "0.5rem" }}>
+          <strong>{work?.name ?? "Demo source"}</strong>
+        </p>
+        <p style={{ marginTop: 0, color: "var(--color-stone)" }}>{ident.locator ?? "Demo locator"}</p>
+        <p style={{ maxWidth: "900px" }}>{ident.notes ?? "Demo note."}</p>
+      </div>
+    </div>
+  );
+};
+
+const IngredientProductDetailPage = ({
+  navigate,
+  db,
+  productId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  productId: string;
+}) => {
+  const product = (db.ingredientProducts ?? []).find((p) => p.id === productId) ?? null;
+  const identifications = (db.identifications ?? []).filter((i) => i.ingredientProductId === productId);
+  const termsById = new Map<string, AncientIngredient>((db.ancientIngredients ?? []).map((t) => [t.id, t]));
+  const sourcesById = new Map<string, MaterialSource>((db.materialSources ?? []).map((s) => [s.id, s]));
+
+  const linkedTerms = identifications
+    .map((i) => termsById.get(i.ancientIngredientId))
+    .filter(Boolean) as AncientIngredient[];
+
+  const linkedSources = identifications
+    .map((i) => (i.materialSourceId ? sourcesById.get(i.materialSourceId) : undefined))
+    .filter(Boolean) as MaterialSource[];
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("ingredients")}>
+        <Icons.ArrowLeft /> Back to Ingredients
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+          <div>
+            <h1 style={{ marginTop: 0, marginBottom: "0.25rem" }}>{product?.label ?? productId}</h1>
+          </div>
+          <DemoBadge placeholder={product?.placeholder ?? true} />
+        </div>
+        <div className="urn" style={{ display: "inline-block", marginTop: "1rem" }}>
+          URN: urn:aos:ingredient-product:{productId}
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{ maxWidth: "900px" }}>
+          {product?.description ??
+            "This is a demo product page used to preview how scent profiles and interpretation notes might be displayed."}
+        </p>
+      </div>
+
+      <div className="product-section">
+        <h2>ANCIENT TERMS (REVERSE LINK)</h2>
+        {linkedTerms.length === 0 ? (
+          <p style={{ color: "var(--color-stone)" }}>No linked ancient terms.</p>
+        ) : (
+          <div className="workshop-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+            {linkedTerms.map((t) => (
+              <div className="workshop-card" key={t.id} onClick={() => navigate(`ancient-term:${t.id}`)}>
+                <div className="card-top">
+                  <h3>{t.term}</h3>
+                  <DemoBadge placeholder={t.placeholder} />
+                </div>
+                {t.transliteration && <div className="translit">{t.transliteration}</div>}
+                <div className="def">{t.description ?? "Demo term record."}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>MATERIAL SOURCES</h2>
+        {linkedSources.length === 0 ? (
+          <p style={{ color: "var(--color-stone)" }}>No linked material sources.</p>
+        ) : (
+          <div className="workshop-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+            {linkedSources.map((s) => (
+              <div className="workshop-card" key={s.id} onClick={() => navigate(`material-source:${s.id}`)}>
+                <div className="card-top">
+                  <h3>{s.label}</h3>
+                  <DemoBadge placeholder={s.placeholder} />
+                </div>
+                <div className="def">{s.description ?? "Demo source record."}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const MaterialSourceDetailPage = ({
+  navigate,
+  db,
+  sourceId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  sourceId: string;
+}) => {
+  const source = (db.materialSources ?? []).find((s) => s.id === sourceId) ?? null;
+  const identifications = (db.identifications ?? []).filter((i) => i.materialSourceId === sourceId);
+  const productsById = new Map<string, IngredientProduct>((db.ingredientProducts ?? []).map((p) => [p.id, p]));
+
+  const linkedProducts = identifications
+    .map((i) => productsById.get(i.ingredientProductId))
+    .filter(Boolean) as IngredientProduct[];
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("sources")}>
+        <Icons.ArrowLeft /> Back to Material Sources
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+          <div>
+            <h1 style={{ marginTop: 0, marginBottom: "0.25rem" }}>{source?.label ?? sourceId}</h1>
+          </div>
+          <DemoBadge placeholder={source?.placeholder ?? true} />
+        </div>
+        <div className="urn" style={{ display: "inline-block", marginTop: "1rem" }}>
+          URN: urn:aos:material-source:{sourceId}
+        </div>
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{ maxWidth: "900px" }}>
+          {source?.description ??
+            "This is a demo source page used to preview how a biological/mineral source might be presented in the Workshop."}
+        </p>
+      </div>
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>DERIVED PRODUCTS</h2>
+        {linkedProducts.length === 0 ? (
+          <p style={{ color: "var(--color-stone)" }}>No linked products.</p>
+        ) : (
+          <div className="workshop-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
+            {linkedProducts.map((p) => (
+              <div className="workshop-card" key={p.id} onClick={() => navigate(`ingredient-product:${p.id}`)}>
+                <div className="card-top">
+                  <h3>{p.label}</h3>
+                  <DemoBadge placeholder={p.placeholder} />
+                </div>
+                <div className="def">{p.description ?? "Demo product record."}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -682,7 +1241,177 @@ const MaterialsDashboardPage = ({ navigate }) => {
   );
 };
 
-const WorkshopPage = ({ navigate }) => {
+const WorkshopEntityDetailPage = ({
+  navigate,
+  db,
+  routeInfo,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  routeInfo: WorkshopEntityRoute;
+}) => {
+  const entity =
+    routeInfo.mode === "master"
+      ? routeInfo.kind === "ingredient"
+        ? db.masterIngredients.find((m) => m.id === routeInfo.id)
+        : routeInfo.kind === "tool"
+          ? db.masterTools.find((m) => m.id === routeInfo.id)
+          : db.masterProcesses.find((m) => m.id === routeInfo.id)
+      : null;
+
+  const recipesUsingEntity =
+    routeInfo.mode === "master"
+      ? db.recipes.filter((r) => (r.items ?? []).some((i) => i.type === routeInfo.kind && i.masterId === routeInfo.id))
+      : [];
+
+  const unlinkedRecipe = routeInfo.mode === "unlinked" ? db.recipes.find((r) => r.id === routeInfo.recipeId) : null;
+  const unlinkedItem =
+    routeInfo.mode === "unlinked"
+      ? (unlinkedRecipe?.items ?? []).find((i) => i.id === routeInfo.itemId && i.type === routeInfo.kind)
+      : null;
+
+  const backTarget = "workshop";
+  const title =
+    routeInfo.mode === "master"
+      ? entity?.name ?? "Workshop card"
+      : (unlinkedItem?.displayTerm || "").trim() || unlinkedItem?.originalTerm || "Workshop card";
+
+  const ancientLabel =
+    routeInfo.mode === "master" && entity
+      ? formatAncientName(entity) || null
+      : unlinkedItem?.originalTerm && unlinkedItem?.transliteration
+        ? `${unlinkedItem.originalTerm} (${unlinkedItem.transliteration})`
+        : unlinkedItem?.originalTerm ?? null;
+
+  const urn =
+    routeInfo.mode === "master"
+      ? entity?.urn ?? null
+      : unlinkedRecipe
+        ? `urn:aos:unlinked:${routeInfo.kind}:${unlinkedRecipe.id}:${routeInfo.itemId}`
+        : null;
+
+  const description =
+    routeInfo.mode === "master"
+      ? entity?.description ?? null
+      : "Auto-generated placeholder card for an unlinked term referenced in a recipe item.";
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate(backTarget)}>
+        <Icons.ArrowLeft /> Back to Workshop
+      </div>
+
+      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
+        <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>{title}</h1>
+        {ancientLabel && (
+          <div
+            style={{
+              fontSize: "1.5rem",
+              color: "var(--color-stone)",
+              fontStyle: "italic",
+              marginBottom: "1.25rem",
+              fontFamily: "var(--font-serif)",
+            }}
+          >
+            {ancientLabel}
+          </div>
+        )}
+        {urn && <div className="urn" style={{ display: "inline-block" }}>URN: {urn}</div>}
+      </div>
+
+      <div className="product-section">
+        <h2>DESCRIPTION</h2>
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", maxWidth: "900px" }}>
+          {description ?? "Auto-generated placeholder description."}
+        </p>
+      </div>
+
+      {routeInfo.mode === "unlinked" && unlinkedRecipe && unlinkedItem && (
+        <div className="product-section">
+          <h2>RECIPE ITEM</h2>
+          <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
+            <div style={{ fontWeight: 600 }}>Recipe</div>
+            <div>{unlinkedRecipe.metadata?.title ?? unlinkedRecipe.id}</div>
+          </div>
+          <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
+            <div style={{ fontWeight: 600 }}>Original term</div>
+            <div>{unlinkedItem.originalTerm}</div>
+          </div>
+          <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
+            <div style={{ fontWeight: 600 }}>Transliteration</div>
+            <div>{unlinkedItem.transliteration ?? "—"}</div>
+          </div>
+          <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
+            <div style={{ fontWeight: 600 }}>Amount</div>
+            <div>{unlinkedItem.amount || "—"}</div>
+          </div>
+          <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
+            <div style={{ fontWeight: 600 }}>Role</div>
+            <div>{unlinkedItem.role || "—"}</div>
+          </div>
+        </div>
+      )}
+
+      <div className="product-section" style={{ borderBottom: "none" }}>
+        <h2>RECIPES</h2>
+        {routeInfo.mode === "master" ? (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {recipesUsingEntity.map((r, i) => (
+              <li key={i} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+                <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
+                <span style={{ color: "var(--color-earth)" }}>{r.metadata?.title ?? r.id}</span>
+              </li>
+            ))}
+            {recipesUsingEntity.length === 0 && <li style={{ color: "var(--color-stone)" }}>No recipes found.</li>}
+          </ul>
+        ) : (
+          <p style={{ color: "var(--color-stone)" }}>{unlinkedRecipe ? "Referenced by 1 recipe item." : "No recipe found."}</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const { ingredients, tools, processes } = useMemo(() => buildWorkshopCardsFromRecipes(db), [db]);
+
+  const featuredTerm = useMemo(() => {
+    return (db.ancientIngredients ?? []).find((t) => t.id === "ai-smyrna") ?? (db.ancientIngredients ?? [])[0] ?? null;
+  }, [db.ancientIngredients]);
+
+  const featuredIdentification = useMemo(() => {
+    if (!featuredTerm) return null;
+    return (db.identifications ?? []).find((i) => i.ancientIngredientId === featuredTerm.id) ?? null;
+  }, [db.identifications, featuredTerm]);
+
+  const featuredProduct = useMemo(() => {
+    if (!featuredIdentification) return null;
+    return (db.ingredientProducts ?? []).find((p) => p.id === featuredIdentification.ingredientProductId) ?? null;
+  }, [db.ingredientProducts, featuredIdentification]);
+
+  const featuredSource = useMemo(() => {
+    if (!featuredIdentification?.materialSourceId) return null;
+    return (db.materialSources ?? []).find((s) => s.id === featuredIdentification.materialSourceId) ?? null;
+  }, [db.materialSources, featuredIdentification]);
+
+  const renderWorkshopCard = (card: WorkshopCardModel) => (
+    <div className="workshop-card" key={card.key} onClick={() => navigate(card.route)}>
+      <div className="card-top">
+        <h3>{card.title}</h3>
+        <span className="type-tag">{card.tag}</span>
+      </div>
+      {card.ancientLabel && <div className="def">{card.ancientLabel}</div>}
+      {card.description && (
+        <div className="def" style={{ fontStyle: "italic", color: "var(--color-stone)" }}>
+          {card.description}
+        </div>
+      )}
+      <div className="def" style={{ marginTop: "0.75rem", fontSize: "0.85rem", color: "var(--color-stone)" }}>
+        {card.usageLabel}
+      </div>
+    </div>
+  );
+
   return (
     <div className="page-container">
       <div className="back-link" onClick={() => navigate('library')}>
@@ -702,26 +1431,29 @@ const WorkshopPage = ({ navigate }) => {
             <button className="text-btn" onClick={() => navigate('materials')}>See overview &rarr;</button>
         </div>
         <div className="workshop-grid">
-          <div className="workshop-card" onClick={() => navigate('ingredient_smyrna')}>
-             <div className="card-top">
-              <h3>σμύρνα (smyrna)</h3>
-              <span className="lang-tag">Term</span>
-            </div>
-            <div className="def">Myrrh; a resinous gum.</div>
-          </div>
-          <div className="workshop-card" onClick={() => navigate('product_myrrh')}>
+          <div className="workshop-card" onClick={() => featuredTerm && navigate(`ancient-term:${featuredTerm.id}`)}>
             <div className="card-top">
-              <h3>Myrrh Resin</h3>
-              <span className="type-tag">Product</span>
+              <h3>{featuredTerm?.term ?? "Ancient term"}</h3>
+              <DemoBadge placeholder={featuredTerm?.placeholder} />
             </div>
-            <div className="def">Source: Commiphora myrrha</div>
+            {featuredTerm?.transliteration && <div className="translit">{featuredTerm.transliteration}</div>}
+            <div className="def">{featuredTerm?.description ?? "Demo term preview card."}</div>
           </div>
-          <div className="workshop-card" onClick={() => navigate('source_commiphora')}>
-             <div className="card-top">
-              <h3 style={{fontStyle: 'italic', fontFamily: 'var(--font-serif)'}}>Commiphora myrrha</h3>
-              <span className="type-tag">Source</span>
+
+          <div className="workshop-card" onClick={() => featuredProduct && navigate(`ingredient-product:${featuredProduct.id}`)}>
+            <div className="card-top">
+              <h3>{featuredProduct?.label ?? "Ingredient product"}</h3>
+              <DemoBadge placeholder={featuredProduct?.placeholder} />
             </div>
-            <div className="def">Family: Burseraceae</div>
+            <div className="def">{featuredProduct?.description ?? "Demo product preview card."}</div>
+          </div>
+
+          <div className="workshop-card" onClick={() => featuredSource && navigate(`material-source:${featuredSource.id}`)}>
+            <div className="card-top">
+              <h3>{featuredSource?.label ?? "Material source"}</h3>
+              <DemoBadge placeholder={featuredSource?.placeholder} />
+            </div>
+            <div className="def">{featuredSource?.description ?? "Demo source preview card."}</div>
           </div>
         </div>
       </div>
@@ -747,6 +1479,36 @@ const WorkshopPage = ({ navigate }) => {
             <div className="def">For grinding and crushing.</div>
           </div>
         </div>
+      </div>
+
+      <div className="workshop-section">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+          <h2 style={{ margin: 0, border: "none" }}>INGREDIENTS IN RECIPES</h2>
+          <button className="text-btn" onClick={() => navigate("ingredients")}>
+            See ingredient profiles &rarr;
+          </button>
+        </div>
+        <div className="workshop-grid">{ingredients.map(renderWorkshopCard)}</div>
+      </div>
+
+      <div className="workshop-section">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+          <h2 style={{ margin: 0, border: "none" }}>TOOLS IN RECIPES</h2>
+          <button className="text-btn" onClick={() => navigate("tools")}>
+            See all tools &rarr;
+          </button>
+        </div>
+        <div className="workshop-grid">{tools.map(renderWorkshopCard)}</div>
+      </div>
+
+      <div className="workshop-section">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+          <h2 style={{ margin: 0, border: "none" }}>PROCESSES IN RECIPES</h2>
+          <button className="text-btn" onClick={() => navigate("processes")}>
+            See all processes &rarr;
+          </button>
+        </div>
+        <div className="workshop-grid">{processes.map(renderWorkshopCard)}</div>
       </div>
     </div>
   );
@@ -1093,7 +1855,17 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
                   </span>
                   <span className="ing-amt">{ing.amount}</span>
                   <span className="ing-role">{ing.role}</span>
-                  <span className="ing-link" onClick={() => navigate('ingredient_smyrna')}>→ identifications</span>
+                  <span
+                    className="ing-link"
+                    onClick={() => {
+                      if (!recipe) return;
+                      const aiId = resolveAncientTermIdForRecipeItem(recipe.id, ing);
+                      if (!aiId) return;
+                      navigate(`ancient-term:${aiId}`);
+                    }}
+                  >
+                    → ancient term
+                  </span>
                 </div>
               ))}
             </div>
@@ -2281,6 +3053,27 @@ const App = ({
   }, []);
 
   const renderPage = () => {
+    const workshopEntityRoute = parseWorkshopEntityRoute(route);
+    if (workshopEntityRoute) {
+      return <WorkshopEntityDetailPage navigate={setRoute} db={db} routeInfo={workshopEntityRoute} />;
+    }
+
+    const interpretationRoute = parseInterpretationRoute(route);
+    if (interpretationRoute) {
+      if (interpretationRoute.kind === "ancient-term") {
+        return <AncientTermDetailPage navigate={setRoute} db={db} termId={interpretationRoute.id} />;
+      }
+      if (interpretationRoute.kind === "identification") {
+        return <IdentificationDetailPage navigate={setRoute} db={db} identificationId={interpretationRoute.id} />;
+      }
+      if (interpretationRoute.kind === "ingredient-product") {
+        return <IngredientProductDetailPage navigate={setRoute} db={db} productId={interpretationRoute.id} />;
+      }
+      if (interpretationRoute.kind === "material-source") {
+        return <MaterialSourceDetailPage navigate={setRoute} db={db} sourceId={interpretationRoute.id} />;
+      }
+    }
+
     switch(route) {
       case 'home': return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
       case 'library': return <LibraryPage navigate={setRoute} />;
@@ -2294,11 +3087,11 @@ const App = ({
       case 'project': return <ProjectPage navigate={setRoute} />;
       case 'team': return <TeamPage navigate={setRoute} />;
       case 'news': return <NewsPage navigate={setRoute} />;
-      case 'workshop': return <WorkshopPage navigate={setRoute} />;
+      case 'workshop': return <WorkshopPage navigate={setRoute} db={db} />;
       case 'materials': return <MaterialsDashboardPage navigate={setRoute} />;
-      case 'terms': return <TermsPage navigate={setRoute} />;
-      case 'ingredients': return <IngredientsPage navigate={setRoute} />;
-      case 'sources': return <SourcesPage navigate={setRoute} />;
+      case 'terms': return <TermsPage navigate={setRoute} db={db} />;
+      case 'ingredients': return <IngredientsPage navigate={setRoute} db={db} />;
+      case 'sources': return <SourcesPage navigate={setRoute} db={db} />;
       case 'source_commiphora': return <SourceDetailPage navigate={setRoute} />;
       case 'processes': return <ProcessesPage navigate={setRoute} />;
       case 'process_enfleurage': return <ProcessDetailPage navigate={setRoute} />;

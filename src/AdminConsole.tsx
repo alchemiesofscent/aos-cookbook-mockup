@@ -796,7 +796,18 @@ ${formData.text.translation}
 };
 
 export const AdminConsole = ({ navigate }) => {
-  const [db, setDb] = useState<DatabaseState>({ recipes: [], masterIngredients: [], masterTools: [], masterProcesses: [], masterWorks: [], masterPeople: [] });
+  const [db, setDb] = useState<DatabaseState>({
+    recipes: [],
+    masterIngredients: [],
+    masterTools: [],
+    masterProcesses: [],
+    masterWorks: [],
+    masterPeople: [],
+    ancientIngredients: [],
+    ingredientProducts: [],
+    materialSources: [],
+    identifications: [],
+  });
   const [view, setView] = useState('dashboard'); // dashboard, recipes, ingredients, tools, works, people, editor
   const [editingItem, setEditingItem] = useState<{type: string, collection: keyof DatabaseState, data: MasterEntity, callback?: (id:string)=>void} | null>(null); 
   const [pendingParent, setPendingParent] = useState<{ collection: keyof DatabaseState, data: MasterEntity } | null>(null);
