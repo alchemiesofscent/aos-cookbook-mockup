@@ -216,6 +216,12 @@ const DemoBadge = ({ placeholder }: { placeholder?: boolean }) => {
   return <span className="type-tag">Demo data</span>;
 };
 
+const formatRecipeLabel = (recipe: Pick<Recipe, "id" | "metadata">): string => {
+  const title = recipe.metadata?.title ?? recipe.id;
+  const parenthetical = [recipe.metadata?.author, recipe.metadata?.attribution].filter(Boolean).join(" / ");
+  return parenthetical ? `${title} (${parenthetical})` : title;
+};
+
 // --- Debugging / Error Handling ---
 window.onerror = function(message, source, lineno, colno, error) {
   console.error("Global Error Caught:", message, error);
@@ -678,10 +684,14 @@ const PersonDetailPageDb = ({
         ) : (
           <ul style={{ listStyle: "none", padding: 0 }}>
             {recipesByPerson.map((recipe) => (
-              <li key={recipe.id} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+              <li
+                key={recipe.id}
+                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
+                onClick={() => navigate(`recipe:${recipe.id}`)}
+              >
                 <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.1rem", cursor: "pointer" }} onClick={() => navigate(`recipe:${recipe.id}`)}>
-                  {recipe.metadata?.title ?? recipe.id} →
+                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
+                  {formatRecipeLabel(recipe)} →
                 </span>
               </li>
             ))}
@@ -740,10 +750,14 @@ const WorkDetailPageDb = ({
         ) : (
           <ul style={{ listStyle: "none", padding: 0 }}>
             {recipesInWork.map((recipe) => (
-              <li key={recipe.id} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+              <li
+                key={recipe.id}
+                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
+                onClick={() => navigate(`recipe:${recipe.id}`)}
+              >
                 <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span className="text-btn" style={{ fontSize: "1.1rem", cursor: "pointer" }} onClick={() => navigate(`recipe:${recipe.id}`)}>
-                  {recipe.metadata?.title ?? recipe.id} →
+                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
+                  {formatRecipeLabel(recipe)} →
                 </span>
               </li>
             ))}
@@ -1134,9 +1148,15 @@ const AncientTermDetailPage = ({
         ) : (
           <ul style={{ listStyle: "none", padding: 0 }}>
             {recipesUsing.map((r) => (
-              <li key={r.id} style={{ marginBottom: "0.5rem", fontSize: "1.05rem" }}>
+              <li
+                key={r.id}
+                style={{ marginBottom: "0.5rem", fontSize: "1.05rem", cursor: "pointer" }}
+                onClick={() => navigate(`recipe:${r.id}`)}
+              >
                 <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span style={{ color: "var(--color-earth)" }}>{r.metadata?.title ?? r.id}</span>
+                <span className="text-btn" style={{ fontSize: "1.05rem" }}>
+                  {formatRecipeLabel(r)} →
+                </span>
               </li>
             ))}
           </ul>
@@ -1542,7 +1562,15 @@ const WorkshopEntityDetailPage = ({
           <h2>RECIPE ITEM</h2>
           <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
             <div style={{ fontWeight: 600 }}>Recipe</div>
-            <div>{unlinkedRecipe.metadata?.title ?? unlinkedRecipe.id}</div>
+            <div>
+              <span
+                className="text-btn"
+                style={{ fontSize: "0.95rem" }}
+                onClick={() => navigate(`recipe:${unlinkedRecipe.id}`)}
+              >
+                {formatRecipeLabel(unlinkedRecipe)} →
+              </span>
+            </div>
           </div>
           <div className="term-row" style={{ gridTemplateColumns: "1fr 2fr", borderBottom: "none" }}>
             <div style={{ fontWeight: 600 }}>Original term</div>
@@ -1568,15 +1596,37 @@ const WorkshopEntityDetailPage = ({
         {routeInfo.mode === "master" ? (
           <ul style={{ listStyle: "none", padding: 0 }}>
             {recipesUsingEntity.map((r, i) => (
-              <li key={i} style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}>
+              <li
+                key={r.id}
+                style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
+                onClick={() => navigate(`recipe:${r.id}`)}
+              >
                 <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
-                <span style={{ color: "var(--color-earth)" }}>{r.metadata?.title ?? r.id}</span>
+                <span className="text-btn" style={{ fontSize: "1.1rem" }}>
+                  {formatRecipeLabel(r)} →
+                </span>
               </li>
             ))}
             {recipesUsingEntity.length === 0 && <li style={{ color: "var(--color-stone)" }}>No recipes found.</li>}
           </ul>
         ) : (
-          <p style={{ color: "var(--color-stone)" }}>{unlinkedRecipe ? "Referenced by 1 recipe item." : "No recipe found."}</p>
+          <>
+            {unlinkedRecipe ? (
+              <ul style={{ listStyle: "none", padding: 0 }}>
+                <li
+                  style={{ marginBottom: "0.5rem", fontSize: "1.1rem", cursor: "pointer" }}
+                  onClick={() => navigate(`recipe:${unlinkedRecipe.id}`)}
+                >
+                  <span style={{ color: "var(--color-amber)", marginRight: "0.5rem" }}>•</span>
+                  <span className="text-btn" style={{ fontSize: "1.1rem" }}>
+                    {formatRecipeLabel(unlinkedRecipe)} →
+                  </span>
+                </li>
+              </ul>
+            ) : (
+              <p style={{ color: "var(--color-stone)" }}>No recipe found.</p>
+            )}
+          </>
         )}
       </div>
     </div>
