@@ -65,11 +65,11 @@ export const homepageContent = {
   feature: {
     title: "Rose Perfume",
     recipeSlug: "rose-perfume-dioscorides",
-    recipeRoute: "recipe_rose",
+    recipeRoute: "recipe:r-rose-perfume",
     subtitleFallback: "Dioscorides, Mat. Med. 1.43",
     blurb: "A “rose” perfume sharpened with citrus-green notes once you follow σχοῖνος.",
-    primaryCta: { label: "Read recipe →", route: "recipe_rose" },
-    secondaryCta: { label: "View interpretation chain →", route: "identification_smyrna" },
+    primaryCta: { label: "Read recipe →", route: "recipe:r-rose-perfume" },
+    secondaryCta: { label: "View interpretation chain →", route: "ancient-term:ai-skhoinos" },
   },
   exploreTabs: [
     {
@@ -102,7 +102,7 @@ export const homepageContent = {
       items: [
         { label: "Maceration", route: "processes" },
         { label: "Stypsis", route: "processes" },
-        { label: "Enfleurage", route: "process_enfleurage" },
+        { label: "Boiling", route: "workshop-process:pr-boiling" },
         { label: "Distillation", route: "processes" },
       ],
     },
@@ -136,4 +136,3 @@ export const homepageContent = {
     { title: "Upcoming event: Spring workshop", meta: "March 2026", route: "news" },
   ] satisfies HomepageUpdate[],
 } as const;
-

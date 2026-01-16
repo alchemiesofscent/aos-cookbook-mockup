@@ -29,3 +29,34 @@ export const recipeItemToAncientTermId: Record<string, string> = {
   "r-lily-dioscorides:ri-16": "ai-balaninon",
 };
 
+export const recipeAnnotationToAncientTermId: Record<string, string> = {
+  // Rose Perfume (Dioscorides)
+  "r-rose-perfume:ing-skhoinos": "ai-skhoinos",
+  "r-rose-perfume:ing-elaion-20-5": "ai-elaion",
+  "r-rose-perfume:ing-elaion-8-3": "ai-elaion",
+  "r-rose-perfume:ing-rhodon-1000": "ai-rhodon",
+  "r-rose-perfume:ing-meli": "ai-meli",
+  "r-rose-perfume:ing-hydor": "ai-hydor",
+  "r-rose-perfume:ing-kalamos": "ai-kalamos",
+  "r-rose-perfume:ing-aspalathos": "ai-aspalathos",
+  "r-rose-perfume:ing-anchousa": "ai-anchousa",
+  "r-rose-perfume:ing-hals": "ai-hals",
+
+  // Lily Perfume (Sousinon, Leirinon) (Dioscorides)
+  "r-lily-dioscorides:ing-elaion-9-5": "ai-elaion",
+  "r-lily-dioscorides:ing-elaion-3-5": "ai-elaion",
+  "r-lily-dioscorides:ing-kalamos-5-10": "ai-kalamos",
+  "r-lily-dioscorides:ing-smyrna-5": "ai-smyrna",
+  "r-lily-dioscorides:ing-smyrna-2-drachmas": "ai-smyrna",
+  "r-lily-dioscorides:ing-oinos": "ai-oinos",
+  "r-lily-dioscorides:ing-kardamomon-3-6": "ai-kardamomon",
+  "r-lily-dioscorides:ing-kardamomon-10-holkai": "ai-kardamomon",
+  "r-lily-dioscorides:ing-hydor-ombrion": "ai-hydor-ombrion",
+  "r-lily-dioscorides:ing-krinon-1000": "ai-krinon",
+  "r-lily-dioscorides:ing-meli": "ai-meli",
+  "r-lily-dioscorides:ing-hals": "ai-hals",
+  "r-lily-dioscorides:ing-kinamomon": "ai-kinamomon",
+  "r-lily-dioscorides:ing-krokos": "ai-krokos",
+  "r-lily-dioscorides:ing-kommi": "ai-kommi",
+  "r-lily-dioscorides:ing-balaninon": "ai-balaninon",
+};

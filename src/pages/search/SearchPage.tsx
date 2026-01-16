@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import type { DatabaseState } from "../../types";
-import seed from "@seed.json";
 import "./search.css";
 
 type SearchPageProps = {
@@ -34,8 +33,13 @@ const docMatches = (doc: SearchDoc, query: string): boolean => {
 
 export default function SearchPage({ navigate, db, query, setQuery }: SearchPageProps) {
   const docs = useMemo<SearchDoc[]>(() => {
-    const recipe = db.recipes.find((r) => r.slug === "rose-perfume-dioscorides") ?? db.recipes[0];
-    const recipeTitle = recipe?.metadata?.title ?? "Recipe";
+    const recipeDocs: SearchDoc[] = (db.recipes ?? []).map((recipe) => ({
+      title: recipe.metadata?.title ?? recipe.id,
+      kind: "Recipe",
+      subtitle: recipe.urn,
+      route: `recipe:${recipe.id}`,
+      keywords: [recipe.metadata?.author ?? "", recipe.metadata?.attribution ?? ""].filter(Boolean),
+    }));
 
     return [
       { title: "Home", kind: "Page", route: "home", keywords: ["laboratory", "alchemies of scent"] },
@@ -54,76 +58,53 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
       { title: "Tools", kind: "Index", route: "tools" },
       { title: "Experiments", kind: "Index", route: "experiments" },
       { title: "News & Events", kind: "Index", route: "news", keywords: ["updates"] },
+      ...recipeDocs,
 
-      {
-        title: recipeTitle,
-        kind: "Recipe",
-        subtitle: recipe?.urn,
-        route: "recipe_rose",
-        keywords: [recipe?.metadata?.author ?? "", recipe?.metadata?.attribution ?? ""],
-      },
-
-      {
-        title: `${seed.ingredientData.term} (${seed.ingredientData.transliteration})`,
+      ...(db.ancientIngredients ?? []).map((term) => ({
+        title: term.transliteration ? `${term.term} (${term.transliteration})` : term.term,
         kind: "Ancient term",
-        subtitle: seed.ingredientData.urn,
-        route: "ingredient_smyrna",
-        keywords: ["myrrh", "resin"],
-      },
-      {
-        title: seed.productData.name,
-        kind: "Product",
-        subtitle: seed.productData.urn,
-        route: "product_myrrh",
-        keywords: ["myrrh"],
-      },
-      {
-        title: seed.commiphoraData.name,
+        subtitle: term.id,
+        route: `ancient-term:${term.id}`,
+        keywords: ["demo data"],
+      })),
+
+      ...(db.ingredientProducts ?? []).map((product) => ({
+        title: product.label,
+        kind: "Ingredient product",
+        subtitle: product.id,
+        route: `ingredient-product:${product.id}`,
+        keywords: ["demo data"],
+      })),
+
+      ...(db.materialSources ?? []).map((source) => ({
+        title: source.label,
         kind: "Material source",
-        subtitle: seed.commiphoraData.urn,
-        route: "source_commiphora",
-        keywords: [seed.commiphoraData.commonName, "myrrh"],
-      },
-      {
-        title: seed.processData.name,
-        kind: "Process",
-        subtitle: seed.processData.urn,
-        route: "process_enfleurage",
-        keywords: [seed.processData.ancientTerm],
-      },
-      {
-        title: seed.toolData.name,
-        kind: "Tool",
-        subtitle: seed.toolData.urn,
-        route: "tool_alembic",
-        keywords: seed.toolData.ancientNames ?? [],
-      },
-      {
-        title: seed.identificationData.urn,
+        subtitle: source.id,
+        route: `material-source:${source.id}`,
+        keywords: ["demo data"],
+      })),
+
+      ...(db.identifications ?? []).map((ident) => ({
+        title: ident.id,
         kind: "Identification",
-        subtitle: `${seed.identificationData.ancientTerm.name} → ${seed.identificationData.identifiedAs.name}`,
-        route: "identification_smyrna",
-      },
-      {
-        title: seed.dioscoridesDetail.name,
-        kind: "Person",
-        subtitle: seed.dioscoridesDetail.urn,
-        route: "person_dioscorides",
-        keywords: ["Dioscorides", "materia medica"],
-      },
-      {
-        title: seed.seanDetail.name,
-        kind: "Team",
-        subtitle: seed.seanDetail.role,
-        route: "team_sean",
-      },
-      {
-        title: seed.materiaMedicaDetail.title,
-        kind: "Work",
-        subtitle: seed.materiaMedicaDetail.urn,
-        route: "work_materia_medica",
-        keywords: ["Dioscorides"],
-      },
+        subtitle: `${ident.ancientIngredientId} → ${ident.ingredientProductId}`,
+        route: `identification:${ident.id}`,
+        keywords: [ident.confidence ?? "", ident.locator ?? ""].filter(Boolean),
+      })),
+
+      ...(db.masterTools ?? []).map((tool) => ({
+        title: tool.name,
+        kind: "Tool",
+        subtitle: tool.originalName ? `${tool.originalName}${tool.transliteratedName ? ` (${tool.transliteratedName})` : ""}` : tool.urn,
+        route: `workshop-tool:${tool.id}`,
+      })),
+
+      ...(db.masterProcesses ?? []).map((process) => ({
+        title: process.name,
+        kind: "Process",
+        subtitle: process.originalName ? `${process.originalName}${process.transliteratedName ? ` (${process.transliteratedName})` : ""}` : process.urn,
+        route: `workshop-process:${process.id}`,
+      })),
     ];
   }, [db]);
 

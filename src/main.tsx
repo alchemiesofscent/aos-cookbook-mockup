@@ -18,7 +18,7 @@ import HomePage from "./pages/home/HomePage";
 import SearchPage from "./pages/search/SearchPage";
 import StudioPage from "./pages/studio/StudioPage";
 import { createOrResumeStudioSession, setActiveStudioSessionId } from "./studio/storage";
-import { resolveAncientTermIdForRecipeItem } from "./workshop/resolveAncientTermId";
+import { resolveAncientTermIdForRecipeAnnotation, resolveAncientTermIdForRecipeItem } from "./workshop/resolveAncientTermId";
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
@@ -161,6 +161,8 @@ type InterpretationRoute =
   | { kind: "ingredient-product"; id: string }
   | { kind: "material-source"; id: string };
 
+type RecipeRoute = { id: string };
+
 const parseInterpretationRoute = (route: string): InterpretationRoute | null => {
   if (route.startsWith("ancient-term:")) {
     const [, id] = route.split(":");
@@ -183,6 +185,13 @@ const parseInterpretationRoute = (route: string): InterpretationRoute | null => 
     return { kind: "material-source", id };
   }
   return null;
+};
+
+const parseRecipeRoute = (route: string): RecipeRoute | null => {
+  if (!route.startsWith("recipe:")) return null;
+  const [, id] = route.split(":");
+  if (!id) return null;
+  return { id };
 };
 
 const DemoBadge = ({ placeholder }: { placeholder?: boolean }) => {
@@ -1464,20 +1473,24 @@ const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => void; db:
             <button className="text-btn" onClick={() => navigate('processes')}>See all processes &rarr;</button>
         </div>
         <div className="workshop-grid">
-           <div className="workshop-card" onClick={() => navigate('process_enfleurage')}>
-            <div className="card-top">
-              <h3>Enfleurage</h3>
-              <span className="type-tag">Process</span>
+          {db.masterProcesses[0] ? (
+            <div className="workshop-card" onClick={() => navigate(`workshop-process:${db.masterProcesses[0].id}`)}>
+              <div className="card-top">
+                <h3>{db.masterProcesses[0].name}</h3>
+                <span className="type-tag">Process</span>
+              </div>
+              <div className="def">{db.masterProcesses[0].description || "No description yet."}</div>
             </div>
-            <div className="def">Extraction via fat/oil.</div>
-          </div>
-           <div className="workshop-card" onClick={() => navigate('tool_alembic')}>
-            <div className="card-top">
-              <h3>Mortar & Pestle</h3>
-              <span className="type-tag">Tool</span>
+          ) : null}
+          {db.masterTools[0] ? (
+            <div className="workshop-card" onClick={() => navigate(`workshop-tool:${db.masterTools[0].id}`)}>
+              <div className="card-top">
+                <h3>{db.masterTools[0].name}</h3>
+                <span className="type-tag">Tool</span>
+              </div>
+              <div className="def">{db.masterTools[0].description || "No description yet."}</div>
             </div>
-            <div className="def">For grinding and crushing.</div>
-          </div>
+          ) : null}
         </div>
       </div>
 
@@ -1684,75 +1697,59 @@ const IdentificationPage = ({ navigate }) => {
   );
 };
 
-const ProcessesPage = ({ navigate }) => (
-    <div className="page-container">
-        <div className="back-link" onClick={() => navigate('workshop')}>
-            <Icons.ArrowLeft /> Back to Workshop
-        </div>
-        <div className="archive-intro">
-            <h1>PROCESSES</h1>
-            <p>Techniques for extracting and compounding aromatics.</p>
-        </div>
-        <div className="workshop-grid">
-             <div className="workshop-card" onClick={() => navigate('process_enfleurage')}>
-                <div className="card-top">
-                  <h3>Enfleurage</h3>
-                  <span className="type-tag">Extraction</span>
-                </div>
-                <div className="def">Cold or hot extraction of scent into fat/oil.</div>
-              </div>
-              <div className="workshop-card">
-                <div className="card-top">
-                  <h3>Maceration</h3>
-                  <span className="type-tag">Extraction</span>
-                </div>
-                <div className="def">Steeping ingredients in heated oil.</div>
-              </div>
-              <div className="workshop-card">
-                <div className="card-top">
-                  <h3>Distillation</h3>
-                  <span className="type-tag">Separation</span>
-                </div>
-                <div className="def">Separating components via boiling and condensation.</div>
-              </div>
-        </div>
-    </div>
-);
+const ProcessesPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const processes = [...(db.masterProcesses ?? [])].sort((a, b) => a.name.localeCompare(b.name));
 
-const ToolsPage = ({ navigate }) => (
+  return (
     <div className="page-container">
-        <div className="back-link" onClick={() => navigate('workshop')}>
-            <Icons.ArrowLeft /> Back to Workshop
-        </div>
-        <div className="archive-intro">
-            <h1>TOOLS</h1>
-            <p>The equipment of the ancient laboratory.</p>
-        </div>
-        <div className="workshop-grid">
-             <div className="workshop-card" onClick={() => navigate('tool_alembic')}>
-                <div className="card-top">
-                  <h3>Mortar & Pestle</h3>
-                  <span className="type-tag">Processing</span>
-                </div>
-                <div className="def">Stone vessel for crushing materials.</div>
-              </div>
-              <div className="workshop-card">
-                <div className="card-top">
-                  <h3>Alembic</h3>
-                  <span className="type-tag">Distillation</span>
-                </div>
-                <div className="def">Apparatus for distilling liquids.</div>
-              </div>
-              <div className="workshop-card">
-                <div className="card-top">
-                  <h3>Unguentarium</h3>
-                  <span className="type-tag">Storage</span>
-                </div>
-                <div className="def">Small ceramic or glass bottle for perfume.</div>
-              </div>
-        </div>
+      <div className="back-link" onClick={() => navigate("workshop")}>
+        <Icons.ArrowLeft /> Back to Workshop
+      </div>
+      <div className="archive-intro">
+        <h1>PROCESSES</h1>
+        <p>Techniques for extracting and compounding aromatics.</p>
+      </div>
+      <div className="workshop-grid">
+        {processes.map((process) => (
+          <div key={process.id} className="workshop-card" onClick={() => navigate(`workshop-process:${process.id}`)}>
+            <div className="card-top">
+              <h3>{process.name}</h3>
+              <span className="type-tag">{process.type || "Process"}</span>
+            </div>
+            <div className="def">{process.description || "No description yet."}</div>
+          </div>
+        ))}
+      </div>
     </div>
-);
+  );
+};
+
+const ToolsPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const tools = [...(db.masterTools ?? [])].sort((a, b) => a.name.localeCompare(b.name));
+
+  return (
+    <div className="page-container">
+      <div className="back-link" onClick={() => navigate("workshop")}>
+        <Icons.ArrowLeft /> Back to Workshop
+      </div>
+      <div className="archive-intro">
+        <h1>TOOLS</h1>
+        <p>The equipment of the ancient laboratory.</p>
+      </div>
+      <div className="workshop-grid">
+        {tools.map((tool) => (
+          <div key={tool.id} className="workshop-card" onClick={() => navigate(`workshop-tool:${tool.id}`)}>
+            <div className="card-top">
+              <h3>{tool.name}</h3>
+              <span className="type-tag">{tool.type || "Tool"}</span>
+            </div>
+            <div className="def">{tool.description || "No description yet."}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const ExperimentsPage = ({ navigate }) => (
     <div className="page-container">
@@ -1769,11 +1766,21 @@ const ExperimentsPage = ({ navigate }) => (
     </div>
 );
 
-const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
-  const [activeAnnotationId, setActiveAnnotationId] = useState(null);
-  const recipe = (db.recipes.find((r) => r.slug === "rose-perfume-dioscorides") ?? db.recipes[0]) as
-    | Recipe
-    | undefined;
+type RecipeTextViewMode = "annotated" | "translation" | "greek";
+
+const RecipePage = ({
+  navigate,
+  db,
+  recipeId,
+}: {
+  navigate: (route: string) => void;
+  db: DatabaseState;
+  recipeId: string;
+}) => {
+  const [activeAnnotationId, setActiveAnnotationId] = useState<string | null>(null);
+  const [textMode, setTextMode] = useState<RecipeTextViewMode>("annotated");
+
+  const recipe = (db.recipes.find((r) => r.id === recipeId) ?? db.recipes[0]) as Recipe | undefined;
   const sourceWork = recipe?.metadata?.sourceWorkId
     ? db.masterWorks.find((w) => w.id === recipe.metadata.sourceWorkId)
     : undefined;
@@ -1781,12 +1788,30 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
   const segments = recipe?.text?.combinedSegments ?? [];
   const annotations = recipe?.annotations ?? {};
   const activeAnnotation = activeAnnotationId ? (annotations as any)[activeAnnotationId] : null;
+  const activeAnnotationAncientTermId =
+    recipe && activeAnnotationId ? resolveAncientTermIdForRecipeAnnotation(recipe.id, activeAnnotationId) : null;
+  const processItems = (recipe?.items ?? []).filter((item) => item.type === "process") as RecipeItem[];
   
   const openInStudio = () => {
     if (!recipe) return;
     const saved = createOrResumeStudioSession(recipe.id);
     setActiveStudioSessionId(saved.id);
     navigate("studio");
+  };
+
+  const renderPlainText = (text: string) => {
+    const trimmed = (text || "").trim();
+    if (!trimmed) return <div className="empty-state">No text available.</div>;
+    const paragraphs = trimmed.split(/\n{2,}/g);
+    return (
+      <div className="recipe-text">
+        {paragraphs.map((p, idx) => (
+          <p key={idx} style={{ marginTop: idx === 0 ? 0 : "1rem" }}>
+            {p}
+          </p>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -1816,31 +1841,79 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
         </div>
 
         <div className="view-toggles">
-          <label><input type="radio" name="view" defaultChecked /> Translation</label>
-          <label><input type="radio" name="view" /> Greek</label>
-          <label><input type="radio" name="view" /> Side-by-side</label>
+          <label>
+            <input
+              type="radio"
+              name="view"
+              checked={textMode === "annotated"}
+              onChange={() => {
+                setActiveAnnotationId(null);
+                setTextMode("annotated");
+              }}
+            />{" "}
+            Annotated
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="view"
+              checked={textMode === "translation"}
+              onChange={() => {
+                setActiveAnnotationId(null);
+                setTextMode("translation");
+              }}
+            />{" "}
+            Translation
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="view"
+              checked={textMode === "greek"}
+              onChange={() => {
+                setActiveAnnotationId(null);
+                setTextMode("greek");
+              }}
+            />{" "}
+            Greek
+          </label>
         </div>
       </div>
 
       <div className={`recipe-split-view ${activeAnnotation ? 'has-annotation' : ''}`}>
         <div className="text-column">
           <h2>THE TEXT</h2>
-          <div className="recipe-text">
-            {segments.map((seg, i) => {
-              if (seg.type === 'annotation') {
-                return (
-                  <span 
-                    key={i} 
-                    className={`annotated-term ${activeAnnotationId === seg.id ? 'active' : ''}`}
-                    onClick={() => setActiveAnnotationId((prev) => (prev === seg.id ? null : seg.id))}
-                  >
-                    {seg.text}
-                  </span>
-                );
-              }
-              return <span key={i}>{seg.text}</span>;
-            })}
-          </div>
+          {textMode === "greek" && renderPlainText(recipe?.text?.original ?? "")}
+          {textMode === "translation" && renderPlainText(recipe?.text?.translation ?? "")}
+          {textMode === "annotated" && (
+            <>
+              {segments.length === 0 ? (
+                <>
+                  <div className="metadata-box" style={{ marginBottom: "1rem" }}>
+                    Annotated view not available for this recipe yet (demo fallback).
+                  </div>
+                  {renderPlainText(recipe?.text?.translation ?? "")}
+                </>
+              ) : (
+                <div className="recipe-text">
+                  {segments.map((seg, i) => {
+                    if (seg.type === "annotation") {
+                      return (
+                        <span
+                          key={i}
+                          className={`annotated-term ${activeAnnotationId === seg.id ? "active" : ""}`}
+                          onClick={() => setActiveAnnotationId((prev) => (prev === seg.id ? null : seg.id))}
+                        >
+                          {seg.text}
+                        </span>
+                      );
+                    }
+                    return <span key={i}>{seg.text}</span>;
+                  })}
+                </div>
+              )}
+            </>
+          )}
 
           <div className="ingredients-section">
             <h2>INGREDIENTS</h2>
@@ -1860,8 +1933,11 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
                     onClick={() => {
                       if (!recipe) return;
                       const aiId = resolveAncientTermIdForRecipeItem(recipe.id, ing);
-                      if (!aiId) return;
-                      navigate(`ancient-term:${aiId}`);
+                      if (aiId) {
+                        navigate(`ancient-term:${aiId}`);
+                        return;
+                      }
+                      navigate(`workshop-unlinked:ingredient:${recipe.id}:${ing.id}`);
                     }}
                   >
                     → ancient term
@@ -1873,15 +1949,38 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
 
           <div className="processes-section">
             <h2>PROCESSES</h2>
-            <p>
-                Chopping → Softening → <span className="text-btn" style={{cursor:'pointer'}} onClick={() => navigate('process_enfleurage')}>Boiling (Hot Enfleurage)</span> → Straining → <span className="text-btn" style={{cursor:'pointer'}} onClick={() => navigate('process_enfleurage')}>Enfleurage</span> → Storage
-            </p>
+            {processItems.length === 0 ? (
+              <p style={{ color: "var(--color-stone)" }}>No processes listed for this recipe.</p>
+            ) : (
+              <p>
+                {processItems.map((process, idx) => {
+                  const label = (process.displayTerm || "").trim() || process.originalTerm || process.id;
+                  const route = process.masterId
+                    ? `workshop-process:${process.masterId}`
+                    : recipe
+                      ? `workshop-unlinked:process:${recipe.id}:${process.id}`
+                      : null;
+                  return (
+                    <React.Fragment key={process.id}>
+                      {idx > 0 ? " → " : null}
+                      {route ? (
+                        <span className="text-btn" style={{ cursor: "pointer" }} onClick={() => navigate(route)}>
+                          {label}
+                        </span>
+                      ) : (
+                        <span>{label}</span>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </p>
+            )}
           </div>
         </div>
 
-        <div className={`notes-column ${activeAnnotation ? 'has-content' : ''}`}>
+        <div className={`notes-column ${textMode === "annotated" && activeAnnotation ? "has-content" : ""}`}>
           <h2>NOTES</h2>
-          {activeAnnotation ? (
+          {textMode === "annotated" && activeAnnotation ? (
             <div className="annotation-card fade-in">
               <div className="anno-header">
                 <div className="anno-title">
@@ -1905,16 +2004,22 @@ const RecipePage = ({ navigate, db }: { navigate: (route: string) => void; db: D
                     → {link.label}
                   </button>
                 ))}
-                {(activeAnnotation.links ?? []).length === 0 && (
-                   <button className="text-btn" onClick={() => navigate('ingredient_smyrna')}>
-                   → View ancient term
-                 </button>
-                )}
+                {activeAnnotationAncientTermId ? (
+                  <button className="text-btn" onClick={() => navigate(`ancient-term:${activeAnnotationAncientTermId}`)}>
+                    → View ancient term
+                  </button>
+                ) : (activeAnnotation.links ?? []).length === 0 ? (
+                  <div style={{ color: "var(--color-stone)", fontFamily: "var(--font-sans)", fontSize: "0.875rem" }}>
+                    No linked material for this note yet.
+                  </div>
+                ) : null}
               </div>
             </div>
           ) : (
             <div className="empty-state">
-              Click any highlighted term to see commentary.
+              {textMode === "annotated"
+                ? "Click any highlighted term to see commentary."
+                : "Switch to Annotated view to see commentary."}
             </div>
           )}
         </div>
@@ -2125,10 +2230,16 @@ const SourceDetailPage = ({ navigate }) => {
   );
 };
 
-const ArchivePage = ({ navigate }) => {
+const ArchivePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
+  const recipes = [...(db.recipes ?? [])].sort((a, b) => {
+    const aTitle = a.metadata?.title ?? a.id;
+    const bTitle = b.metadata?.title ?? b.id;
+    return aTitle.localeCompare(bTitle);
+  });
+
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
+      <div className="back-link" onClick={() => navigate("library")}>
         <Icons.ArrowLeft /> Back to Library
       </div>
 
@@ -2139,62 +2250,67 @@ const ArchivePage = ({ navigate }) => {
 
       <div className="filters-bar">
         <div className="filter-group">
-          <select><option>Source: All works</option></select>
-          <select><option>Period: All periods</option></select>
-          <select><option>Ingredient: All ingredients</option></select>
-          <select><option>Process: All processes</option></select>
+          <select>
+            <option>Source: All works</option>
+          </select>
+          <select>
+            <option>Period: All periods</option>
+          </select>
+          <select>
+            <option>Ingredient: All ingredients</option>
+          </select>
+          <select>
+            <option>Process: All processes</option>
+          </select>
         </div>
         <div className="filter-meta">
           <button className="text-btn">Clear filters</button>
-          <span>Showing 47 recipes</span>
+          <span>
+            Showing {recipes.length} recipe{recipes.length === 1 ? "" : "s"}
+          </span>
         </div>
       </div>
 
       <div className="recipe-grid">
-        <div className="recipe-card">
-          <h3>ROSE PERFUME</h3>
-          <div className="card-sub">Dioscorides, Mat. Med. 1.43</div>
-          <div className="card-meta">
-            <div>Period: Roman</div>
-            <div>Ingredients: 4</div>
-          </div>
-          <button className="btn-primary" onClick={() => navigate('recipe_rose')}>View recipe</button>
-        </div>
-        
-        <div className="recipe-card">
-          <h3>LILY PERFUME</h3>
-          <div className="card-sub">Dioscorides, Mat. Med. 1.62</div>
-          <div className="card-meta">
-            <div>Period: Roman</div>
-            <div>Ingredients: 6</div>
-          </div>
-          <button className="btn-primary">View recipe</button>
-        </div>
+        {recipes.map((recipe) => {
+          const title = recipe.metadata?.title ?? recipe.id;
+          const sourceWork = recipe.metadata?.sourceWorkId
+            ? db.masterWorks.find((w) => w.id === recipe.metadata.sourceWorkId)
+            : null;
+          const cardSub = [recipe.metadata?.author, recipe.metadata?.attribution || sourceWork?.name]
+            .filter(Boolean)
+            .join(", ");
+          const ingredientCount = (recipe.items ?? []).filter((i) => i.type === "ingredient").length;
 
-        <div className="recipe-card">
-          <h3>MEGALLEION</h3>
-          <div className="card-sub">Dioscorides, Mat. Med. 1.59</div>
-          <div className="card-meta">
-            <div>Period: Hellenistic/Roman</div>
-            <div>Ingredients: 8</div>
-          </div>
-          <button className="btn-primary">View recipe</button>
-        </div>
-         <div className="recipe-card">
-          <h3>CINNAMON PERFUME</h3>
-          <div className="card-sub">Dioscorides, Mat. Med. 1.61</div>
-          <div className="card-meta">
-            <div>Period: Roman</div>
-            <div>Ingredients: 5</div>
-          </div>
-          <button className="btn-primary">View recipe</button>
-        </div>
+          return (
+            <div className="recipe-card" key={recipe.id}>
+              <h3>{title.toUpperCase()}</h3>
+              <div className="card-sub">{cardSub}</div>
+              <div className="card-meta">
+                <div>Language: {recipe.metadata?.language ?? "—"}</div>
+                <div>Ingredients: {ingredientCount}</div>
+              </div>
+              <button className="btn-primary" onClick={() => navigate(`recipe:${recipe.id}`)}>
+                View recipe
+              </button>
+            </div>
+          );
+        })}
       </div>
-      
-      <div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '2rem', fontFamily: 'var(--font-sans)', fontSize: '0.875rem'}}>
-         <span>[← Previous]</span>
-         <span>Page 1 of 12</span>
-         <span style={{cursor: 'pointer', color: 'var(--color-amber)'}}>[Next →]</span>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "1rem",
+          marginTop: "2rem",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.875rem",
+        }}
+      >
+        <span>[← Previous]</span>
+        <span>Page 1 of 1</span>
+        <span style={{ cursor: "pointer", color: "var(--color-amber)" }}>[Next →]</span>
       </div>
     </div>
   );
@@ -3074,13 +3190,18 @@ const App = ({
       }
     }
 
+    const recipeRoute = parseRecipeRoute(route);
+    if (recipeRoute) {
+      return <RecipePage navigate={setRoute} db={db} recipeId={recipeRoute.id} />;
+    }
+
     switch(route) {
       case 'home': return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
       case 'library': return <LibraryPage navigate={setRoute} />;
-      case 'archive': return <ArchivePage navigate={setRoute} />;
+      case 'archive': return <ArchivePage navigate={setRoute} db={db} />;
       case 'works': return <WorksPage navigate={setRoute} />;
       case 'people': return <PeoplePage navigate={setRoute} />;
-      case 'recipe_rose': return <RecipePage navigate={setRoute} db={db} />;
+      case 'recipe_rose': return <RecipePage navigate={setRoute} db={db} recipeId="r-rose-perfume" />;
       case 'ingredient_smyrna': return <AncientIngredientPage navigate={setRoute} />;
       case 'product_myrrh': return <ProductPage navigate={setRoute} />;
       case 'about': return <AboutPage navigate={setRoute} />;
@@ -3093,10 +3214,10 @@ const App = ({
       case 'ingredients': return <IngredientsPage navigate={setRoute} db={db} />;
       case 'sources': return <SourcesPage navigate={setRoute} db={db} />;
       case 'source_commiphora': return <SourceDetailPage navigate={setRoute} />;
-      case 'processes': return <ProcessesPage navigate={setRoute} />;
-      case 'process_enfleurage': return <ProcessDetailPage navigate={setRoute} />;
-      case 'tools': return <ToolsPage navigate={setRoute} />;
-      case 'tool_alembic': return <ToolDetailPage navigate={setRoute} />;
+      case 'processes': return <ProcessesPage navigate={setRoute} db={db} />;
+      case 'process_enfleurage': return <ProcessesPage navigate={setRoute} db={db} />;
+      case 'tools': return <ToolsPage navigate={setRoute} db={db} />;
+      case 'tool_alembic': return <ToolsPage navigate={setRoute} db={db} />;
       case 'identification_smyrna': return <IdentificationPage navigate={setRoute} />;
       case 'experiments': return <ExperimentsPage navigate={setRoute} />;
       case 'search': return <SearchPage navigate={setRoute} db={db} query={searchQuery} setQuery={setSearchQuery} />;

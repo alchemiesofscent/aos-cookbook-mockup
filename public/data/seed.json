@@ -1635,6 +1635,262 @@
           "role": ""
         }
       ]
+    },
+    {
+      "id": "r-megalleion-dioscorides",
+      "slug": "megalleion-dioscorides",
+      "urn": "urn:aos:recipe:megalleion-dioscorides",
+      "metadata": {
+        "title": "Megalleion",
+        "sourceWorkId": "w-materia-medica",
+        "author": "Dioscorides",
+        "attribution": "Mat. Med. 1.59 (demo placeholder)",
+        "language": "Greek",
+        "date": "1st c. CE",
+        "place": "Mediterranean"
+      },
+      "text": {
+        "original": "⟦Greek text pending (demo placeholder)⟧",
+        "translation": "⟦English translation pending (demo placeholder)⟧",
+        "notes": "Demo placeholder recipe record used to wire up routing and browse views. Replace with curated text + annotations when available."
+      },
+      "annotations": {},
+      "items": [
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-balanos-oil",
+          "ancientTermId": "ai-balaninon",
+          "originalTerm": "βαλάνινον",
+          "transliteration": "balaninon",
+          "displayTerm": "Balanos oil",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "base"
+        },
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": null,
+          "ancientTermId": "ai-kassia",
+          "originalTerm": "κασσία",
+          "transliteration": "kassia",
+          "displayTerm": "Cassia",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": "i-cinnamon",
+          "ancientTermId": "ai-kinamomon",
+          "originalTerm": "κινάμωμον",
+          "transliteration": "kinamomon",
+          "displayTerm": "Cinnamon",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-myrrh",
+          "ancientTermId": "ai-smyrna",
+          "originalTerm": "σμύρνα",
+          "transliteration": "smyrna",
+          "displayTerm": "Myrrh",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "resin"
+        },
+        {
+          "id": "rt-1",
+          "type": "tool",
+          "masterId": "t-angeion",
+          "originalTerm": "ἀγγεῖον",
+          "transliteration": "angeion",
+          "displayTerm": "Vessel",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rt-2",
+          "type": "tool",
+          "masterId": "t-louter",
+          "originalTerm": "λουτήρ",
+          "transliteration": "loutrēr",
+          "displayTerm": "Basin",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-mixing",
+          "originalTerm": "φυρᾶν",
+          "transliteration": "phyrein",
+          "displayTerm": "Softening/mixing",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-2",
+          "type": "process",
+          "masterId": "pr-boiling",
+          "originalTerm": "ἕψειν",
+          "transliteration": "hepsein",
+          "displayTerm": "Boiling",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-3",
+          "type": "process",
+          "masterId": "pr-straining",
+          "originalTerm": "ἀποδιηθεῖν",
+          "transliteration": "apodiēthein",
+          "displayTerm": "Straining",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        }
+      ]
+    },
+    {
+      "id": "r-cinnamon-perfume-dioscorides",
+      "slug": "cinnamon-perfume-dioscorides",
+      "urn": "urn:aos:recipe:cinnamon-perfume-dioscorides",
+      "metadata": {
+        "title": "Cinnamon Perfume",
+        "sourceWorkId": "w-materia-medica",
+        "author": "Dioscorides",
+        "attribution": "Mat. Med. 1.61 (demo placeholder)",
+        "language": "Greek",
+        "date": "1st c. CE",
+        "place": "Mediterranean"
+      },
+      "text": {
+        "original": "⟦Greek text pending (demo placeholder)⟧",
+        "translation": "⟦English translation pending (demo placeholder)⟧",
+        "notes": "Demo placeholder recipe record used to wire up routing and browse views. Replace with curated text + annotations when available."
+      },
+      "annotations": {},
+      "items": [
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "ancientTermId": "ai-elaion",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Olive oil",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "base"
+        },
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": "i-cinnamon",
+          "ancientTermId": "ai-kinamomon",
+          "originalTerm": "κινάμωμον",
+          "transliteration": "kinamomon",
+          "displayTerm": "Cinnamon",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": null,
+          "ancientTermId": "ai-kassia",
+          "originalTerm": "κασσία",
+          "transliteration": "kassia",
+          "displayTerm": "Cassia",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-saffron",
+          "ancientTermId": "ai-krokos",
+          "originalTerm": "κρόκος",
+          "transliteration": "krokos",
+          "displayTerm": "Saffron",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": "colorant"
+        },
+        {
+          "id": "rt-1",
+          "type": "tool",
+          "masterId": "t-angeion",
+          "originalTerm": "ἀγγεῖον",
+          "transliteration": "angeion",
+          "displayTerm": "Vessel",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-adding",
+          "originalTerm": "ἐπιβάλλειν",
+          "transliteration": "epiballein",
+          "displayTerm": "Adding",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-2",
+          "type": "process",
+          "masterId": "pr-boiling",
+          "originalTerm": "ἕψειν",
+          "transliteration": "hepsein",
+          "displayTerm": "Boiling",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-3",
+          "type": "process",
+          "masterId": "pr-straining",
+          "originalTerm": "ἀποδιηθεῖν",
+          "transliteration": "apodiēthein",
+          "displayTerm": "Straining",
+          "amount": "",
+          "originalAmount": "",
+          "quantities": [],
+          "role": ""
+        }
+      ]
     }
   ],
   "ancientIngredients": [
@@ -1759,6 +2015,14 @@
       "sourceKind": "project"
     },
     {
+      "id": "ai-kassia",
+      "term": "κασσία",
+      "transliteration": "kassia",
+      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
       "id": "ai-krokos",
       "term": "κρόκος",
       "transliteration": "krokos",
@@ -1824,6 +2088,9 @@
     { "id": "ip-kinamomon-a", "label": "Candidate A — cinnamon-like spice (placeholder)", "description": "A possible modern interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
     { "id": "ip-kinamomon-b", "label": "Candidate B — aromatic bark spice (placeholder)", "description": "A second interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
 
+    { "id": "ip-kassia-a", "label": "Candidate A — kassia-like aromatic (placeholder)", "description": "A possible modern interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ip-kassia-b", "label": "Candidate B — kassia-like bark/spice (placeholder)", "description": "A second interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
+
     { "id": "ip-krokos-a", "label": "Candidate A — saffron-like material (placeholder)", "description": "A possible modern interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
     { "id": "ip-krokos-b", "label": "Candidate B — yellow dye spice (placeholder)", "description": "A second interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
 
@@ -1860,6 +2127,8 @@
     { "id": "ms-krinon-b", "label": "Material source B for κρίνον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
     { "id": "ms-kinamomon-a", "label": "Material source A for κινάμωμον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
     { "id": "ms-kinamomon-b", "label": "Material source B for κινάμωμον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ms-kassia-a", "label": "Material source A for κασσία (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
+    { "id": "ms-kassia-b", "label": "Material source B for κασσία (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
     { "id": "ms-krokos-a", "label": "Material source A for κρόκος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
     { "id": "ms-krokos-b", "label": "Material source B for κρόκος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
     { "id": "ms-kommi-a", "label": "Material source A for κόμμι (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
@@ -1907,6 +2176,9 @@
 
     { "id": "id-kinamomon-a", "ancientIngredientId": "ai-kinamomon", "ingredientProductId": "ip-kinamomon-a", "materialSourceId": "ms-kinamomon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §15", "notes": "Placeholder identification A for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
     { "id": "id-kinamomon-b", "ancientIngredientId": "ai-kinamomon", "ingredientProductId": "ip-kinamomon-b", "materialSourceId": "ms-kinamomon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §15", "notes": "Placeholder identification B for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
+
+    { "id": "id-kassia-a", "ancientIngredientId": "ai-kassia", "ingredientProductId": "ip-kassia-a", "materialSourceId": "ms-kassia-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §15a", "notes": "Placeholder identification A for κασσία.", "placeholder": true, "sourceKind": "project" },
+    { "id": "id-kassia-b", "ancientIngredientId": "ai-kassia", "ingredientProductId": "ip-kassia-b", "materialSourceId": "ms-kassia-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §15a", "notes": "Placeholder identification B for κασσία.", "placeholder": true, "sourceKind": "project" },
 
     { "id": "id-krokos-a", "ancientIngredientId": "ai-krokos", "ingredientProductId": "ip-krokos-a", "materialSourceId": "ms-krokos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §16", "notes": "Placeholder identification A for κρόκος.", "placeholder": true, "sourceKind": "project" },
     { "id": "id-krokos-b", "ancientIngredientId": "ai-krokos", "ingredientProductId": "ip-krokos-b", "materialSourceId": "ms-krokos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §16", "notes": "Placeholder identification B for κρόκος.", "placeholder": true, "sourceKind": "project" },

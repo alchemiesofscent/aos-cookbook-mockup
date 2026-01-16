@@ -152,10 +152,44 @@ export const loadState = async (): Promise<DatabaseState> => {
       changed = true;
     };
 
-    ensureArrayKey("ancientIngredients");
-    ensureArrayKey("ingredientProducts");
-    ensureArrayKey("materialSources");
-    ensureArrayKey("identifications");
+    const mergeArrayById = <K extends keyof DatabaseState>(key: K): void => {
+      const currentValue = (db as any)[key];
+      const seedValue = (seed as any)[key];
+      if (!Array.isArray(seedValue)) {
+        ensureArrayKey(key);
+        return;
+      }
+
+      if (!Array.isArray(currentValue)) {
+        (db as any)[key] = seedValue;
+        changed = true;
+        return;
+      }
+
+      if (currentValue.length === 0 && seedValue.length > 0) {
+        (db as any)[key] = seedValue;
+        changed = true;
+        return;
+      }
+
+      const currentIds = new Set<string>(currentValue.map((item: any) => item?.id).filter(Boolean));
+      const additions = seedValue.filter((item: any) => item?.id && !currentIds.has(item.id));
+      if (additions.length > 0) {
+        (db as any)[key] = [...currentValue, ...additions];
+        changed = true;
+      }
+    };
+
+    mergeArrayById("recipes");
+    mergeArrayById("masterIngredients");
+    mergeArrayById("masterTools");
+    mergeArrayById("masterProcesses");
+    mergeArrayById("masterWorks");
+    mergeArrayById("masterPeople");
+    mergeArrayById("ancientIngredients");
+    mergeArrayById("ingredientProducts");
+    mergeArrayById("materialSources");
+    mergeArrayById("identifications");
     return changed;
   };
 
