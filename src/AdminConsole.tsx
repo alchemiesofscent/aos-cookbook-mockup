@@ -37,17 +37,17 @@ const ITEM_ROLES = [
 // --- Styles for the Admin Console ---
 const AdminStyles = () => (
   <style>{`
-    .admin-layout { display: flex; min-height: 100vh; background: #f0f0f0; font-family: 'Noto Sans', sans-serif; }
+    .admin-layout { display: flex; min-height: 100vh; background: #f0f0f0; color: #2D2A26; font-family: 'Noto Sans', sans-serif; }
     .admin-sidebar { width: 250px; background: #2D2A26; color: #FAF7F0; display: flex; flex-direction: column; padding: 1rem; flex-shrink: 0; }
-    .admin-content { flex: 1; padding: 2rem; overflow-y: auto; }
+    .admin-content { flex: 1; padding: 2rem; overflow-y: auto; color: #2D2A26; }
     
     .admin-brand { font-family: 'Gentium Plus', serif; font-size: 1.2rem; margin-bottom: 2rem; letter-spacing: 0.05em; color: #C9A227; cursor: pointer; }
     .admin-nav-item { padding: 0.75rem 1rem; cursor: pointer; border-radius: 4px; margin-bottom: 0.25rem; color: #9A9487; }
     .admin-nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
     .admin-nav-item.active { background: #C9A227; color: #2D2A26; font-weight: 600; }
-    .admin-nav-section { text-transform: uppercase; font-size: 0.75rem; color: #666; margin: 1.5rem 0 0.5rem 0.5rem; letter-spacing: 0.1em; }
+    .admin-nav-section { text-transform: uppercase; font-size: 0.75rem; color: rgba(250,247,240,0.6); margin: 1.5rem 0 0.5rem 0.5rem; letter-spacing: 0.1em; }
 
-    .console-card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 2rem; margin-bottom: 2rem; }
+    .console-card { background: white; color: #2D2A26; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 2rem; margin-bottom: 2rem; }
     .console-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
     .console-header h2 { margin: 0; font-size: 1.5rem; color: #2D2A26; }
 
@@ -56,7 +56,7 @@ const AdminStyles = () => (
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #5C4A3D; margin-bottom: 0.4rem; }
     
     /* Global Input Styling for Admin to prevent Dark Mode issues */
-    input, textarea, select {
+    .admin-layout input, .admin-layout textarea, .admin-layout select {
         background-color: #ffffff !important;
         color: #333333 !important;
         border: 1px solid #cccccc;
@@ -72,7 +72,7 @@ const AdminStyles = () => (
     
     .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .data-table th { text-align: left; padding: 0.75rem; background: #f9f9f9; border-bottom: 2px solid #eee; color: #555; }
-    .data-table td { padding: 0.75rem; border-bottom: 1px solid #eee; }
+    .data-table td { padding: 0.75rem; border-bottom: 1px solid #eee; color: #2D2A26; }
     .data-table tr:hover { background: #fcfcfc; }
     
     .btn-action { background: #C9A227; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 500; }
