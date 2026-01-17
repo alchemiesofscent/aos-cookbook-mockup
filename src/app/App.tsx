@@ -1,19 +1,7 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AdminConsole } from "../AdminConsole";
-import type {
-  AncientIngredient,
-  DatabaseState,
-  Identification,
-  IngredientProduct,
-  MasterEntity,
-  MaterialSource,
-  Recipe,
-  RecipeItem,
-} from "../types";
-import { DemoBadge } from "../components/DemoBadge";
+import type { DatabaseState } from "../types";
 import { Icons } from "../components/Icons";
-import { MaterialsSubNav } from "../components/MaterialsSubNav";
-import { RecipeLinkCards } from "../components/RecipeLinkCards";
 import { AboutPage } from "../pages/about/AboutPage";
 import { NewsPage } from "../pages/about/NewsPage";
 import { ProjectPage } from "../pages/about/ProjectPage";
@@ -57,14 +45,10 @@ import {
   parseRecipeRoute,
   parseWorkRoute,
   parseWorkshopEntityRoute,
-  type WorkshopEntityKind,
 } from "./router";
 import HomePage from "../pages/home/HomePage";
 import SearchPage from "../pages/search/SearchPage";
 import StudioPage from "../pages/studio/StudioPage";
-import { createOrResumeStudioSession, setActiveStudioSessionId } from "../studio/storage";
-import { resolveAncientTermIdForRecipeAnnotation, resolveAncientTermIdForRecipeItem } from "../workshop/resolveAncientTermId";
-import { buildWorkshopCardsFromRecipes, formatAncientName, type WorkshopCardModel } from "../lib/workshopCards";
 
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
@@ -312,8 +296,6 @@ const ToolDetailPage = ({ navigate }) => {
     </div>
   );
 };
-
-type RecipeTextViewMode = "annotated" | "translation" | "greek";
 
 // --- New Pages: Historical Person, Team Member, Work Detail ---
 
