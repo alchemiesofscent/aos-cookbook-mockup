@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AdminConsole } from "../AdminConsole";
+import { AdminConsole } from "../pages/admin/AdminConsole";
 import { Footer } from "../components/layout/Footer";
 import { GlobalStyles } from "../components/layout/GlobalStyles";
 import { Header } from "../components/layout/Header";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { DatabaseState, MasterEntity, Recipe, RecipeItem, Quantity } from "./types";
-import { StorageAdapter, generateSlug, generateURN } from "./storage";
-import { VALID_UNITS, FLATTENED_UNITS } from "./units";
+import { DatabaseState, MasterEntity, Recipe, RecipeItem, Quantity } from "../../types";
+import { StorageAdapter, generateSlug, generateURN } from "../../storage";
+import { VALID_UNITS, FLATTENED_UNITS } from "../../units";
 
 // --- Controlled Vocabularies ---
 const LANGUAGES = [
