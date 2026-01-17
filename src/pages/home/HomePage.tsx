@@ -1,6 +1,10 @@
 import React, { useMemo, useState } from "react";
 import type { DatabaseState } from "../../types";
 import { homepageContent } from "../../content/homepage";
+import { ContentCard } from "./components/ContentCard";
+import { ExploreChips } from "./components/ExploreChips";
+import { PrimaryCard } from "./components/PrimaryCard";
+import { SectionHeader } from "./components/SectionHeader";
 import "./home.css";
 
 type HomePageProps = {
@@ -8,119 +12,6 @@ type HomePageProps = {
   db: DatabaseState;
   setSearchQuery: (query: string) => void;
 };
-
-function SectionHeader({
-  title,
-  rightLinkLabel,
-  onRightLinkClick,
-}: {
-  title: string;
-  rightLinkLabel?: string;
-  onRightLinkClick?: () => void;
-}) {
-  return (
-    <div className="homeLanding-sectionHeader">
-      <h2 className="homeLanding-sectionTitle">{title}</h2>
-      {rightLinkLabel ? (
-        <button type="button" className="homeLanding-sectionLink" onClick={onRightLinkClick}>
-          {rightLinkLabel} →
-        </button>
-      ) : null}
-    </div>
-  );
-}
-
-function PrimaryCard({
-  title,
-  kicker,
-  body,
-  cta,
-  tint,
-  onClick,
-}: {
-  title: string;
-  kicker: string;
-  body: string;
-  cta: string;
-  tint: "indigo" | "emerald";
-  onClick: () => void;
-}) {
-  return (
-    <div className="homeLanding-card">
-      <div className="homeLanding-kicker">{kicker}</div>
-      <h3 className="homeLanding-cardTitle">{title}</h3>
-      <p className="homeLanding-cardBody">{body}</p>
-      <div className="homeLanding-cardCtaRow">
-        <button type="button" className={`homeLanding-cardBtn homeLanding-cardBtn--${tint}`} onClick={onClick}>
-          {cta}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function ExploreChips({
-  tabs,
-  onSelect,
-}: {
-  tabs: typeof homepageContent.exploreTabs;
-  onSelect: (route: string) => void;
-}) {
-  return (
-    <div className="homeLanding-explore">
-      <div className="homeLanding-chipBar">
-        {tabs.map((tab) => (
-          <details key={tab.label} className="homeLanding-chip">
-            <summary>
-              {tab.label} <span style={{ color: "var(--color-stone)" }}>▾</span>
-            </summary>
-            <div className="homeLanding-chipMenu">
-              {tab.items.map((item) => (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={(e) => {
-                    if (item.route) onSelect(item.route);
-                    const parent = (e.currentTarget as HTMLButtonElement).closest("details");
-                    if (parent) parent.open = false;
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ContentCard({
-  title,
-  subtitle,
-  tag,
-  accent,
-  onClick,
-}: {
-  title: string;
-  subtitle: string;
-  tag: string;
-  accent: "rose" | "resin" | "methods";
-  onClick: () => void;
-}) {
-  return (
-    <button type="button" className="homeLanding-contentCard" onClick={onClick}>
-      <div className={`homeLanding-contentMedia homeLanding-contentMedia--${accent}`}>
-        <div className="homeLanding-contentTag">{tag}</div>
-      </div>
-      <div className="homeLanding-contentBody">
-        <p className="homeLanding-contentTitle">{title}</p>
-        <p className="homeLanding-contentSub">{subtitle}</p>
-      </div>
-    </button>
-  );
-}
 
 export default function HomePage({ navigate, db, setSearchQuery }: HomePageProps) {
   const [query, setQuery] = useState("");
