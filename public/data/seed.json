@@ -155,7 +155,7 @@
           "transliteration": "skhoinos",
           "definition": "A rush or reed; identification varies in the secondary literature.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ancient term", "route": "ingredient_smyrna" }]
+          "links": [{ "label": "View ancient term", "route": "ancient-term:ai-smyrna" }]
         },
         "ing-elaion-20-5": {
           "term": "ἔλαιον",
@@ -279,7 +279,7 @@
           "lemma": "ἕψειν",
           "definition": "To boil.",
           "annotationType": "process",
-          "links": [{ "label": "View process", "route": "process_enfleurage" }]
+          "links": [{ "label": "View process", "route": "workshop-process:pr-boiling" }]
         },
         "pr-anakinein": {
           "term": "ἀνακινεῖν",

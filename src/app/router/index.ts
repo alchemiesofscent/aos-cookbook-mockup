@@ -7,6 +7,8 @@ export type {
   WorkshopEntityRoute,
 } from "./types";
 
+export { resolveLegacyRoute } from "./legacyRedirects";
+
 export {
   parseInterpretationRoute,
   parsePersonRoute,
@@ -14,4 +16,3 @@ export {
   parseWorkRoute,
   parseWorkshopEntityRoute,
 } from "./parse";
-

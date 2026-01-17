@@ -26,25 +26,13 @@ import { WorkshopPage } from "../pages/workshop/WorkshopPage";
 import { ProcessesPage } from "../pages/workshop/ProcessesPage";
 import { ToolsPage } from "../pages/workshop/ToolsPage";
 import { ExperimentsPage } from "../pages/workshop/ExperimentsPage";
-import { IdentificationPage } from "../pages/legacy/IdentificationPage";
-import { AncientIngredientPage } from "../pages/legacy/AncientIngredientPage";
-import { ProductPage } from "../pages/legacy/ProductPage";
-import { SourceDetailPage } from "../pages/legacy/SourceDetailPage";
-import {
-  COMMIPHORA_DATA,
-  DIOSCORIDES_DETAIL,
-  IDENTIFICATION_DATA,
-  INGREDIENT_DATA,
-  MATERIA_MEDICA_DETAIL,
-  PRODUCT_DATA,
-  SEAN_DETAIL,
-} from "../legacy/legacyFixtures";
 import {
   parseInterpretationRoute,
   parsePersonRoute,
   parseRecipeRoute,
   parseWorkRoute,
   parseWorkshopEntityRoute,
+  resolveLegacyRoute,
 } from "./router";
 import HomePage from "../pages/home/HomePage";
 import SearchPage from "../pages/search/SearchPage";
@@ -176,334 +164,6 @@ const Footer = ({ navigate }) => (
 // --- Reusable Components ---
 
 // --- Page Views ---
-
-const ProcessDetailPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('processes')}>
-        <Icons.ArrowLeft /> Back to Processes
-      </div>
-
-      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid var(--color-border-strong)'}}>
-        <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{PROCESS_DATA.name}</h1>
-        <div style={{fontSize: '1.5rem', color: 'var(--color-stone)', fontStyle: 'italic', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)'}}>{PROCESS_DATA.ancientTerm}</div>
-        <div className="urn" style={{display: 'inline-block'}}>URN: {PROCESS_DATA.urn}</div>
-      </div>
-
-      <div className="product-section">
-        <h2>DESCRIPTION</h2>
-        <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{PROCESS_DATA.description}</p>
-      </div>
-
-      <div className="product-section">
-        <h2>VARIATIONS</h2>
-        {PROCESS_DATA.variations.map((v, i) => (
-          <div key={i} style={{marginBottom: '1.5rem'}}>
-            <h3 style={{fontSize: '1rem', color: 'var(--color-charcoal)', marginBottom: '0.5rem'}}>{v.name}</h3>
-            <p style={{marginTop: 0, color: 'var(--color-earth)'}}>{v.description}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="product-section">
-        <h2>INTERPRETATION NOTES</h2>
-        <p style={{maxWidth: '800px'}}>{PROCESS_DATA.notes}</p>
-      </div>
-
-      <div className="product-section">
-        <h2>RECIPES USING THIS PROCESS</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-          {PROCESS_DATA.recipes.map((r, i) => (
-            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {r.route ? (
-                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
-               ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
-               )}
-             </li>
-          ))}
-        </ul>
-        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all recipes →]</button>
-      </div>
-
-      <div className="product-section" style={{borderBottom: 'none'}}>
-        <h2>FURTHER READING</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-          {PROCESS_DATA.reading.map((r, i) => (
-            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               <span style={{color: 'var(--color-earth)'}}>{r.name} →</span>
-             </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ToolDetailPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('tools')}>
-        <Icons.ArrowLeft /> Back to Tools
-      </div>
-
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
-        <div style={{display: 'flex', gap: '3rem'}}>
-          <div style={{flex: 2}}>
-             <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0}}>{TOOL_DATA.name}</h1>
-             <div style={{marginBottom: '1.5rem'}}>
-               {TOOL_DATA.ancientNames.map((n, i) => (
-                 <span key={i} style={{fontSize: '1.25rem', color: 'var(--color-stone)', fontStyle: 'italic', marginRight: '1rem', fontFamily: 'var(--font-serif)'}}>{n}</span>
-               ))}
-             </div>
-             <p style={{fontSize: '1.1rem', lineHeight: '1.7'}}>{TOOL_DATA.description}</p>
-             <div className="urn" style={{display: 'inline-block', marginTop: '1rem'}}>URN: {TOOL_DATA.urn}</div>
-          </div>
-          <div style={{flex: 1}}>
-             <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666', marginBottom: '0.5rem'}}>
-                {TOOL_DATA.image}
-             </div>
-             <div style={{fontSize: '0.75rem', color: 'var(--color-stone)', fontFamily: 'var(--font-sans)'}}>{TOOL_DATA.imageCaption}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="product-section">
-        <h2>RELATED PROCESSES</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-           {TOOL_DATA.processes.map((p, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {p.name}
-             </li>
-           ))}
-        </ul>
-      </div>
-
-       <div className="product-section" style={{borderBottom: 'none'}}>
-        <h2>RECIPES USING THIS TOOL</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-           {TOOL_DATA.recipes.map((r, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
-             </li>
-           ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-// --- New Pages: Historical Person, Team Member, Work Detail ---
-
-const HistoricalPersonPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('people')}>
-        <Icons.ArrowLeft /> Back to People
-      </div>
-
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
-        <div style={{display: 'flex', gap: '3rem'}}>
-           <div style={{flex: 2}}>
-              <h1 style={{fontSize: '2.5rem', marginBottom: '0.25rem', marginTop: 0, textTransform: 'uppercase'}}>{DIOSCORIDES_DETAIL.shortName}</h1>
-              <div style={{fontSize: '1.25rem', color: 'var(--color-charcoal)', marginBottom: '0.5rem'}}>{DIOSCORIDES_DETAIL.name}</div>
-              <div style={{fontSize: '1rem', color: 'var(--color-stone)', marginBottom: '1.5rem'}}>
-                 <div>Floruit: {DIOSCORIDES_DETAIL.floruit}</div>
-                 <div>Active in: {DIOSCORIDES_DETAIL.activeIn}</div>
-              </div>
-              <div className="urn" style={{display: 'inline-block', marginBottom: '1rem'}}>{DIOSCORIDES_DETAIL.urn}</div>
-           </div>
-           <div style={{flex: 1}}>
-              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666'}}>
-                 [{DIOSCORIDES_DETAIL.image}]
-              </div>
-           </div>
-        </div>
-      </div>
-
-      <div className="product-section">
-         <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{DIOSCORIDES_DETAIL.bio}</p>
-      </div>
-
-      <div className="product-section">
-         <h2>WORKS</h2>
-         <ul style={{listStyle: 'none', padding: 0}}>
-           {DIOSCORIDES_DETAIL.works.map((w, i) => (
-             <li key={i} style={{marginBottom: '1rem', fontSize: '1.1rem'}}>
-               {w.route ? (
-                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(w.route)}>{w.name} →</span>
-               ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{w.name}</span>
-               )}
-               {w.detail && <div style={{fontSize: '0.9rem', color: 'var(--color-stone)', marginTop: '0.2rem', paddingLeft: '1rem'}}>{w.detail}</div>}
-             </li>
-           ))}
-        </ul>
-      </div>
-
-      <div className="product-section">
-         <h2>RECIPES BY DIOSCORIDES</h2>
-         <div style={{marginBottom: '1rem', fontStyle: 'italic', color: 'var(--color-stone)'}}>Book 1: Aromatics</div>
-         <ul style={{listStyle: 'none', padding: 0}}>
-           {DIOSCORIDES_DETAIL.recipes.map((r, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {r.route ? (
-                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(r.route)}>{r.name} →</span>
-               ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
-               )}
-             </li>
-           ))}
-        </ul>
-        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all 47 recipes →]</button>
-      </div>
-
-      <div className="product-section" style={{borderBottom: 'none'}}>
-         <h2>EXTERNAL RESOURCES</h2>
-         <ul style={{listStyle: 'none', padding: 0}}>
-           {DIOSCORIDES_DETAIL.external.map((e, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               <a href={e.url} target="_blank" rel="noopener noreferrer" style={{color: 'var(--color-earth)', textDecoration: 'underline'}}>{e.name} ↗</a>
-             </li>
-           ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const TeamMemberPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('team')}>
-        <Icons.ArrowLeft /> Back to Team
-      </div>
-
-      <div className="product-section" style={{paddingBottom: '3rem', borderBottom: '1px solid var(--color-border-strong)'}}>
-        <div style={{display: 'flex', gap: '3rem'}}>
-           <div style={{flex: 2}}>
-              <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', marginTop: 0, textTransform: 'uppercase'}}>{SEAN_DETAIL.name}</h1>
-              <div style={{fontSize: '1.25rem', color: 'var(--color-amber-dark)', marginBottom: '0.5rem'}}>{SEAN_DETAIL.role}</div>
-              <div style={{fontSize: '1rem', color: 'var(--color-stone)', marginBottom: '1.5rem'}}>
-                 <div>{SEAN_DETAIL.affiliation}</div>
-                 <div style={{marginTop: '0.5rem'}}>ORCID: {SEAN_DETAIL.orcid}</div>
-                 <div>Website: <a href={`https://${SEAN_DETAIL.website}`} target="_blank" rel="noopener noreferrer" style={{color: 'var(--color-amber)'}}>{SEAN_DETAIL.website} →</a></div>
-              </div>
-           </div>
-           <div style={{flex: 1}}>
-              <div className="product-image-placeholder" style={{background: '#F0F0F0', border: '1px solid #ccc', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-sans)', color: '#666'}}>
-                 [{SEAN_DETAIL.image}]
-              </div>
-           </div>
-        </div>
-      </div>
-
-      <div className="product-section">
-         <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{SEAN_DETAIL.bio}</p>
-      </div>
-
-      <div className="product-section">
-         <h2>PUBLICATIONS</h2>
-         <ul style={{listStyle: 'none', padding: 0}}>
-           {SEAN_DETAIL.publications.map((p, i) => (
-             <li key={i} style={{marginBottom: '1rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               <span style={{color: 'var(--color-earth)'}}>{p.title}</span> <span className="text-btn" style={{cursor: 'pointer'}}>→</span>
-             </li>
-           ))}
-        </ul>
-      </div>
-
-      <div className="product-section" style={{borderBottom: 'none'}}>
-         <h2>EXPERIMENTS</h2>
-         <ul style={{listStyle: 'none', padding: 0}}>
-           {SEAN_DETAIL.experiments.map((e, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {e.route ? (
-                 <span className="text-btn" style={{fontSize: '1.1rem', cursor: 'pointer'}} onClick={() => navigate(e.route)}>{e.title} →</span>
-               ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{e.title}</span>
-               )}
-             </li>
-           ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const WorkDetailPage = ({ navigate }) => {
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate('works')}>
-        <Icons.ArrowLeft /> Back to Works
-      </div>
-
-      <div className="product-section" style={{paddingBottom: '2rem', borderBottom: '1px solid var(--color-border-strong)'}}>
-        <h1 style={{textTransform: 'uppercase', fontSize: '2.5rem', marginBottom: '0.5rem'}}>{MATERIA_MEDICA_DETAIL.title}</h1>
-        <div style={{fontSize: '1.5rem', marginBottom: '1.5rem'}}>
-           <span className="text-btn" style={{fontSize: '1.5rem', cursor: 'pointer'}} onClick={() => navigate(MATERIA_MEDICA_DETAIL.author.route)}>{MATERIA_MEDICA_DETAIL.author.name} →</span>
-        </div>
-        <div className="metadata-box" style={{minWidth: 'auto', display: 'inline-block', paddingRight: '2rem'}}>
-             <div className="meta-row">Date: {MATERIA_MEDICA_DETAIL.date}</div>
-             <div className="meta-row">Language: {MATERIA_MEDICA_DETAIL.language}</div>
-             <div className="meta-row">Type: {MATERIA_MEDICA_DETAIL.type}</div>
-        </div>
-        <div className="urn" style={{marginTop: '1rem'}}>{MATERIA_MEDICA_DETAIL.urn}</div>
-      </div>
-
-      <div className="product-section">
-        <p style={{fontSize: '1.1rem', lineHeight: '1.7', maxWidth: '800px'}}>{MATERIA_MEDICA_DETAIL.description}</p>
-      </div>
-
-      <div className="product-section">
-        <h2>EDITIONS</h2>
-        {MATERIA_MEDICA_DETAIL.editions.map((ed, i) => (
-          <div key={i} style={{marginBottom: '1.5rem'}}>
-             <div style={{fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem'}}>{ed.name} <span className="text-btn">→</span></div>
-             <div style={{color: 'var(--color-stone)'}}>{ed.desc}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="product-section">
-        <h2>TRANSLATIONS</h2>
-        <ul style={{listStyle: 'none', padding: 0}}>
-           {MATERIA_MEDICA_DETAIL.translations.map((t, i) => (
-             <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-earth)'}}>{t.name}</span> <span className="text-btn" style={{cursor: 'pointer'}}>→</span>
-             </li>
-           ))}
-        </ul>
-      </div>
-
-      <div className="product-section" style={{borderBottom: 'none'}}>
-        <h2>RECIPES FROM THIS WORK</h2>
-        <div style={{marginBottom: '1rem', fontStyle: 'italic', color: 'var(--color-stone)'}}>Book 1: Aromatics</div>
-        <ul style={{listStyle: 'none', padding: 0}}>
-          {MATERIA_MEDICA_DETAIL.recipes.map((r, i) => (
-            <li key={i} style={{marginBottom: '0.5rem', fontSize: '1.1rem'}}>
-               <span style={{color: 'var(--color-amber)', marginRight: '0.5rem'}}>•</span>
-               {r.route ? (
-                 <span style={{cursor: 'pointer', textDecoration: 'underline'}} onClick={() => navigate(r.route)}>{r.name} →</span>
-               ) : (
-                 <span style={{color: 'var(--color-earth)'}}>{r.name}</span>
-               )}
-             </li>
-          ))}
-        </ul>
-        <button className="text-btn" style={{marginTop: '1rem'}} onClick={() => navigate('archive')}>[View all 47 recipes →]</button>
-      </div>
-    </div>
-  );
-};
 
 // --- Main App & Styles ---
 
@@ -1078,18 +738,23 @@ const App = ({
 }) => {
   const [route, setRoute] = useState('home'); 
   const [searchQuery, setSearchQuery] = useState("");
+  const effectiveRoute = resolveLegacyRoute(route, db) ?? route;
 
   useEffect(() => {
     document.title = "Alchemies of Scent — The Laboratory";
   }, []);
 
+  useEffect(() => {
+    if (effectiveRoute !== route) setRoute(effectiveRoute);
+  }, [effectiveRoute, route]);
+
   const renderPage = () => {
-    const workshopEntityRoute = parseWorkshopEntityRoute(route);
+    const workshopEntityRoute = parseWorkshopEntityRoute(effectiveRoute);
     if (workshopEntityRoute) {
       return <WorkshopEntityDetailPage navigate={setRoute} db={db} routeInfo={workshopEntityRoute} />;
     }
 
-    const interpretationRoute = parseInterpretationRoute(route);
+    const interpretationRoute = parseInterpretationRoute(effectiveRoute);
     if (interpretationRoute) {
       if (interpretationRoute.kind === "ancient-term") {
         return <AncientTermDetailPage navigate={setRoute} db={db} termId={interpretationRoute.id} />;
@@ -1105,30 +770,27 @@ const App = ({
       }
     }
 
-    const recipeRoute = parseRecipeRoute(route);
+    const recipeRoute = parseRecipeRoute(effectiveRoute);
     if (recipeRoute) {
       return <RecipePage navigate={setRoute} db={db} recipeId={recipeRoute.id} />;
     }
 
-    const personRoute = parsePersonRoute(route);
+    const personRoute = parsePersonRoute(effectiveRoute);
     if (personRoute) {
       return <PersonDetailPageDb navigate={setRoute} db={db} personId={personRoute.id} />;
     }
 
-    const workRoute = parseWorkRoute(route);
+    const workRoute = parseWorkRoute(effectiveRoute);
     if (workRoute) {
       return <WorkDetailPageDb navigate={setRoute} db={db} workId={workRoute.id} />;
     }
 
-    switch(route) {
+    switch(effectiveRoute) {
       case 'home': return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
       case 'library': return <LibraryPage navigate={setRoute} />;
       case 'archive': return <ArchivePage navigate={setRoute} db={db} />;
       case 'works': return <WorksPage navigate={setRoute} db={db} />;
       case 'people': return <PeoplePage navigate={setRoute} db={db} />;
-      case 'recipe_rose': return <RecipePage navigate={setRoute} db={db} recipeId="r-rose-perfume" />;
-      case 'ingredient_smyrna': return <AncientIngredientPage navigate={setRoute} />;
-      case 'product_myrrh': return <ProductPage navigate={setRoute} />;
       case 'about': return <AboutPage navigate={setRoute} />;
       case 'project': return <ProjectPage navigate={setRoute} />;
       case 'team': return <TeamPage navigate={setRoute} db={db} />;
@@ -1138,20 +800,12 @@ const App = ({
       case 'terms': return <TermsPage navigate={setRoute} db={db} />;
       case 'ingredients': return <IngredientsPage navigate={setRoute} db={db} />;
       case 'sources': return <SourcesPage navigate={setRoute} db={db} />;
-      case 'source_commiphora': return <SourceDetailPage navigate={setRoute} />;
       case 'processes': return <ProcessesPage navigate={setRoute} db={db} />;
-      case 'process_enfleurage': return <ProcessesPage navigate={setRoute} db={db} />;
       case 'tools': return <ToolsPage navigate={setRoute} db={db} />;
-      case 'tool_alembic': return <ToolsPage navigate={setRoute} db={db} />;
-      case 'identification_smyrna': return <IdentificationPage navigate={setRoute} />;
       case 'experiments': return <ExperimentsPage navigate={setRoute} />;
       case 'search': return <SearchPage navigate={setRoute} db={db} query={searchQuery} setQuery={setSearchQuery} />;
       case 'studio': return <StudioPage navigate={setRoute} db={db} />;
       
-      // New Routes
-      case 'person_dioscorides': return <PersonDetailPageDb navigate={setRoute} db={db} personId="p-dioscorides" />;
-      case 'team_sean': return <PersonDetailPageDb navigate={setRoute} db={db} personId="p-sean-coughlin" />;
-      case 'work_materia_medica': return <WorkDetailPageDb navigate={setRoute} db={db} workId="w-materia-medica" />;
       case 'admin': return <AdminConsole navigate={setRoute} />;
 
       default: return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
