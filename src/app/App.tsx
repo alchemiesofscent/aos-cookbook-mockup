@@ -37,6 +37,7 @@ import { WorkshopEntityDetailPage } from "../pages/workshop/WorkshopEntityDetail
 import { WorkshopPage } from "../pages/workshop/WorkshopPage";
 import { ProcessesPage } from "../pages/workshop/ProcessesPage";
 import { ToolsPage } from "../pages/workshop/ToolsPage";
+import { ExperimentsPage } from "../pages/workshop/ExperimentsPage";
 import {
   COMMIPHORA_DATA,
   DIOSCORIDES_DETAIL,
@@ -357,21 +358,6 @@ const IdentificationPage = ({ navigate }) => {
     </div>
   );
 };
-
-const ExperimentsPage = ({ navigate }) => (
-    <div className="page-container">
-        <div className="back-link" onClick={() => navigate('workshop')}>
-            <Icons.ArrowLeft /> Back to Workshop
-        </div>
-        <div className="archive-intro">
-            <h1>EXPERIMENTS</h1>
-            <p>Replication stories and chemical analysis.</p>
-        </div>
-        <div className="section-block">
-            <p style={{fontStyle: 'italic', color: 'var(--color-stone)'}}>Coming soon...</p>
-        </div>
-    </div>
-);
 
 type RecipeTextViewMode = "annotated" | "translation" | "greek";
 
