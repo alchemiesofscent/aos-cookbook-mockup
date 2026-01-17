@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { AdminConsole } from "../pages/admin/AdminConsole";
 import { Footer } from "../components/layout/Footer";
 import { GlobalStyles } from "../components/layout/GlobalStyles";
 import { Header } from "../components/layout/Header";
@@ -154,8 +153,6 @@ const App = ({
         return <SearchPage navigate={setRoute} db={db} query={searchQuery} setQuery={setSearchQuery} />;
       case "studio":
         return <StudioPage navigate={setRoute} db={db} />;
-      case "admin":
-        return <AdminConsole navigate={setRoute} />;
       default:
         return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
     }
@@ -164,15 +161,13 @@ const App = ({
   return (
     <>
       <GlobalStyles />
-      {route !== "admin" && (
-        <Header
-          navigate={setRoute}
-          theme={theme}
-          toggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
-        />
-      )}
+      <Header
+        navigate={setRoute}
+        theme={theme}
+        toggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+      />
       <main>{renderPage()}</main>
-      {route !== "admin" && <Footer navigate={setRoute} />}
+      <Footer navigate={setRoute} />
     </>
   );
 };

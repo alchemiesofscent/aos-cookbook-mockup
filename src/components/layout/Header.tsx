@@ -66,21 +66,7 @@ export const Header = ({
         >
           {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
         </button>
-        <div
-          className="nav-item"
-          onClick={() => navigate("admin")}
-          style={{
-            borderLeft: "1px solid var(--color-border-strong)",
-            paddingLeft: "1.5rem",
-            marginLeft: "0.5rem",
-            color: "var(--color-amber-dark)",
-            fontWeight: 600,
-          }}
-        >
-          Admin
-        </div>
       </nav>
     </header>
   );
 };
-
