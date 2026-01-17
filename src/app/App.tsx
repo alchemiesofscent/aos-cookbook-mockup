@@ -35,6 +35,7 @@ import { SourcesPage } from "../pages/workshop/SourcesPage";
 import { TermsPage } from "../pages/workshop/TermsPage";
 import { WorkshopEntityDetailPage } from "../pages/workshop/WorkshopEntityDetailPage";
 import { WorkshopPage } from "../pages/workshop/WorkshopPage";
+import { ProcessesPage } from "../pages/workshop/ProcessesPage";
 import {
   COMMIPHORA_DATA,
   DIOSCORIDES_DETAIL,
@@ -351,33 +352,6 @@ const IdentificationPage = ({ navigate }) => {
       <div className="product-section" style={{borderBottom: 'none'}}>
         <h2>NOTES</h2>
         <p style={{maxWidth: '800px'}}>{IDENTIFICATION_DATA.notes}</p>
-      </div>
-    </div>
-  );
-};
-
-const ProcessesPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
-  const processes = [...(db.masterProcesses ?? [])].sort((a, b) => a.name.localeCompare(b.name));
-
-  return (
-    <div className="page-container">
-      <div className="back-link" onClick={() => navigate("workshop")}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
-      <div className="archive-intro">
-        <h1>PROCESSES</h1>
-        <p>Techniques for extracting and compounding aromatics.</p>
-      </div>
-      <div className="workshop-grid">
-        {processes.map((process) => (
-          <div key={process.id} className="workshop-card" onClick={() => navigate(`workshop-process:${process.id}`)}>
-            <div className="card-top">
-              <h3>{process.name}</h3>
-              <span className="type-tag">{process.type || "Process"}</span>
-            </div>
-            <div className="def">{process.description || "No description yet."}</div>
-          </div>
-        ))}
       </div>
     </div>
   );
