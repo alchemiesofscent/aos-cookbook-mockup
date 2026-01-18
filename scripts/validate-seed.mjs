@@ -179,6 +179,153 @@ const validateHomepageCuratedTargets = async (errors, seed) => {
   }
 };
 
+const validateRecipeAnnotationLinkRoutes = (errors, seed) => {
+  const recipesById = new Set((seed.recipes ?? []).map((r) => r?.id).filter(Boolean));
+  const worksById = new Set((seed.masterWorks ?? []).map((w) => w?.id).filter(Boolean));
+  const peopleById = new Set((seed.masterPeople ?? []).map((p) => p?.id).filter(Boolean));
+
+  const termsById = new Set((seed.ancientIngredients ?? []).map((t) => t?.id).filter(Boolean));
+  const identificationsById = new Set((seed.identifications ?? []).map((i) => i?.id).filter(Boolean));
+  const productsById = new Set((seed.ingredientProducts ?? []).map((p) => p?.id).filter(Boolean));
+  const sourcesById = new Set((seed.materialSources ?? []).map((s) => s?.id).filter(Boolean));
+
+  const workshopIngredientsById = new Set((seed.masterIngredients ?? []).map((t) => t?.id).filter(Boolean));
+  const workshopToolsById = new Set((seed.masterTools ?? []).map((t) => t?.id).filter(Boolean));
+  const workshopProcessesById = new Set((seed.masterProcesses ?? []).map((p) => p?.id).filter(Boolean));
+
+  const simplePages = new Set([
+    "home",
+    "library",
+    "archive",
+    "works",
+    "people",
+    "about",
+    "project",
+    "team",
+    "news",
+    "workshop",
+    "materials",
+    "processes",
+    "tools",
+    "experiments",
+    "terms",
+    "ingredients",
+    "sources",
+    "search",
+    "studio",
+  ]);
+
+  const legacyPrefixes = [
+    "recipe_",
+    "work_",
+    "person_",
+    "ancient-term_",
+    "identification_",
+    "ingredient-product_",
+    "material-source_",
+    "workshop-entity_",
+    "workshop-ingredient_",
+    "workshop-tool_",
+    "workshop-process_",
+  ];
+
+  const validateRouteTargetExists = (entityId, field, route, kind, id) => {
+    const exists =
+      (kind === "recipe" && recipesById.has(id)) ||
+      (kind === "work" && worksById.has(id)) ||
+      (kind === "person" && peopleById.has(id)) ||
+      (kind === "ancient-term" && termsById.has(id)) ||
+      (kind === "identification" && identificationsById.has(id)) ||
+      (kind === "ingredient-product" && productsById.has(id)) ||
+      (kind === "material-source" && sourcesById.has(id)) ||
+      (kind === "workshop-ingredient" && workshopIngredientsById.has(id)) ||
+      (kind === "workshop-tool" && workshopToolsById.has(id)) ||
+      (kind === "workshop-process" && workshopProcessesById.has(id));
+
+    if (!exists) {
+      addError(errors, SEED_PATH, entityId, field, `unresolved route target (${route})`);
+    }
+  };
+
+  for (const recipe of seed.recipes ?? []) {
+    const recipeId = recipe?.id ?? "(missing-id)";
+    const annotations = recipe?.annotations ?? {};
+    if (!annotations || typeof annotations !== "object") continue;
+
+    for (const [annotationId, annotation] of Object.entries(annotations)) {
+      if (!annotation || typeof annotation !== "object") continue;
+      const links = annotation.links ?? [];
+      if (!Array.isArray(links)) continue;
+
+      for (let linkIdx = 0; linkIdx < links.length; linkIdx += 1) {
+        const link = links[linkIdx];
+        if (!link || typeof link !== "object") continue;
+
+        const route = link.route;
+        const entityId = `recipe:${recipeId}:annotation:${annotationId}`;
+        const field = `annotations.${annotationId}.links[${linkIdx}].route`;
+
+        if (typeof route !== "string" || route.trim().length === 0) {
+          addError(errors, SEED_PATH, entityId, field, "missing/invalid route string");
+          continue;
+        }
+
+        if (legacyPrefixes.some((p) => route.startsWith(p))) {
+          addError(errors, SEED_PATH, entityId, field, `legacy route string (${route})`);
+          continue;
+        }
+
+        if (simplePages.has(route)) continue;
+
+        let match;
+
+        match = /^recipe:([^:]+)$/.exec(route);
+        if (match) {
+          validateRouteTargetExists(entityId, field, route, "recipe", match[1]);
+          continue;
+        }
+        match = /^work:([^:]+)$/.exec(route);
+        if (match) {
+          validateRouteTargetExists(entityId, field, route, "work", match[1]);
+          continue;
+        }
+        match = /^person:([^:]+)$/.exec(route);
+        if (match) {
+          validateRouteTargetExists(entityId, field, route, "person", match[1]);
+          continue;
+        }
+
+        match = /^interpretation:(ancient-term|identification|ingredient-product|material-source):([^:]+)$/.exec(route);
+        if (match) {
+          validateRouteTargetExists(entityId, field, route, match[1], match[2]);
+          continue;
+        }
+        match = /^(ancient-term|identification|ingredient-product|material-source):([^:]+)$/.exec(route);
+        if (match) {
+          validateRouteTargetExists(entityId, field, route, match[1], match[2]);
+          continue;
+        }
+
+        match = /^workshop-entity:(ingredient|tool|process):([^:]+)$/.exec(route);
+        if (match) {
+          const kind = match[1] === "ingredient" ? "workshop-ingredient" : match[1] === "tool" ? "workshop-tool" : "workshop-process";
+          validateRouteTargetExists(entityId, field, route, kind, match[2]);
+          continue;
+        }
+
+        match = /^workshop-(ingredient|tool|process):([^:]+)$/.exec(route);
+        if (match) {
+          const kind = match[1] === "ingredient" ? "workshop-ingredient" : match[1] === "tool" ? "workshop-tool" : "workshop-process";
+          validateRouteTargetExists(entityId, field, route, kind, match[2]);
+          continue;
+        }
+
+        addError(errors, SEED_PATH, entityId, field, `invalid route (${route})`);
+      }
+    }
+  }
+};
+
 const main = async () => {
   const errors = [];
 
@@ -209,6 +356,7 @@ const main = async () => {
   validateCombinedSegments(errors, seed);
   validateIngredientAncientTermLinks(errors, seed);
   validateIdentifications(errors, seed);
+  validateRecipeAnnotationLinkRoutes(errors, seed);
   await validateHomepageCuratedTargets(errors, seed);
 
   if (errors.length > 0) {
