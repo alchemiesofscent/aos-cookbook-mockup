@@ -10,7 +10,7 @@ This project is a published corpus. Releases are about **scholarly stability** (
 If/when you add explicit dataset exports, also maintain:
 
 - `public/data/aos-dataset.json` (or similar stable export path)
-- `public/data/aos-dataset.version.json` (machine-readable version metadata)
+- `public/data/version.json` (machine-readable dataset version metadata)
 
 ## Release Types
 
@@ -25,6 +25,7 @@ If/when you add explicit dataset exports, also maintain:
 
 2. **Run validation**
    - `npm run build`
+   - `npm run validate:seed`
    - Ensure no dangling references in dataset (add/extend validation scripts as they appear).
 
 3. **Update `CHANGELOG.md`**
@@ -56,7 +57,6 @@ If you want machine-readable version info, keep a small JSON file like:
 ```json
 {
   "datasetVersion": "1.0.0",
-  "siteVersion": "1.0.0",
   "releasedAt": "2026-03-01",
   "doi": null,
   "license": "CC-BY-4.0",

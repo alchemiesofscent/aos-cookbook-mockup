@@ -14,7 +14,7 @@ This file is a concise snapshot of where the project stands and what has been de
 - The project uses stable `id` fields plus persistent `urn:*` identifiers for citability.
 - The interpretation chain exists as first-class collections:
   - `Ancient Term` (`ancientIngredients`) → `Identification` (`identifications`) → `Ingredient Product` (`ingredientProducts`) → `Material Source` (`materialSources`)
-- Recipes link **only** to Ancient Terms via `RecipeItem.ancientTermId` (pins provide bridge during transition).
+- Recipes link **only** to Ancient Terms via `RecipeItem.ancientTermId` (pins live in `public/data/seed.json` as `db.pins`).
 
 ## Routing (Current Conventions)
 
@@ -80,7 +80,7 @@ This file is a concise snapshot of where the project stands and what has been de
 
 ## Open Items / Next Steps
 
-- Add **footer versioning** (Dataset version + Site version) and a lightweight version metadata file (e.g. `public/data/version.json`), then display in footer for citability.
+- Maintain dataset version metadata in `public/data/version.json` and keep it visible in the footer.
 - Strengthen FAIR/citability deliverables:
   - consistent “Cite this” block per entity
   - JSON-LD exports per entity type

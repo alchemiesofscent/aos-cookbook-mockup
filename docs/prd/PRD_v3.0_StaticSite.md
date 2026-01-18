@@ -116,11 +116,10 @@ No in-app editor in the static site; editing is via JSON files (`public/data/see
 
 Versioning starts now.
 
-- Site version follows SemVer (see `docs/engineering/versioning.md`).
-- Dataset version is tracked separately and displayed alongside the site version.
+- Dataset version follows SemVer (see `docs/engineering/versioning.md`).
 - DOI minting policy: mint DOIs for major and minor releases, not patches.
 
-MVP adds a lightweight version metadata file (public/data/version.json) and displays Site version plus Dataset version in the footer for citability.
+MVP adds a lightweight version metadata file (`public/data/version.json`) and displays the Dataset version in the footer for citability.
 
 ## 14. MVP scope
 
@@ -163,7 +162,7 @@ Core UX
 
 Citability and exports
 
-- Footer shows Site version and Dataset version
+- Footer shows Dataset version
 - Cite this block exists for each key entity type
 - JSON-LD export exists for each key entity type
 - Dataset export artefact plus version.json exists and is downloadable
@@ -175,7 +174,7 @@ Quality
 
 ## 17. Open items (next steps)
 
-- Add version.json and show Site plus Dataset version in footer
+- Maintain `public/data/version.json` and keep the Dataset version visible in the footer
 - Strengthen FAIR/citability deliverables: consistent Cite this blocks, JSON-LD exports per entity type, and dataset export artefacts
 - Continue hardening link invariants and add automated validation
 - Future: add scent profiles to Ingredient Product and enable filtering by scent families/notes

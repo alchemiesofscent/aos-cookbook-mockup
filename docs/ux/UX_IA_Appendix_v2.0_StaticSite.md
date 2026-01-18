@@ -82,7 +82,7 @@ Footer includes:
 
 - Licensing summary
 - Institutional credit
-- Site version and Dataset version (from public/data/version.json)
+- Dataset version (from public/data/version.json)
 
 ## 4. Page patterns
 

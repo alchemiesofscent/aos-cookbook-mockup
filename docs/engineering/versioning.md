@@ -25,6 +25,8 @@ The site version may track the dataset version 1:1 for simplicity. If separated 
 - Site version reflects UI/UX + implementation changes
 - Dataset version reflects scholarly data + schema changes
 
+For the static-site MVP, the only published version surface is the dataset version in `public/data/version.json`.
+
 ## Version Meaning (Dataset)
 
 ### MAJOR (1.0.0, 2.0.0…): breaking scholarly compatibility
@@ -73,4 +75,3 @@ Mint DOIs for **MAJOR** and **MINOR** releases (e.g. `1.0.0`, `1.1.0`), not for 
 
 - **DOI releases:** durable scholarly snapshots
 - **Patch tags:** quick fixes, rolled up into the next DOI release
-

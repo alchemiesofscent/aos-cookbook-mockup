@@ -417,9 +417,9 @@ This approach supports:
 
 ### 8.1 Pins during transition
 
-Target state: pinned resolution data lives in the dataset (for example `RecipeAnnotation.pinned.*` in `public/data/seed.json`) so it is exportable and citable.
+Target state: pinned resolution data lives in the dataset (for example `seed.pins.*` in `public/data/seed.json`) so it is exportable and citable.
 
-Temporary bridge (allowed pre-1.0): a code-level pins map may be used to backfill missing pins at runtime, but it must not rely on string matching and it must be migrated into `seed.json` before 1.0.
+The static-site MVP stores pins in `public/data/seed.json` (no code-level pins map).
 
 ## 9. Version metadata
 
@@ -429,14 +429,13 @@ Recommended shape:
 
 ```json
 {
-  "siteVersion": "0.9.0",
-  "datasetVersion": "0.9.0",
-  "releasedAt": "2026-01-16",
-  "doi": null
+  "datasetVersion": "0.1.0",
+  "releasedAt": "2026-01-18",
+  "schemaVersion": "v2"
 }
 ```
 
-The footer displays siteVersion plus datasetVersion.
+The footer displays datasetVersion.
 
 ## 10. Exports
 

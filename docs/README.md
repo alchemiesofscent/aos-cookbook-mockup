@@ -17,6 +17,8 @@
 - Studio preview notes: `docs/engineering/studio-preview.md`
 - Release process: `docs/engineering/release.md`
 - Versioning policy: `docs/engineering/versioning.md`
+ - Dataset version metadata: `public/data/version.json`
+ - Dataset validator: `scripts/validate-seed.mjs` (`npm run validate:seed`)
 
 ## Archive policy
 Anything superseded (older versions, prior evaluations, retired plans) lives in `docs/archive/`.

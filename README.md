@@ -3,6 +3,7 @@
 A small React/Vite static-site-friendly app for reading ancient scent recipes with a stable, pre-segmented annotated view and a data model that links ancient terms → identifications → modern materials.
 
 Data source: the site seeds from `public/data/seed.json` (persisted per-browser in localStorage). There is no in-app editor in the static-site MVP; editing is via JSON + tooling/scripts.
+Dataset version metadata lives in `public/data/version.json`. Validate dataset integrity locally with `npm run validate:seed`.
 
 ## Docs
 
