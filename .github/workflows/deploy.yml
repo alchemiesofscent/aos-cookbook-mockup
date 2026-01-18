@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main", "master", "pages-preview"]
+  pull_request:
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
@@ -31,6 +33,9 @@ jobs:
 
       - name: Guardrails
         run: bash scripts/guardrails.sh
+
+      - name: Validate seed
+        run: npm run validate:seed
 
       - name: Build
         env:
