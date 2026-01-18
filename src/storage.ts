@@ -1,5 +1,4 @@
 import { DatabaseState, MasterEntity, Recipe, RecipeItem } from "./types";
-import { recipeItemToAncientTermId } from "./content/pins";
 
 const STORAGE_KEYS = {
   RECIPES: 'AOS_RECIPES',
@@ -12,6 +11,7 @@ const STORAGE_KEYS = {
   INGREDIENT_PRODUCTS: "AOS_INGREDIENT_PRODUCTS",
   MATERIAL_SOURCES: "AOS_MATERIAL_SOURCES",
   IDENTIFICATIONS: "AOS_IDENTIFICATIONS",
+  PINS: "AOS_PINS",
   DB_VERSION: 'AOS_DB_VERSION',
   DB_INITIALIZED: 'AOS_DB_INITIALIZED'
 };
@@ -29,6 +29,7 @@ const writeDatabaseToStorage = (data: DatabaseState) => {
   localStorage.setItem(STORAGE_KEYS.INGREDIENT_PRODUCTS, JSON.stringify((data as any).ingredientProducts ?? []));
   localStorage.setItem(STORAGE_KEYS.MATERIAL_SOURCES, JSON.stringify((data as any).materialSources ?? []));
   localStorage.setItem(STORAGE_KEYS.IDENTIFICATIONS, JSON.stringify((data as any).identifications ?? []));
+  localStorage.setItem(STORAGE_KEYS.PINS, JSON.stringify((data as any).pins ?? {}));
   localStorage.setItem(STORAGE_KEYS.DB_VERSION, CURRENT_DB_VERSION);
   localStorage.setItem(STORAGE_KEYS.DB_INITIALIZED, "true");
 };
@@ -46,6 +47,7 @@ export const StorageAdapter = {
       ingredientProducts: JSON.parse(localStorage.getItem(STORAGE_KEYS.INGREDIENT_PRODUCTS) || "[]"),
       materialSources: JSON.parse(localStorage.getItem(STORAGE_KEYS.MATERIAL_SOURCES) || "[]"),
       identifications: JSON.parse(localStorage.getItem(STORAGE_KEYS.IDENTIFICATIONS) || "[]"),
+      pins: JSON.parse(localStorage.getItem(STORAGE_KEYS.PINS) || "{}"),
     };
   },
 
@@ -118,11 +120,12 @@ export const loadState = async (): Promise<DatabaseState> => {
 
   const backfillAncientTermIds = (db: DatabaseState): boolean => {
     let changed = false;
+    const pins = db.pins?.recipeItemToAncientTermId ?? {};
     for (const recipe of db.recipes ?? []) {
       for (const item of recipe.items ?? []) {
         if (item.type !== "ingredient") continue;
         if ((item as RecipeItem).ancientTermId) continue;
-        const pinned = recipeItemToAncientTermId[`${recipe.id}:${item.id}`];
+        const pinned = pins[`${recipe.id}:${item.id}`] ?? pins[item.id];
         if (pinned) {
           (item as RecipeItem).ancientTermId = pinned;
           changed = true;
@@ -190,6 +193,33 @@ export const loadState = async (): Promise<DatabaseState> => {
     mergeArrayById("ingredientProducts");
     mergeArrayById("materialSources");
     mergeArrayById("identifications");
+
+    const currentPins = (db as any).pins;
+    const seedPins = (seed as any).pins;
+    if (!currentPins || typeof currentPins !== "object") {
+      (db as any).pins = seedPins && typeof seedPins === "object" ? seedPins : {};
+      changed = true;
+    } else if (seedPins && typeof seedPins === "object") {
+      const mergePinsMap = (mapKey: string) => {
+        const currentMap = currentPins[mapKey];
+        const seedMap = seedPins[mapKey];
+        if (!currentMap || typeof currentMap !== "object") {
+          currentPins[mapKey] = seedMap && typeof seedMap === "object" ? seedMap : {};
+          changed = true;
+          return;
+        }
+        if (!seedMap || typeof seedMap !== "object") return;
+        for (const [k, v] of Object.entries(seedMap)) {
+          if (!(k in currentMap)) {
+            currentMap[k] = v;
+            changed = true;
+          }
+        }
+      };
+
+      mergePinsMap("recipeItemToAncientTermId");
+      mergePinsMap("recipeAnnotationToAncientTermId");
+    }
     return changed;
   };
 

@@ -84,23 +84,29 @@ const validateCombinedSegments = (errors, seed) => {
 
 const validateIngredientAncientTermLinks = (errors, seed) => {
   const ancientIds = new Set((seed.ancientIngredients ?? []).map((t) => t.id).filter(Boolean));
+  const pins = seed.pins?.recipeItemToAncientTermId ?? {};
 
   for (const recipe of seed.recipes ?? []) {
     const recipeId = recipe?.id ?? "(missing-id)";
     for (const item of recipe?.items ?? []) {
       if (!item || typeof item !== "object") continue;
       if (item.type !== "ingredient") continue;
-      if (!item.ancientTermId) {
-        addError(errors, SEED_PATH, `recipe:${recipeId}:item:${item.id ?? "(missing-id)"}`, "ancientTermId", "missing ancientTermId");
+      const entityId = `recipe:${recipeId}:item:${item.id ?? "(missing-id)"}`;
+      const pinnedKey = `${recipeId}:${item.id}`;
+      const pinnedTermId = pins[pinnedKey] ?? pins[item.id];
+      const resolvedTermId = item.ancientTermId ?? pinnedTermId;
+
+      if (!resolvedTermId) {
+        addError(errors, SEED_PATH, entityId, "ancientTermId", "missing ancientTermId (and no pin entry)");
         continue;
       }
-      if (!ancientIds.has(item.ancientTermId)) {
+      if (!ancientIds.has(resolvedTermId)) {
         addError(
           errors,
           SEED_PATH,
-          `recipe:${recipeId}:item:${item.id ?? "(missing-id)"}`,
-          "ancientTermId",
-          `unknown ancientTermId (${item.ancientTermId})`,
+          entityId,
+          item.ancientTermId ? "ancientTermId" : `pins.recipeItemToAncientTermId[${JSON.stringify(pinnedKey)}]`,
+          `unknown ancientTermId (${resolvedTermId})`,
         );
       }
     }
@@ -219,4 +225,3 @@ main().catch((e) => {
   console.error(`validate-seed.mjs\t(file)\t(runtime)\t${e.message}`);
   process.exit(1);
 });
-

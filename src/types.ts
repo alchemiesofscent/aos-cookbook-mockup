@@ -147,4 +147,8 @@ export interface DatabaseState {
   ingredientProducts: IngredientProduct[];
   materialSources: MaterialSource[];
   identifications: Identification[];
+  pins?: {
+    recipeItemToAncientTermId?: Record<string, string>;
+    recipeAnnotationToAncientTermId?: Record<string, string>;
+  };
 }

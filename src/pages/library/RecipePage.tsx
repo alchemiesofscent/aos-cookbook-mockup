@@ -27,7 +27,7 @@ export const RecipePage = ({
   const annotations = recipe?.annotations ?? {};
   const activeAnnotation = activeAnnotationId ? (annotations as any)[activeAnnotationId] : null;
   const activeAnnotationAncientTermId =
-    recipe && activeAnnotationId ? resolveAncientTermIdForRecipeAnnotation(recipe.id, activeAnnotationId) : null;
+    recipe && activeAnnotationId ? resolveAncientTermIdForRecipeAnnotation(db, recipe.id, activeAnnotationId) : null;
   const processItems = (recipe?.items ?? []).filter((item) => item.type === "process") as RecipeItem[];
   
   const openInStudio = () => {
@@ -170,7 +170,7 @@ export const RecipePage = ({
                     className="ing-link"
                     onClick={() => {
                       if (!recipe) return;
-                      const aiId = resolveAncientTermIdForRecipeItem(recipe.id, ing);
+                      const aiId = resolveAncientTermIdForRecipeItem(db, recipe.id, ing);
                       if (aiId) {
                         navigate(`ancient-term:${aiId}`);
                         return;
@@ -265,4 +265,3 @@ export const RecipePage = ({
     </div>
   );
 };
-

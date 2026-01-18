@@ -1,12 +1,17 @@
-import type { RecipeItem } from "../types";
-import { recipeAnnotationToAncientTermId, recipeItemToAncientTermId } from "../content/pins";
+import type { DatabaseState, RecipeItem } from "../types";
 
-export const resolveAncientTermIdForRecipeItem = (recipeId: string, item: RecipeItem): string | null => {
+export const resolveAncientTermIdForRecipeItem = (db: DatabaseState, recipeId: string, item: RecipeItem): string | null => {
   if (item.type !== "ingredient") return null;
   if (item.ancientTermId) return item.ancientTermId;
-  return recipeItemToAncientTermId[`${recipeId}:${item.id}`] ?? null;
+  const pins = db.pins?.recipeItemToAncientTermId ?? {};
+  return pins[`${recipeId}:${item.id}`] ?? pins[item.id] ?? null;
 };
 
-export const resolveAncientTermIdForRecipeAnnotation = (recipeId: string, annotationId: string): string | null => {
-  return recipeAnnotationToAncientTermId[`${recipeId}:${annotationId}`] ?? null;
+export const resolveAncientTermIdForRecipeAnnotation = (
+  db: DatabaseState,
+  recipeId: string,
+  annotationId: string,
+): string | null => {
+  const pins = db.pins?.recipeAnnotationToAncientTermId ?? {};
+  return pins[`${recipeId}:${annotationId}`] ?? pins[annotationId] ?? null;
 };
