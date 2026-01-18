@@ -87,3 +87,9 @@ This file is a concise snapshot of where the project stands and what has been de
   - dataset export artifact(s) + version metadata
 - Add scent profiles to `IngredientProduct` and enable filtering by scent families/notes (future).
 - Continue hardening link invariants (no dangling IDs; stable IDs; validation script).
+
+## Next milestones
+
+- Add/extend dataset integrity checks (`npm run validate:seed`) as schema evolves.
+- Keep `public/data/version.json` in sync with dataset releases (update `CHANGELOG.md`).
+- The full historical evaluation/roadmap is archived at `docs/archive/roadmap/EVALUATION-AND-ROADMAP.md`.

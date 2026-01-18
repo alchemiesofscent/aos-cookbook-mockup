@@ -1,5 +1,7 @@
 # GitHub Pages + Storage-Backed Data Plan (no implementation yet)
 
+Note: This is the canonical deploy doc.
+
 ## Goals
 - Deploy the Vite + React app to GitHub Pages.
 - Replace any dummy data in `src/main.tsx` with data loaded from `src/storage.ts`, `src/units.ts`, and `src/types.ts`.
