@@ -3,6 +3,7 @@
 Where we are now
 - Static dataset site (React/Vite) with no in-app editor.
 - Canonical data: `public/data/seed.json`.
+- localStorage is runtime overlay only; `seed.json` is canonical; no in-app editor.
 - Dataset version metadata: `public/data/version.json`.
 - Dataset validation: `npm run validate:seed` (seed + version + link integrity checks).
 - Pins live in `public/data/seed.json` (`db.pins`) for exportable joins.
@@ -16,11 +17,10 @@ v0.1 definition of done
 
 Next milestones
 - Add CI step to run `npm run validate:seed` before build/deploy.
-- Extend `validate:seed` to check route targets in curated content (homepage routes).
 - Add export artefact(s) (downloadable dataset JSON) labelled by `public/data/version.json`.
 - Add “Cite this” blocks for core entities (recipe, term, identification, product, source, work, person).
 - Add JSON-LD exports for the same entity set.
-- Add link/invariant checks for `combinedSegments` coverage and annotation link targets.
+- Extend `validate:seed` to validate annotation link route targets (recipe annotation `links[].route`).
 - Expand real recipe corpus (add 3–5 fully curated recipes with combinedSegments + annotations).
 - Mobile QA pass for recipe reading + notes panel (annotated mode).
-
+- Docs hygiene: quarterly drift audit; move superseded docs to `docs/archive/`; keep `docs/README.md` linking only to current docs.

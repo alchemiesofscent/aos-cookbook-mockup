@@ -7,6 +7,7 @@
 
 ## Project status (current)
 - Status summary: `docs/status/STATUS-SUMMARY.md`
+- Roadmap (current plan): `docs/roadmap/ROADMAP.md`
 
 ## Engineering notes (current)
 - Annotations (behavior + data contract): `docs/engineering/annotations.md`
