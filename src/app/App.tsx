@@ -60,10 +60,14 @@ const App = ({
   db,
   theme,
   setTheme,
+  datasetVersionInfo,
+  datasetVersionLoaded,
 }: {
   db: DatabaseState;
   theme: ThemeMode;
   setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
+  datasetVersionInfo: { datasetVersion: string; releasedAt: string; schemaVersion: string } | null;
+  datasetVersionLoaded: boolean;
 }) => {
   const [route, setRoute] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
@@ -167,7 +171,7 @@ const App = ({
         toggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
       />
       <main>{renderPage()}</main>
-      <Footer navigate={setRoute} />
+      <Footer navigate={setRoute} datasetVersionInfo={datasetVersionInfo} datasetVersionLoaded={datasetVersionLoaded} />
     </>
   );
 };

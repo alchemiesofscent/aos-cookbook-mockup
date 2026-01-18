@@ -7,9 +7,17 @@ import App from "../App";
 type ThemeMode = "light" | "dark";
 const THEME_STORAGE_KEY = "AOS_THEME";
 
+type DatasetVersionInfo = {
+  datasetVersion: string;
+  releasedAt: string;
+  schemaVersion: string;
+};
+
 const Bootstrap = () => {
   const [db, setDb] = useState<DatabaseState | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [datasetVersionInfo, setDatasetVersionInfo] = useState<DatasetVersionInfo | null>(null);
+  const [datasetVersionLoaded, setDatasetVersionLoaded] = useState(false);
   const [theme, setTheme] = useState<ThemeMode>(() => {
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY);
@@ -27,6 +35,27 @@ const Bootstrap = () => {
 
   useEffect(() => {
     let isMounted = true;
+
+    const loadDatasetVersionInfo = async () => {
+      try {
+        const base = import.meta.env.BASE_URL || "/";
+        const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+        const versionUrl = `${normalizedBase}data/version.json`;
+        const response = await fetch(versionUrl, { cache: "no-cache" });
+        if (!response.ok) return;
+        const parsed = (await response.json()) as DatasetVersionInfo;
+        if (!parsed?.datasetVersion || !parsed?.releasedAt || !parsed?.schemaVersion) return;
+        if (!isMounted) return;
+        setDatasetVersionInfo(parsed);
+      } catch {
+      } finally {
+        if (!isMounted) return;
+        setDatasetVersionLoaded(true);
+      }
+    };
+
+    loadDatasetVersionInfo();
+
     loadState()
       .then((loaded) => {
         if (!isMounted) return;
@@ -62,8 +91,15 @@ const Bootstrap = () => {
     );
   }
 
-  return <App db={db} theme={theme} setTheme={setTheme} />;
+  return (
+    <App
+      db={db}
+      theme={theme}
+      setTheme={setTheme}
+      datasetVersionInfo={datasetVersionInfo}
+      datasetVersionLoaded={datasetVersionLoaded}
+    />
+  );
 };
 
 export default Bootstrap;
-

@@ -1,6 +1,14 @@
 import React from "react";
 
-export const Footer = ({ navigate }: { navigate: (route: string) => void }) => (
+export const Footer = ({
+  navigate,
+  datasetVersionInfo,
+  datasetVersionLoaded,
+}: {
+  navigate: (route: string) => void;
+  datasetVersionInfo: { datasetVersion: string; releasedAt: string; schemaVersion: string } | null;
+  datasetVersionLoaded: boolean;
+}) => (
   <footer className="site-footer">
     <div className="footer-columns">
       <div className="col">
@@ -58,9 +66,15 @@ export const Footer = ({ navigate }: { navigate: (route: string) => void }) => (
       </div>
     </div>
     <div className="footer-bottom">
+      {datasetVersionLoaded ? (
+        <p>
+          {datasetVersionInfo
+            ? `Dataset v${datasetVersionInfo.datasetVersion} • Released ${datasetVersionInfo.releasedAt}`
+            : "Dataset version unavailable"}
+        </p>
+      ) : null}
       <p>Content: CC-BY-4.0 • Data: CC0-1.0 • Code: GPL-3.0</p>
       <p>Institute of Philosophy, Czech Academy of Sciences</p>
     </div>
   </footer>
 );
-
