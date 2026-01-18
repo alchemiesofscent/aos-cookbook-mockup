@@ -1,6 +1,6 @@
-# CMS Plan — “Scriptorium” (AdminConsole Parity) — v0.1
+# CMS Plan — “Scriptorium” (Future editorial tool) — v0.2
 
-**Repo context:** This repo is a React/Vite mock. `src/pages/admin/AdminConsole.tsx` is a localStorage-backed mini-CMS with a simple sidebar, searchable lists, a multi-tab recipe editor, inline creation of related records, JSON import/export, and a copy/paste “LLM extraction” workflow (no API calls required).
+**Repo context:** This repo is a React/Vite mock. An earlier localStorage-backed editor prototype lived in this repo, but it was removed as part of the static-site MVP scope (commit `547d639`). This document describes a future CMS/editor (“Scriptorium”) inspired by that prototype’s workflows.
 
 **Implementation target:** WordPress 6.4+ on Hetzner (Ubuntu 22.04, PHP 8.2, MySQL 8) with **ACF Pro only** (no paid add-ons).
 
@@ -9,8 +9,8 @@
 ## 0) Goals, Non-goals, Principles
 
 ### Goals (MVP)
-- **Recreate the simplicity and clarity of `src/pages/admin/AdminConsole.tsx`** as the primary editorial interface for scholars (you + occasional grad student).
-- Preserve **all** current AdminConsole behaviors:
+- Provide a scholar-friendly editorial interface (“Scriptorium”) inspired by the removed prototype editor’s workflows.
+- Preserve the core prototype workflows:
   - Sidebar modules, searchable list views, Create/Edit flows.
   - Multi-tab Recipe editor: `Metadata`, `Text`, `Extraction`, `LLM Assistant`.
   - Inline creation of related records from within an edit flow.
@@ -43,7 +43,7 @@
 - Easier to maintain long-term if editors are WP-familiar.
 
 **Cons**
-- Hard to match `src/pages/admin/AdminConsole.tsx` clarity:
+- Hard to match the removed prototype editor’s clarity:
   - Inline “create related record” flows are clunky (new tab/window, relationship field UX limits).
   - Multi-tab editor + bulk “extraction rows” are awkward in ACF repeaters.
   - Split-pane preview is non-trivial without heavy customization.
@@ -51,11 +51,11 @@
 
 **Best fit when:** You’re OK with WP-native editing UX and mainly need the data model + templates.
 
-### Option B — “Scriptorium” React App embedded in `wp-admin` (AdminConsole-like UX)
-**What it is:** A custom WP plugin adds a top-level admin menu (Scriptorium) whose page loads a bundled React app that mirrors `src/pages/admin/AdminConsole.tsx`. Data persists to WordPress CPTs/ACF via authenticated WP REST endpoints.
+### Option B — “Scriptorium” React App embedded in `wp-admin` (prototype-like UX)
+**What it is:** A custom WP plugin adds a top-level admin menu (Scriptorium) whose page loads a bundled React app that mirrors the removed prototype editor’s workflows. Data persists to WordPress CPTs/ACF via authenticated WP REST endpoints.
 
 **Pros**
-- Closest to the **AdminConsole simplicity** you want (same mental model, same flows).
+- Closest to the removed prototype editor’s simplicity (same mental model, same flows).
 - Split-pane preview is straightforward (iframe with WP preview URL).
 - Can implement copy/paste JSON extraction exactly like the mock.
 - Can enforce validations, “draft-only auto-create,” and de-cluttered UX centrally.
@@ -67,7 +67,7 @@
 
 **Feasibility on your stack:** Yes. WP REST API + cookie/nonce auth works well for an admin-embedded SPA on WP 6.4+/PHP 8.2. No external network calls needed.
 
-**Recommendation:** **Option B** for MVP, because the explicit requirement is “implement the simplicity and clarity of the CMS in `src/pages/admin/AdminConsole.tsx`,” and you want split-pane preview and “inline create” flows.
+**Recommendation:** **Option B** for MVP, because it best matches the prototype-inspired UX (split-pane preview + “inline create” flows + copy/paste extraction).
 
 ---
 
@@ -128,10 +128,10 @@ This preserves old URNs even if permalinks/slugs change later.
 
 ---
 
-## 4) “Scriptorium” CMS UX (AdminConsole Parity Mapping)
+## 4) “Scriptorium” CMS UX (Prototype-Inspired Mapping)
 
 ### Primary navigation (left sidebar)
-Mirror AdminConsole modules, updated to the renamed model:
+Mirror the prototype editor’s modules, updated to the renamed model:
 - Dashboard (counts + data tools)
 - Recipes
 - Works
@@ -151,7 +151,7 @@ For each module:
 - Actions: Create, Edit, Delete (with confirmation)
 
 ### Create/Edit modals (for master records)
-Replicate AdminConsole “master modal” patterns:
+Replicate the prototype editor’s “master modal” patterns:
 - Auto slug generation from transliteration/name
 - URN display (draft: “will be assigned on publish”; published: immutable)
 - Optional external links repeater for Works/People/Sources
@@ -224,7 +224,7 @@ Implement as ACF repeater (or custom table later if needed):
   - `role`
   - `note` / `annotation` (future)
 
-**Decision point:** whether to keep a single unified `items[]` repeater (AdminConsole-like) or split into `ingredients[]`, `tools[]`, `processes[]` like the tech spec. Unified repeater matches the mock and simplifies editor code; public rendering can regroup by type.
+**Decision point:** whether to keep a single unified `items[]` repeater (prototype-like) or split into `ingredients[]`, `tools[]`, `processes[]` like the tech spec. Unified repeater matches the prototype and simplifies editor code; public rendering can regroup by type.
 
 ---
 
@@ -251,7 +251,7 @@ Security:
 
 ---
 
-## 7) Import/Export (AdminConsole parity, scholar-friendly)
+## 7) Import/Export (prototype parity, scholar-friendly)
 
 ### Export JSON
 - Single JSON containing all CPT records + relationships by URN (not numeric IDs).
@@ -308,7 +308,7 @@ Goal: propose annotations for words matching master records.
 - Implement master modal create/edit flows with inline create callback support.
 
 ### Slice 4 — Recipe Editor + LLM Copy/Paste + Draft Auto-create
-- Multi-tab recipe editor matching `src/pages/admin/AdminConsole.tsx`.
+- Multi-tab recipe editor matching the prototype editor’s workflow.
 - Prompt generator + JSON apply workflow.
 - Auto-create missing masters as **Draft** with a review queue.
 
@@ -335,7 +335,7 @@ Goal: propose annotations for words matching master records.
 ---
 
 ## 11) Risks & Mitigations
-- **Complexity of mapping AdminConsole “unified items” to ACF:** mitigate by keeping a unified items repeater internally and grouping for display.
+- **Complexity of mapping the prototype “unified items” to ACF:** mitigate by keeping a unified items repeater internally and grouping for display.
 - **Performance of large reverse lookups (identification chain):** mitigate with caching/transients; keep archives paginated; consider lookup tables post-MVP.
 - **Annotation anchoring fragility:** mitigate by starting with occurrence-based anchors and adding TEI alignment later.
 

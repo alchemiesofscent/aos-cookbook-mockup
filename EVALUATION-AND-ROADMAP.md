@@ -192,7 +192,7 @@ This React/TypeScript mockup represents **~70% of a complete MVP site**. The fou
 - ✅ Good accessibility (semantic HTML, ARIA labels, keyboard support)
 - ✅ Responsive design foundations
 - ✅ Dark theme with CSS custom properties
-- ✅ AdminConsole for editing (dev mode)
+- ✅ Static-site editing workflow (edit `public/data/seed.json`, validate locally, commit changes)
 
 **Status:** Solid foundation, production-ready
 
@@ -398,7 +398,6 @@ Static React site deployed to Vercel = instant page loads, perfect Lighthouse sc
 ┌─────────────────────────────────────────┐
 │  Content Management (Phase 1)           │
 │  - Edit seed.json directly              │
-│  - Use AdminConsole for quick edits     │
 │  - Git tracks all changes               │
 └─────────────────────────────────────────┘
                   ↓

@@ -27,7 +27,7 @@ This repo is intentionally “static-site friendly”: no database, no server, n
 
 - A Vite + React + TypeScript app (`src/`).
 - Deterministic seed data for GitHub Pages (`public/data/seed.json`).
-- localStorage persistence (per browser) so AdminConsole edits persist without a backend.
+- localStorage persistence (per browser) so the seed overlay persists without a backend (no in-app editor in the static-site MVP).
 - Dev-only guardrails to catch broken annotation ids (`src/invariants.ts`).
 - Project documentation (`docs/`), including PRD / Tech Spec / UX.
 

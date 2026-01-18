@@ -88,7 +88,7 @@ Requirements:
   - `annotations` (map keyed by id), where `annotation.term` can be English for tool/process highlights
 
 Note on “minimal masters”:
-- To minimize risk of AdminConsole regressions, prefer including the existing master arrays already embedded in `src/storage.ts`’s `SEED_DATA`, or set `RecipeItem.masterId` to `null` consistently when master arrays are empty.
+- Prefer including the relevant master arrays for a richer browsing experience, or set `RecipeItem.masterId` to `null` consistently when master arrays are empty.
 
 ### 4) Implement seed-overlay loader in `src/storage.ts`
 Files:
@@ -121,7 +121,7 @@ Approach:
   - then renders the existing `<App />` unchanged
 
 Why:
-- Ensures `AdminConsole` (and any future storage-backed pages) sees seed-derived localStorage state.
+- Ensures localStorage-backed state is initialized from seed-derived data.
 - Avoids a broad refactor of all hardcoded demo constants in this patch.
 
 ### 6) Dev-only invariants run on seeded recipes (guardrail)
@@ -152,4 +152,5 @@ After merging the patch:
 
 - Confirm default branch name (`main` vs `master`) for workflow trigger.
 - Confirm repo name for Pages (expected: `aos-cookbook-mockup`), or confirm we should rely on `${{ github.event.repository.name }}` only.
-- Decide whether `seed.json` should replicate `storage.ts`’s current `SEED_DATA` (safer for AdminConsole) or be “minimal + null masterIds” (smaller but potentially more edge cases).
+- Decide whether `seed.json` should replicate `storage.ts`’s current `SEED_DATA` (safer for parity) or be “minimal + null masterIds” (smaller but potentially more edge cases).
+- Decide whether `seed.json` should replicate `storage.ts`’s current `SEED_DATA` (safer for parity) or be “minimal + null masterIds” (smaller but potentially more edge cases).
