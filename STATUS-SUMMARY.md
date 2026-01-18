@@ -10,6 +10,7 @@ This file is a concise snapshot of where the project stands and what has been de
 ## Data & Architecture
 
 - Canonical dataset seed lives at `public/data/seed.json` and is loaded/merged into localStorage via `src/storage.ts`.
+- No in-app editor in the static site; editing is via JSON files (`public/data/seed.json`) and tooling/scripts. Future CMS is out of scope.
 - The project uses stable `id` fields plus persistent `urn:*` identifiers for citability.
 - The interpretation chain exists as first-class collections:
   - `Ancient Term` (`ancientIngredients`) → `Identification` (`identifications`) → `Ingredient Product` (`ingredientProducts`) → `Material Source` (`materialSources`)
@@ -69,10 +70,6 @@ This file is a concise snapshot of where the project stands and what has been de
 - “RECIPES*” sections now render **clickable cards** (not bullet rows), showing:
   - `Title (Author / Attribution) →`
 
-## Admin Console
-
-- Admin Console night-mode contrast is fixed by explicitly setting readable text colors in the admin layout.
-
 ## Release / Versioning Docs
 
 - Added:
@@ -90,4 +87,3 @@ This file is a concise snapshot of where the project stands and what has been de
   - dataset export artifact(s) + version metadata
 - Add scent profiles to `IngredientProduct` and enable filtering by scent families/notes (future).
 - Continue hardening link invariants (no dangling IDs; stable IDs; validation script).
-

@@ -108,9 +108,9 @@ Naming discipline
 
 Recipe-related sections render as consistent, clickable items (cards or equivalent) with clear navigation affordance.
 
-## 12. Admin console (MVP)
+## 12. Editing workflow (MVP)
 
-Admin Console is an in-app editor for localStorage-backed editing. It must remain readable in night-mode, including explicit text colours in admin layout.
+No in-app editor in the static site; editing is via JSON files (`public/data/seed.json`) and tooling/scripts. Future CMS is out of scope.
 
 ## 13. Versioning and releases
 

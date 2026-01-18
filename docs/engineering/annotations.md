@@ -4,8 +4,8 @@
 Annotations turn “dead words” inside a recipe into interactive entry points that expose interpretive context (linguistic + scholarly commentary) and route the reader into the interpretation chain (ancient term → identification(s) → modern material).
 
 This PRD captures:
-- **What the annotation feature does today** in the React mock (`src/main.tsx`)
-- The **intended user-facing behavior** implied by `docs/prd/PRD-v2.2.md` (MVP: “layered annotations” on recipe reading)
+- **What the annotation feature does today** in the React mock (`src/app/App.tsx` + `src/pages/library/RecipePage.tsx`)
+- The **intended user-facing behavior** implied by `docs/prd/PRD_v3.0_StaticSite.md` (MVP: recipe reading + annotations)
 
 ## In Scope (MVP)
 - Highlighted terms embedded in the recipe text (in the current mock, the displayed recipe text is labeled “Translation”, but behaves like the annotated Combined view).
@@ -27,7 +27,7 @@ These are explicitly deferred or not implemented in the current app:
 ## Primary User Story (from PRD)
 As a curious reader, when I’m reading a recipe and see a highlighted term, I can click it to understand what it means and why it matters, then follow links to deeper context (e.g., identifications and scent profile), without losing my place in the recipe text.
 
-## Current UX (as implemented in `src/main.tsx`)
+## Current UX (as implemented in `src/pages/library/RecipePage.tsx`)
 
 ### Entry Point: highlighted terms in the recipe text
 - The recipe text is rendered as a sequence of segments (`textSegments`).
@@ -128,7 +128,7 @@ Practical guidelines:
 - If an annotation has zero links, the fallback “View ancient term” button appears.
 - On first load with no selection, the Notes panel shows the instructional empty state.
 
-## Notes on Alignment with `docs/prd/PRD-v2.2.md`
+## Notes on Alignment with `docs/prd/PRD_v3.0_StaticSite.md`
 - The PRD’s “Curious Reader” narrative implies this exact pattern: highlighted term → click → explanatory panel → click-through to interpretive objects.
 - The PRD frames annotations as part of “read recipes with original text, translation, and layered annotations” (MVP).
 - The PRD explicitly defers:
@@ -136,7 +136,7 @@ Practical guidelines:
   - Annotations on original Greek text (2.0)
 
 ## Implementation Guardrails (for the upcoming data migration)
-When replacing dummy data in `src/main.tsx` with data loaded from `src/storage.ts`, `src/units.ts`, and `src/types.ts`, preserve these invariants:
+When evolving the implementation, preserve these invariants:
 - The “annotated term” rendering remains inline with the same click behavior and active styling.
 - The Notes panel remains sticky, with the same empty state and the same card structure.
 - Annotation selection remains local UI state (immediate feedback), with any persistence happening behind the scenes (no UX lag).

@@ -404,7 +404,7 @@ Static React site deployed to Vercel = instant page loads, perfect Lighthouse sc
 ┌─────────────────────────────────────────┐
 │  Content Management (Future - Optional) │
 │  - Add Strapi or Payload CMS            │
-│  - Team can edit in admin UI            │
+│  - Team can edit in an editing UI       │
 │  - React fetches from CMS API           │
 └─────────────────────────────────────────┘
 ```
@@ -1474,11 +1474,11 @@ git push origin main
 ## Appendix: Key Resources
 
 ### Documentation
-- **PRD v2.2:** `docs/prd/PRD-v2.2.md`
-- **UX/IA Appendix:** `docs/ux/UX-IA-Appendix.md`
-- **Technical Spec:** `docs/tech/Technical-Spec-v1.md`
+- **PRD v3.0 (Static Site):** `docs/prd/PRD_v3.0_StaticSite.md`
+- **UX/IA Appendix v2.0 (Static Site):** `docs/ux/UX_IA_Appendix_v2.0_StaticSite.md`
+- **Technical Spec v2.0 (Static Site):** `docs/tech/Technical_Specification_v2.0_StaticSite.md`
 - **Recipe Ingest Spec:** `docs/engineering/recipe-ingest.md`
-- **Full UX Evaluation:** `docs/ux/UX-UI-Evaluation-Report.md`
+- **Docs Index:** `docs/README.md`
 
 ### Code Entry Points
 - **Main App:** `src/main.tsx`
