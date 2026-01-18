@@ -5,7 +5,7 @@ This project is a published corpus. Releases are about **scholarly stability** (
 ## Files to Maintain
 
 - `CHANGELOG.md` (human-readable release notes)
-- `VERSIONING.md` (version rules)
+- `versioning.md` (version rules)
 
 If/when you add explicit dataset exports, also maintain:
 
@@ -21,7 +21,7 @@ If/when you add explicit dataset exports, also maintain:
 ## Release Checklist
 
 1. **Decide version bump**
-   - Use `VERSIONING.md` rules.
+   - Use `versioning.md` rules.
 
 2. **Run validation**
    - `npm run build`
@@ -65,4 +65,3 @@ If you want machine-readable version info, keep a small JSON file like:
 ```
 
 The DOI can be `null` for patch releases.
-

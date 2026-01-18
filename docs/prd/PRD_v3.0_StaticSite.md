@@ -116,7 +116,7 @@ No in-app editor in the static site; editing is via JSON files (`public/data/see
 
 Versioning starts now.
 
-- Site version follows SemVer (see VERSIONING.md).
+- Site version follows SemVer (see `docs/engineering/versioning.md`).
 - Dataset version is tracked separately and displayed alongside the site version.
 - DOI minting policy: mint DOIs for major and minor releases, not patches.
 

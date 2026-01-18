@@ -73,8 +73,8 @@ This file is a concise snapshot of where the project stands and what has been de
 ## Release / Versioning Docs
 
 - Added:
-  - `VERSIONING.md` (SemVer rules; 1.0 criteria; DOI policy)
-  - `RELEASE.md` (release checklist; DOI minting guidance)
+  - `docs/engineering/versioning.md` (SemVer rules; 1.0 criteria; DOI policy)
+  - `docs/engineering/release.md` (release checklist; DOI minting guidance)
   - `CHANGELOG.md` (starter changelog)
 - Decision: start versioning now; mint DOIs for major/minor releases (not patches).
 

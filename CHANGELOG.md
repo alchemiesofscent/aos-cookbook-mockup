@@ -2,7 +2,7 @@
 
 All notable changes to the dataset and site should be documented here.
 
-This project follows Semantic Versioning for the dataset: see `VERSIONING.md`.
+This project follows Semantic Versioning for the dataset: see `docs/engineering/versioning.md`.
 
 ## Unreleased
 
@@ -19,4 +19,3 @@ This project follows Semantic Versioning for the dataset: see `VERSIONING.md`.
 
 ### Site
 - Initial public wireframe UX for Library/Workshop/Studio with data-driven navigation.
-
