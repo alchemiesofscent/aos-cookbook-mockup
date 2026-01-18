@@ -1,11 +1,10 @@
 # Roadmap (Current)
 
 Where we are now
-- Static dataset site (React/Vite) with no in-app editor.
+- Static dataset site (React/Vite); localStorage is runtime overlay only; no in-app editor.
 - Canonical data: `public/data/seed.json`.
-- localStorage is runtime overlay only; `seed.json` is canonical; no in-app editor.
 - Dataset version metadata: `public/data/version.json`.
-- Dataset validation: `npm run validate:seed` (seed + version + link integrity checks).
+- Dataset validation: `npm run validate:seed` (seed + version + link integrity + annotation-route checks).
 - Pins live in `public/data/seed.json` (`db.pins`) for exportable joins.
 - Deployment target: GitHub Pages (static hosting).
 
@@ -16,11 +15,11 @@ v0.1 definition of done
 - Core navigation works end-to-end: Recipe → Ancient Term → Identification → Product → Source.
 
 Next milestones
-- Add CI step to run `npm run validate:seed` before build/deploy.
 - Add export artefact(s) (downloadable dataset JSON) labelled by `public/data/version.json`.
 - Add “Cite this” blocks for core entities (recipe, term, identification, product, source, work, person).
 - Add JSON-LD exports for the same entity set.
-- Extend `validate:seed` to validate annotation link route targets (recipe annotation `links[].route`).
+- Extend `validate:seed` to validate recipe item `masterId` targets (tools/processes/ingredients where applicable).
+- Extend `validate:seed` to validate `version.json` formats (semver + ISO date).
 - Expand real recipe corpus (add 3–5 fully curated recipes with combinedSegments + annotations).
 - Mobile QA pass for recipe reading + notes panel (annotated mode).
 - Docs hygiene: quarterly drift audit; move superseded docs to `docs/archive/`; keep `docs/README.md` linking only to current docs.
