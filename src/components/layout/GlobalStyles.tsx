@@ -157,7 +157,7 @@ export const GlobalStyles = () => {
       justify-content: space-between;
       align-items: center;
     }
-    .logo-title { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.1em; font-size: 1.125rem; color: var(--color-charcoal); }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0; font-size: 1.125rem; color: var(--color-charcoal); }
     .logo-subtitle { font-family: var(--font-ui); font-style: italic; color: var(--color-stone); font-size: 1rem; }
     .logo-section { cursor: pointer; }
 
