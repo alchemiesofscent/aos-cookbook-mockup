@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import type { DatabaseState, Recipe, RecipeItem, Quantity } from "../../types";
 import { studioRecipes } from "../../content/studioRecipes";
 import { isCitableStudioOption } from "../../content/studioIdentifications";
+import "./studio.css";
 import { loadUnitEquivalents, type UnitEquivalentsLookup, type UnitTypeKey } from "../../studio/unitEquivalents";
 import {
   createOrResumeStudioSession,
@@ -177,11 +178,11 @@ export default function StudioPage({ db }: StudioPageProps) {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", alignItems: "start" }}>
-        <section className="section-block" style={{ marginTop: "2rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", alignItems: "flex-end" }}>
+      <div className="studio-panels">
+        <section className="section-block studio-ingredientsPanel">
+          <div className="studio-panelHeader">
             <h2 style={{ margin: 0 }}>INGREDIENTS</h2>
-            <div style={{ minWidth: 260 }}>
+            <div className="studio-scaleControl">
               <label style={{ display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: "0.9rem" }}>
                 <span>Scale</span>
                 <span style={{ color: "var(--color-stone)" }}>{numberFormat.format(session?.scale ?? 1)}×</span>
@@ -234,11 +235,14 @@ export default function StudioPage({ db }: StudioPageProps) {
           </div>
         </section>
 
-        <section className="section-block" style={{ marginTop: "2rem" }}>
+        <section className="section-block studio-stepsPanel">
           <h2 style={{ marginTop: 0 }}>PREPARATION</h2>
-          <ol style={{ margin: 0, paddingLeft: "1.25rem", display: "grid", gap: "0.75rem", lineHeight: 1.7 }}>
+          <ol className="studio-stepsList">
             {(studio?.steps?.length ? studio.steps : ["Steps unavailable."]).map((step, idx) => (
-              <li key={idx}>{step}</li>
+              <li key={idx} className="studio-step">
+                <div className="studio-stepTitle">Step {idx + 1}</div>
+                <div className="studio-stepBody">{step}</div>
+              </li>
             ))}
           </ol>
         </section>

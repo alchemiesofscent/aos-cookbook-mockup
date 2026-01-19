@@ -1,0 +1,79 @@
+.studio-panels {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.studio-ingredientsPanel,
+.studio-stepsPanel {
+  flex: 1 1 0;
+  margin-top: 0;
+  min-width: 0;
+}
+
+.studio-panelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.studio-scaleControl {
+  min-width: 260px;
+}
+
+.studio-stepsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.studio-step {
+  margin: 0;
+}
+
+.studio-stepTitle {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: 0.01em;
+  color: var(--color-charcoal);
+}
+
+.studio-stepBody {
+  font-family: var(--font-reading);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--color-earth);
+}
+
+@media (max-width: 768px) {
+  .studio-panels {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .studio-panelHeader {
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .studio-scaleControl {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .studio-ingredientsPanel {
+    order: 1;
+  }
+
+  .studio-stepsPanel {
+    order: 2;
+  }
+}
