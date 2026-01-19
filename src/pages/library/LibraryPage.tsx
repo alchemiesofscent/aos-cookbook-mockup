@@ -4,8 +4,8 @@ export const LibraryPage = ({ navigate }) => {
   return (
     <div className="page-container">
       <div className="library-hero">
-        <h1>The Library</h1>
-        <p className="intro-text">
+        <h1 className="hero-title">The Library</h1>
+        <p className="intro-text reading">
             The central repository for the Alchemies of Scent project, containing primary sources, translations, and prosopographical data.
         </p>
       </div>
@@ -36,4 +36,3 @@ export const LibraryPage = ({ navigate }) => {
     </div>
   );
 };
-

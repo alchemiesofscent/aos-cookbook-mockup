@@ -31,7 +31,7 @@ export const PersonDetailPageDb = ({
       >
         <div style={{ display: "flex", gap: "3rem" }}>
           <div style={{ flex: 2 }}>
-            <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>
+            <h1 className="hero-title" style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>
               {person?.name ?? "Person"}
             </h1>
             <div style={{ fontSize: "1.25rem", color: "var(--color-charcoal)", marginBottom: "0.5rem" }}>
@@ -65,7 +65,7 @@ export const PersonDetailPageDb = ({
       </div>
 
       <div className="product-section">
-        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", maxWidth: "800px" }}>
+        <p className="reading" style={{ fontSize: "1.1rem", lineHeight: "1.65", maxWidth: "800px" }}>
           {person?.description ?? "No description yet."}
         </p>
       </div>
@@ -105,4 +105,3 @@ export const PersonDetailPageDb = ({
     </div>
   );
 };
-

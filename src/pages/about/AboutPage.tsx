@@ -4,8 +4,8 @@ export const AboutPage = ({ navigate }) => {
   return (
     <div className="page-container">
       <div className="library-hero">
-        <h1>About Alchemies of Scent</h1>
-        <p className="intro-text">
+        <h1 className="hero-title">About Alchemies of Scent</h1>
+        <p className="intro-text reading">
             Unlocking the olfactory heritage of the ancient world through history, science, and experimental reconstruction.
         </p>
       </div>
@@ -36,4 +36,3 @@ export const AboutPage = ({ navigate }) => {
     </div>
   );
 };
-

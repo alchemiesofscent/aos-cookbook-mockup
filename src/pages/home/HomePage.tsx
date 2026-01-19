@@ -37,7 +37,7 @@ export default function HomePage({ navigate, db, setSearchQuery }: HomePageProps
   return (
     <div className="homeLanding">
       <section className="homeLanding-hero">
-        <h1 className="homeLanding-heroTitle">{homepageContent.hero.title}</h1>
+        <h1 className="homeLanding-heroTitle hero-title">{homepageContent.hero.title}</h1>
         <p className="homeLanding-heroSubtitle">{homepageContent.hero.subtitle}</p>
 
         <form

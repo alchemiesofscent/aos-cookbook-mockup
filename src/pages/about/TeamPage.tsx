@@ -12,7 +12,7 @@ export const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; 
       <div className="back-link" onClick={() => navigate("about")}>
         <Icons.ArrowLeft /> Back to About
       </div>
-      <h1>The Team</h1>
+      <h1 className="hero-title">The Team</h1>
       <div className="section-block">
         <div className="recipe-grid" style={{ marginTop: "2rem" }}>
           {team.map((person) => (
@@ -37,4 +37,3 @@ export const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; 
     </div>
   );
 };
-

@@ -23,7 +23,9 @@ export const WorkDetailPageDb = ({
       </div>
 
       <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>{work?.name ?? "Work"}</h1>
+        <h1 className="hero-title" style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>
+          {work?.name ?? "Work"}
+        </h1>
         <div style={{ fontSize: "1.25rem", color: "var(--color-charcoal)", marginBottom: "0.5rem" }}>
           {author ? (
             <span className="text-btn" style={{ fontSize: "1.25rem", cursor: "pointer" }} onClick={() => navigate(`person:${author.id}`)}>
@@ -41,7 +43,9 @@ export const WorkDetailPageDb = ({
 
       <div className="product-section">
         <h2>DESCRIPTION</h2>
-        <p style={{ fontSize: "1.1rem", lineHeight: "1.7", maxWidth: "800px" }}>{work?.description ?? "No description yet."}</p>
+        <p className="reading" style={{ fontSize: "1.1rem", lineHeight: "1.65", maxWidth: "800px" }}>
+          {work?.description ?? "No description yet."}
+        </p>
       </div>
 
       <div className="product-section" style={{ borderBottom: "none" }}>
@@ -55,4 +59,3 @@ export const WorkDetailPageDb = ({
     </div>
   );
 };
-

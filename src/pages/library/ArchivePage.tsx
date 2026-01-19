@@ -16,8 +16,8 @@ export const ArchivePage = ({ navigate, db }: { navigate: (route: string) => voi
       </div>
 
       <div className="archive-intro">
-        <h1>RECIPES</h1>
-        <p>Explore the ancient perfume recipes in our collection.</p>
+        <h1 className="hero-title">RECIPES</h1>
+        <p className="reading">Explore the ancient perfume recipes in our collection.</p>
       </div>
 
       <div className="filters-bar">
@@ -87,4 +87,3 @@ export const ArchivePage = ({ navigate, db }: { navigate: (route: string) => voi
     </div>
   );
 };
-

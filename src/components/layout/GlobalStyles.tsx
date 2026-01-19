@@ -1,5 +1,36 @@
-export const GlobalStyles = () => (
+export const GlobalStyles = () => {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const assetBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
+  return (
   <style>{`
+    @font-face {
+      font-family: "Rund";
+      src: url('${assetBase}fonts/rund/RundText-Regular.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Regular.woff') format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Rund";
+      src: url('${assetBase}fonts/rund/RundText-Italic.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Italic.woff') format("woff");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Rund";
+      src: url('${assetBase}fonts/rund/RundText-Bold.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Bold.woff') format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --color-cream: #FAF7F0;
       --color-warm-white: #FEFDFB;
@@ -17,8 +48,12 @@ export const GlobalStyles = () => (
       --shadow-hover: 0 8px 16px rgba(0,0,0,0.05);
       --shadow-raised: 0 12px 24px rgba(92, 74, 61, 0.08);
       --shadow-raised-strong: 0 12px 30px rgba(92, 74, 61, 0.1);
-      --font-serif: 'Gentium Plus', 'Gentium', serif;
-      --font-sans: 'Noto Sans', 'Arial', sans-serif;
+      --font-ui: "Rund", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --font-heading: "Rund", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-reading: "garamond-premier-pro", "Gentium Plus", serif;
+      --font-hero: "garamond-premier-pro-display", "garamond-premier-pro", "Gentium Plus", serif;
+      --font-serif: var(--font-reading);
+      --font-sans: var(--font-ui);
       color-scheme: light;
     }
 
@@ -47,15 +82,15 @@ export const GlobalStyles = () => (
     body {
       background-color: var(--color-cream);
       color: var(--color-earth);
-      font-family: var(--font-serif);
+      font-family: var(--font-ui);
       margin: 0;
       padding: 0;
-      line-height: 1.6;
+      line-height: 1.5;
       transition: background-color 180ms ease, color 180ms ease;
     }
 
-    h1, h2, h3, h4 {
-      font-family: var(--font-sans);
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
       color: var(--color-charcoal);
       margin-top: 0;
     }
@@ -65,6 +100,9 @@ export const GlobalStyles = () => (
     h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
 
     button { font-family: var(--font-sans); cursor: pointer; }
+
+    .reading { font-family: var(--font-reading); line-height: 1.62; }
+    .hero-title { font-family: var(--font-hero); }
     
     .text-btn { background: none; border: none; color: var(--color-amber); padding: 0; font-size: 0.875rem; text-decoration: underline; }
     .text-btn:hover { color: var(--color-amber-dark); }
@@ -103,8 +141,8 @@ export const GlobalStyles = () => (
       justify-content: space-between;
       align-items: center;
     }
-    .logo-title { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0.1em; font-size: 1.125rem; color: var(--color-charcoal); }
-    .logo-subtitle { font-family: var(--font-serif); font-style: italic; color: var(--color-stone); font-size: 1rem; }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.1em; font-size: 1.125rem; color: var(--color-charcoal); }
+    .logo-subtitle { font-family: var(--font-ui); font-style: italic; color: var(--color-stone); font-size: 1rem; }
     .logo-section { cursor: pointer; }
 
     .main-nav { display: flex; gap: 2rem; align-items: center; }
@@ -224,7 +262,7 @@ export const GlobalStyles = () => (
     .az-list { display: flex; flex-direction: column; gap: 1rem; }
     .az-card { background: var(--color-warm-white); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 4px; }
     .az-card-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-    .az-card h3 { margin: 0; font-family: var(--font-serif); font-size: 1.25rem; }
+    .az-card h3 { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; }
     .az-card p { margin: 0 0 1rem 0; color: var(--color-stone); font-family: var(--font-sans); font-size: 0.9rem; }
     .az-actions { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-stone); }
 
@@ -262,7 +300,7 @@ export const GlobalStyles = () => (
        font-size: 2rem;
        margin: 0;
        color: var(--color-charcoal);
-       font-family: var(--font-serif);
+       font-family: var(--font-heading);
        border-bottom: none;
        padding-bottom: 0;
     }
@@ -336,7 +374,7 @@ export const GlobalStyles = () => (
         border-color: rgba(201, 162, 39, 0.4);
     }
     .home-card h2 {
-        font-family: var(--font-serif);
+        font-family: var(--font-heading);
         font-size: 1.75rem;
         border-bottom: none;
         margin-bottom: 1rem;
@@ -370,7 +408,7 @@ export const GlobalStyles = () => (
     .view-toggles { display: flex; gap: 1.5rem; font-family: var(--font-sans); font-size: 0.875rem; margin-top: 1rem; }
     
     .recipe-split-view { display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; position: relative; }
-    .recipe-text { font-size: 1.25rem; line-height: 1.8; white-space: pre-wrap; }
+    .recipe-text { font-family: var(--font-reading); font-size: 1.25rem; line-height: 1.62; white-space: pre-wrap; }
     
     .annotated-term {
       border-bottom: 2px solid rgba(201, 162, 39, 0.3);
@@ -397,8 +435,9 @@ export const GlobalStyles = () => (
     }
     .anno-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
     .anno-title { display: flex; flex-direction: column; min-width: 0; }
-    .anno-header h3 { margin: 0; color: var(--color-amber-dark); font-family: var(--font-serif); }
+    .anno-header h3 { margin: 0; color: var(--color-amber-dark); font-family: var(--font-heading); }
     .transliteration { font-style: italic; color: var(--color-stone); }
+    .annotation-card p { font-family: var(--font-reading); line-height: 1.62; }
     .anno-close {
       flex-shrink: 0;
       width: 32px;
@@ -556,4 +595,5 @@ export const GlobalStyles = () => (
       .product-section > div[style*="flex"] { flex-direction: column; }
     }
   `}</style>
-);
+  );
+};

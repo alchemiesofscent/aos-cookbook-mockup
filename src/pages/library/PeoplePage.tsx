@@ -14,8 +14,8 @@ export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void
       </div>
 
       <div className="archive-intro">
-        <h1>PEOPLE</h1>
-        <p>The authors, perfumers, and botanical explorers of antiquity.</p>
+        <h1 className="hero-title">PEOPLE</h1>
+        <p className="reading">The authors, perfumers, and botanical explorers of antiquity.</p>
       </div>
 
       <div className="recipe-grid">
@@ -35,4 +35,3 @@ export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void
     </div>
   );
 };
-

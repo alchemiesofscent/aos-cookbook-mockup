@@ -51,8 +51,8 @@ export const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => vo
       </div>
       
       <div className="workshop-header">
-        <h1>The Workshop</h1>
-        <p className="intro-text">
+        <h1 className="hero-title">The Workshop</h1>
+        <p className="intro-text reading">
           A compendium of the materials used in ancient perfumery, organized by their ancient terminology, the specific ingredients used in recipes, and their biological sources.
         </p>
       </div>
@@ -149,4 +149,3 @@ export const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => vo
     </div>
   );
 };
-

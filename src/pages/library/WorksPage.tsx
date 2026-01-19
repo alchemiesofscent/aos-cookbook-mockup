@@ -11,8 +11,8 @@ export const WorksPage = ({ navigate, db }: { navigate: (route: string) => void;
       </div>
 
       <div className="archive-intro">
-        <h1>WORKS</h1>
-        <p>Key treatises on botany, pharmacology, and perfumery from the ancient world.</p>
+        <h1 className="hero-title">WORKS</h1>
+        <p className="reading">Key treatises on botany, pharmacology, and perfumery from the ancient world.</p>
       </div>
 
       <div className="recipe-grid">
@@ -37,4 +37,3 @@ export const WorksPage = ({ navigate, db }: { navigate: (route: string) => void;
     </div>
   );
 };
-

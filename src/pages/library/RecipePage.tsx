@@ -42,7 +42,7 @@ export const RecipePage = ({
     if (!trimmed) return <div className="empty-state">No text available.</div>;
     const paragraphs = trimmed.split(/\n{2,}/g);
     return (
-      <div className="recipe-text">
+      <div className="recipe-text reading">
         {paragraphs.map((p, idx) => (
           <p key={idx} style={{ marginTop: idx === 0 ? 0 : "1rem" }}>
             {p}
@@ -59,7 +59,7 @@ export const RecipePage = ({
       </div>
       
       <div className="recipe-header">
-        <h1>{recipe?.metadata?.title ?? "Recipe"}</h1>
+        <h1 className="hero-title">{recipe?.metadata?.title ?? "Recipe"}</h1>
         <div className="subtitle">
           {[recipe?.metadata?.author, sourceWork?.name].filter(Boolean).join(", ")}
         </div>
@@ -133,7 +133,7 @@ export const RecipePage = ({
                   {renderPlainText(recipe?.text?.translation ?? "")}
                 </>
               ) : (
-                <div className="recipe-text">
+                <div className="recipe-text reading">
                   {segments.map((seg, i) => {
                     if (seg.type === "annotation") {
                       return (
@@ -235,7 +235,7 @@ export const RecipePage = ({
                   ×
                 </button>
               </div>
-              {activeAnnotation.definition && <p>{activeAnnotation.definition}</p>}
+              {activeAnnotation.definition && <p className="reading">{activeAnnotation.definition}</p>}
               <div className="anno-links">
                 {(activeAnnotation.links ?? []).map((link, i) => (
                   <button key={i} className="text-btn" onClick={() => navigate(link.route)}>
