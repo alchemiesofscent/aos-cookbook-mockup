@@ -4,11 +4,6 @@ export const GlobalStyles = () => {
 
   return (
   <style>{`
-    html {
-      font-size: clamp(16px, 0.5vw + 14px, 18px);
-      text-size-adjust: 100%;
-    }
-
     @font-face {
       font-family: "Rund";
       src: url('${assetBase}fonts/rund/RundText-Regular.woff2') format("woff2"),
@@ -59,10 +54,10 @@ export const GlobalStyles = () => {
       --font-hero: "garamond-premier-pro-display", "garamond-premier-pro", "Gentium Plus", serif;
       --font-serif: var(--font-reading);
       --font-sans: var(--font-ui);
-      --text-xs: 0.875rem;
-      --text-sm: 0.95rem;
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
       --text-md: 1rem;
-      --text-lg: 1.125rem;
+      --text-lg: 1.0625rem;
       --h3: 1.25rem;
       --h2: 1.5rem;
       --h1: 1.875rem;
@@ -96,10 +91,11 @@ export const GlobalStyles = () => {
       background-color: var(--color-cream);
       color: var(--color-earth);
       font-family: var(--font-ui);
-      font-size: var(--text-md);
+      font-size: 1rem;
       margin: 0;
       padding: 0;
       line-height: 1.45;
+      letter-spacing: -0.01em;
       transition: background-color 180ms ease, color 180ms ease;
     }
 
@@ -115,12 +111,13 @@ export const GlobalStyles = () => {
 
     button { font-family: var(--font-sans); cursor: pointer; }
 
-    .reading { font-family: var(--font-reading); font-size: var(--text-lg); line-height: 1.65; }
+    .reading { font-family: var(--font-reading); font-size: var(--text-lg); line-height: 1.65; letter-spacing: 0; }
     h1.hero-title,
     .hero-title {
       font-family: var(--font-hero);
       font-weight: 400;
       font-synthesis: none;
+      letter-spacing: 0;
     }
     
     .text-btn { background: none; border: none; color: var(--color-amber); padding: 0; font-size: var(--text-sm); text-decoration: underline; }
