@@ -4,6 +4,11 @@ export const GlobalStyles = () => {
 
   return (
   <style>{`
+    html {
+      font-size: clamp(16px, 0.5vw + 14px, 18px);
+      text-size-adjust: 100%;
+    }
+
     @font-face {
       font-family: "Rund";
       src: url('${assetBase}fonts/rund/RundText-Regular.woff2') format("woff2"),
@@ -54,6 +59,14 @@ export const GlobalStyles = () => {
       --font-hero: "garamond-premier-pro-display", "garamond-premier-pro", "Gentium Plus", serif;
       --font-serif: var(--font-reading);
       --font-sans: var(--font-ui);
+      --text-xs: 0.875rem;
+      --text-sm: 0.95rem;
+      --text-md: 1rem;
+      --text-lg: 1.125rem;
+      --h3: 1.25rem;
+      --h2: 1.5rem;
+      --h1: 1.875rem;
+      --hero: 2.25rem;
       color-scheme: light;
     }
 
@@ -83,9 +96,10 @@ export const GlobalStyles = () => {
       background-color: var(--color-cream);
       color: var(--color-earth);
       font-family: var(--font-ui);
+      font-size: var(--text-md);
       margin: 0;
       padding: 0;
-      line-height: 1.5;
+      line-height: 1.45;
       transition: background-color 180ms ease, color 180ms ease;
     }
 
@@ -101,12 +115,17 @@ export const GlobalStyles = () => {
 
     button { font-family: var(--font-sans); cursor: pointer; }
 
-    .reading { font-family: var(--font-reading); line-height: 1.62; }
-    .hero-title { font-family: var(--font-hero); }
+    .reading { font-family: var(--font-reading); font-size: var(--text-lg); line-height: 1.65; }
+    h1.hero-title,
+    .hero-title {
+      font-family: var(--font-hero);
+      font-weight: 400;
+      font-synthesis: none;
+    }
     
-    .text-btn { background: none; border: none; color: var(--color-amber); padding: 0; font-size: 0.875rem; text-decoration: underline; }
+    .text-btn { background: none; border: none; color: var(--color-amber); padding: 0; font-size: var(--text-sm); text-decoration: underline; }
     .text-btn:hover { color: var(--color-amber-dark); }
-    .icon-btn { background: none; border: 1px solid transparent; color: var(--color-stone); padding: 0.2rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+    .icon-btn { background: none; border: 1px solid transparent; color: var(--color-stone); padding: 0.2rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 600; }
     .icon-btn.active { background: rgba(201, 162, 39, 0.1); color: var(--color-amber); border-color: rgba(201, 162, 39, 0.3); }
     .theme-toggle:hover { background: var(--color-chip-bg); color: var(--color-amber); border-color: var(--color-border); }
 
@@ -165,7 +184,7 @@ export const GlobalStyles = () => {
     .nav-item:hover .dropdown { display: block; }
     .dropdown div { padding: 0.5rem 1rem; color: var(--color-earth); transition: background 0.1s; }
     .dropdown div:hover { background: var(--color-cream); color: var(--color-amber); }
-    .dropdown-section-title { font-size: 0.75rem; text-transform: uppercase; color: var(--color-stone) !important; font-weight: 600; padding: 0.5rem 1rem 0.2rem 1rem !important; letter-spacing: 0.05em; margin-top: 0.5rem; pointer-events: none; }
+    .dropdown-section-title { font-size: var(--text-xs); text-transform: uppercase; color: var(--color-stone) !important; font-weight: 600; padding: 0.5rem 1rem 0.2rem 1rem !important; letter-spacing: 0.05em; margin-top: 0.5rem; pointer-events: none; }
     .dropdown-section-title:first-child { margin-top: 0; }
 
     /* Footer */
@@ -180,7 +199,7 @@ export const GlobalStyles = () => {
     .col h4 { font-size: 0.875rem; color: var(--color-stone); text-transform: uppercase; margin-bottom: 0.5rem; }
     .col a { text-decoration: none; color: var(--color-earth); font-family: var(--font-sans); font-size: 0.9375rem; }
     .col a:hover { color: var(--color-amber); }
-    .footer-bottom { border-top: 1px solid var(--color-border); padding-top: 1.5rem; font-size: 0.75rem; color: var(--color-stone); font-family: var(--font-sans); }
+    .footer-bottom { border-top: 1px solid var(--color-border); padding-top: 1.5rem; font-size: var(--text-xs); color: var(--color-stone); font-family: var(--font-sans); }
 
     /* Layout Utilities */
     .page-container {
@@ -200,7 +219,7 @@ export const GlobalStyles = () => {
       cursor: pointer;
     }
     .back-link:hover { color: var(--color-amber); }
-    .urn { font-family: monospace; font-size: 0.75rem; color: var(--color-stone); background: var(--color-muted-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+    .urn { font-family: monospace; font-size: var(--text-xs); color: var(--color-stone); background: var(--color-muted-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
     
     /* Workshop Styles */
     .workshop-header { margin-bottom: 3rem; }
@@ -218,9 +237,9 @@ export const GlobalStyles = () => {
     .workshop-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: rgba(201, 162, 39, 0.3); }
     .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem; }
     .workshop-card h3 { font-size: 1.125rem; margin: 0; color: var(--color-charcoal); }
-    .lang-tag, .type-tag { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; background: var(--color-chip-bg); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
+    .lang-tag, .type-tag { font-family: var(--font-sans); font-size: var(--text-xs); text-transform: uppercase; background: var(--color-chip-bg); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
     .translit { font-style: italic; font-family: var(--font-serif); color: var(--color-amber-dark); margin-bottom: 0.75rem; font-size: 0.9375rem; }
-    .def { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); }
+    .def { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-earth); }
 
     /* Materials Nav */
     .materials-nav {
@@ -264,7 +283,7 @@ export const GlobalStyles = () => {
     .az-card-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
     .az-card h3 { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; }
     .az-card p { margin: 0 0 1rem 0; color: var(--color-stone); font-family: var(--font-sans); font-size: 0.9rem; }
-    .az-actions { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-stone); }
+    .az-actions { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-stone); }
 
     /* Library Page Styles */
     .library-hero { margin-bottom: 3rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -404,11 +423,11 @@ export const GlobalStyles = () => {
     .recipe-header { margin-bottom: 3rem; }
     .subtitle { font-size: 1.5rem; color: var(--color-stone); font-weight: 300; margin-bottom: 1.5rem; }
     .metadata-box { background: var(--color-warm-white); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; margin-bottom: 2rem; display: inline-block; min-width: 50%; }
-    .meta-row { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); font-size: 0.875rem; margin-bottom: 0.25rem; }
-    .view-toggles { display: flex; gap: 1.5rem; font-family: var(--font-sans); font-size: 0.875rem; margin-top: 1rem; }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-sans); font-size: var(--text-sm); margin-bottom: 0.25rem; }
+    .view-toggles { display: flex; gap: 1.5rem; font-family: var(--font-sans); font-size: var(--text-sm); margin-top: 1rem; }
     
     .recipe-split-view { display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; position: relative; }
-    .recipe-text { font-family: var(--font-reading); font-size: 1.25rem; line-height: 1.62; white-space: pre-wrap; }
+    .recipe-text { font-family: var(--font-reading); font-size: var(--text-lg); line-height: 1.65; white-space: pre-wrap; }
     
     .annotated-term {
       border-bottom: 2px solid rgba(201, 162, 39, 0.3);
@@ -418,10 +437,10 @@ export const GlobalStyles = () => {
     .annotated-term:hover { background: rgba(201, 162, 39, 0.1); border-color: var(--color-amber); }
     .annotated-term.active { background: rgba(201, 162, 39, 0.2); border-color: var(--color-amber); color: var(--color-amber-dark); font-weight: 500; }
 
-    .ingredients-table { font-family: var(--font-sans); font-size: 0.9375rem; }
+    .ingredients-table { font-family: var(--font-sans); font-size: var(--text-md); }
     .ing-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; border-bottom: 1px solid var(--color-border); padding: 0.75rem 0; }
     .ing-name { font-weight: 600; color: var(--color-earth); }
-    .ing-link { color: var(--color-stone); font-size: 0.8125rem; cursor: pointer; text-align: right; }
+    .ing-link { color: var(--color-stone); font-size: var(--text-xs); cursor: pointer; text-align: right; }
     .ing-link:hover { color: var(--color-amber); }
 
     /* Annotation Card */
@@ -493,7 +512,7 @@ export const GlobalStyles = () => {
         align-items: center;
         gap: 1.5rem;
         margin-left: auto;
-        font-size: 0.875rem;
+        font-size: var(--text-sm);
         color: var(--color-stone);
         font-family: var(--font-sans);
     }
@@ -508,7 +527,7 @@ export const GlobalStyles = () => {
     }
     .recipe-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
     .card-sub { font-style: italic; color: var(--color-stone); margin-bottom: 1rem; font-family: var(--font-serif); }
-    .card-meta { font-family: var(--font-sans); font-size: 0.875rem; color: var(--color-earth); margin-bottom: 1.5rem; }
+    .card-meta { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-earth); margin-bottom: 1.5rem; }
 
     /* Ingredient & Product Pages */
     .quote-block { border-left: 3px solid var(--color-amber); padding-left: 1rem; margin-bottom: 1.5rem; font-style: italic; }
@@ -522,7 +541,7 @@ export const GlobalStyles = () => {
       margin-bottom: 1.5rem;
     }
     .id-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-    .confidence-badge { font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; }
+    .confidence-badge { font-size: var(--text-xs); padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; }
     .confidence-badge.established { background: rgba(122, 139, 110, 0.2); color: var(--color-sage); }
     .confidence-badge.probable { background: rgba(201, 162, 39, 0.2); color: var(--color-amber-dark); }
     .confidence-badge.possible { background: rgba(92, 74, 61, 0.12); color: var(--color-earth); }
@@ -532,14 +551,14 @@ export const GlobalStyles = () => {
     .confidence-badge.low { background: rgba(92, 74, 61, 0.10); color: var(--color-stone); }
     
     .id-source { font-size: 1.125rem; margin-bottom: 0.25rem; }
-    .id-citation { font-size: 0.875rem; color: var(--color-stone); font-family: var(--font-sans); }
+    .id-citation { font-size: var(--text-sm); color: var(--color-stone); font-family: var(--font-sans); }
     .id-actions { margin-top: 1.5rem; display: flex; gap: 1rem; }
 
     .product-hero { display: flex; gap: 3rem; margin-bottom: 3rem; }
     .product-info { flex: 2; }
     .product-image-placeholder { 
       flex: 1; background: #eee; display: flex; align-items: center; justify-content: center; 
-      color: #999; border-radius: 8px; min-height: 200px; font-family: var(--font-sans); font-size: 0.875rem;
+      color: #999; border-radius: 8px; min-height: 200px; font-family: var(--font-sans); font-size: var(--text-sm);
     }
     .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
     .profile-col h3 { font-size: 0.875rem; color: var(--color-stone); margin-bottom: 1rem; }

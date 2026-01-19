@@ -26,7 +26,7 @@
   box-shadow: var(--shadow-soft);
   padding: 0.9rem 3.25rem 0.9rem 1.1rem;
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   color: var(--color-earth);
   outline: none;
 }
@@ -46,7 +46,7 @@
   color: var(--color-warm-white);
   padding: 0.5rem 0.75rem;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
 }
 
 .searchPageBtn:hover {
@@ -83,14 +83,14 @@
 .searchResultTitle {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: var(--text-md);
   color: var(--color-charcoal);
 }
 
 .searchResultMeta {
   margin: 0.2rem 0 0;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   color: var(--color-stone);
 }
 
@@ -102,7 +102,7 @@
   background: var(--color-chip-bg);
   padding: 0.2rem 0.6rem;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: var(--text-xs);
   color: var(--color-earth);
   margin-right: 0.6rem;
 }
@@ -114,7 +114,7 @@
   background: transparent;
   padding: 0.4rem 0.75rem;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   color: var(--color-earth);
   cursor: pointer;
 }
@@ -128,4 +128,3 @@
   font-family: var(--font-sans);
   color: var(--color-stone);
 }
-

@@ -34,7 +34,7 @@
 .heroCaption {
   margin-top: 0.5rem;
   font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   color: var(--color-stone);
 }
 
@@ -66,7 +66,7 @@
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
   font-family: var(--font-ui);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   color: var(--color-stone);
 }
 
@@ -89,7 +89,7 @@
 .heroLede {
   margin: 0;
   max-width: 70ch;
-  font-size: 1.05rem;
+  font-size: var(--text-lg);
   line-height: 1.65;
 }
 
@@ -97,7 +97,7 @@
   margin: 0;
   max-width: 75ch;
   font-family: var(--font-ui);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   line-height: 1.55;
   color: var(--color-stone);
 }
@@ -118,7 +118,7 @@
 .heroAside {
   margin: 0;
   font-family: var(--font-ui);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   color: var(--color-stone);
 }
 
@@ -162,7 +162,7 @@
 
 .studio-stepTitle {
   font-family: var(--font-ui);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   line-height: 1.2;
   margin: 0 0 0.35rem 0;
@@ -172,8 +172,8 @@
 
 .studio-stepBody {
   font-family: var(--font-reading);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: var(--text-lg);
+  line-height: 1.65;
   margin: 0;
   color: var(--color-earth);
 }
