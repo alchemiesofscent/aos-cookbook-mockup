@@ -58,6 +58,26 @@ export default function StudioPage({ db }: StudioPageProps) {
 
   const studio = recipe ? studioRecipes[recipe.id] : undefined;
 
+  const heroSrc = useMemo(() => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FEFDFB"/>
+      <stop offset="55%" stop-color="#FAF7F0"/>
+      <stop offset="100%" stop-color="#EDE7DB"/>
+    </linearGradient>
+    <radialGradient id="r" cx="30%" cy="25%" r="75%">
+      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#C9A227" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" fill="url(#r)"/>
+  <rect x="40" y="40" width="1520" height="820" rx="36" ry="36" fill="none" stroke="#5C4A3D" stroke-opacity="0.08" stroke-width="4"/>
+</svg>`;
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  }, []);
+
   const yieldDisplay = useMemo(() => {
     if (!recipe || !studio || !equivalents || !session) return "yield unavailable";
     const basis = recipe.items.find((i) => i.id === studio.yieldBasisIngredientKey);
@@ -122,61 +142,60 @@ export default function StudioPage({ db }: StudioPageProps) {
 
   return (
     <div className="page-container">
-      <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: "2rem", alignItems: "start" }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <h1 style={{ margin: 0 }}>{studio?.titleOverride ?? recipe.metadata.title}</h1>
-              <span className="type-tag" style={{ fontSize: "0.7rem" }}>
-                Studio (Preview)
-              </span>
-            </div>
-            <p style={{ marginTop: "0.75rem", maxWidth: 860, lineHeight: 1.7 }}>{studio?.intro ?? ""}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", color: "var(--color-stone)" }}>
-              <div>
-                <strong style={{ color: "var(--color-charcoal)" }}>Yield:</strong> {yieldDisplay}
-              </div>
-              <div>
-                <strong style={{ color: "var(--color-charcoal)" }}>Time:</strong> {studio?.time?.note ?? "time unavailable"}
-              </div>
-              <div className="urn">{recipe.urn}</div>
-            </div>
-            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", alignItems: "center" }}>
-              <button type="button" className="btn-primary" onClick={handleCopy} disabled={!equivalents}>
-                Copy recipe card
-              </button>
-              {copyStatus ? <span style={{ color: "var(--color-amber-dark)" }}>{copyStatus}</span> : null}
-            </div>
-            <div style={{ marginTop: "0.75rem", color: "var(--color-stone)", fontSize: "0.9rem" }}>
-              Read-only composer. Interpretations are selectable in the drawer; no claims can be created or edited.
-            </div>
-            {studio?.disclaimers?.length ? (
-              <ul style={{ marginTop: "0.75rem", paddingLeft: "1.25rem", color: "var(--color-stone)", lineHeight: 1.6 }}>
-                {studio.disclaimers.map((d, idx) => (
-                  <li key={idx}>{d}</li>
-                ))}
-              </ul>
-            ) : null}
+      <header className="heroHeader">
+        <figure className="heroFigure">
+          <img className="heroImg" src={heroSrc} alt={studio?.heroImage?.alt ?? ""} />
+          {studio?.heroImage?.caption ? <figcaption className="heroCaption">{studio.heroImage.caption}</figcaption> : null}
+        </figure>
+
+        <div className="heroBody">
+          <div className="heroTitleRow">
+            <h1 className="heroTitle hero-title">{studio?.titleOverride ?? recipe.metadata.title}</h1>
+            <span className="type-tag heroBadge">Studio (Preview)</span>
           </div>
-          <div aria-hidden="true">
-            <div
-              style={{
-                border: "1px solid var(--color-border-strong)",
-                borderRadius: 16,
-                background: "var(--color-muted-bg)",
-                height: 220,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--color-stone)",
-                fontFamily: "var(--font-sans)",
-              }}
-            >
-              {studio?.heroImage?.alt ?? "Hero image placeholder"}
+
+          <div className="heroMeta">
+            <div className="heroMetaItem">
+              <span className="heroMetaLabel">Active</span>
+              <span className="heroMetaValue">{studio?.time?.active ?? "—"}</span>
+            </div>
+            <div className="heroMetaItem">
+              <span className="heroMetaLabel">Total</span>
+              <span className="heroMetaValue">{studio?.time?.total ?? "—"}</span>
+            </div>
+            <div className="heroMetaItem">
+              <span className="heroMetaLabel">Yield</span>
+              <span className="heroMetaValue">{yieldDisplay}</span>
+            </div>
+            <div className="heroMetaItem">
+              <span className="heroMetaLabel">URN</span>
+              <span className="heroMetaValue">{recipe.urn}</span>
             </div>
           </div>
+
+          <p className="heroLede reading">{studio?.intro ?? ""}</p>
+          {studio?.time?.note ? <p className="heroNote">{studio.time.note}</p> : null}
+
+          <div className="heroActions">
+            <button type="button" className="btn-primary" onClick={handleCopy} disabled={!equivalents}>
+              Copy recipe card
+            </button>
+            {copyStatus ? <span className="heroCopyStatus">{copyStatus}</span> : null}
+          </div>
+
+          <p className="heroAside">
+            Read-only composer. Interpretations are selectable in the drawer; no claims can be created or edited.
+          </p>
+
+          {studio?.disclaimers?.length ? (
+            <ul className="heroDisclaimers">
+              {studio.disclaimers.map((d, idx) => (
+                <li key={idx}>{d}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
-      </div>
+      </header>
 
       <div className="studio-panels">
         <section className="section-block studio-ingredientsPanel">
@@ -214,9 +233,7 @@ export default function StudioPage({ db }: StudioPageProps) {
                   if (e.key === "Enter" || e.key === " ") setDrawerIngredientId(ing.id);
                 }}
               >
-                <span className="ing-name" style={{ fontFamily: "var(--font-serif)" }}>
-                  {displayName}
-                </span>
+                <span className="ing-name">{displayName}</span>
                 <span className="ing-amt" style={{ justifySelf: "end" }}>
                   {equivalents ? amount : "loading…"}
                 </span>
