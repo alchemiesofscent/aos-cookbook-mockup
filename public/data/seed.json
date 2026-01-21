@@ -2066,15 +2066,16 @@
         }
       },
       "items": [
-        {
-          "id": "ri-1",
-          "type": "ingredient",
-          "masterId": "i-onyx",
-          "originalTerm": "ὄνυξ",
-          "transliteration": "onyx",
-          "displayTerm": "Aromatic onyx",
-          "amount": "5 oungiai",
-          "originalAmount": "𐆄 <ε>",
+	        {
+	          "id": "ri-1",
+	          "type": "ingredient",
+	          "masterId": "i-onyx",
+	          "ancientTermId": "ai-onyx",
+	          "originalTerm": "ὄνυξ",
+	          "transliteration": "onyx",
+	          "displayTerm": "Aromatic onyx",
+	          "amount": "5 oungiai",
+	          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
@@ -2087,15 +2088,16 @@
           ],
           "role": "aromatic"
         },
-        {
-          "id": "ri-2",
-          "type": "ingredient",
-          "masterId": "i-styrax",
-          "originalTerm": "στύραξ",
-          "transliteration": "styrax",
-          "displayTerm": "Storax",
-          "amount": "5 oungiai",
-          "originalAmount": "𐆄 <ε>",
+	        {
+	          "id": "ri-2",
+	          "type": "ingredient",
+	          "masterId": "i-styrax",
+	          "ancientTermId": "ai-styrax",
+	          "originalTerm": "στύραξ",
+	          "transliteration": "styrax",
+	          "displayTerm": "Storax",
+	          "amount": "5 oungiai",
+	          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
@@ -2108,15 +2110,16 @@
           ],
           "role": "aromatic"
         },
-        {
-          "id": "ri-3",
-          "type": "ingredient",
-          "masterId": "i-bdellion",
-          "originalTerm": "βδέλλιον",
-          "transliteration": "bdellion",
-          "displayTerm": "Bdellium",
-          "amount": "5 oungiai",
-          "originalAmount": "𐆄 <ε>",
+	        {
+	          "id": "ri-3",
+	          "type": "ingredient",
+	          "masterId": "i-bdellion",
+	          "ancientTermId": "ai-bdellion",
+	          "originalTerm": "βδέλλιον",
+	          "transliteration": "bdellion",
+	          "displayTerm": "Bdellium",
+	          "amount": "5 oungiai",
+	          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
@@ -2129,15 +2132,16 @@
           ],
           "role": "aromatic"
         },
-        {
-          "id": "ri-4",
-          "type": "ingredient",
-          "masterId": "i-costus",
-          "originalTerm": "κόστος",
-          "transliteration": "kostos",
-          "displayTerm": "Costus",
-          "amount": "5 oungiai",
-          "originalAmount": "𐆄 εʹ",
+	        {
+	          "id": "ri-4",
+	          "type": "ingredient",
+	          "masterId": "i-costus",
+	          "ancientTermId": "ai-kostos",
+	          "originalTerm": "κόστος",
+	          "transliteration": "kostos",
+	          "displayTerm": "Costus",
+	          "amount": "5 oungiai",
+	          "originalAmount": "𐆄 εʹ",
           "quantities": [
             {
               "value": 5,
@@ -2150,15 +2154,16 @@
           ],
           "role": "aromatic"
         },
-        {
-          "id": "ri-5",
-          "type": "ingredient",
-          "masterId": "i-oil",
-          "originalTerm": "ἔλαιον",
-          "transliteration": "elaion",
-          "displayTerm": "Sweet oil (olive oil)",
-          "amount": "5 xestai",
-          "originalAmount": "ξέστας <ε>",
+	        {
+	          "id": "ri-5",
+	          "type": "ingredient",
+	          "masterId": "i-oil",
+	          "ancientTermId": "ai-elaion",
+	          "originalTerm": "ἔλαιον",
+	          "transliteration": "elaion",
+	          "displayTerm": "Sweet oil (olive oil)",
+	          "amount": "5 xestai",
+	          "originalAmount": "ξέστας <ε>",
           "quantities": [
             {
               "value": 5,
@@ -2171,51 +2176,55 @@
           ],
           "role": "carrier"
         },
-        {
-          "id": "ri-6",
-          "type": "ingredient",
-          "masterId": "i-hypnon",
-          "originalTerm": "ὕπνον",
-          "transliteration": "hypnon",
-          "displayTerm": "Moss (hypnon)",
-          "amount": "sufficient amount",
-          "originalAmount": "τὸ ἀρκοῦν",
+	        {
+	          "id": "ri-6",
+	          "type": "ingredient",
+	          "masterId": "i-hypnon",
+	          "ancientTermId": "ai-hypnon",
+	          "originalTerm": "ὕπνον",
+	          "transliteration": "hypnon",
+	          "displayTerm": "Moss (hypnon)",
+	          "amount": "sufficient amount",
+	          "originalAmount": "τὸ ἀρκοῦν",
           "quantities": [{ "value": 1, "unit": "unspecified", "needsReview": true }],
           "role": "adjuvant"
         },
-        {
-          "id": "ri-7",
-          "type": "ingredient",
-          "masterId": "i-aspalathos",
-          "originalTerm": "ἀσπάλαθος",
-          "transliteration": "aspalathos",
-          "displayTerm": "Aspalathos (twigs)",
-          "amount": "",
-          "originalAmount": "ξυλάρια ἀσπαλάθου",
+	        {
+	          "id": "ri-7",
+	          "type": "ingredient",
+	          "masterId": "i-aspalathos",
+	          "ancientTermId": "ai-aspalathos",
+	          "originalTerm": "ἀσπάλαθος",
+	          "transliteration": "aspalathos",
+	          "displayTerm": "Aspalathos (twigs)",
+	          "amount": "",
+	          "originalAmount": "ξυλάρια ἀσπαλάθου",
           "quantities": [],
           "role": "aromatic"
         },
-        {
-          "id": "ri-8",
-          "type": "ingredient",
-          "masterId": "i-clay",
-          "originalTerm": "πηλός",
-          "transliteration": "pēlos",
-          "displayTerm": "Clay",
-          "amount": "",
-          "originalAmount": "πηλῷ",
+	        {
+	          "id": "ri-8",
+	          "type": "ingredient",
+	          "masterId": "i-clay",
+	          "ancientTermId": "ai-pelos",
+	          "originalTerm": "πηλός",
+	          "transliteration": "pēlos",
+	          "displayTerm": "Clay",
+	          "amount": "",
+	          "originalAmount": "πηλῷ",
           "quantities": [],
           "role": "other"
         },
-        {
-          "id": "ri-9",
-          "type": "ingredient",
-          "masterId": "i-charcoal",
-          "originalTerm": "κάρβων",
-          "transliteration": "karbon",
-          "displayTerm": "Charcoal",
-          "amount": "",
-          "originalAmount": "κάρβωνας πολλούς",
+	        {
+	          "id": "ri-9",
+	          "type": "ingredient",
+	          "masterId": "i-charcoal",
+	          "ancientTermId": "ai-karbon",
+	          "originalTerm": "κάρβων",
+	          "transliteration": "karbon",
+	          "displayTerm": "Charcoal",
+	          "amount": "",
+	          "originalAmount": "κάρβωνας πολλούς",
           "quantities": [],
           "role": "other"
         },
@@ -2391,15 +2400,71 @@
       "placeholder": true,
       "sourceKind": "project"
     },
-    {
-      "id": "ai-balaninon",
-      "term": "βαλάνινον",
-      "transliteration": "balaninon",
-      "description": "An alternative base-oil term appearing in recipes (demo scaffold).",
-      "placeholder": true,
-      "sourceKind": "project"
-    }
-  ],
+	    {
+	      "id": "ai-balaninon",
+	      "term": "βαλάνινον",
+	      "transliteration": "balaninon",
+	      "description": "An alternative base-oil term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-onyx",
+	      "term": "ὄνυξ",
+	      "transliteration": "onyx",
+	      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-styrax",
+	      "term": "στύραξ",
+	      "transliteration": "styrax",
+	      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-bdellion",
+	      "term": "βδέλλιον",
+	      "transliteration": "bdellion",
+	      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-kostos",
+	      "term": "κόστος",
+	      "transliteration": "kostos",
+	      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-hypnon",
+	      "term": "ὕπνον",
+	      "transliteration": "hypnon",
+	      "description": "A packing/sealing material term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-pelos",
+	      "term": "πηλός",
+	      "transliteration": "pēlos",
+	      "description": "A material term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    },
+	    {
+	      "id": "ai-karbon",
+	      "term": "κάρβων",
+	      "transliteration": "karbon",
+	      "description": "A fuel/material term appearing in recipes (demo scaffold).",
+	      "placeholder": true,
+	      "sourceKind": "project"
+	    }
+	  ],
   "ingredientProducts": [
     { "id": "ip-skhoinos-a", "label": "Reed, Aromatic (Candidate A)", "description": "A possible modern interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
     { "id": "ip-skhoinos-b", "label": "Grass, Aromatic (Candidate B)", "description": "A second interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
@@ -3179,9 +3244,17 @@
       "r-lily-dioscorides:ing-meli": "ai-meli",
       "r-lily-dioscorides:ing-hals": "ai-hals",
       "r-lily-dioscorides:ing-kinamomon": "ai-kinamomon",
-      "r-lily-dioscorides:ing-krokos": "ai-krokos",
-      "r-lily-dioscorides:ing-kommi": "ai-kommi",
-      "r-lily-dioscorides:ing-balaninon": "ai-balaninon"
-    }
-  }
-}
+	      "r-lily-dioscorides:ing-krokos": "ai-krokos",
+	      "r-lily-dioscorides:ing-kommi": "ai-kommi",
+	      "r-lily-dioscorides:ing-balaninon": "ai-balaninon",
+	      "r-smoked-oil-aetius:ing-onyx": "ai-onyx",
+	      "r-smoked-oil-aetius:ing-styrax": "ai-styrax",
+	      "r-smoked-oil-aetius:ing-bdellion": "ai-bdellion",
+	      "r-smoked-oil-aetius:ing-costus": "ai-kostos",
+	      "r-smoked-oil-aetius:ing-sweet-oil": "ai-elaion",
+	      "r-smoked-oil-aetius:ing-hypnon": "ai-hypnon",
+	      "r-smoked-oil-aetius:ing-aspalathos": "ai-aspalathos",
+	      "r-smoked-oil-aetius:ing-clay": "ai-pelos"
+	    }
+	  }
+	}
