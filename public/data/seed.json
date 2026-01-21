@@ -1891,6 +1891,359 @@
           "role": ""
         }
       ]
+    },
+    {
+      "id": "r-smoked-oil-aetius",
+      "slug": "smoked-oil-aetius",
+      "urn": "urn:aos:recipe:smoked-oil-aetius",
+      "metadata": {
+        "title": "Smoked Oil (καπνιστὸν ἔλαιον)",
+        "sourceWorkId": "w-libri-medicinales",
+        "author": "Aetius of Amida",
+        "attribution": "Libri medicinales 1.134 (Olivieri, CMG VIII.1, 68.15–69.12), trans. Coughlin",
+        "language": "Ancient Greek",
+        "date": "6th century",
+        "place": "Amida"
+      },
+      "text": {
+        "original": "τὸ δὲ λεγόμενον καπνιστὸν ἔλαιον σκευάζεται οὕτως· ὀνύχων ἀρωματικῶν μεγάλων 𐆄 <ε> στύρακος πρωτείου 𐆄 <ε> βδελλίου καθαροῦ 𐆄 <ε> κόστου 𐆄 εʹ ἐλαίου γλυκέος καλοῦ ξ̸ε9 <ε> ὕπνου τὸ ἀρκοῦν· τὸν <δὲ> κόστον εἰς ἁδρομερῆ μόρια διαμερίσας, καὶ τὸν στύρακα ὁμοίως καὶ τὸ βδέλλιον, εἶτ' ἀναμίξας, ἅμα ἔμβαλε ἐν ξεστίῳ καινῷ ὀστρακίνῳ μὴ ἔχοντι ὠτίον· εἶτα σκεπάσας ποσῷ τὸ στόμιον ὕπνῳ καὶ ἔξωθεν τοῦ ὕπνου ξυλάρια ἀσπαλάθου ἤ τινος τῶν εὐωδῶν περιφράξας, ὥστε μὴ ἐκπεσεῖν τὰ ἐν τῷ ξεστίῳ, εἶτα ἕτερον ὀστράκινον ἀγγεῖον ἄωτον λαβὼν μακροτράχηλον στόμιον ἔχον ἁρμόδιον τῷ στομίῳ τοῦ περιέχοντος τὰ εἰρημένα εἴδη, καὶ ἐμβαλὼν ἐν αὐτῷ ἐλαίου γλυκέος ξέστας <ε> καὶ ὀρύξας τὴν γῆν, χῶσον μέχρι τοῦ τραχήλου τὸ ἔχον τὸ ἔλαιον ἵνα μὴ πυρωθῇ, εἶτα ἐπικέφαλα λαβὼν τὸ ξεστίον καὶ ἁρμόσας αὐτὸ τῷ στομίῳ τοῦ ἔχοντος τὸ ἔλαιον, χρίε ἔξωθεν τὸ ξεστίον πηλῷ ὅλον κύκλῳ καὶ τὰ στόματα ἀμφοτέρων τὰ ἀλλήλοις ἡρμοσμένα καὶ ἐάσας ξηρανθῆναι, τῇ ἑξῆς κάρβωνας πολλοὺς ἐπιθεὶς καὶ σκεπάσας αὐτοῖς πάντοθεν τὸ ξεστίον, ἄναψον πῦρ καὶ ῥίπιζε. ἀναφθέντος δὲ τοῦ πυρός, ἔα αὐτὸ μαραίνεσθαι, ἵνα κατὰ βραχὺ πυρούμενα διὰ τοῦ στόματος τοῦ ξεστίου τὰ εἴδη καπνίσῃ τὸ ὑποκείμενον αὐτοῖς ἔλαιον· τούτου γὰρ χάριν καπνιστὸν ὀνομάζεται· εἶτα τῇ ἑξῆς ἀνοίξας ἀνελοῦ τὸ ἔλαιον καὶ φύλαττε ἐν ὑαλίνῳ ἀγγείῳ καὶ χρῶ. τούτῳ χρῶνται αἱ γυναῖκες ἐφ' ὧν ἐπίσχηται τὰ καταμήνια, χρίουσαι αὐτῷ τὸ ἦτρον καὶ τὴν ὀσφύν. ἁρμόδιον δέ ἐστι κἀπὶ τῶν μὴ κατὰ λόγον ἐν τοῖς τοκετοῖς καθαιρομένων ὁμοίως χριόμενον. χρήσιμον δὲ καὶ τοῖς τὸν θώρακα ἐψυγμένοις καὶ τεινεσμῶν ἐνοχλούντων ὠφέλιμον θερμὸν πτύγματι ἐρίου ἀναλαμβανόμενον καὶ ἐπιτιθέμενον ἤτρῳ καὶ ὀσφύι.",
+        "translation": "What is called smoked oil is prepared as follows: combine 5 ounces each of large aromatic onyx, first-quality storax, pure bdellium, and costus; 5 Italian pints of fine sweet oil; and a sufficient amount of moss. Coarsely divide the costus, storax, and bdellium into large pieces, mix them together, and place them in a new handleless earthenware vessel. Cover the vessel’s mouth with a layer of moss, and encircle the exterior of the moss with fragrant twigs such as those of aspalathos to secure the contents inside. Take another long-necked earthen vessel with a mouth that fits snugly with the first vessel, and fill it with 5 pints of sweet oil. Bury the vessel containing the oil in the ground up to its neck to prevent overheating, then join the two vessels by fitting their mouths together. Seal the joint with clay around the entire perimeter and allow it to dry completely. The following day, place a large amount of charcoal around and over the first vessel, covering it completely. Light the fire and use a fan to maintain it. Once the fire has burned out and the charcoal has cooled, the aromatic ingredients in the first vessel will have slowly released their smoke through its mouth, infusing the oil in the buried vessel below. This process gives the oil its name, smoked oil. After the vessels cool, open them, remove the oil, and store it in a glass container for use. This oil is used by women to anoint the uterus and lower back during cases of suppressed menstruation. It is also suitable for postpartum cleansing when applied in the same manner. Additionally, it benefits those with chilled chests and provides relief for tightness and tension when applied warm using a woolen cloth to the uterus or lower back.",
+        "notes": "Ed. Olivieri (CMG VIII.1), 68.15–69.12. Trans. Coughlin. Citation: Libri medicinales 1.134.",
+        "combinedSegments": [
+          { "text": "What is called " },
+          { "text": "smoked", "type": "annotation", "id": "pr-smoking" },
+          { "text": " oil is prepared as follows: combine 5 " },
+          { "text": "oungiai", "type": "annotation", "id": "unit-oungia" },
+          { "text": " each of large aromatic " },
+          { "text": "ὀνύχων ἀρωματικῶν", "type": "annotation", "id": "ing-onyx" },
+          { "text": ", first-quality " },
+          { "text": "στύρακος", "type": "annotation", "id": "ing-styrax" },
+          { "text": ", pure " },
+          { "text": "βδελλίου", "type": "annotation", "id": "ing-bdellion" },
+          { "text": ", and " },
+          { "text": "κόστου", "type": "annotation", "id": "ing-costus" },
+          { "text": "; 5 " },
+          { "text": "xestai", "type": "annotation", "id": "unit-xestes" },
+          { "text": " of fine " },
+          { "text": "ἐλαίου γλυκέος", "type": "annotation", "id": "ing-sweet-oil" },
+          { "text": "; and a sufficient amount of " },
+          { "text": "ὕπνου", "type": "annotation", "id": "ing-hypnon" },
+          { "text": ".\n\n" },
+
+          { "text": "Coarsely divide the costus, storax, and bdellium into large pieces, mix them together, and place them in a new handleless " },
+          { "text": "earthenware vessel", "type": "annotation", "id": "t-xestion" },
+          { "text": ". Cover the vessel’s mouth with a layer of " },
+          { "text": "ὕπνου", "type": "annotation", "id": "ing-hypnon" },
+          { "text": ", and encircle the exterior of the moss with fragrant twigs such as those of " },
+          { "text": "ἀσπαλάθου", "type": "annotation", "id": "ing-aspalathos" },
+          { "text": " to secure the contents inside.\n\n" },
+
+          { "text": "Take another long-necked earthen vessel with a mouth that fits snugly with the first vessel, and fill it with 5 xestai of " },
+          { "text": "ἐλαίου γλυκέος", "type": "annotation", "id": "ing-sweet-oil" },
+          { "text": ". Bury the vessel containing the oil in the ground up to its neck to prevent overheating, then join the two vessels by fitting their mouths together. Seal the joint with " },
+          { "text": "πηλῷ", "type": "annotation", "id": "ing-clay" },
+          { "text": " around the entire perimeter and allow it to dry completely.\n\n" },
+
+          { "text": "The following day, place a large amount of charcoal around and over the first vessel, covering it completely. Light the fire and use a fan to maintain it. Once the fire has burned out and the charcoal has cooled, the aromatic ingredients in the first vessel will have slowly released their smoke through its mouth, infusing the oil in the buried vessel below. This process gives the oil its name, " },
+          { "text": "smoked", "type": "annotation", "id": "pr-smoking" },
+          { "text": " oil. After the vessels cool, open them, remove the oil, and store it in a glass container for use.\n\n" },
+
+          { "text": "This oil is used by women to anoint the " },
+          { "text": "uterus", "type": "annotation", "id": "term-etron" },
+          { "text": " and " },
+          { "text": "lower back", "type": "annotation", "id": "term-osphy" },
+          { "text": " during cases of suppressed " },
+          { "text": "menstruation", "type": "annotation", "id": "term-katamenia" },
+          { "text": ". It is also suitable for postpartum cleansing when applied in the same manner. Additionally, it benefits those with chilled chests and provides relief for tightness and tension when applied warm using a woolen cloth to the uterus or lower back." }
+        ]
+      },
+      "annotations": {
+        "ing-onyx": {
+          "term": "ὄνυξ",
+          "transliteration": "onyx",
+          "definition": "Aromatic onyx/onycha (fragrant material) used here as an aromatic ingredient.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-onyx" }]
+        },
+        "ing-styrax": {
+          "term": "στύραξ",
+          "transliteration": "styrax",
+          "definition": "Storax resin (styrax) used as an aromatic ingredient.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-styrax" }]
+        },
+        "ing-bdellion": {
+          "term": "βδέλλιον",
+          "transliteration": "bdellion",
+          "definition": "Bdellium resin used as an aromatic ingredient.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-bdellion" }]
+        },
+        "ing-costus": {
+          "term": "κόστος",
+          "transliteration": "kostos",
+          "definition": "Costus root/aromatic plant material used as an ingredient.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-costus" }]
+        },
+        "ing-sweet-oil": {
+          "term": "ἐλαίου γλυκέος",
+          "transliteration": "elaiou glykeos",
+          "definition": "Sweet oil; treated here as olive oil used as a carrier.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-oil" }]
+        },
+        "ing-hypnon": {
+          "term": "ὕπνον",
+          "transliteration": "hypnon",
+          "definition": "Moss (hypnon), used as a packing/sealing material in the apparatus.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-hypnon" }]
+        },
+        "ing-aspalathos": {
+          "term": "ἀσπάλαθος",
+          "transliteration": "aspalathos",
+          "definition": "Aspalathos twigs used to secure and scent the sealing layer.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-aspalathos" }]
+        },
+        "ing-clay": {
+          "term": "πηλός",
+          "transliteration": "pēlos",
+          "definition": "Clay used to seal the join between vessels.",
+          "annotationType": "ingredient",
+          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-clay" }]
+        },
+        "t-xestion": {
+          "term": "Earthenware vessel (xestes)",
+          "transliteration": "xestion",
+          "definition": "An earthenware vessel (ξεστίον ὀστράκινον), used here as the upper container for smoking aromatics.",
+          "annotationType": "tool",
+          "links": [{ "label": "View tool", "route": "workshop-tool:t-xestion" }]
+        },
+        "pr-smoking": {
+          "term": "καπνίζειν",
+          "transliteration": "kapnizein",
+          "lemma": "καπνίζειν",
+          "definition": "To smoke/infuse by exposure to aromatic smoke.",
+          "annotationType": "process",
+          "links": [{ "label": "View process", "route": "workshop-process:pr-smoking" }]
+        },
+        "term-katamenia": {
+          "term": "καταμήνια",
+          "transliteration": "katamēnia",
+          "definition": "Menstruation; here in the context of suppressed menses.",
+          "annotationType": "general",
+          "links": []
+        },
+        "term-etron": {
+          "term": "ἦτρον",
+          "transliteration": "ētron",
+          "definition": "Uterus / lower abdomen (context-dependent).",
+          "annotationType": "general",
+          "links": []
+        },
+        "term-osphy": {
+          "term": "ὀσφύς",
+          "transliteration": "osphys",
+          "definition": "Lower back/loins.",
+          "annotationType": "general",
+          "links": []
+        },
+        "unit-oungia": {
+          "term": "οὐγγία",
+          "transliteration": "oungia",
+          "definition": "A unit of weight (ounce).",
+          "annotationType": "philological",
+          "links": []
+        },
+        "unit-xestes": {
+          "term": "ξέστης",
+          "transliteration": "xestes",
+          "definition": "A unit of volume (xestes).",
+          "annotationType": "philological",
+          "links": []
+        }
+      },
+      "items": [
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-onyx",
+          "originalTerm": "ὄνυξ",
+          "transliteration": "onyx",
+          "displayTerm": "Aromatic onyx",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "oungia-weight",
+              "unitKey": "oungia-weight",
+              "unitType": "weight",
+              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "needsReview": true
+            }
+          ],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": "i-styrax",
+          "originalTerm": "στύραξ",
+          "transliteration": "styrax",
+          "displayTerm": "Storax",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "oungia-weight",
+              "unitKey": "oungia-weight",
+              "unitType": "weight",
+              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "needsReview": true
+            }
+          ],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": "i-bdellion",
+          "originalTerm": "βδέλλιον",
+          "transliteration": "bdellion",
+          "displayTerm": "Bdellium",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "oungia-weight",
+              "unitKey": "oungia-weight",
+              "unitType": "weight",
+              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "needsReview": true
+            }
+          ],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-costus",
+          "originalTerm": "κόστος",
+          "transliteration": "kostos",
+          "displayTerm": "Costus",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 εʹ",
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "oungia-weight",
+              "unitKey": "oungia-weight",
+              "unitType": "weight",
+              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "needsReview": true
+            }
+          ],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-5",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Sweet oil (olive oil)",
+          "amount": "5 xestai",
+          "originalAmount": "ξέστας <ε>",
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "xestes-volume",
+              "unitKey": "xestes-volume",
+              "unitType": "volume",
+              "unitRaw": { "term": "ξέστας", "transliteration": "xestas", "kind": "volume" },
+              "needsReview": true
+            }
+          ],
+          "role": "carrier"
+        },
+        {
+          "id": "ri-6",
+          "type": "ingredient",
+          "masterId": "i-hypnon",
+          "originalTerm": "ὕπνον",
+          "transliteration": "hypnon",
+          "displayTerm": "Moss (hypnon)",
+          "amount": "sufficient amount",
+          "originalAmount": "τὸ ἀρκοῦν",
+          "quantities": [{ "value": 1, "unit": "unspecified", "needsReview": true }],
+          "role": "adjuvant"
+        },
+        {
+          "id": "ri-7",
+          "type": "ingredient",
+          "masterId": "i-aspalathos",
+          "originalTerm": "ἀσπάλαθος",
+          "transliteration": "aspalathos",
+          "displayTerm": "Aspalathos (twigs)",
+          "amount": "",
+          "originalAmount": "ξυλάρια ἀσπαλάθου",
+          "quantities": [],
+          "role": "aromatic"
+        },
+        {
+          "id": "ri-8",
+          "type": "ingredient",
+          "masterId": "i-clay",
+          "originalTerm": "πηλός",
+          "transliteration": "pēlos",
+          "displayTerm": "Clay",
+          "amount": "",
+          "originalAmount": "πηλῷ",
+          "quantities": [],
+          "role": "other"
+        },
+        {
+          "id": "ri-9",
+          "type": "ingredient",
+          "masterId": "i-charcoal",
+          "originalTerm": "κάρβων",
+          "transliteration": "karbon",
+          "displayTerm": "Charcoal",
+          "amount": "",
+          "originalAmount": "κάρβωνας πολλούς",
+          "quantities": [],
+          "role": "other"
+        },
+        {
+          "id": "rt-1",
+          "type": "tool",
+          "masterId": "t-xestion",
+          "originalTerm": "ξεστίον ὀστράκινον",
+          "transliteration": "xestion ostrakinon",
+          "displayTerm": "Earthenware vessel (xestes)",
+          "amount": "",
+          "originalAmount": "ἐν ξεστίῳ καινῷ ὀστρακίνῳ",
+          "quantities": [],
+          "role": ""
+        },
+        {
+          "id": "rp-1",
+          "type": "process",
+          "masterId": "pr-smoking",
+          "originalTerm": "καπνίζειν",
+          "transliteration": "kapnizein",
+          "displayTerm": "Smoking/infusing",
+          "amount": "",
+          "originalAmount": "καπνίσῃ",
+          "quantities": [],
+          "role": ""
+        }
+      ]
     }
   ],
   "ancientIngredients": [
@@ -2342,6 +2695,69 @@
       "slug": "balaninon",
       "urn": "urn:aos:ingredient:balaninon",
       "description": "Alternative base oil mentioned in a simplified variant."
+    },
+    {
+      "id": "i-onyx",
+      "name": "Aromatic Onyx",
+      "originalName": "ὄνυξ",
+      "transliteratedName": "onyx",
+      "slug": "onyx",
+      "urn": "urn:aos:ingredient:onyx",
+      "description": "Aromatic onyx/onycha used as a fragrant ingredient."
+    },
+    {
+      "id": "i-styrax",
+      "name": "Storax",
+      "originalName": "στύραξ",
+      "transliteratedName": "styrax",
+      "slug": "styrax",
+      "urn": "urn:aos:ingredient:styrax",
+      "description": "Storax resin used as an aromatic."
+    },
+    {
+      "id": "i-bdellion",
+      "name": "Bdellium",
+      "originalName": "βδέλλιον",
+      "transliteratedName": "bdellion",
+      "slug": "bdellion",
+      "urn": "urn:aos:ingredient:bdellion",
+      "description": "Bdellium resin used as an aromatic ingredient."
+    },
+    {
+      "id": "i-costus",
+      "name": "Costus",
+      "originalName": "κόστος",
+      "transliteratedName": "kostos",
+      "slug": "kostos",
+      "urn": "urn:aos:ingredient:kostos",
+      "description": "Costus root/aromatic plant material."
+    },
+    {
+      "id": "i-hypnon",
+      "name": "Moss (hypnon)",
+      "originalName": "ὕπνον",
+      "transliteratedName": "hypnon",
+      "slug": "hypnon",
+      "urn": "urn:aos:ingredient:hypnon",
+      "description": "Moss used as a packing/sealing layer."
+    },
+    {
+      "id": "i-clay",
+      "name": "Clay",
+      "originalName": "πηλός",
+      "transliteratedName": "pēlos",
+      "slug": "pelos",
+      "urn": "urn:aos:ingredient:pelos",
+      "description": "Clay used to seal vessels during preparation."
+    },
+    {
+      "id": "i-charcoal",
+      "name": "Charcoal",
+      "originalName": "κάρβων",
+      "transliteratedName": "karbon",
+      "slug": "karbon",
+      "urn": "urn:aos:ingredient:karbon",
+      "description": "Charcoal used as fuel/heat source."
     }
   ],
   "masterTools": [
@@ -2398,6 +2814,15 @@
       "slug": "kyrtis",
       "urn": "urn:aos:tool:kyrtis",
       "description": "Strainer/basket used for pressing out and straining."
+    },
+    {
+      "id": "t-xestion",
+      "name": "Earthenware vessel (xestes)",
+      "originalName": "ξεστίον ὀστράκινον",
+      "transliteratedName": "xestion",
+      "slug": "xestion",
+      "urn": "urn:aos:tool:xestion",
+      "description": "Earthenware vessel (often handleless) used in an apparatus for smoking aromatics."
     }
   ],
   "masterProcesses": [
@@ -2589,6 +3014,15 @@
       "slug": "aphairein",
       "urn": "urn:aos:process:aphairein",
       "description": "Removing impurities or unwanted material."
+    },
+    {
+      "id": "pr-smoking",
+      "name": "Smoking/infusing",
+      "originalName": "καπνίζειν",
+      "transliteratedName": "kapnizein",
+      "slug": "kapnizein",
+      "urn": "urn:aos:process:kapnizein",
+      "description": "Infusing a substance by exposure to aromatic smoke."
     }
   ],
   "masterWorks": [
@@ -2614,6 +3048,18 @@
       "date": "2026",
       "language": "English",
       "place": "n/a"
+    },
+    {
+      "id": "w-libri-medicinales",
+      "name": "Libri medicinales",
+      "slug": "libri-medicinales",
+      "urn": "urn:aos:work:libri-medicinales",
+      "description": "Medical compendium attributed to Aetius of Amida.",
+      "author": "Aetius of Amida",
+      "authorId": "p-aetius",
+      "date": "6th century",
+      "language": "Ancient Greek",
+      "place": "Amida"
     }
   ],
   "masterPeople": [
@@ -2660,6 +3106,17 @@
       "role": "Chemist",
       "place": "Alchemies of Scent",
       "date": "Contemporary"
+    },
+    {
+      "id": "p-aetius",
+      "name": "Aetius of Amida",
+      "slug": "aetius-of-amida",
+      "urn": "urn:aos:person:aetius-of-amida",
+      "categories": ["historical"],
+      "description": "Byzantine physician and compiler of Libri medicinales.",
+      "role": "Physician",
+      "place": "Amida",
+      "date": "6th century"
     }
   ],
   "pins": {
