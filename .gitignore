@@ -27,3 +27,6 @@ coverage/
 
 # Local backups
 .backup/
+
+# Tmp files
+tmp/*.*
