@@ -3,6 +3,39 @@ export interface ExternalLink {
   url: string;
 }
 
+export type ContentBlock = {
+  type: "heading" | "paragraph";
+  text: string;
+};
+
+export interface ContentSource {
+  title?: string;
+  slug?: string;
+  link?: string;
+  publishedAt?: string;
+}
+
+export interface ProjectContent {
+  title: string;
+  intro?: string;
+  blocks: ContentBlock[];
+  source?: ContentSource;
+}
+
+export interface NewsItem {
+  id: string;
+  title: string;
+  date?: string;
+  blocks: ContentBlock[];
+  source?: ContentSource;
+  categories?: string[];
+}
+
+export interface SiteContent {
+  project?: ProjectContent;
+  news?: NewsItem[];
+}
+
 export interface TextSegment {
   text: string;
   type?: "annotation";
@@ -147,6 +180,7 @@ export interface DatabaseState {
   ingredientProducts: IngredientProduct[];
   materialSources: MaterialSource[];
   identifications: Identification[];
+  siteContent?: SiteContent;
   pins?: {
     recipeItemToAncientTermId?: Record<string, string>;
     recipeAnnotationToAncientTermId?: Record<string, string>;

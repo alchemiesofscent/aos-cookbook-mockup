@@ -33,6 +33,7 @@ export const AboutPage = ({ navigate }) => {
             <button className="text-btn">View Updates &rarr;</button>
          </div>
       </div>
+
     </div>
   );
 };

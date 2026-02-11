@@ -12,6 +12,7 @@ const STORAGE_KEYS = {
   MATERIAL_SOURCES: "AOS_MATERIAL_SOURCES",
   IDENTIFICATIONS: "AOS_IDENTIFICATIONS",
   PINS: "AOS_PINS",
+  SITE_CONTENT: "AOS_SITE_CONTENT",
   DB_VERSION: 'AOS_DB_VERSION',
   DB_INITIALIZED: 'AOS_DB_INITIALIZED'
 };
@@ -30,6 +31,7 @@ const writeDatabaseToStorage = (data: DatabaseState) => {
   localStorage.setItem(STORAGE_KEYS.MATERIAL_SOURCES, JSON.stringify((data as any).materialSources ?? []));
   localStorage.setItem(STORAGE_KEYS.IDENTIFICATIONS, JSON.stringify((data as any).identifications ?? []));
   localStorage.setItem(STORAGE_KEYS.PINS, JSON.stringify((data as any).pins ?? {}));
+  localStorage.setItem(STORAGE_KEYS.SITE_CONTENT, JSON.stringify((data as any).siteContent ?? {}));
   localStorage.setItem(STORAGE_KEYS.DB_VERSION, CURRENT_DB_VERSION);
   localStorage.setItem(STORAGE_KEYS.DB_INITIALIZED, "true");
 };
@@ -47,6 +49,7 @@ export const StorageAdapter = {
       ingredientProducts: JSON.parse(localStorage.getItem(STORAGE_KEYS.INGREDIENT_PRODUCTS) || "[]"),
       materialSources: JSON.parse(localStorage.getItem(STORAGE_KEYS.MATERIAL_SOURCES) || "[]"),
       identifications: JSON.parse(localStorage.getItem(STORAGE_KEYS.IDENTIFICATIONS) || "[]"),
+      siteContent: JSON.parse(localStorage.getItem(STORAGE_KEYS.SITE_CONTENT) || "{}"),
       pins: JSON.parse(localStorage.getItem(STORAGE_KEYS.PINS) || "{}"),
     };
   },
@@ -73,6 +76,7 @@ export const StorageAdapter = {
                   const data = JSON.parse(e.target?.result as string);
                   // Ensure masterPeople exists for older backups
                   if (!data.masterPeople) data.masterPeople = [];
+                  if (!data.siteContent) data.siteContent = {};
                   resolve(data);
               } catch (err) {
                   reject(err);
@@ -193,6 +197,22 @@ export const loadState = async (): Promise<DatabaseState> => {
     mergeArrayById("ingredientProducts");
     mergeArrayById("materialSources");
     mergeArrayById("identifications");
+
+    const seedContent = (seed as any).siteContent;
+    const currentContent = (db as any).siteContent;
+    if (!currentContent || typeof currentContent !== "object") {
+      (db as any).siteContent = seedContent && typeof seedContent === "object" ? seedContent : {};
+      changed = true;
+    } else if (seedContent && typeof seedContent === "object") {
+      if (!currentContent.project && seedContent.project) {
+        currentContent.project = seedContent.project;
+        changed = true;
+      }
+      if (!Array.isArray(currentContent.news) && Array.isArray(seedContent.news)) {
+        currentContent.news = seedContent.news;
+        changed = true;
+      }
+    }
 
     const currentPins = (db as any).pins;
     const seedPins = (seed as any).pins;
