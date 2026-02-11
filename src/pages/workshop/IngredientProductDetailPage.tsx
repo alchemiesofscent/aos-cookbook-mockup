@@ -1,7 +1,6 @@
 import React from "react";
 import type { AncientIngredient, DatabaseState, MaterialSource } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 
 export const IngredientProductDetailPage = ({
   navigate,
@@ -27,10 +26,6 @@ export const IngredientProductDetailPage = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("ingredients")}>
-        <Icons.ArrowLeft /> Back to Ingredients
-      </div>
-
       <div
         className="product-section"
         style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}
@@ -95,4 +90,3 @@ export const IngredientProductDetailPage = ({
     </div>
   );
 };
-

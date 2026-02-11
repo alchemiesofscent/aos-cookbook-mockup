@@ -147,6 +147,10 @@
 .studio-scaleControl {
   min-width: 260px;
 }
+.studio-scaleSlider {
+  width: 100%;
+  margin-top: 0.5rem;
+}
 
 .studio-stepsList {
   margin: 0;

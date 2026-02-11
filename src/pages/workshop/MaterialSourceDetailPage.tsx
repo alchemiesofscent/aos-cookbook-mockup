@@ -1,7 +1,6 @@
 import React from "react";
 import type { DatabaseState, IngredientProduct } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 
 export const MaterialSourceDetailPage = ({
   navigate,
@@ -22,10 +21,6 @@ export const MaterialSourceDetailPage = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("sources")}>
-        <Icons.ArrowLeft /> Back to Material Sources
-      </div>
-
       <div
         className="product-section"
         style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}
@@ -70,4 +65,3 @@ export const MaterialSourceDetailPage = ({
     </div>
   );
 };
-

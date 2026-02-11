@@ -1,11 +1,6 @@
 import React from "react";
-import { Icons } from "../../components/Icons";
-
-export const ExperimentsPage = ({ navigate }) => (
+export const ExperimentsPage = () => (
     <div className="page-container">
-        <div className="back-link" onClick={() => navigate('workshop')}>
-            <Icons.ArrowLeft /> Back to Workshop
-        </div>
         <div className="archive-intro">
             <h1>EXPERIMENTS</h1>
             <p>Replication stories and chemical analysis.</p>
@@ -15,4 +10,3 @@ export const ExperimentsPage = ({ navigate }) => (
         </div>
     </div>
 );
-

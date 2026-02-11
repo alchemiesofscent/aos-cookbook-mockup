@@ -1,6 +1,5 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const people = [...(db.masterPeople ?? [])]
@@ -9,10 +8,6 @@ export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-
       <div className="archive-intro">
         <h1 className="hero-title">PEOPLE</h1>
         <p className="reading">The authors, perfumers, and botanical explorers of antiquity.</p>

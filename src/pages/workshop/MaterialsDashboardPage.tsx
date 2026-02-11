@@ -1,14 +1,9 @@
 import React from "react";
-import { Icons } from "../../components/Icons";
 import { MaterialsSubNav } from "../../components/MaterialsSubNav";
 
 export const MaterialsDashboardPage = ({ navigate }) => {
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('workshop')}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
-      
       <div className="workshop-header">
         <h1>MATERIALS</h1>
         <MaterialsSubNav navigate={navigate} active="dashboard" />
@@ -54,4 +49,3 @@ export const MaterialsDashboardPage = ({ navigate }) => {
     </div>
   );
 };
-

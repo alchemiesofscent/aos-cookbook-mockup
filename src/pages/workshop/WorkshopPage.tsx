@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import type { DatabaseState } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 import { buildWorkshopCardsFromRecipes, type WorkshopCardModel } from "../../lib/workshopCards";
 
 export const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
@@ -46,10 +45,6 @@ export const WorkshopPage = ({ navigate, db }: { navigate: (route: string) => vo
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-      
       <div className="workshop-header">
         <h1 className="hero-title">The Workshop</h1>
         <p className="intro-text reading">

@@ -1,6 +1,5 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const team = [...(db.masterPeople ?? [])]
@@ -9,9 +8,6 @@ export const TeamPage = ({ navigate, db }: { navigate: (route: string) => void; 
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("about")}>
-        <Icons.ArrowLeft /> Back to About
-      </div>
       <h1 className="hero-title">The Team</h1>
       <div className="section-block">
         <div className="recipe-grid" style={{ marginTop: "2rem" }}>

@@ -1,7 +1,6 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
 import type { WorkshopEntityRoute } from "../../app/router";
-import { Icons } from "../../components/Icons";
 import { RecipeLinkCards } from "../../components/RecipeLinkCards";
 import { formatRecipeLabel } from "../../lib/formatRecipeLabel";
 import { formatAncientName } from "../../lib/workshopCards";
@@ -35,7 +34,6 @@ export const WorkshopEntityDetailPage = ({
       ? (unlinkedRecipe?.items ?? []).find((i) => i.id === routeInfo.itemId && i.type === routeInfo.kind)
       : null;
 
-  const backTarget = "workshop";
   const title =
     routeInfo.mode === "master"
       ? entity?.name ?? "Workshop card"
@@ -62,10 +60,6 @@ export const WorkshopEntityDetailPage = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate(backTarget)}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
-
       <div className="product-section" style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}>
         <h1 style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>{title}</h1>
         {ancientLabel && (
@@ -146,4 +140,3 @@ export const WorkshopEntityDetailPage = ({
     </div>
   );
 };
-

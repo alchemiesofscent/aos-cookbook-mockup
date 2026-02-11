@@ -34,10 +34,6 @@ export const IngredientsPage = ({ navigate, db }: { navigate: (route: string) =>
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("workshop")}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
-
       <div className="archive-intro">
         <h1>INGREDIENTS</h1>
         <MaterialsSubNav navigate={navigate} active="ingredients" />
@@ -131,4 +127,3 @@ export const IngredientsPage = ({ navigate, db }: { navigate: (route: string) =>
     </div>
   );
 };
-

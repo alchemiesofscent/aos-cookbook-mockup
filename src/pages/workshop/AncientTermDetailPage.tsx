@@ -1,7 +1,6 @@
 import React from "react";
 import type { DatabaseState, IngredientProduct, MaterialSource } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 import { RecipeLinkCards } from "../../components/RecipeLinkCards";
 
 export const AncientTermDetailPage = ({
@@ -44,10 +43,6 @@ export const AncientTermDetailPage = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("terms")}>
-        <Icons.ArrowLeft /> Back to Ancient Terms
-      </div>
-
       <div
         className="product-section"
         style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}
@@ -154,4 +149,3 @@ export const AncientTermDetailPage = ({
     </div>
   );
 };
-

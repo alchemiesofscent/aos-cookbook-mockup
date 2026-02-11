@@ -1,15 +1,10 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const WorksPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const works = [...(db.masterWorks ?? [])].sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate('library')}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-
       <div className="archive-intro">
         <h1 className="hero-title">WORKS</h1>
         <p className="reading">Key treatises on botany, pharmacology, and perfumery from the ancient world.</p>

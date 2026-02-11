@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import type { DatabaseState, Recipe, RecipeItem } from "../../types";
-import { Icons } from "../../components/Icons";
 import { createOrResumeStudioSession, setActiveStudioSessionId } from "../../studio/storage";
 import { resolveAncientTermIdForRecipeAnnotation, resolveAncientTermIdForRecipeItem } from "../../workshop/resolveAncientTermId";
 
@@ -54,10 +53,6 @@ export const RecipePage = ({
 
   return (
     <div className="page-container recipe-page">
-      <div className="back-link" onClick={() => navigate('archive')}>
-        <Icons.ArrowLeft /> Back to Recipes
-      </div>
-      
       <div className="recipe-header">
         <h1 className="hero-title">{recipe?.metadata?.title ?? "Recipe"}</h1>
         <div className="subtitle">

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import type { DatabaseState } from "../../types";
+import type { NavigateFn } from "../../app/router";
 import { homepageContent } from "../../content/homepage";
 import { ContentCard } from "./components/ContentCard";
 import { ExploreChips } from "./components/ExploreChips";
@@ -8,12 +9,11 @@ import { SectionHeader } from "./components/SectionHeader";
 import "./home.css";
 
 type HomePageProps = {
-  navigate: (route: string) => void;
+  navigate: NavigateFn;
   db: DatabaseState;
-  setSearchQuery: (query: string) => void;
 };
 
-export default function HomePage({ navigate, db, setSearchQuery }: HomePageProps) {
+export default function HomePage({ navigate, db }: HomePageProps) {
   const [query, setQuery] = useState("");
 
   const featured = useMemo(() => {
@@ -30,8 +30,7 @@ export default function HomePage({ navigate, db, setSearchQuery }: HomePageProps
       : homepageContent.feature.subtitleFallback;
 
   const submitSearch = (value: string) => {
-    setSearchQuery(value);
-    navigate("search");
+    navigate("search", { searchQuery: value });
   };
 
   return (

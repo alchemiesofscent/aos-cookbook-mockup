@@ -1,0 +1,100 @@
+title: Navigation Enhancements WBS
+version: 1.0
+locked_decisions:
+  - id: D1
+    decision: Use query-param routing for MVP static hosting.
+    detail: "${import.meta.env.BASE_URL}?r=${encodeURIComponent(routeString)} plus other params as needed."
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+      - Technical_Specification_v2.0_StaticSite
+      - PRD_v3.0_StaticSite
+  - id: D2
+    decision: Canonical internal route strings must serialize losslessly into URLs for deep links.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+  - id: D3
+    decision: Prefer popstate + history.pushState/replaceState; avoid path-based routing and host rewrites.
+    sources:
+      - Technical_Specification_v2.0_StaticSite
+  - id: D4
+    decision: Legacy routes are accepted and canonicalized; new navigation must never emit legacy routes.
+    sources:
+      - PRD_v3.0_StaticSite
+  - id: D5
+    decision: On load and on popstate, parse URL → routeString → resolveLegacyRoute(db) → set app route; canonicalize URL via replaceState when needed.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+  - id: D6
+    decision: Search/filter state must be in URL; encode at least q (and filters) alongside r; browser back restores prior search state.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+  - id: D7
+    decision: Breadcrumbs are IA-based (not history-based) with hierarchy Home → Library (Recipes/Works/People) / Workshop (Ancient Terms/Materials/Identifications/Processes/Tools) / About / Search.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+  - id: D8
+    decision: Breadcrumb entity labels use db fields only (e.g., recipe.title, person.displayName, work.title); no disambiguation/provisional text.
+    sources:
+      - Technical_Specification_v2.0_StaticSite
+  - id: D9
+    decision: Breadcrumbs replace generic “Back to X index” links; no separate back-to-results control.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+  - id: D10
+    decision: Add routeToUrl/urlToRoute helpers and a single navigate(route, { replace? }) that updates state + URL; subscribe to popstate once with no feedback loop.
+    sources:
+      - UX_IA_Appendix_v2.0_StaticSite
+wbs:
+  - id: "1.0"
+    name: Routing + History
+    items:
+      - id: "1.1"
+        name: Add routeToUrl/urlToRoute helpers for query-param routing and canonicalization.
+        files:
+          - src/app/router/url.ts
+          - src/app/router/index.ts
+      - id: "1.2"
+        name: Normalize routes and resolve legacy routes on load and popstate.
+        files:
+          - src/app/App.tsx
+      - id: "1.3"
+        name: Implement navigate(route, options) with history.pushState/replaceState and avoid popstate feedback loops.
+        files:
+          - src/app/App.tsx
+      - id: "1.4"
+        name: Persist search/filter state in URL (q + filters).
+        files:
+          - src/app/App.tsx
+  - id: "2.0"
+    name: Breadcrumbs + Back Link Policy
+    items:
+      - id: "2.1"
+        name: Build IA-based breadcrumb mapping and labels from db fields.
+        files:
+          - src/app/router/breadcrumbs.ts
+      - id: "2.2"
+        name: Add Breadcrumbs and PageNav layout components.
+        files:
+          - src/components/layout/Breadcrumbs.tsx
+          - src/components/layout/PageNav.tsx
+      - id: "2.3"
+        name: Remove per-page back links now replaced by breadcrumbs.
+        files:
+          - src/pages/**/*
+      - id: "2.4"
+        name: Keep navigation bar aligned with breadcrumbs-only layout.
+        files:
+          - src/components/layout/GlobalStyles.tsx
+  - id: "3.0"
+    name: Styling + Layout
+    items:
+      - id: "3.1"
+        name: Add global styles for breadcrumb bar and back link reset.
+        files:
+          - src/components/layout/GlobalStyles.tsx
+  - id: "4.0"
+    name: Validation
+    items:
+      - id: "4.1"
+        name: Manual navigation check for deep links, back/forward, search query persistence, and breadcrumb accuracy.
+        files: []

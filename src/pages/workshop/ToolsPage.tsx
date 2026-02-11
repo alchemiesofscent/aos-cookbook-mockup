@@ -1,15 +1,11 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const ToolsPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const tools = [...(db.masterTools ?? [])].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("workshop")}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
       <div className="archive-intro">
         <h1>TOOLS</h1>
         <p>The equipment of the ancient laboratory.</p>
@@ -28,4 +24,3 @@ export const ToolsPage = ({ navigate, db }: { navigate: (route: string) => void;
     </div>
   );
 };
-

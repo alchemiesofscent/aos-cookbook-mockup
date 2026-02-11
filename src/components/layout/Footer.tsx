@@ -1,11 +1,12 @@
 import React from "react";
+import type { NavigateFn } from "../../app/router";
 
 export const Footer = ({
   navigate,
   datasetVersionInfo,
   datasetVersionLoaded,
 }: {
-  navigate: (route: string) => void;
+  navigate: NavigateFn;
   datasetVersionInfo: { datasetVersion: string; releasedAt: string; schemaVersion: string } | null;
   datasetVersionLoaded: boolean;
 }) => (

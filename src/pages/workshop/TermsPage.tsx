@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import type { DatabaseState } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 import { MaterialsSubNav } from "../../components/MaterialsSubNav";
 
 export const TermsPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
@@ -24,10 +23,6 @@ export const TermsPage = ({ navigate, db }: { navigate: (route: string) => void;
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("workshop")}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
-
       <div className="archive-intro">
         <h1>ANCIENT TERMS</h1>
         <MaterialsSubNav navigate={navigate} active="terms" />
@@ -66,4 +61,3 @@ export const TermsPage = ({ navigate, db }: { navigate: (route: string) => void;
     </div>
   );
 };
-

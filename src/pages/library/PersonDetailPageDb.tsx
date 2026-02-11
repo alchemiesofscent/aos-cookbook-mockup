@@ -1,6 +1,5 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 import { RecipeLinkCards } from "../../components/RecipeLinkCards";
 
 export const PersonDetailPageDb = ({
@@ -21,10 +20,6 @@ export const PersonDetailPageDb = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate(isTeam ? "team" : "people")}>
-        <Icons.ArrowLeft /> Back to {isTeam ? "Team" : "People"}
-      </div>
-
       <div
         className="product-section"
         style={{ paddingBottom: "3rem", borderBottom: "1px solid var(--color-border-strong)" }}

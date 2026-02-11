@@ -1,5 +1,6 @@
 import React from "react";
 import { Icons } from "../Icons";
+import type { NavigateFn } from "../../app/router";
 
 type ThemeMode = "light" | "dark";
 
@@ -7,11 +8,19 @@ export const Header = ({
   navigate,
   theme,
   toggleTheme,
+  fontScale,
+  increaseFontScale,
+  decreaseFontScale,
 }: {
-  navigate: (route: string) => void;
+  navigate: NavigateFn;
   theme: ThemeMode;
   toggleTheme: () => void;
+  fontScale: number;
+  increaseFontScale: () => void;
+  decreaseFontScale: () => void;
 }) => {
+  const isMinFont = fontScale <= 1;
+  const isMaxFont = fontScale >= 1.4;
   return (
     <header className="site-header">
       <div className="logo-section" onClick={() => navigate("home")}>
@@ -42,7 +51,7 @@ export const Header = ({
           style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
         >
           <span>Studio</span>
-          <span className="type-tag" style={{ fontSize: "0.65rem" }}>
+          <span className="type-tag" style={{ fontSize: "10px" }}>
             Preview
           </span>
         </div>
@@ -57,15 +66,37 @@ export const Header = ({
         <div className="nav-item search-icon" onClick={() => navigate("search")} title="Search">
           <Icons.Search />
         </div>
-        <button
-          type="button"
-          className="icon-btn theme-toggle"
-          onClick={toggleTheme}
-          aria-label={theme === "dark" ? "Switch to day mode" : "Switch to night mode"}
-          title={theme === "dark" ? "Day mode" : "Night mode"}
-        >
-          {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
-        </button>
+        <div className="nav-controls">
+          <button
+            type="button"
+            className="font-scale-btn"
+            onClick={decreaseFontScale}
+            disabled={isMinFont}
+            aria-label="Decrease font size"
+            title="Decrease font size"
+          >
+            A−
+          </button>
+          <button
+            type="button"
+            className="font-scale-btn"
+            onClick={increaseFontScale}
+            disabled={isMaxFont}
+            aria-label="Increase font size"
+            title="Increase font size"
+          >
+            A+
+          </button>
+          <button
+            type="button"
+            className="icon-btn theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to day mode" : "Switch to night mode"}
+            title={theme === "dark" ? "Day mode" : "Night mode"}
+          >
+            {theme === "dark" ? <Icons.Sun /> : <Icons.Moon />}
+          </button>
+        </div>
       </nav>
     </header>
   );

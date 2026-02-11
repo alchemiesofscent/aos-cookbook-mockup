@@ -54,6 +54,8 @@ export const GlobalStyles = () => {
       --font-hero: "garamond-premier-pro-display", "garamond-premier-pro", "Gentium Plus", serif;
       --font-serif: var(--font-reading);
       --font-sans: var(--font-ui);
+      --font-scale: 1.2;
+      font-size: calc(100% * var(--font-scale));
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
       --text-md: 1rem;
@@ -152,18 +154,18 @@ export const GlobalStyles = () => {
     .site-header {
       background: var(--color-warm-white);
       border-bottom: 1px solid var(--color-border);
-      padding: 1.5rem 2rem;
+      padding: 24px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .logo-title { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0; font-size: 1.125rem; color: var(--color-charcoal); }
-    .logo-subtitle { font-family: var(--font-ui); font-style: italic; color: var(--color-stone); font-size: 1rem; }
+    .logo-title { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0; font-size: 18px; color: var(--color-charcoal); }
+    .logo-subtitle { font-family: var(--font-ui); font-style: italic; color: var(--color-stone); font-size: 16px; }
     .logo-section { cursor: pointer; }
 
-    .main-nav { display: flex; gap: 2rem; align-items: center; }
+    .main-nav { display: flex; gap: 32px; align-items: center; }
     .nav-item { 
-      font-family: var(--font-sans); font-size: 0.9375rem; color: var(--color-charcoal); cursor: pointer; display: flex; align-items: center; gap: 0.25rem; position: relative;
+      font-family: var(--font-sans); font-size: 15px; color: var(--color-charcoal); cursor: pointer; display: flex; align-items: center; gap: 4px; position: relative;
     }
     .nav-item .dropdown {
       display: none;
@@ -175,13 +177,13 @@ export const GlobalStyles = () => {
       box-shadow: var(--shadow-soft);
       min-width: 180px;
       z-index: 100;
-      padding: 0.5rem 0;
+      padding: 8px 0;
       border-radius: 4px;
     }
     .nav-item:hover .dropdown { display: block; }
-    .dropdown div { padding: 0.5rem 1rem; color: var(--color-earth); transition: background 0.1s; }
+    .dropdown div { padding: 8px 16px; color: var(--color-earth); transition: background 0.1s; }
     .dropdown div:hover { background: var(--color-cream); color: var(--color-amber); }
-    .dropdown-section-title { font-size: var(--text-xs); text-transform: uppercase; color: var(--color-stone) !important; font-weight: 600; padding: 0.5rem 1rem 0.2rem 1rem !important; letter-spacing: 0.05em; margin-top: 0.5rem; pointer-events: none; }
+    .dropdown-section-title { font-size: 12px; text-transform: uppercase; color: var(--color-stone) !important; font-weight: 600; padding: 8px 16px 3px 16px !important; letter-spacing: 0.05em; margin-top: 8px; pointer-events: none; }
     .dropdown-section-title:first-child { margin-top: 0; }
 
     /* Footer */
@@ -212,11 +214,93 @@ export const GlobalStyles = () => {
       color: var(--color-stone);
       font-family: var(--font-sans);
       font-size: 0.875rem;
-      margin-bottom: 2rem;
       cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
     }
     .back-link:hover { color: var(--color-amber); }
     .urn { font-family: monospace; font-size: var(--text-xs); color: var(--color-stone); background: var(--color-muted-bg); padding: 0.2rem 0.4rem; border-radius: 3px; }
+
+    .page-nav {
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-warm-white);
+    }
+    .page-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 0.75rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .page-nav-left {
+      flex: 1;
+      min-width: 0;
+    }
+    .breadcrumbs {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      color: var(--color-stone);
+    }
+    .breadcrumbs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .breadcrumbs-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .breadcrumbs-list li + li::before {
+      content: "›";
+      color: var(--color-stone);
+      line-height: 1;
+    }
+    .breadcrumb-link {
+      display: inline-flex;
+      align-items: center;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      color: var(--color-earth);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .breadcrumb-link:hover { color: var(--color-amber); }
+    .breadcrumb-current { color: var(--color-charcoal); font-weight: 600; display: inline-flex; align-items: center; line-height: 1; }
+    .nav-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: 999px;
+      background: var(--color-warm-white);
+    }
+    .nav-controls .icon-btn {
+      border-radius: 999px;
+      padding: 3px;
+      font-size: 12px;
+    }
+    .font-scale-btn {
+      background: none;
+      border: none;
+      color: var(--color-earth);
+      padding: 3px 9px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+    }
+    .font-scale-btn:hover { color: var(--color-amber); }
+    .font-scale-btn:disabled { opacity: 0.4; cursor: default; }
     
     /* Workshop Styles */
     .workshop-header { margin-bottom: 3rem; }
@@ -235,6 +319,11 @@ export const GlobalStyles = () => {
     .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.25rem; }
     .workshop-card h3 { font-size: 1.125rem; margin: 0; color: var(--color-charcoal); }
     .lang-tag, .type-tag { font-family: var(--font-sans); font-size: var(--text-xs); text-transform: uppercase; background: var(--color-chip-bg); padding: 0.1rem 0.4rem; border-radius: 4px; color: var(--color-stone); letter-spacing: 0.05em; }
+    .site-header .type-tag, .site-header .lang-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      line-height: 1;
+    }
     .translit { font-style: italic; font-family: var(--font-serif); color: var(--color-amber-dark); margin-bottom: 0.75rem; font-size: 0.9375rem; }
     .def { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-earth); }
 

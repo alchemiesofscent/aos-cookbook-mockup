@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Footer } from "../components/layout/Footer";
 import { GlobalStyles } from "../components/layout/GlobalStyles";
 import { Header } from "../components/layout/Header";
+import { PageNav } from "../components/layout/PageNav";
 import { AboutPage } from "../pages/about/AboutPage";
 import { NewsPage } from "../pages/about/NewsPage";
 import { ProjectPage } from "../pages/about/ProjectPage";
 import { TeamPage } from "../pages/about/TeamPage";
+import { ImportPage } from "../pages/admin/ImportPage";
 import { ArchivePage } from "../pages/library/ArchivePage";
 import { LibraryPage } from "../pages/library/LibraryPage";
 import { PeoplePage } from "../pages/library/PeoplePage";
@@ -30,14 +32,19 @@ import { ExperimentsPage } from "../pages/workshop/ExperimentsPage";
 import { WorkshopEntityDetailPage } from "../pages/workshop/WorkshopEntityDetailPage";
 import { WorkshopPage } from "../pages/workshop/WorkshopPage";
 import {
+  normalizeRoute,
   parseInterpretationRoute,
   parsePersonRoute,
   parseRecipeRoute,
   parseWorkRoute,
   parseWorkshopEntityRoute,
   resolveLegacyRoute,
+  routeToUrl,
+  urlToRoute,
 } from "./router";
 import type { DatabaseState } from "../types";
+import type { NavigateOptions, NavigationState } from "./router";
+import { coerceNavigationState } from "./router/navigation";
 
 type ThemeMode = "light" | "dark";
 
@@ -69,96 +76,236 @@ const App = ({
   datasetVersionInfo: { datasetVersion: string; releasedAt: string; schemaVersion: string } | null;
   datasetVersionLoaded: boolean;
 }) => {
-  const [route, setRoute] = useState("home");
-  const [searchQuery, setSearchQuery] = useState("");
-  const effectiveRoute = resolveLegacyRoute(route, db) ?? route;
+  const [fontScale, setFontScale] = useState(() => {
+    if (typeof window === "undefined") return 1.2;
+    try {
+      const stored = window.localStorage.getItem("AOS_FONT_SCALE");
+      const parsed = stored ? Number.parseFloat(stored) : NaN;
+      if ([1, 1.2, 1.4].includes(parsed)) return parsed;
+    } catch {}
+    return 1.2;
+  });
+  const [initialUrlState] = useState(() => {
+    if (typeof window === "undefined") {
+      return { route: "home", searchQuery: "", params: {} };
+    }
+    const parsed = urlToRoute(new URL(window.location.href));
+    const resolved = resolveLegacyRoute(parsed.route, db) ?? parsed.route;
+    const canonical = normalizeRoute(resolved);
+    const isSearch = canonical === "search";
+    return {
+      route: canonical,
+      searchQuery: isSearch ? parsed.searchQuery : "",
+      params: isSearch ? parsed.params : {},
+    };
+  });
+  const [route, setRoute] = useState(initialUrlState.route);
+  const [searchQuery, setSearchQuery] = useState(initialUrlState.searchQuery);
+  const [searchParams, setSearchParams] = useState<Record<string, string>>(initialUrlState.params);
 
   useEffect(() => {
     document.title = "Alchemies of Scent — The Laboratory";
   }, []);
 
   useEffect(() => {
-    if (effectiveRoute !== route) setRoute(effectiveRoute);
-  }, [effectiveRoute, route]);
+    document.documentElement.style.setProperty("--font-scale", String(fontScale));
+    try {
+      window.localStorage.setItem("AOS_FONT_SCALE", String(fontScale));
+    } catch {}
+  }, [fontScale]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const canonicalUrl = routeToUrl(route, { searchQuery, params: searchParams });
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+    const nextState: NavigationState = {
+      route,
+      searchQuery: route === "search" ? searchQuery : undefined,
+      params: route === "search" && Object.keys(searchParams).length ? searchParams : undefined,
+    };
+    const existingState = coerceNavigationState(window.history.state);
+    const needsStateUpdate =
+      !existingState ||
+      existingState.route !== nextState.route ||
+      existingState.searchQuery !== nextState.searchQuery;
+    if (canonicalUrl !== currentUrl || needsStateUpdate) {
+      window.history.replaceState(nextState, "", canonicalUrl);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const parsed = urlToRoute(new URL(window.location.href));
+      const resolved = resolveLegacyRoute(parsed.route, db) ?? parsed.route;
+      const canonical = normalizeRoute(resolved);
+      const isSearch = canonical === "search";
+      const nextSearchQuery = isSearch ? parsed.searchQuery : "";
+      const nextParams = isSearch ? parsed.params : {};
+
+      const previousState = coerceNavigationState(event.state);
+      const nextState: NavigationState = {
+        route: canonical,
+        searchQuery: isSearch ? nextSearchQuery : undefined,
+        params: isSearch && Object.keys(nextParams).length ? nextParams : undefined,
+        fromRoute: previousState?.fromRoute,
+        fromQuery: previousState?.fromQuery,
+        fromParams: previousState?.fromParams,
+      };
+
+      setRoute(canonical);
+      setSearchQuery(nextSearchQuery);
+      setSearchParams(nextParams);
+      const canonicalUrl = routeToUrl(canonical, { searchQuery: nextSearchQuery, params: nextParams });
+      const currentUrl = `${window.location.pathname}${window.location.search}`;
+      if (canonicalUrl !== currentUrl) {
+        window.history.replaceState(nextState, "", canonicalUrl);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [db]);
+
+  const navigate = useMemo(() => {
+    return (nextRoute: string, options?: NavigateOptions) => {
+      const resolved = resolveLegacyRoute(nextRoute, db) ?? nextRoute;
+      const canonical = normalizeRoute(resolved);
+      const isSearch = canonical === "search";
+      const nextSearchQuery = options?.searchQuery ?? (isSearch ? searchQuery : "");
+      const nextParams = options?.params ?? (isSearch ? searchParams : {});
+      const nextState: NavigationState = {
+        route: canonical,
+        searchQuery: isSearch ? nextSearchQuery : undefined,
+        params: isSearch && Object.keys(nextParams).length ? nextParams : undefined,
+        fromRoute: undefined,
+        fromQuery: undefined,
+        fromParams: undefined,
+      };
+
+      const url = routeToUrl(canonical, { searchQuery: nextSearchQuery, params: nextParams });
+      if (options?.replace) {
+        window.history.replaceState(nextState, "", url);
+      } else {
+        window.history.pushState(nextState, "", url);
+      }
+
+      setRoute(canonical);
+      setSearchQuery(isSearch ? nextSearchQuery : "");
+      setSearchParams(isSearch ? nextParams : {});
+    };
+  }, [db, route, searchQuery, searchParams]);
+
+  const updateSearchQuery = useMemo(() => {
+    return (nextQuery: string, params?: Record<string, string>) => {
+      const nextParams = params ?? searchParams;
+      setSearchQuery(nextQuery);
+      setSearchParams(nextParams);
+      if (route !== "search") return;
+      const baseState: NavigationState = { route };
+      const nextState: NavigationState = {
+        ...baseState,
+        route,
+        searchQuery: nextQuery,
+        params: Object.keys(nextParams).length ? nextParams : undefined,
+      };
+      const url = routeToUrl(route, { searchQuery: nextQuery, params: nextParams });
+      window.history.replaceState(nextState, "", url);
+    };
+  }, [route, searchParams]);
+
+  const changeFontScale = useMemo(() => {
+    const steps = [1, 1.2, 1.4];
+    return (direction: "up" | "down") => {
+      setFontScale((current) => {
+        const currentRounded = Number(current.toFixed(2));
+        const idx = steps.indexOf(currentRounded);
+        if (idx === -1) return 1.2;
+        if (direction === "up") return steps[Math.min(idx + 1, steps.length - 1)];
+        return steps[Math.max(idx - 1, 0)];
+      });
+    };
+  }, []);
 
   const renderPage = () => {
-    const workshopEntityRoute = parseWorkshopEntityRoute(effectiveRoute);
+    const workshopEntityRoute = parseWorkshopEntityRoute(route);
     if (workshopEntityRoute) {
-      return <WorkshopEntityDetailPage navigate={setRoute} db={db} routeInfo={workshopEntityRoute} />;
+      return <WorkshopEntityDetailPage navigate={navigate} db={db} routeInfo={workshopEntityRoute} />;
     }
 
-    const interpretationRoute = parseInterpretationRoute(effectiveRoute);
+    const interpretationRoute = parseInterpretationRoute(route);
     if (interpretationRoute) {
       if (interpretationRoute.kind === "ancient-term") {
-        return <AncientTermDetailPage navigate={setRoute} db={db} termId={interpretationRoute.id} />;
+        return <AncientTermDetailPage navigate={navigate} db={db} termId={interpretationRoute.id} />;
       }
       if (interpretationRoute.kind === "identification") {
-        return <IdentificationDetailPage navigate={setRoute} db={db} identificationId={interpretationRoute.id} />;
+        return <IdentificationDetailPage navigate={navigate} db={db} identificationId={interpretationRoute.id} />;
       }
       if (interpretationRoute.kind === "ingredient-product") {
-        return <IngredientProductDetailPage navigate={setRoute} db={db} productId={interpretationRoute.id} />;
+        return <IngredientProductDetailPage navigate={navigate} db={db} productId={interpretationRoute.id} />;
       }
       if (interpretationRoute.kind === "material-source") {
-        return <MaterialSourceDetailPage navigate={setRoute} db={db} sourceId={interpretationRoute.id} />;
+        return <MaterialSourceDetailPage navigate={navigate} db={db} sourceId={interpretationRoute.id} />;
       }
     }
 
-    const recipeRoute = parseRecipeRoute(effectiveRoute);
+    const recipeRoute = parseRecipeRoute(route);
     if (recipeRoute) {
-      return <RecipePage navigate={setRoute} db={db} recipeId={recipeRoute.id} />;
+      return <RecipePage navigate={navigate} db={db} recipeId={recipeRoute.id} />;
     }
 
-    const personRoute = parsePersonRoute(effectiveRoute);
+    const personRoute = parsePersonRoute(route);
     if (personRoute) {
-      return <PersonDetailPageDb navigate={setRoute} db={db} personId={personRoute.id} />;
+      return <PersonDetailPageDb navigate={navigate} db={db} personId={personRoute.id} />;
     }
 
-    const workRoute = parseWorkRoute(effectiveRoute);
+    const workRoute = parseWorkRoute(route);
     if (workRoute) {
-      return <WorkDetailPageDb navigate={setRoute} db={db} workId={workRoute.id} />;
+      return <WorkDetailPageDb navigate={navigate} db={db} workId={workRoute.id} />;
     }
 
-    switch (effectiveRoute) {
+    switch (route) {
       case "home":
-        return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
+        return <HomePage navigate={navigate} db={db} />;
       case "library":
-        return <LibraryPage navigate={setRoute} />;
+        return <LibraryPage navigate={navigate} />;
       case "archive":
-        return <ArchivePage navigate={setRoute} db={db} />;
+        return <ArchivePage navigate={navigate} db={db} />;
       case "works":
-        return <WorksPage navigate={setRoute} db={db} />;
+        return <WorksPage navigate={navigate} db={db} />;
       case "people":
-        return <PeoplePage navigate={setRoute} db={db} />;
+        return <PeoplePage navigate={navigate} db={db} />;
       case "about":
-        return <AboutPage navigate={setRoute} />;
+        return <AboutPage navigate={navigate} />;
       case "project":
-        return <ProjectPage navigate={setRoute} />;
+        return <ProjectPage db={db} />;
       case "team":
-        return <TeamPage navigate={setRoute} db={db} />;
+        return <TeamPage navigate={navigate} db={db} />;
       case "news":
-        return <NewsPage navigate={setRoute} />;
+        return <NewsPage db={db} />;
+      case "import":
+        return <ImportPage navigate={navigate} db={db} />;
       case "workshop":
-        return <WorkshopPage navigate={setRoute} db={db} />;
+        return <WorkshopPage navigate={navigate} db={db} />;
       case "materials":
-        return <MaterialsDashboardPage navigate={setRoute} />;
+        return <MaterialsDashboardPage navigate={navigate} />;
       case "terms":
-        return <TermsPage navigate={setRoute} db={db} />;
+        return <TermsPage navigate={navigate} db={db} />;
       case "ingredients":
-        return <IngredientsPage navigate={setRoute} db={db} />;
+        return <IngredientsPage navigate={navigate} db={db} />;
       case "sources":
-        return <SourcesPage navigate={setRoute} db={db} />;
+        return <SourcesPage navigate={navigate} db={db} />;
       case "processes":
-        return <ProcessesPage navigate={setRoute} db={db} />;
+        return <ProcessesPage navigate={navigate} db={db} />;
       case "tools":
-        return <ToolsPage navigate={setRoute} db={db} />;
+        return <ToolsPage navigate={navigate} db={db} />;
       case "experiments":
-        return <ExperimentsPage navigate={setRoute} />;
+        return <ExperimentsPage />;
       case "search":
-        return <SearchPage navigate={setRoute} db={db} query={searchQuery} setQuery={setSearchQuery} />;
+        return <SearchPage navigate={navigate} db={db} query={searchQuery} setQuery={updateSearchQuery} />;
       case "studio":
-        return <StudioPage navigate={setRoute} db={db} />;
+        return <StudioPage navigate={navigate} db={db} />;
       default:
-        return <HomePage navigate={setRoute} db={db} setSearchQuery={setSearchQuery} />;
+        return <HomePage navigate={navigate} db={db} />;
     }
   };
 
@@ -166,12 +313,18 @@ const App = ({
     <>
       <GlobalStyles />
       <Header
-        navigate={setRoute}
+        navigate={navigate}
         theme={theme}
         toggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+        fontScale={fontScale}
+        increaseFontScale={() => changeFontScale("up")}
+        decreaseFontScale={() => changeFontScale("down")}
       />
-      <main>{renderPage()}</main>
-      <Footer navigate={setRoute} datasetVersionInfo={datasetVersionInfo} datasetVersionLoaded={datasetVersionLoaded} />
+      <main>
+        <PageNav route={route} db={db} navigate={navigate} />
+        {renderPage()}
+      </main>
+      <Footer navigate={navigate} datasetVersionInfo={datasetVersionInfo} datasetVersionLoaded={datasetVersionLoaded} />
     </>
   );
 };

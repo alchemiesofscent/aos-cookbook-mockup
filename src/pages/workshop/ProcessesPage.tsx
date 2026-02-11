@@ -1,15 +1,11 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const ProcessesPage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const processes = [...(db.masterProcesses ?? [])].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("workshop")}>
-        <Icons.ArrowLeft /> Back to Workshop
-      </div>
       <div className="archive-intro">
         <h1>PROCESSES</h1>
         <p>Techniques for extracting and compounding aromatics.</p>
@@ -28,4 +24,3 @@ export const ProcessesPage = ({ navigate, db }: { navigate: (route: string) => v
     </div>
   );
 };
-

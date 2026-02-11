@@ -28,6 +28,19 @@ type StudioPageProps = {
 };
 
 const DEFAULT_RECIPE_ID = "r-rose-perfume";
+const SCALE_OPTIONS = [
+  { value: 0.01, label: "1/100" },
+  { value: 0.1, label: "1/10" },
+  { value: 0.5, label: "1/2" },
+  { value: 1, label: "1" },
+  { value: 2, label: "2" },
+];
+const getClosestScale = (value: number): number => {
+  if (!Number.isFinite(value)) return 1;
+  return SCALE_OPTIONS.reduce((closest, option) => {
+    return Math.abs(option.value - value) < Math.abs(closest - value) ? option.value : closest;
+  }, SCALE_OPTIONS[3].value);
+};
 
 export default function StudioPage({ db }: StudioPageProps) {
   const [session, setSession] = useState<StudioSession | null>(null);
@@ -108,6 +121,21 @@ export default function StudioPage({ db }: StudioPageProps) {
     setActiveStudioSessionId(next.id);
     setSession(next);
   };
+
+  const sanitizedScale = useMemo(() => {
+    if (!session) return 1;
+    return getClosestScale(session.scale);
+  }, [session]);
+  const scaleIndex = useMemo(() => {
+    const idx = SCALE_OPTIONS.findIndex((opt) => Math.abs(opt.value - sanitizedScale) < 1e-6);
+    return idx === -1 ? 3 : idx;
+  }, [sanitizedScale]);
+
+  useEffect(() => {
+    if (!session) return;
+    if (Math.abs(session.scale - sanitizedScale) < 1e-6) return;
+    updateSession({ scale: sanitizedScale });
+  }, [sanitizedScale, session]);
 
   const handleSelectOption = (ingredientKey: string, optionId: string) => {
     if (!session) return;
@@ -204,16 +232,18 @@ export default function StudioPage({ db }: StudioPageProps) {
             <div className="studio-scaleControl">
               <label style={{ display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: "0.9rem" }}>
                 <span>Scale</span>
-                <span style={{ color: "var(--color-stone)" }}>{numberFormat.format(session?.scale ?? 1)}×</span>
+                <span style={{ color: "var(--color-stone)" }}>
+                  {SCALE_OPTIONS.find((option) => Math.abs(option.value - sanitizedScale) < 1e-6)?.label ?? "1"}×
+                </span>
               </label>
               <input
                 type="range"
-                min="0.01"
-                max="2"
-                step="0.01"
-                value={session?.scale ?? 1}
-                onChange={(e) => updateSession({ scale: Number(e.target.value) })}
-                style={{ width: "100%" }}
+                min="0"
+                max={SCALE_OPTIONS.length - 1}
+                step="1"
+                value={scaleIndex}
+                onChange={(e) => updateSession({ scale: SCALE_OPTIONS[Number(e.target.value)].value })}
+                className="studio-scaleSlider"
                 aria-label="Scale recipe"
               />
             </div>

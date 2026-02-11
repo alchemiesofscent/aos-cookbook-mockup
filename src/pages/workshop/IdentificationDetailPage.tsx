@@ -1,7 +1,6 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
 import { DemoBadge } from "../../components/DemoBadge";
-import { Icons } from "../../components/Icons";
 
 export const IdentificationDetailPage = ({
   navigate,
@@ -23,9 +22,6 @@ export const IdentificationDetailPage = ({
   if (!ident) {
     return (
       <div className="page-container">
-        <div className="back-link" onClick={() => navigate("terms")}>
-          <Icons.ArrowLeft /> Back to Ancient Terms
-        </div>
         <h1>Identification not found</h1>
       </div>
     );
@@ -33,10 +29,6 @@ export const IdentificationDetailPage = ({
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate(`ancient-term:${ident.ancientIngredientId}`)}>
-        <Icons.ArrowLeft /> Back to Term
-      </div>
-
       <div
         className="product-section"
         style={{ paddingBottom: "2rem", borderBottom: "1px solid var(--color-border-strong)" }}
@@ -105,4 +97,3 @@ export const IdentificationDetailPage = ({
     </div>
   );
 };
-

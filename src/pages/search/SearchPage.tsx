@@ -131,10 +131,6 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("home")}>
-        ← Back to Home
-      </div>
-
       <div className="searchPageHeader">
         <h1>Search</h1>
         <p>Search across recipes, ingredients, works, people, and curated workshop pages.</p>

@@ -1,6 +1,5 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
-import { Icons } from "../../components/Icons";
 
 export const ArchivePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const recipes = [...(db.recipes ?? [])].sort((a, b) => {
@@ -11,10 +10,6 @@ export const ArchivePage = ({ navigate, db }: { navigate: (route: string) => voi
 
   return (
     <div className="page-container">
-      <div className="back-link" onClick={() => navigate("library")}>
-        <Icons.ArrowLeft /> Back to Library
-      </div>
-
       <div className="archive-intro">
         <h1 className="hero-title">RECIPES</h1>
         <p className="reading">Explore the ancient perfume recipes in our collection.</p>
