@@ -27,7 +27,7 @@ type StudioPageProps = {
   db: DatabaseState;
 };
 
-const DEFAULT_RECIPE_ID = "r-rose-perfume";
+const DEFAULT_RECIPE_ID = "r-lily-dioscorides";
 const SCALE_OPTIONS = [
   { value: 0.01, label: "1/100" },
   { value: 0.1, label: "1/10" },
@@ -89,6 +89,11 @@ export default function StudioPage({ db }: StudioPageProps) {
   <rect x="40" y="40" width="1520" height="820" rx="36" ry="36" fill="none" stroke="#5C4A3D" stroke-opacity="0.08" stroke-width="4"/>
 </svg>`;
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  }, []);
+  const heroVideoSrc = useMemo(() => {
+    const base = import.meta.env.BASE_URL || "/";
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+    return `${normalizedBase}img/20250625_073847000_iOS.MOV`;
   }, []);
 
   const yieldDisplay = useMemo(() => {
@@ -172,7 +177,20 @@ export default function StudioPage({ db }: StudioPageProps) {
     <div className="page-container">
       <header className="heroHeader">
         <figure className="heroFigure">
-          <img className="heroImg" src={heroSrc} alt={studio?.heroImage?.alt ?? ""} />
+          {recipe?.id === "r-lily-dioscorides" ? (
+            <video
+              className="heroImg"
+              src={heroVideoSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={studio?.heroImage?.alt ?? "Lily perfume"}
+            />
+          ) : (
+            <img className="heroImg" src={heroSrc} alt={studio?.heroImage?.alt ?? ""} />
+          )}
           {studio?.heroImage?.caption ? <figcaption className="heroCaption">{studio.heroImage.caption}</figcaption> : null}
         </figure>
 

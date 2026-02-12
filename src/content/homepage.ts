@@ -63,13 +63,13 @@ export const homepageContent = {
     },
   ] satisfies HomepagePrimaryCard[],
   feature: {
-    title: "Rose Perfume",
-    recipeSlug: "rose-perfume-dioscorides",
-    recipeRoute: "recipe:r-rose-perfume",
-    subtitleFallback: "Dioscorides, Mat. Med. 1.43",
-    blurb: "A “rose” perfume sharpened with citrus-green notes once you follow σχοῖνος.",
-    primaryCta: { label: "Read recipe →", route: "recipe:r-rose-perfume" },
-    secondaryCta: { label: "View interpretation chain →", route: "ancient-term:ai-skhoinos" },
+    title: "Lily Perfume",
+    recipeSlug: "lily-perfume-dioscorides",
+    recipeRoute: "recipe:r-lily-dioscorides",
+    subtitleFallback: "Dioscorides, Mat. Med. 1.52",
+    blurb: "Sousinon (leirinon): a lily perfume layered through repeated infusions and careful decanting.",
+    primaryCta: { label: "Read recipe →", route: "recipe:r-lily-dioscorides" },
+    secondaryCta: { label: "View interpretation chain →", route: "ancient-term:ai-krinon" },
   },
   exploreTabs: [
     {

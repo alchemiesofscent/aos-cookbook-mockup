@@ -57,7 +57,7 @@ export const ArchivePage = ({ navigate, db }: { navigate: (route: string) => voi
                 <div>Language: {recipe.metadata?.language ?? "—"}</div>
                 <div>Ingredients: {ingredientCount}</div>
               </div>
-              <button className="btn-primary" onClick={() => navigate(`recipe:${recipe.id}`)}>
+              <button className="btn-primary recipe-card-cta" onClick={() => navigate(`recipe:${recipe.id}`)}>
                 View recipe
               </button>
             </div>

@@ -31,6 +31,36 @@ export const GlobalStyles = () => {
       font-display: swap;
     }
 
+    @font-face {
+      font-family: "RundLatin";
+      src: url('${assetBase}fonts/rund/RundText-Regular.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Regular.woff') format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0100-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+    }
+
+    @font-face {
+      font-family: "RundLatin";
+      src: url('${assetBase}fonts/rund/RundText-Italic.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Italic.woff') format("woff");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0100-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+    }
+
+    @font-face {
+      font-family: "RundLatin";
+      src: url('${assetBase}fonts/rund/RundText-Bold.woff2') format("woff2"),
+           url('${assetBase}fonts/rund/RundText-Bold.woff') format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+0000-00FF, U+0100-024F, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+    }
+
     :root {
       --color-cream: #FAF7F0;
       --color-warm-white: #FEFDFB;
@@ -48,8 +78,8 @@ export const GlobalStyles = () => {
       --shadow-hover: 0 8px 16px rgba(0,0,0,0.05);
       --shadow-raised: 0 12px 24px rgba(92, 74, 61, 0.08);
       --shadow-raised-strong: 0 12px 30px rgba(92, 74, 61, 0.1);
-      --font-ui: "Rund", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      --font-heading: "Rund", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-ui: "RundLatin", Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+      --font-heading: "RundLatin", Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       --font-reading: "garamond-premier-pro", "Gentium Plus", serif;
       --font-hero: "garamond-premier-pro-display", "garamond-premier-pro", "Gentium Plus", serif;
       --font-serif: var(--font-reading);
@@ -241,7 +271,7 @@ export const GlobalStyles = () => {
     }
     .breadcrumbs {
       font-family: var(--font-sans);
-      font-size: var(--text-xs);
+      font-size: calc(var(--text-xs) * 1.2);
       color: var(--color-stone);
     }
     .breadcrumbs-list {
@@ -252,6 +282,7 @@ export const GlobalStyles = () => {
       flex-wrap: wrap;
       align-items: center;
       gap: 0.5rem;
+      font-size: inherit;
     }
     .breadcrumbs-list li {
       display: inline-flex;
@@ -269,14 +300,14 @@ export const GlobalStyles = () => {
       background: none;
       border: none;
       padding: 0;
-      font-family: var(--font-sans);
-      font-size: var(--text-xs);
+      font-family: inherit;
+      font-size: inherit;
       color: var(--color-earth);
       cursor: pointer;
       line-height: 1;
     }
     .breadcrumb-link:hover { color: var(--color-amber); }
-    .breadcrumb-current { color: var(--color-charcoal); font-weight: 600; display: inline-flex; align-items: center; line-height: 1; }
+    .breadcrumb-current { color: var(--color-charcoal); font-weight: 600; display: inline-flex; align-items: center; line-height: 1; font-size: inherit; }
     .nav-controls {
       display: inline-flex;
       align-items: center;
@@ -610,10 +641,13 @@ export const GlobalStyles = () => {
       border-radius: 8px;
       padding: 1.5rem;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .recipe-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
     .card-sub { font-style: italic; color: var(--color-stone); margin-bottom: 1rem; font-family: var(--font-serif); }
     .card-meta { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-earth); margin-bottom: 1.5rem; }
+    .recipe-card-cta { margin-top: auto; }
 
     /* Ingredient & Product Pages */
     .quote-block { border-left: 3px solid var(--color-amber); padding-left: 1rem; margin-bottom: 1.5rem; font-style: italic; }
