@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import type { DatabaseState } from "../../types";
+import { docsList } from "../../content/markdown";
 import "./search.css";
 
 type SearchPageProps = {
@@ -46,7 +47,7 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
       { title: "The Library", kind: "Page", route: "library", keywords: ["recipes", "works", "people"] },
       { title: "The Workshop", kind: "Page", route: "workshop", keywords: ["materials", "processes", "tools"] },
       { title: "The Studio (Preview)", kind: "Page", route: "studio", keywords: ["builder", "composer", "phase 2"] },
-      { title: "About", kind: "Page", route: "about", keywords: ["project", "team", "news"] },
+      { title: "About", kind: "Page", route: "about", keywords: ["project", "people", "news"] },
 
       { title: "Recipes", kind: "Index", route: "archive", subtitle: `${db.recipes.length} recipe${db.recipes.length === 1 ? "" : "s"}` },
       { title: "Works", kind: "Index", route: "works", subtitle: `${db.masterWorks.length} work${db.masterWorks.length === 1 ? "" : "s"}` },
@@ -58,6 +59,12 @@ export default function SearchPage({ navigate, db, query, setQuery }: SearchPage
       { title: "Tools", kind: "Index", route: "tools" },
       { title: "Experiments", kind: "Index", route: "experiments" },
       { title: "News & Events", kind: "Index", route: "news", keywords: ["updates"] },
+      ...docsList.map((doc) => ({
+        title: doc.title,
+        kind: "Doc",
+        route: `docs:${doc.slug}`,
+        keywords: ["docs", "scholars"],
+      })),
       ...recipeDocs,
 
       ...(db.ancientIngredients ?? []).map((term) => ({

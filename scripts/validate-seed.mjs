@@ -179,6 +179,26 @@ const validateHomepageCuratedTargets = async (errors, seed) => {
   }
 };
 
+const validateMasterPeople = (errors, seed) => {
+  const allowedCategories = new Set(["historical", "team", "collaborator", "alumni"]);
+  for (const person of seed.masterPeople ?? []) {
+    const personId = person?.id ?? "(missing-id)";
+    if (!person || typeof person !== "object") continue;
+    if (!person.id) addError(errors, SEED_PATH, `masterPeople:${personId}`, "id", "missing");
+    if (!person.urn) addError(errors, SEED_PATH, `masterPeople:${personId}`, "urn", "missing");
+    if (!person.slug) addError(errors, SEED_PATH, `masterPeople:${personId}`, "slug", "missing");
+    if (!person.displayName && !person.name) {
+      addError(errors, SEED_PATH, `masterPeople:${personId}`, "displayName", "missing displayName/name");
+    }
+    const categories = Array.isArray(person.categories) ? person.categories : [];
+    for (const category of categories) {
+      if (!allowedCategories.has(category)) {
+        addError(errors, SEED_PATH, `masterPeople:${personId}`, "categories", `unknown category (${category})`);
+      }
+    }
+  }
+};
+
 const validateRecipeAnnotationLinkRoutes = (errors, seed) => {
   const recipesById = new Set((seed.recipes ?? []).map((r) => r?.id).filter(Boolean));
   const worksById = new Set((seed.masterWorks ?? []).map((w) => w?.id).filter(Boolean));
@@ -201,8 +221,9 @@ const validateRecipeAnnotationLinkRoutes = (errors, seed) => {
     "people",
     "about",
     "project",
-    "team",
+    "about-people",
     "news",
+    "docs",
     "workshop",
     "materials",
     "processes",
@@ -353,6 +374,7 @@ const main = async () => {
 
   ensureUniqueIdsPerCollection(errors, seed);
   ensureUniqueUrnsGlobal(errors, seed);
+  validateMasterPeople(errors, seed);
   validateCombinedSegments(errors, seed);
   validateIngredientAncientTermLinks(errors, seed);
   validateIdentifications(errors, seed);

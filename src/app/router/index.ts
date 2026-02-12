@@ -1,5 +1,6 @@
 export type {
   InterpretationRoute,
+  DocsRoute,
   NavigateFn,
   NavigateOptions,
   NavigationState,
@@ -13,6 +14,7 @@ export type {
 export { resolveLegacyRoute } from "./legacyRedirects";
 
 export {
+  parseDocsRoute,
   parseInterpretationRoute,
   parsePersonRoute,
   parseRecipeRoute,

@@ -1,0 +1,38 @@
+id: p-perfume-production-in-the-ancient-world-ii-general-information
+urn: urn:aos:person:perfume-production-in-the-ancient-world-ii-general-information
+slug: perfume-production-in-the-ancient-world-ii-general-information
+displayName: "Perfume Production in the Ancient World: Second Meeting"
+categories: []
+bio: |-
+  Academic Conference Centre (AKC) Husova 4a, 110 00 Praha 1 Google Maps Link
+
+  Remote Presentation Link / ID / Passcode: Zoom Link Meeting ID: 93087865519 Passcode: 485508
+
+  Each session consists of two papers.
+
+  Each paper is given 45 minutes, structured as follows:
+
+  Chair’s introduction (brief)
+
+  10-minute (max) presentation of paper by author
+
+  5 to 10-minute comments from commentator 1
+
+  5 to 10-minute comments from commentator 2
+
+  5-minute (max) response from author
+
+  10 minutes for questions
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/76cef6a9-8f11-4af7-a7f6-91ce90da383d/241015_aos_posters-01.jpg?format=original
+links:
+  - label: Google Maps Link
+    url: https://maps.app.goo.gl/6tgXdqcYsSo4YZ5SA
+  - label: Zoom Link
+    url: https://cesnet.zoom.us/j/93087865519?pwd=cAWqk1pIlEzyQ9AVCkcAR4rdLBUGj9.1
+legacy:
+  sourceUrl: /perfume-production-in-the-ancient-world-ii/general-information
+  sourcePostName: perfume-production-in-the-ancient-world-ii/general-information
+todo:
+  - Review roles
+  - Assign category (team/collaborator)

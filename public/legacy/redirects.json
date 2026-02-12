@@ -1,0 +1,126 @@
+[
+  {
+    "fromPath": "/abd-el-rahman-medhat-mohamed-ibrahim",
+    "toRoute": "person:p-abd-el-rahman-medhat-mohamed-ibrahim"
+  },
+  {
+    "fromPath": "/associated-faculty",
+    "toRoute": "person:p-associated-faculty"
+  },
+  {
+    "fromPath": "/diana-mickova",
+    "toRoute": "person:p-diana-mickova"
+  },
+  {
+    "fromPath": "/dr-thomas-j-derrick",
+    "toRoute": "person:p-dr-thomas-j-derrick"
+  },
+  {
+    "fromPath": "/eliska-solcova",
+    "toRoute": "person:p-eliska-solcova"
+  },
+  {
+    "fromPath": "/graphic-design",
+    "toRoute": "person:p-graphic-design"
+  },
+  {
+    "fromPath": "/heike-wilde",
+    "toRoute": "person:p-heike-wilde"
+  },
+  {
+    "fromPath": "/jakub-smcrek",
+    "toRoute": "person:p-jakub-smcrek"
+  },
+  {
+    "fromPath": "/jan-rezek",
+    "toRoute": "person:p-jan-rezek"
+  },
+  {
+    "fromPath": "/jay-silverstein",
+    "toRoute": "person:p-jay-silverstein"
+  },
+  {
+    "fromPath": "/julie-tomsova",
+    "toRoute": "person:p-julie-tomsova"
+  },
+  {
+    "fromPath": "/klara-hlavackova",
+    "toRoute": "person:p-klara-hlavackova"
+  },
+  {
+    "fromPath": "/klara-metge",
+    "toRoute": "person:p-klara-metge"
+  },
+  {
+    "fromPath": "/laura-prieto",
+    "toRoute": "person:p-laura-prieto"
+  },
+  {
+    "fromPath": "/lucia-raggetti",
+    "toRoute": "person:p-lucia-raggetti"
+  },
+  {
+    "fromPath": "/maarten-janssen",
+    "toRoute": "person:p-maarten-janssen"
+  },
+  {
+    "fromPath": "/mai-havrdova-fathi",
+    "toRoute": "person:p-mai-havrdova-fathi"
+  },
+  {
+    "fromPath": "/manuela-marai",
+    "toRoute": "person:p-manuela-marai"
+  },
+  {
+    "fromPath": "/martin-pehal",
+    "toRoute": "person:p-martin-pehal"
+  },
+  {
+    "fromPath": "/matteo-martelli",
+    "toRoute": "person:p-matteo-martelli"
+  },
+  {
+    "fromPath": "/perfume-production-in-the-ancient-world-ii-general-information",
+    "toRoute": "person:p-perfume-production-in-the-ancient-world-ii-general-information"
+  },
+  {
+    "fromPath": "/phd-position-in-organic-chemistry",
+    "toRoute": "person:p-phd-position-in-organic-chemistry"
+  },
+  {
+    "fromPath": "/phd-position-in-organic-chemistry-2",
+    "toRoute": "person:p-phd-position-in-organic-chemistry-2"
+  },
+  {
+    "fromPath": "/prof-jolle-rollokoster",
+    "toRoute": "person:p-prof-jolle-rollokoster"
+  },
+  {
+    "fromPath": "/robert-littman",
+    "toRoute": "person:p-robert-littman"
+  },
+  {
+    "fromPath": "/sean-coughlin",
+    "toRoute": "person:p-sean-coughlin"
+  },
+  {
+    "fromPath": "/tereza-simova",
+    "toRoute": "person:p-tereza-simova"
+  },
+  {
+    "fromPath": "/ullrich-jahn",
+    "toRoute": "person:p-ullrich-jahn"
+  },
+  {
+    "fromPath": "/victor-golubev",
+    "toRoute": "person:p-victor-golubev"
+  },
+  {
+    "fromPath": "/visiting-members",
+    "toRoute": "person:p-visiting-members"
+  },
+  {
+    "fromPath": "/web-design",
+    "toRoute": "person:p-web-design"
+  }
+]

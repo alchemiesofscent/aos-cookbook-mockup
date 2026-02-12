@@ -1,0 +1,55 @@
+id: p-abd-el-rahman-medhat-mohamed-ibrahim
+urn: urn:aos:person:abd-el-rahman-medhat-mohamed-ibrahim
+slug: abd-el-rahman-medhat-mohamed-ibrahim
+displayName: Abd El Rahman Medhat Mohamed Ibrahim
+categories: []
+roles:
+  - Archaeometry
+bio: |-
+  Member of Technical Office at the Minister of Antiquities
+
+  Lecturer Ain Shams University and Must University for Science and Technology
+
+  Abd El Rahman Medhat received his bachelor’s degree in archaeological conservation at the Faculty of Archaeology, Cairo University in 2007. He defended his MA dissertation in 2011 on ‘The Use of Polymers in the Treatment and Restoration of Historic Wood with the Application on a Chosen Carriage at the Royal Carriage Museum’ (highest rank: excellent); and he defended his PhD thesis in 2016 on, ‘An Applied Archaeometric Study on the Evaluation of Chemical Degradation of Wooden Icons Due to the Stratigraphic Structure and the Appropriate Treatment Methods Applied on a Selected Object Dating Back to the 18th Century’ (highest rank: excellent, first class). Abd El Rahman’s postdoctoral work has focused on the physico-chemistry and conservation of organic and wooden objects, primarily the development of analytical strategies involving vibrational spectroscopies.
+
+  In May 2010, Abd El Rahman began working at the Grand Egyptian Museum on the conservation and archaeometry of organic materials, especially painted wood and papyri. In 2015, he was a doctoral research fellow at the Institut français d'archéologie orientale (IFAO) and is currently starting a new project there. He was also a member of the IFAO mission at Philadelphia in the Fayyum. Since 2017, he has served as a member at the Scientific and Technical Office for the Ministry of Antiquities. And in October 2019, he began work as a conservator specialist in the Egyptian Museum and lecturer at Ain Shams University and Must University for Science and Technology.
+
+  At Alchemies of Scent, Abd El Rahman will use analytical tools such as Zeta Potential, GCMS, Raman, FTIR, XRF, UV-VIS and others to conduct material analysis of the compounds, concentrations, and methods of preparation of perfumes associated with the Mendesian perfume industry found.
+
+  His work will help us to compare the chemical fingerprints of organic remains with substances mentioned in ancient papyri. He will also use this chemical data to shed light on the structure and function of remains found at the factory in Tell Timai and will create protocols for analyses compatible with the types of archaeological organic residues found there.
+
+  Philipp Seyr and Abd El Rahman Medhat, “A rediscovered wooden statue of the overseer of the two granaries Ihy – Cairo, Egyptian Museum, JE 100373: An archaeological and conservation study,” Pražské egyptologické studie (Prague Egyptological Studies), vol. 26 (2021), 79–106. DOI: 20.500.11956/136483.
+
+  Liesel Gentelli and Abd El Rahman Medhat, “A multi-analytical approach for the archaeometric identification of a Roman period glass furnace in the central Nile delta” Journal of Archaeological Science: Reports, vol. 11 (2017), 330–337. DOI: 10.1016/j.jasrep.2016.11.018.
+
+  Moamen Othman, Abd El Rahman Medhat and Ahmed Tarek, “Archeometric and Conservation Study for the Handle of Dagger from Ghazala,” Analecta Papyrologica, vol. 27 (2015), 185–192.
+
+  Abd El Rahman Medhat, Mona Ali and Mona Abdel-Ghani, “Analytical investigation on a coptic Wooden icon from the 18th century using SEM-EDX microscopy and FTIR spectroscopy,” Mediterranean Archaeology and Archaeometry, vol. 15 (2015), pp. 151–161. DOI:10.5281/zenodo.15048.
+
+  Abd El Rahman Medhat, Yassien Zidan amd Nesrin M.N. El Hadidi, “Study on the Use Polymers in the Treatment and Conservation of Historical Wood,” International Conference on Wooden Cultural Heritage: Evaluation of Deterioration and Management of Change, October 7–10, 2009. Link.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1638010171576-GK4IJGHR822CT9PNS4D4/BODA-2.jpg?format=original
+links:
+  - label: "+201020608567"
+    url: tel:+2010020608567
+  - label: "+201146460091"
+    url: tel:+201146460091
+  - label: ORCID
+    url: https://orcid.org/0000-0002-7263-3697
+  - label: Academia.edu
+    url: https://cairo.academia.edu/AbdelrahmanMedhat
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/abdelrahman-medhat-42948676/
+  - label: "DOI: 20.500.11956/136483"
+    url: http://hdl.handle.net/20.500.11956/136483
+  - label: "DOI: 10.1016/j.jasrep.2016.11.018"
+    url: https://doi.org/10.1016/j.jasrep.2016.11.018.
+  - label: DOI:10.5281/zenodo.15048
+    url: http://dx.doi.org/10.5281/zenodo.15048
+  - label: Link
+    url: http://conservationresearch.blogspot.com/2010/05/proceedings-wood-science-for.html
+legacy:
+  sourceUrl: /abd-el-rahman-medhat-mohamed-ibrahim
+  sourcePostName: abd-el-rahman-medhat-mohamed-ibrahim
+todo:
+  - Assign category (team/collaborator)

@@ -1,13 +1,8 @@
 import React from "react";
-import type { ContentBlock, DatabaseState } from "../../types";
-
-const renderBlocks = (blocks: ContentBlock[]) => {
-  return blocks.map((block, idx) => (
-    <p key={`${block.text}-${idx}`} className="reading" style={{ marginBottom: "0.75rem" }}>
-      {block.text}
-    </p>
-  ));
-};
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
+import { newsList } from "../../content/markdown";
 
 const formatDate = (value?: string) => {
   if (!value) return "";
@@ -16,25 +11,27 @@ const formatDate = (value?: string) => {
   return parsed.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 };
 
-export const NewsPage = ({ db }: { db: DatabaseState }) => {
-  const news = [...(db.siteContent?.news ?? [])].sort((a, b) => {
-    if (!a.date && !b.date) return 0;
-    if (!a.date) return 1;
-    if (!b.date) return -1;
-    return a.date < b.date ? 1 : -1;
-  });
+export const NewsPage = () => {
+  const news = newsList;
   return (
     <div className="page-container">
       <h1 className="hero-title">News & Updates</h1>
       <div className="section-block">
         {news.length ? (
           news.map((item) => (
-            <div key={item.id} className="metadata-box" style={{ width: "100%", marginBottom: "1.5rem" }}>
+            <div key={item.slug} className="metadata-box" style={{ width: "100%", marginBottom: "1.5rem" }}>
               <div className="meta-row">
                 <span style={{ fontWeight: 600 }}>{item.title}</span>
                 {item.date ? <span style={{ color: "var(--color-stone)" }}>{formatDate(item.date)}</span> : null}
               </div>
-              {item.blocks?.length ? renderBlocks(item.blocks) : null}
+              {item.summary ? <p className="reading" style={{ marginBottom: "0.75rem" }}>{item.summary}</p> : null}
+              {item.body ? (
+                <div className="reading">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]}>
+                    {item.body}
+                  </ReactMarkdown>
+                </div>
+              ) : null}
             </div>
           ))
         ) : (

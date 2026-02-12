@@ -1,0 +1,41 @@
+id: p-jakub-smcrek
+urn: urn:aos:person:jakub-smcrek
+slug: jakub-smcrek
+displayName: Jakub Smrček
+categories:
+  - collaborator
+roles:
+  - Postdoctoral FEllow
+affiliations:
+  - Organic Chemistry
+bio: |-
+  Postdoctoral Fellow Ullrich Jahn Group | Chemistry of Natural Products Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences Flemingovo náměstí 2, 160 00 Praha 6 Czech Republic
+
+  Jakub Smrček is an organic chemist at the Chemistry of Natural Products Group at the Institute of Chemistry of the Czech Academy of Sciences. He works primarily in total synthesis of natural compounds for the study of their structure and potential biological activity.
+
+  At Alchemies of Scent, Jakub is responsible for replicating ancient procedures for the preparation of perfumes and the analysis of the products from the perspective of modern chemistry.
+
+  Smrček, Jakub, Miroslav Hájek, Ondřej Hodek, Karel Čížek, Radek Pohl, Emanuela Jahn, Jean-Marie Galano, et al. 2021. “First Total Synthesis of Phytoprostanes with Prostaglandin-Like Configuration, Evidence for Their Formation in Edible Vegetable Oils and Orienting Study of Their Biological Activity.” Chemistry – A European Journal 27 (37): 9556–62. DOI: 10.1002/chem.202100872.
+
+  Smrček, Jakub, Radek Pohl, and Ullrich Jahn. 2017. “Total Syntheses of All Tri-Oxygenated 16-Phytoprostane Classes via a Common Precursor Constructed by Oxidative Cyclization and Alkyl–Alkyl Coupling Reactions as the Key Steps.” Organic & Biomolecular Chemistry 15 (44): 9408–14. DOI: 10.1039/C7OB02505J.
+
+  Jahn, Emanuela, Jakub Smrček, Radek Pohl, Ivana Císařová, Peter G. Jones, and Ullrich Jahn. 2015. “Facile and Highly Diastereoselective Synthesis of Syn- and Cis-1,2-Diol Derivatives from Protected α-Hydroxy Ketones.” European Journal of Organic Chemistry 2015 (35): 7785–98. DOI: 10.1002/ejoc.201501174.
+
+  Dinca, Emanuela, Philip Hartmann, Jakub Smrček, Ina Dix, Peter G. Jones, and Ullrich Jahn. 2012. “General and Efficient α-Oxygenation of Carbonyl Compounds by TEMPO Induced by Single-Electron-Transfer Oxidation of Their Enolates.” European Journal of Organic Chemistry 2012 (24): 4461–82. DOI: 10.1002/ejoc.201200736.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/d5f1eccf-3ffb-4ea8-985e-014002ca98bc/Smrcek-foto.jpg?format=original
+links:
+  - label: Postdoctoral Fellow
+    url: https://www.uochb.cz/cs/adresar/143/jakub-smrcek
+  - label: "DOI: 10.1002/chem.202100872"
+    url: https://doi.org/10.1002/chem.202100872
+  - label: "DOI: 10.1039/C7OB02505J"
+    url: https://doi.org/10.1039/C7OB02505J
+  - label: "DOI: 10.1002/ejoc.201501174"
+    url: https://doi.org/10.1002/ejoc.201501174
+  - label: "DOI: 10.1002/ejoc.201200736"
+    url: https://doi.org/10.1002/ejoc.201200736
+legacy:
+  sourceUrl: /jakub-smcrek
+  sourcePostName: jakub-smcrek
+date: Contemporary

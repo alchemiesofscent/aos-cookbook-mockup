@@ -14,6 +14,7 @@ export type RecipeRoute = { id: string };
 
 export type PersonRoute = { id: string };
 export type WorkRoute = { id: string };
+export type DocsRoute = { slug: string };
 
 export type NavigateOptions = {
   replace?: boolean;

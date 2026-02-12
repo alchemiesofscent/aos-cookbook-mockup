@@ -46,6 +46,10 @@ export const resolveLegacyRoute = (route: string, db: DatabaseState): string | n
       return (db.masterPeople ?? []).some((p) => p.id === id) ? `person:${id}` : null;
     }
 
+    case "team": {
+      return "about-people";
+    }
+
     case "work_materia_medica": {
       const id = "w-materia-medica";
       return (db.masterWorks ?? []).some((w) => w.id === id) ? `work:${id}` : null;
@@ -55,4 +59,3 @@ export const resolveLegacyRoute = (route: string, db: DatabaseState): string | n
       return null;
   }
 };
-

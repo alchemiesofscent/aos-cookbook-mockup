@@ -6,7 +6,7 @@ import { PageNav } from "../components/layout/PageNav";
 import { AboutPage } from "../pages/about/AboutPage";
 import { NewsPage } from "../pages/about/NewsPage";
 import { ProjectPage } from "../pages/about/ProjectPage";
-import { TeamPage } from "../pages/about/TeamPage";
+import { AboutPeoplePage } from "../pages/about/AboutPeoplePage";
 import { ImportPage } from "../pages/admin/ImportPage";
 import { ArchivePage } from "../pages/library/ArchivePage";
 import { LibraryPage } from "../pages/library/LibraryPage";
@@ -31,8 +31,10 @@ import { ToolsPage } from "../pages/workshop/ToolsPage";
 import { ExperimentsPage } from "../pages/workshop/ExperimentsPage";
 import { WorkshopEntityDetailPage } from "../pages/workshop/WorkshopEntityDetailPage";
 import { WorkshopPage } from "../pages/workshop/WorkshopPage";
+import { DocsPage } from "../pages/docs/DocsPage";
 import {
   normalizeRoute,
+  parseDocsRoute,
   parseInterpretationRoute,
   parsePersonRoute,
   parseRecipeRoute,
@@ -253,6 +255,15 @@ const App = ({
       return <RecipePage navigate={navigate} db={db} recipeId={recipeRoute.id} />;
     }
 
+    if (route === "docs") {
+      return <DocsPage navigate={navigate} />;
+    }
+
+    const docsRoute = parseDocsRoute(route);
+    if (docsRoute) {
+      return <DocsPage navigate={navigate} slug={docsRoute.slug} />;
+    }
+
     const personRoute = parsePersonRoute(route);
     if (personRoute) {
       return <PersonDetailPageDb navigate={navigate} db={db} personId={personRoute.id} />;
@@ -278,10 +289,10 @@ const App = ({
         return <AboutPage navigate={navigate} />;
       case "project":
         return <ProjectPage db={db} />;
-      case "team":
-        return <TeamPage navigate={navigate} db={db} />;
+      case "about-people":
+        return <AboutPeoplePage navigate={navigate} db={db} />;
       case "news":
-        return <NewsPage db={db} />;
+        return <NewsPage />;
       case "import":
         return <ImportPage navigate={navigate} db={db} />;
       case "workshop":

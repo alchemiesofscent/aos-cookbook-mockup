@@ -532,8 +532,8 @@ export const ImportPage = ({ navigate, db }: { navigate: (route: string) => void
                 <button type="button" className="btn-secondary" onClick={() => openAfterReload("project")}>
                   Reload & view Project
                 </button>
-                <button type="button" className="btn-secondary" onClick={() => openAfterReload("team")}>
-                  Reload & view Team
+                <button type="button" className="btn-secondary" onClick={() => openAfterReload("about-people")}>
+                  Reload & view People
                 </button>
                 <button type="button" className="btn-secondary" onClick={() => openAfterReload("news")}>
                   Reload & view News

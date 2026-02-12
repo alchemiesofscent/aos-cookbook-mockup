@@ -1,5 +1,6 @@
 import {
   parseInterpretationRoute,
+  parseDocsRoute,
   parsePersonRoute,
   parseRecipeRoute,
   parseWorkRoute,
@@ -17,8 +18,9 @@ const STATIC_ROUTES = new Set([
   "people",
   "about",
   "project",
-  "team",
+  "about-people",
   "news",
+  "docs",
   "import",
   "workshop",
   "materials",
@@ -47,6 +49,7 @@ export const normalizeRoute = (route: string): string => {
   if (parseRecipeRoute(trimmed)) return trimmed;
   if (parsePersonRoute(trimmed)) return trimmed;
   if (parseWorkRoute(trimmed)) return trimmed;
+  if (parseDocsRoute(trimmed)) return trimmed;
   return "home";
 };
 

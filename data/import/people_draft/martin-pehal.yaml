@@ -1,0 +1,18 @@
+id: p-martin-pehal
+urn: urn:aos:person:martin-pehal
+slug: martin-pehal
+displayName: Martin Pehal
+categories:
+  - team
+roles:
+  - Egyptology
+bio: Website
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/7f4ea556-8434-4de6-9755-eefcde233f74/20230311_134016000_iOS-4.jpg?format=original
+links:
+  - label: Website
+    url: https://ufar.ff.cuni.cz/en/department-2/staff/martin-pehal/
+legacy:
+  sourceUrl: /martin-pehal
+  sourcePostName: martin-pehal
+date: Contemporary

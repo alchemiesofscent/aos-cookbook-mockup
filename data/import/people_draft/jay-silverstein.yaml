@@ -1,0 +1,24 @@
+id: p-jay-silverstein
+urn: urn:aos:person:jay-silverstein
+slug: jay-silverstein
+displayName: Jay Silverstein
+categories:
+  - collaborator
+bio: |-
+  Chemistry and Forensics Nottingham Trent University 50 Shakespeare Street, Nottingham, NG1 4FQ, UK Website
+
+  Co-Director Tell Timai Archaeological Project Website
+
+  Dr. Silverstein received his PhD in anthropological archaeology from The Pennsylvania State University. His theoretical interests include militarism, the rise and fall of complex societies, ancient hydraulic constructions, imperialism, and frontier interactions. He has directed or co-directed projects around the world including Mexico, Guatemala, Southeast Asia, Papua New Guinea, Micronesia, Europe, and Egypt. He has served as an Adjunct faculty member at the University of Hawaii in Classics and Anthropology, and is currently a faculty member at the Department of Chemistry and Forensics, Nottingham Trent University. Jay has been co-director of the Tell Timai Project since 2007.
+links:
+  - label: Website
+    url: https://nottinghamtrent.academia.edu/JaySilverstein
+  - label: Website
+    url: https://telltimai.org
+legacy:
+  sourceUrl: /jay-silverstein
+  sourcePostName: jay-silverstein
+date: Contemporary
+todo:
+  - Review roles
+  - Add image

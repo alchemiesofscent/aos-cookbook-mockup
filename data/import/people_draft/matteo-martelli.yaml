@@ -1,0 +1,31 @@
+id: p-matteo-martelli
+urn: urn:aos:person:matteo-martelli
+slug: matteo-martelli
+displayName: Matteo Martelli
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Matteo is Professor in History of Science and Principal Investigator of the ERC Project AlchemEast: Alchemy in the Making: From ancient Babylonia via Graeco-Roman Egypt into the Byzantine, Syriac and Arabic traditions (1500 BCE -1000 AD).
+
+  At Alchemies of Scent, Matteo discussed ancient techniques designed to change the colour of metals, thus reasoning on the development of Graeco-Egyptian chrysopoeia (the making of gold) and argyropoeia (the making of silver). More details about the lecture are here.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/bda573ba-64e3-461a-bfa1-0bc5fec21538/Matteo.jpg?format=original
+links:
+  - label: Website
+    url: https://www.unibo.it/sitoweb/matteo.martelli/cv-en
+  - label: Professor in History of Science
+    url: https://www.unibo.it/sitoweb/matteo.martelli/en
+  - label: Principal Investigator
+    url: https://alchemeast.eu/homepage/team/
+  - label: "AlchemEast: Alchemy in the Making: From ancient Babylonia via Graeco-Roman Egypt into the Byzantine, Syriac and Arabic traditions (1500 BCE -1000 AD)."
+    url: https://alchemeast.eu/
+  - label: More details about the lecture are here
+    url: /events?tag=Matteo%20Martelli
+legacy:
+  sourceUrl: /matteo-martelli
+  sourcePostName: matteo-martelli
+date: Contemporary
+todo:
+  - Review roles

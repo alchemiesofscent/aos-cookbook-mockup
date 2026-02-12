@@ -1,0 +1,27 @@
+id: p-prof-jolle-rollokoster
+urn: urn:aos:person:prof-jolle-rollokoster
+slug: prof-jolle-rollokoster
+displayName: Joëlle Rollo-Koster
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Joëlle Rollo-Koster is professor of medieval history at the University of Rhode Island, the smallest state in the USA. She is the author of numerous articles and books focused on the society and culture of Avignon and its papacy, and the Great Western Schism. Her most recent books are Raiding Saint Peter: Empty Sees, Violence, and the Initiation of the Great Western Schism (1378) (2008); Avignon and its Papacy (1309-1417): Popes, Institutions, and Society (2015), and The Great Western Schism, 1378-1417: Performing Legitimacy, Performing Unity (2022). She is with Robert Ventresca general editor and editor of the forthcoming 3 volumes Cambridge History of the Papacy (in production, 2024).
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/80441e23-856e-41df-8860-398865ca95d2/ezgif-2-969e85ccb1.png?format=original
+links:
+  - label: Website
+    url: https://web.uri.edu/history/meet/joelle-rollo-koster/
+  - label: "Raiding Saint Peter: Empty Sees, Violence, and the Initiation of the Great Western Schism (1378) (2008)"
+    url: https://brill.com/display/title/14615?language=en
+  - label: "Avignon and its Papacy (1309-1417): Popes, Institutions, and Society (2015)"
+    url: https://rowman.com/ISBN/9780810894990/Avignon-and-Its-Papacy-1309%E2%80%931417-Popes-Institutions-and-Society
+  - label: "The Great Western Schism, 1378-1417: Performing Legitimacy, Performing Unity (2022)"
+    url: https://www.cambridge.org/cz/academic/subjects/religion/church-history/great-western-schism-13781417-performing-legitimacy-performing-unity?format=HB&isbn=9781107168947
+legacy:
+  sourceUrl: /prof-jolle-rollokoster
+  sourcePostName: prof-jolle-rollokoster
+date: Contemporary
+todo:
+  - Review roles

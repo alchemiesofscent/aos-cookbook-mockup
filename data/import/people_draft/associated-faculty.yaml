@@ -1,0 +1,23 @@
+id: p-associated-faculty
+urn: urn:aos:person:associated-faculty
+slug: associated-faculty
+displayName: Associate Members
+categories:
+  - team
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/88632117-13b2-46dc-a080-8a681af9f1b8/littman-r.jpg?format=original
+  alt: "  John Rogers   Vivamus a ante congue, porta nunc nec, hendrerit turpis. Aenean eu justo sed elit dignissim aliquam. Mauris egestas at nibh nec finibus. Nulla lectus ante, consequat et ex eget, feugiat tincidunt metus. Vivamus a ante congue, porta nunc nec, hendrerit turpis. Vivamus sit amet semper lacus, in mollis libero. Mauris id fermentum nulla. "
+links:
+  - label: /robert-littman
+    url: /robert-littman
+  - label: /ullrich-jahn
+    url: /ullrich-jahn
+  - label: /jay-silverstein
+    url: /jay-silverstein
+legacy:
+  sourceUrl: /associated-faculty
+  sourcePostName: associated-faculty
+date: Contemporary
+todo:
+  - Review roles
+  - Add bio

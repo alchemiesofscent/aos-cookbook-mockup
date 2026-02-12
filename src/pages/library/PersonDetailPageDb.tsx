@@ -13,6 +13,21 @@ export const PersonDetailPageDb = ({
 }) => {
   const person = (db.masterPeople ?? []).find((p) => p.id === personId) ?? null;
   const isTeam = (person?.categories ?? []).includes("team");
+  const isCollaborator = (person?.categories ?? []).includes("collaborator");
+  const isProjectPerson = isTeam || isCollaborator;
+  const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+  const displayName = person?.displayName ?? person?.name ?? "Person";
+  const roles = person?.roles?.length ? person.roles : person?.role ? [person.role] : [];
+  const roleLabel = roles.length ? roles.join(" • ") : "";
+  const affiliations = person?.affiliations?.length ? person.affiliations : [];
+  const bio = (person?.bio ?? person?.description ?? "").replace(emailRe, "").trim();
+  const links =
+    person?.links?.length
+      ? person.links
+      : person?.externalLinks?.length
+        ? person.externalLinks
+        : [];
+  const safeLinks = links.filter((link) => link.url && !link.url.startsWith("mailto:"));
 
   const authoredWorks = (db.masterWorks ?? []).filter((w) => w.authorId === personId);
   const authoredWorkIds = new Set(authoredWorks.map((w) => w.id));
@@ -27,17 +42,30 @@ export const PersonDetailPageDb = ({
         <div style={{ display: "flex", gap: "3rem" }}>
           <div style={{ flex: 2 }}>
             <h1 className="hero-title" style={{ fontSize: "2.5rem", marginBottom: "0.25rem", marginTop: 0 }}>
-              {person?.name ?? "Person"}
+              {displayName}
             </h1>
             <div style={{ fontSize: "1.25rem", color: "var(--color-charcoal)", marginBottom: "0.5rem" }}>
-              {person?.role ?? (isTeam ? "Team member" : "")}
+              {roleLabel || (isProjectPerson ? "Team member" : "")}
             </div>
             <div style={{ fontSize: "1rem", color: "var(--color-stone)", marginBottom: "1.5rem" }}>
-              {person?.date ? <div>{isTeam ? "Period" : "Floruit"}: {person.date}</div> : null}
-              {person?.place ? <div>{isTeam ? "Affiliation" : "Associated place"}: {person.place}</div> : null}
+              {person?.date ? <div>{isProjectPerson ? "Period" : "Floruit"}: {person.date}</div> : null}
+              {affiliations.length ? (
+                <div>{isProjectPerson ? "Affiliation" : "Associated place"}: {affiliations.join(", ")}</div>
+              ) : person?.place ? (
+                <div>{isProjectPerson ? "Affiliation" : "Associated place"}: {person.place}</div>
+              ) : null}
               {person?.categories?.length ? <div>Categories: {person.categories.join(", ")}</div> : null}
             </div>
             {person?.urn ? <div className="urn" style={{ display: "inline-block", marginBottom: "1rem" }}>{person.urn}</div> : null}
+            {safeLinks.length ? (
+              <div style={{ marginBottom: "1rem", display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+                {safeLinks.map((link) => (
+                  <a key={`${link.url}-${link.label}`} href={link.url} className="text-btn" target="_blank" rel="noreferrer">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            ) : null}
           </div>
           <div style={{ flex: 1 }}>
             <div
@@ -61,11 +89,11 @@ export const PersonDetailPageDb = ({
 
       <div className="product-section">
         <p className="reading" style={{ fontSize: "1.1rem", lineHeight: "1.65", maxWidth: "800px" }}>
-          {person?.description ?? "No description yet."}
+          {bio || "No description yet."}
         </p>
       </div>
 
-      {!isTeam && (
+      {!isProjectPerson && (
         <div className="product-section">
           <h2>WORKS</h2>
           {!authoredWorks.length ? (

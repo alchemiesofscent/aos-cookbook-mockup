@@ -1,0 +1,27 @@
+id: p-dr-thomas-j-derrick
+urn: urn:aos:person:dr-thomas-j-derrick
+slug: dr-thomas-j-derrick
+displayName: Thomas J. Derrick
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Gale Research Fellow in Ancient Glass and Material Culture Macquarie University Macquarie University History Museum
+
+  Thomas J. Derrick is an archaeologist and academic focusing on the Roman Imperial period. His main interests include glass, perfumes/medicines/cosmetics, and sensory archaeology/approaches - but he also has a wider interest in the lives of everyday people in the Roman period and concepts of luxury.
+
+  At Alchemies of Scent, Derrick presented his work on ancient Roman perfumery with a talk entitled: “Archaeological approaches to the consumption of perfumes, cosmetics, and medicaments in Rome’s north-western provinces.” The talk was framed around his doctoral work on unguentaria from Roman Britain. It also focused on the heuristic value of studying contextualised small glass containers. Derrick explored the potential for material-culture-centred approaches to socio-corporeal behaviours throughout the Roman Empire.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/8eebc214-4136-41ff-9f6a-1bf7cb8d2c20/me-blur.jpg?format=original
+links:
+  - label: Website
+    url: https://thomasjderrick.com
+  - label: “Archaeological approaches to the consumption of perfumes, cosmetics, and medicaments in Rome’s north-western provinces.”
+    url: /events?tag=Thomas%20J.%20Derrick
+legacy:
+  sourceUrl: /dr-thomas-j-derrick
+  sourcePostName: dr-thomas-j-derrick
+date: Contemporary
+todo:
+  - Review roles

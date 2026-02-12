@@ -1,0 +1,25 @@
+id: p-eliska-solcova
+urn: urn:aos:person:eliska-solcova
+slug: eliska-solcova
+displayName: Eliška Šolcová
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Eliška is a classicist and theatrologist. She studied Latin Language and Literature and Theatre Studies at Charles University. She currently works as a research assistant at the Centre for Classical Studies at the Institute of Philosophy, Czech Academy of Sciences. Her field of research is theatre and theatricality in Antiquity, and Roman poetry. She occasionally translates from Latin and has experience with theatre projects.
+
+  Director and dramaturge: “The Birth of Myrrh.” Part of Stars of Philosophy, 17 June 2022. Additional performances were held in September 2022 and July 2023.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/de7b16a9-4775-4974-9fe6-2f06b5b596f4/web_cut.jpg?format=original
+links:
+  - label: Website
+    url: https://www.ics.cas.cz/en/staff/48/eliska-solcova
+  - label: “The Birth of Myrrh.” Part of Stars of Philosophy, 17 June 2022.
+    url: /events?tag=performance&category=Public%20Events
+legacy:
+  sourceUrl: /eliska-solcova
+  sourcePostName: eliska-solcova
+date: Contemporary
+todo:
+  - Review roles

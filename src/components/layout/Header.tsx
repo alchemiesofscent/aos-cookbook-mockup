@@ -59,7 +59,7 @@ export const Header = ({
           <span onClick={() => navigate("about")}>About</span> <Icons.ChevronDown />
           <div className="dropdown">
             <div onClick={() => navigate("project")}>Project</div>
-            <div onClick={() => navigate("team")}>Team</div>
+            <div onClick={() => navigate("about-people")}>People</div>
             <div onClick={() => navigate("news")}>News</div>
           </div>
         </div>

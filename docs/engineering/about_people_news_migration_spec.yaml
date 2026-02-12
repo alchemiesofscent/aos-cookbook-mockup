@@ -1,0 +1,262 @@
+specVersion: 1
+title: Cookbook About/People/News migration + People import pipeline
+date: 2026-02-12
+timezone: America/Chicago
+
+context:
+  repoType: "React SPA static site (no server-side CMS)"
+  canonicalDataset:
+    seedJson: "public/data/seed.json"
+    storageLoader: "src/storage.ts"
+  relevantDocs:
+    - "PRD_v3.0_StaticSite.md"
+    - "Technical_Specification_v2.0_StaticSite.md"
+    - "UX_IA_Appendix_v2.0_StaticSite.md"
+  legacySource:
+    kind: "Squarespace WordPress export (WXR XML)"
+    file: "Squarespace-Wordpress-Export-02-11-2026.xml"
+
+goals:
+  - Simplify About so it focuses on what the Cookbook is doing now.
+  - Rename About > Team to About > People.
+  - About > People shows two sections: Team and Collaborators.
+  - Preserve Library > People as the scholarly/historical people index (exclude project staff/collaborators).
+  - Create scholar-facing architecture documentation pages (separate from About; link from footer).
+  - Create a clean, repeatable import + compile pipeline so people can be edited as structured records and ingested into db.masterPeople reliably.
+
+nonGoals:
+  - Implementing a server-side CMS or accounts.
+  - Auto-downloading or re-hosting every legacy image (allowed later; MVP can keep external URLs).
+  - Perfectly automated bio cleanup; importer should generate drafts with clear TODO markers.
+
+informationArchitecture:
+  primaryNav:
+    - group: "Library"
+      items:
+        - "Recipes"
+        - "Works"
+        - "People"           # scholarly/historical only
+    - group: "Workshop"
+      items:
+        - "Ancient Terms"
+        - "Materials"
+        - "Processes"
+        - "Tools"
+    - group: "About"
+      items:
+        - "Project"
+        - "People"           # project people: Team + Collaborators
+        - "News"
+      removedOrOptional:
+        - "Events"           # keep only if actively maintained; otherwise drop from primary nav
+  footerNav:
+    - group: "For scholars"
+      items:
+        - "Architecture overview"
+        - "Data model"
+        - "Identifiers & citation"
+        - "Exports"
+        - "Editorial workflow"
+
+dataModel:
+  collection: "db.masterPeople"
+  baselineSchemaFromTechSpec:
+    requiredFields: [id, urn, slug, displayName]
+    optionalFields: [sortName, categories, bio, roles, externalIds, placeholder]
+  categoryPolicy:
+    allowed:
+      - historical
+      - team
+      - collaborator
+      - alumni        # optional (only if you want “previous members” later)
+    semantics:
+      historical: "ancient / historical figures used for scholarly navigation"
+      team: "core project staff"
+      collaborator: "associated faculty, visiting members, partners in collaboration"
+      alumni: "previous team members (optional; exclude from Team section)"
+  recommendedAdditionsOptional:
+    # Tech spec allows extra fields; these are recommended for clean import and consistent UI.
+    - name: image
+      type: "object"
+      shape:
+        src: "string (absolute URL or site-relative path)"
+        alt: "string (optional)"
+        credit: "string (optional)"
+    - name: links
+      type: "array"
+      itemShape:
+        label: "string"
+        url: "string"
+    - name: affiliations
+      type: "array<string>"
+  invariants:
+    - "ids are globally unique within masterPeople and MUST NOT be auto-regenerated once published."
+    - "urns MUST be stable once published."
+    - "About > People must be driven by categories (team/collaborator), not by a hand-built list."
+
+contentSources:
+  people:
+    canonicalDir: "data/people"
+    draftDir: "data/import/people_draft"
+    format: "YAML per person (one file per person)"
+    compileTarget:
+      file: "public/data/seed.json"
+      jsonPointer: "/masterPeople"
+  news:
+    dir: "content/news"
+    format: "Markdown with frontmatter"
+    frontmatter:
+      required: [title, date]
+      optional: [summary, tags, legacyUrl]
+  docs:
+    dir: "content/docs"
+    format: "Markdown with frontmatter"
+    requiredPages:
+      - slug: "architecture"
+        title: "Architecture overview"
+      - slug: "data-model"
+        title: "Data model"
+      - slug: "identifiers"
+        title: "Identifiers & citation"
+      - slug: "exports"
+        title: "Exports"
+      - slug: "editorial-workflow"
+        title: "Editorial workflow"
+
+uiChanges:
+  aboutPeoplePage:
+    route: "/about/people"
+    pageTitle: "People"
+    sections:
+      - heading: "Team"
+        filter:
+          categoriesIncludes: ["team"]
+          categoriesExcludes: ["alumni"]  # only if alumni is used
+        sort:
+          by: "displayName"
+        cardFields:
+          - image (optional)
+          - displayName
+          - roles (first line)
+          - shortBio (optional; truncate bio)
+          - linkToPersonDetail
+      - heading: "Collaborators"
+        filter:
+          categoriesIncludes: ["collaborator"]
+        sort:
+          by: "displayName"
+        cardFields:
+          - image (optional)
+          - displayName
+          - roles (optional)
+          - affiliations (optional)
+          - linkToPersonDetail
+
+  libraryPeopleIndex:
+    route: "/people"
+    title: "People"
+    filter:
+      categoriesIncludes: ["historical"]
+      categoriesExcludes: ["team", "collaborator", "alumni"]
+    notes:
+      - "This preserves the existing UX/IA assumption that Library > People is scholarly/historical."
+
+  personDetailPage:
+    requirements:
+      - "Always render displayName as the page title."
+      - "If categories includes team or collaborator, show roles + affiliations prominently."
+      - "Do not show raw emails/phone numbers imported from legacy content by default."
+
+  docsPages:
+    routeBase: "/docs"
+    placement: "Linked from footer only (not primary nav)"
+    rendering:
+      - "Prefer a simple markdown renderer with safe defaults (no raw HTML execution)."
+      - "Provide a left-side or on-page TOC if lightweight to implement."
+
+importPipeline:
+  sourceFile: "Squarespace-Wordpress-Export-02-11-2026.xml"
+  scriptsToAdd:
+    - name: "import-wxr"
+      path: "scripts/import-wxr-people-news.ts"
+      purpose: "Parse WXR XML, extract people + news drafts."
+    - name: "compile-people"
+      path: "scripts/compile-people-to-seed.ts"
+      purpose: "Compile data/people/*.yaml into seed.json masterPeople."
+    - name: "validate-seed"
+      path: "scripts/validate-seed.ts"
+      purpose: "Validate invariants (unique ids, required fields, allowed categories)."
+  wxrExtractionConfig:
+    # These are the key listing pages present in the provided export.
+    listingPages:
+      teamListingPostName: "team"
+      collaboratorListingPostNames:
+        - "associated-faculty"
+        - "visiting-members"
+      optionalLegacyListingPostNames:
+        - "our-team2"
+    slugOverrides:
+      # listing page links that do not match actual page slugs in the export
+      dr-maarten-janssen: "maarten-janssen"
+      julie-machatova: "julie-tomsova"
+      associate-members: "associated-faculty"
+      visiting-researchers-and-artists: "visiting-members"
+    ignoreSlugs:
+      - "previous-members"   # referenced but not present in export
+    personDetectionHeuristics:
+      - "Any page whose slug is referenced from a listing page is a person candidate."
+      - "Any page whose title starts with Dr./Mgr./Prof. is a person candidate."
+      - "Any page that contains an h2 with multiple <br> lines and an adjacent headshot <img> is a person candidate."
+    fieldExtractionRules:
+      displayName:
+        - "Prefer the profile page title or first h2 line; strip honorific prefixes (Dr., Prof., Mgr.) for displayName."
+      roles:
+        - "From listing captions: parse the parenthetical role (e.g., '(Principal Investigator)') or trailing role phrase."
+        - "From profile h2 lines: use second/third lines as roles if they are not addresses."
+      bio:
+        - "Convert remaining HTML blocks to markdown-ish plain text."
+        - "Strip emails/phone numbers unless explicitly whitelisted."
+      image:
+        - "Use first <img> src on profile page if present; otherwise use listing caption image src."
+      externalLinks:
+        - "Collect non-mailto links from profile contact section into links[] where possible."
+  importerOutputs:
+    peopleDraft:
+      dir: "data/import/people_draft"
+      files: "one YAML per person slug"
+      includes:
+        - "legacy: { sourcePostName, sourceUrl }"
+        - "todo: [ ... ]  # any parsing uncertainty or missing info"
+    newsDraft:
+      dir: "content/news/_draft"
+      rule:
+        - "Import wp:post_type == 'post' as News."
+        - "Optionally allowlist specific Pages to become News (job calls, announcements)."
+    redirectMap:
+      path: "public/legacy/redirects.json"
+      format:
+        - fromPath: "/sean-coughlin"
+          toRoute: "person:{personId}"
+      notes:
+        - "Include old Squarespace paths for person pages and key About pages if feasible."
+
+acceptanceCriteria:
+  data:
+    - "masterPeople includes collaborator category and renders without errors."
+    - "Validation script fails on duplicate ids/urns or unknown categories."
+    - "No masterPeople record is missing id/urn/slug/displayName after compile."
+  ui:
+    - "Header nav shows About > People (not Team)."
+    - "About > People page renders Team and Collaborators sections from categories."
+    - "Library > People index excludes team/collaborators."
+    - "Person detail page loads correctly when navigated from About > People cards."
+  tooling:
+    - "scripts/import-wxr-people-news.ts runs on the provided XML and generates draft files deterministically."
+    - "scripts/compile-people-to-seed.ts compiles YAML people records into public/data/seed.json masterPeople."
+    - "All scripts are documented in README or docs/engineering/importing.md."
+
+migrationSteps:
+  - "Run importer -> review drafts -> promote into data/people."
+  - "Run compile script -> update seed.json -> run validation."
+  - "Implement UI changes -> verify filters."
+  - "Add docs pages -> link from footer."

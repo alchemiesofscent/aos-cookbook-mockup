@@ -1,4 +1,5 @@
 import type {
+  DocsRoute,
   InterpretationRoute,
   PersonRoute,
   RecipeRoute,
@@ -78,3 +79,9 @@ export const parseWorkRoute = (route: string): WorkRoute | null => {
   return { id };
 };
 
+export const parseDocsRoute = (route: string): DocsRoute | null => {
+  if (!route.startsWith("docs:")) return null;
+  const [, slug] = route.split(":");
+  if (!slug) return null;
+  return { slug };
+};

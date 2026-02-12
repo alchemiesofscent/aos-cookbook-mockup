@@ -1,0 +1,35 @@
+id: p-lucia-raggetti
+urn: urn:aos:person:lucia-raggetti
+slug: lucia-raggetti
+displayName: Lucia RAggetti
+categories: []
+bio: |-
+  Website
+
+  Lucia is Assistant Professor in the History of Ancient Science and a member of the ERC project AlchemEast: Alchemy in the Making: From ancient Babylonia via Graeco-Roman Egypt into the Byzantine, Syriac and Arabic traditions. (1500 BCE – 1000 AD).
+
+  At Alchemies of Scent, Lucia will be conducting experiments on the heated water bath apparatus attributed to Maria the Alchemist, one of if not the earliest recorded alchemist (the earliest mention of her is in the writings of Zosimus of Panoplis, c. 300s CE). Known in the medieval period as the balneum mariae or bain-marie, how the apparatus became associated with Maria is something of a mystery. Nevertheless, it was used in the distillation of delicate botanical aromatics in Ibn Sallūm’s Ġāyat al-itqān, which will be the focus of these experiments.
+
+  Visit in November 2021 is postponed.
+links:
+  - label: Website
+    url: https://luciaraggetti.info/
+  - label: Assistant Professor in the History of Ancient Science
+    url: https://www.unibo.it/sitoweb/lucia.raggetti/
+  - label: member
+    url: https://alchemeast.eu/homepage/team/
+  - label: ERC project AlchemEast
+    url: https://alchemeast.eu/
+  - label: Maria the Alchemist
+    url: https://en.wikipedia.org/wiki/Mary_the_Jewess
+  - label: Zosimus of Panoplis
+    url: https://en.wikipedia.org/wiki/Zosimos_of_Panopolis
+  - label: bain-marie
+    url: https://en.wikipedia.org/wiki/Bain-marie
+legacy:
+  sourceUrl: /lucia-raggetti
+  sourcePostName: lucia-raggetti
+todo:
+  - Review roles
+  - Add image
+  - Assign category (team/collaborator)

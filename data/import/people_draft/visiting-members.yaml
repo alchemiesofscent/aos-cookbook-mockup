@@ -1,0 +1,29 @@
+id: p-visiting-members
+urn: urn:aos:person:visiting-members
+slug: visiting-members
+displayName: Visiting Members
+categories:
+  - team
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1637861621808-V62LAC1MJ45F478X4X8I/Marai_Photo+Website.jpg?format=original
+  alt: "  Donna Roberts   Mauris id fermentum nulla. Aliquam bibendum, turpis eu mattis iaculis, ex lorem mollis sem, ut sollicitudin risus orci quis tellus. Maecenas non leo laoreet, condimentum lorem nec, vulputate massa. Donec eget risus diam. Donec ac fringilla turpis. In sit amet felis malesuada, feugiat purus eget, varius mi. "
+links:
+  - label: /manuela-marai
+    url: /manuela-marai
+  - label: /matteo-martelli
+    url: /matteo-martelli
+  - label: /klara-metge
+    url: /klara-metge
+  - label: /eliska-solcova
+    url: /eliska-solcova
+  - label: /dr-thomas-j-derrick
+    url: /dr-thomas-j-derrick
+  - label: /prof-jolle-rollokoster
+    url: /prof-jolle-rollokoster
+legacy:
+  sourceUrl: /visiting-members
+  sourcePostName: visiting-members
+date: Contemporary
+todo:
+  - Review roles
+  - Add bio

@@ -1,0 +1,39 @@
+id: p-laura-prieto
+urn: urn:aos:person:laura-prieto
+slug: laura-prieto
+displayName: Laura Juliana Prieto Pabón
+categories: []
+roles:
+  - doctoral FEllow
+affiliations:
+  - Organic Chemistry
+bio: |-
+  Ullrich Jahn Group | Chemistry of Natural Products Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences Flemingovo náměstí 2, 160 00 Praha 6 Czech Republic
+
+  Laura is a Master in Flavors and Fragrances Chemist with experience in organic chemistry and sensory evaluation in fine fragrances. Currently she is part of the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences.
+
+  At Alchemies of Scent, Laura is responsible for replication of ancient procedures of perfume preparation. Laura’s thesis project involves the identification and synthesis of relevant biomarkers for ancient perfumery ingredients. She also works on modelling ancient methods using modern techniques, developing chemical explanations of the processes during perfume preparation, and analysis of raw and processed materials using analytical instruments like GC/LC-MS.
+
+  Plevová K.; Prieto Pabon L.J.; Gaysinski, M.; Poulain-Martini, S.; Michelet, V. Phosphorous NMR Analysis and Activity of chiral BINAP-Silver complexes. Chempluschem, 2022, 87 (11). http://doi.org/10.1002/cplu.202200217
+
+  Cardona-G, W.; Robledo, S. M.; Prieto, L.J.; Yepes, A.F. S-AllylCysteine Ester/Caffeic Acid amide hybrids as promising antiprotozoal candidates: synthesis, biological evaluation and molecular modeling studies. Brazilian Journal of Pharmaceutical Sciences; 2022, 58, https://doi.org/10.1590/s2175-97902022e20822
+
+  Castrillón, W.; Herrera-R.; Prieto, L.J.; Conesa-Milián, L.; Carda, M.; Naranjo, T.; Maldonado, M.E.; Cardona-G, W. Synthesis and in-vitro evaluation of S-allylcysteine ester caffeic acida mide hybrids as potencial anticáncer agents. Irainan Journal of Pharmaceutical Research, 2019, 18(4), 1770-1789. https://doi.org/10.22037/ijpr.2019.15184.12921
+
+  García J. Prieto L. Guevara A. Malagon D. Osorio C. Chemical studies of yellow tamarillo (Solanum betaceum Cav.) Fruit flavor by using a molecular sensory approach. Molecules; 2016; 21, 1729 http://doi.org/10.3390/molecules21121729
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/84bd0328-6acf-4600-99a2-552d1ca59881/photo_2023-09-15_09-50-31.jpg?format=original
+links:
+  - label: http://doi.org/10.1002/cplu.202200217
+    url: http://doi.org/10.1002/cplu.202200217
+  - label: https://doi.org/10.1590/s2175-97902022e20822
+    url: https://doi.org/10.1590/s2175-97902022e20822
+  - label: https://doi.org/10.22037/ijpr.2019.15184.12921
+    url: https://doi.org/10.22037/ijpr.2019.15184.12921
+  - label: http://doi.org/10.3390/molecules21121729
+    url: http://doi.org/10.3390/molecules21121729
+legacy:
+  sourceUrl: /laura-prieto
+  sourcePostName: laura-prieto
+todo:
+  - Assign category (team/collaborator)

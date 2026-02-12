@@ -18,135 +18,410 @@
         "translation": "Preparation of rose oil: Take five litras, eight ounces of skhoinos, twenty litras and five ounces of oil. Cut and soften [the skhoinos] in water, then boil [in the oil] while stirring. Afterward, strain the mixture and place the unmoistened petals of one thousand roses into the twenty litras and five ounces of oil. Rub your hands with fragrant honey and stir repeatedly, pressing gently. Then, let it sit overnight and strain the oil. When the sediment has settled, transfer the oil into a different container and store it in a jar that has been smeared with honey. Put the strained roses into a small basin, pour in eight litras and three ounces of the pressed oil, and strain again.\n\nThis will be your second batch, and if you wish, you may continue up to the third and fourth infusion by pouring and straining. The first, second, third, and fourth infusions produce the oil. Whenever you prepare this, coat the jars with honey beforehand. If you want to make a second infusion, add the same number of fresh dry roses to the previously strained oil, stir them with hands that have been coated in honey, press, and repeat the straining for the second, third, and fourth infusions. Whenever you do this, add fresh roses, as this increases the potency.\n\nThe oil can undergo up to seven infusions of roses, but no more after that. The tub should also be smeared with honey. You must carefully separate the oil from the juice, as even the smallest amount left behind spoils the oil. Some people crush only the roses and soak them in oil, changing the oil every seven days up to the third infusion. Others pre-treat the oil, adding in addition kalamos and aspalathos, and some also add anchusa for its color and salt to prevent spoilage.",
         "notes": "Edition consulted: Wellmann (pp. 42–43). Translator: Coughlin. Citation: De materia medica 1.43.1–3.",
         "combinedSegments": [
-          { "text": "Preparation of rose oil (ῥόδινον): Take 5 lbs. 8 oz. of " },
-          { "text": "σχοῖνος", "type": "annotation", "id": "ing-skhoinos" },
-          { "text": ", and 20 lbs. 5 oz. of " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
-          { "text": ". " },
-
-          { "text": "Chop ", "type": "annotation", "id": "pr-koptein" },
-          { "text": "and " },
-          { "text": "soften ", "type": "annotation", "id": "pr-phyrein" },
-          { "text": "the σχοῖνος in " },
-          { "text": "ὕδωρ", "type": "annotation", "id": "ing-hydor" },
-
-          { "text": ", then " },
-          { "text": "boil", "type": "annotation", "id": "pr-hepsein" },
-          { "text": " while " },
-          { "text": "stirring", "type": "annotation", "id": "pr-anakinein" },
-          { "text": ".\n\n" },
-
-          { "text": "Afterward, " },
-          { "text": "strain ", "type": "annotation", "id": "pr-apodiēthein" },
-          
-          { "text": "and place the petals of one thousand dry " },
-          { "text": "ῥόδα", "type": "annotation", "id": "ing-rhodon-1000" },
-          { "text": " into the oil. " },
-
-          { "text": "Rub your hands with fragrant " },
-          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": " and " },
-          { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
-          { "text": " continuously, " },
-          { "text": "pressing", "type": "annotation", "id": "pr-hypothlibein" },
-          { "text": " gently.\n\n" },
-          
-          { "text": "Let it rest", "type": "annotation", "id": "pr-ean" },
-          { "text": " overnight, " },
-
-          { "text": "then " },
-          { "text": "press out", "type": "annotation", "id": "pr-ekthlibein" },
-          { "text": ". " },
-
-          { "text": "When the sediment has " },
-          { "text": "settled", "type": "annotation", "id": "pr-hyphistasthai" },
-          { "text": ", " },
-          { "text": "transfer", "type": "annotation", "id": "pr-allassein" },
-          { "text": " the oil into another " },
-          { "text": "ἀγγεῖον", "type": "annotation", "id": "tool-angeion" },
-          { "text": ". " },
-
-          { "text": "Store it in a " },
-          { "text": "κρατήρ", "type": "annotation", "id": "tool-krater" },
-          { "text": " that has been smeared with μέλι.\n\n" },
-
-          { "text": "Put the strained roses into a " },
-          { "text": "λουτηρίδιον", "type": "annotation", "id": "tool-louteridion" },
-          { "text": ". " },
-
-          { "text": "Pour in 8 lbs. 3 oz. of the pressed " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-8-3" },
-          { "text": " and " },
-          { "text": "strain", "type": "annotation", "id": "pr-exipoun" },
-          { "text": " again. " },
-
-          { "text": "This will be your second batch.\n\n" },
-
-          { "text": "If you wish, continue up to the third and fourth infusion by " },
-          { "text": "pouring", "type": "annotation", "id": "pr-epicheein" },
-          { "text": " and " },
-          { "text": "straining", "type": "annotation", "id": "pr-exipoun" },
-          { "text": ". " },
-
-          { "text": "Whenever you prepare this, pre-coat the κρατήρ with " },
-          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": ".\n\n" },
-
-          { "text": "If you want a second infusion, " },
-          { "text": "add", "type": "annotation", "id": "pr-emballein" },
-          { "text": " the same number of fresh dry ῥόδα to the first strained oil. " },
-
-          { "text": "Then " },
-          { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
-          { "text": " with μέλι-coated hands, " },
-          { "text": "press", "type": "annotation", "id": "pr-ekpiezein" },
-          { "text": ", and make the second, third, and fourth in the same way, " },
-          { "text": "pressing out", "type": "annotation", "id": "pr-ekthlibein" },
-          { "text": ".\n\n" },
-
-          { "text": "Each time you do this, " },
-          { "text": "add", "type": "annotation", "id": "pr-prosballein" },
-          { "text": " fresh ῥόδα; it becomes more potent." },
-
-          { "text": "The ἔλαιον can receive the ῥόδον charge up to the seventh infusion, but no more after that.\n\n" },
-
-          { "text": "Let the " },
-          { "text": "ληνός", "type": "annotation", "id": "tool-lenos" },
-          { "text": " also be smeared with " },
-          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": ". " },
-
-          { "text": "Carefully " },
-          { "text": "separate", "type": "annotation", "id": "pr-chōrizein" },
-          { "text": " the " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-20-5" },
-          { "text": " from the " },
-          { "text": "χυλός", "type": "annotation", "id": "ing-chylos" },
-          { "text": ".\n\n" },
-
-          { "text": "Some people " },
-          { "text": "crush", "type": "annotation", "id": "pr-thlaein" },
-          { "text": " only the ῥόδα and " },
-          { "text": "soak", "type": "annotation", "id": "pr-enapobrechein" },
-          { "text": " them in ἔλαιον, " },
-          { "text": "changing", "type": "annotation", "id": "pr-allassein" },
-          { "text": " it every seven days up to the third infusion.\n\n" },
-
-          { "text": "Others " },
-          { "text": "pre-treat", "type": "annotation", "id": "pr-prostychein" },
-          { "text": " the ἔλαιον, " },
-          { "text": "adding additionally", "type": "annotation", "id": "pr-paremballein" },
-          { "text": " " },
-          { "text": "κάλαμος", "type": "annotation", "id": "ing-kalamos" },
-          { "text": " and " },
-          { "text": "ἀσπάλαθος", "type": "annotation", "id": "ing-aspalathos" },
-          { "text": ". " },
-
-          { "text": "Some also add " },
-          { "text": "ἄγχουσα", "type": "annotation", "id": "ing-anchousa" },
-          { "text": " for its color and " },
-          { "text": "ἅλς", "type": "annotation", "id": "ing-hals" },
-          { "text": " to prevent spoilage.\n\n" }
+          {
+            "text": "Preparation of rose oil (ῥόδινον): Take 5 lbs. 8 oz. of "
+          },
+          {
+            "text": "σχοῖνος",
+            "type": "annotation",
+            "id": "ing-skhoinos"
+          },
+          {
+            "text": ", and 20 lbs. 5 oz. of "
+          },
+          {
+            "text": "ἔλαιον",
+            "type": "annotation",
+            "id": "ing-elaion-20-5"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Chop ",
+            "type": "annotation",
+            "id": "pr-koptein"
+          },
+          {
+            "text": "and "
+          },
+          {
+            "text": "soften ",
+            "type": "annotation",
+            "id": "pr-phyrein"
+          },
+          {
+            "text": "the σχοῖνος in "
+          },
+          {
+            "text": "ὕδωρ",
+            "type": "annotation",
+            "id": "ing-hydor"
+          },
+          {
+            "text": ", then "
+          },
+          {
+            "text": "boil",
+            "type": "annotation",
+            "id": "pr-hepsein"
+          },
+          {
+            "text": " while "
+          },
+          {
+            "text": "stirring",
+            "type": "annotation",
+            "id": "pr-anakinein"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Afterward, "
+          },
+          {
+            "text": "strain ",
+            "type": "annotation",
+            "id": "pr-apodiēthein"
+          },
+          {
+            "text": "and place the petals of one thousand dry "
+          },
+          {
+            "text": "ῥόδα",
+            "type": "annotation",
+            "id": "ing-rhodon-1000"
+          },
+          {
+            "text": " into the oil. "
+          },
+          {
+            "text": "Rub your hands with fragrant "
+          },
+          {
+            "text": "μέλι",
+            "type": "annotation",
+            "id": "ing-meli"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "stir",
+            "type": "annotation",
+            "id": "pr-anakinein"
+          },
+          {
+            "text": " continuously, "
+          },
+          {
+            "text": "pressing",
+            "type": "annotation",
+            "id": "pr-hypothlibein"
+          },
+          {
+            "text": " gently.\n\n"
+          },
+          {
+            "text": "Let it rest",
+            "type": "annotation",
+            "id": "pr-ean"
+          },
+          {
+            "text": " overnight, "
+          },
+          {
+            "text": "then "
+          },
+          {
+            "text": "press out",
+            "type": "annotation",
+            "id": "pr-ekthlibein"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "When the sediment has "
+          },
+          {
+            "text": "settled",
+            "type": "annotation",
+            "id": "pr-hyphistasthai"
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "transfer",
+            "type": "annotation",
+            "id": "pr-allassein"
+          },
+          {
+            "text": " the oil into another "
+          },
+          {
+            "text": "ἀγγεῖον",
+            "type": "annotation",
+            "id": "tool-angeion"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Store it in a "
+          },
+          {
+            "text": "κρατήρ",
+            "type": "annotation",
+            "id": "tool-krater"
+          },
+          {
+            "text": " that has been smeared with μέλι.\n\n"
+          },
+          {
+            "text": "Put the strained roses into a "
+          },
+          {
+            "text": "λουτηρίδιον",
+            "type": "annotation",
+            "id": "tool-louteridion"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Pour in 8 lbs. 3 oz. of the pressed "
+          },
+          {
+            "text": "ἔλαιον",
+            "type": "annotation",
+            "id": "ing-elaion-8-3"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "strain",
+            "type": "annotation",
+            "id": "pr-exipoun"
+          },
+          {
+            "text": " again. "
+          },
+          {
+            "text": "This will be your second batch.\n\n"
+          },
+          {
+            "text": "If you wish, continue up to the third and fourth infusion by "
+          },
+          {
+            "text": "pouring",
+            "type": "annotation",
+            "id": "pr-epicheein"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "straining",
+            "type": "annotation",
+            "id": "pr-exipoun"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Whenever you prepare this, pre-coat the κρατήρ with "
+          },
+          {
+            "text": "μέλι",
+            "type": "annotation",
+            "id": "ing-meli"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "If you want a second infusion, "
+          },
+          {
+            "text": "add",
+            "type": "annotation",
+            "id": "pr-emballein"
+          },
+          {
+            "text": " the same number of fresh dry ῥόδα to the first strained oil. "
+          },
+          {
+            "text": "Then "
+          },
+          {
+            "text": "stir",
+            "type": "annotation",
+            "id": "pr-anakinein"
+          },
+          {
+            "text": " with μέλι-coated hands, "
+          },
+          {
+            "text": "press",
+            "type": "annotation",
+            "id": "pr-ekpiezein"
+          },
+          {
+            "text": ", and make the second, third, and fourth in the same way, "
+          },
+          {
+            "text": "pressing out",
+            "type": "annotation",
+            "id": "pr-ekthlibein"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Each time you do this, "
+          },
+          {
+            "text": "add",
+            "type": "annotation",
+            "id": "pr-prosballein"
+          },
+          {
+            "text": " fresh ῥόδα; it becomes more potent."
+          },
+          {
+            "text": "The ἔλαιον can receive the ῥόδον charge up to the seventh infusion, but no more after that.\n\n"
+          },
+          {
+            "text": "Let the "
+          },
+          {
+            "text": "ληνός",
+            "type": "annotation",
+            "id": "tool-lenos"
+          },
+          {
+            "text": " also be smeared with "
+          },
+          {
+            "text": "μέλι",
+            "type": "annotation",
+            "id": "ing-meli"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Carefully "
+          },
+          {
+            "text": "separate",
+            "type": "annotation",
+            "id": "pr-chōrizein"
+          },
+          {
+            "text": " the "
+          },
+          {
+            "text": "ἔλαιον",
+            "type": "annotation",
+            "id": "ing-elaion-20-5"
+          },
+          {
+            "text": " from the "
+          },
+          {
+            "text": "χυλός",
+            "type": "annotation",
+            "id": "ing-chylos"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Some people "
+          },
+          {
+            "text": "crush",
+            "type": "annotation",
+            "id": "pr-thlaein"
+          },
+          {
+            "text": " only the ῥόδα and "
+          },
+          {
+            "text": "soak",
+            "type": "annotation",
+            "id": "pr-enapobrechein"
+          },
+          {
+            "text": " them in ἔλαιον, "
+          },
+          {
+            "text": "changing",
+            "type": "annotation",
+            "id": "pr-allassein"
+          },
+          {
+            "text": " it every seven days up to the third infusion.\n\n"
+          },
+          {
+            "text": "Others "
+          },
+          {
+            "text": "pre-treat",
+            "type": "annotation",
+            "id": "pr-prostychein"
+          },
+          {
+            "text": " the ἔλαιον, "
+          },
+          {
+            "text": "adding additionally",
+            "type": "annotation",
+            "id": "pr-paremballein"
+          },
+          {
+            "text": " "
+          },
+          {
+            "text": "κάλαμος",
+            "type": "annotation",
+            "id": "ing-kalamos"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "ἀσπάλαθος",
+            "type": "annotation",
+            "id": "ing-aspalathos"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Some also add "
+          },
+          {
+            "text": "ἄγχουσα",
+            "type": "annotation",
+            "id": "ing-anchousa"
+          },
+          {
+            "text": " for its color and "
+          },
+          {
+            "text": "ἅλς",
+            "type": "annotation",
+            "id": "ing-hals"
+          },
+          {
+            "text": " to prevent spoilage.\n\n"
+          }
         ]
       },
       "annotations": {
@@ -155,7 +430,12 @@
           "transliteration": "skhoinos",
           "definition": "A rush or reed; identification varies in the secondary literature.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ancient term", "route": "ancient-term:ai-smyrna" }]
+          "links": [
+            {
+              "label": "View ancient term",
+              "route": "ancient-term:ai-smyrna"
+            }
+          ]
         },
         "ing-elaion-20-5": {
           "term": "ἔλαιον",
@@ -227,7 +507,6 @@
           "annotationType": "ingredient",
           "links": []
         },
-
         "tool-angeion": {
           "term": "ἀγγεῖον",
           "transliteration": "angeion",
@@ -256,7 +535,6 @@
           "annotationType": "tool",
           "links": []
         },
-
         "pr-koptein": {
           "term": "κόπτειν",
           "transliteration": "koptein",
@@ -279,7 +557,12 @@
           "lemma": "ἕψειν",
           "definition": "To boil.",
           "annotationType": "process",
-          "links": [{ "label": "View process", "route": "workshop-process:pr-boiling" }]
+          "links": [
+            {
+              "label": "View process",
+              "route": "workshop-process:pr-boiling"
+            }
+          ]
         },
         "pr-anakinein": {
           "term": "ἀνακινεῖν",
@@ -446,8 +729,18 @@
           "amount": "5 lb 8 oz",
           "originalAmount": "σχοίνου λίτρας πέντε οὐγγίας ὀκτώ",
           "quantities": [
-            { "value": 5, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
-            { "value": 8, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
+            {
+              "value": 5,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            },
+            {
+              "value": 8,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
           ],
           "role": "aromatic"
         },
@@ -462,8 +755,18 @@
           "amount": "20 lb 5 oz",
           "originalAmount": "ἐλαίου λίτρας εἴκοσι οὐγγίας πέντε",
           "quantities": [
-            { "value": 20, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
-            { "value": 5, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
+            {
+              "value": 20,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            },
+            {
+              "value": 5,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
           ],
           "role": "carrier"
         },
@@ -477,7 +780,15 @@
           "displayTerm": "Rose petals (dry)",
           "amount": "1000 roses",
           "originalAmount": "ῥόδων ἀβρόχων ἀριθμῷ χιλίων τὰ πέταλα",
-          "quantities": [{ "value": 1000, "unit": "count", "unitKey": "count", "unitType": "n/a", "displayUnit": "roses" }],
+          "quantities": [
+            {
+              "value": 1000,
+              "unit": "count",
+              "unitKey": "count",
+              "unitType": "n/a",
+              "displayUnit": "roses"
+            }
+          ],
           "role": "aromatic"
         },
         {
@@ -558,7 +869,6 @@
           "quantities": [],
           "role": "adjuvant"
         },
-
         {
           "id": "rt-1",
           "type": "tool",
@@ -607,7 +917,6 @@
           "quantities": [],
           "role": ""
         },
-
         {
           "id": "rp-1",
           "type": "process",
@@ -844,93 +1153,325 @@
         "translation": "Preparation of sousinon perfume, which some call leirinon. Take nine pounds and five ounces of oil, five pounds and ten ounces of calamus, and five ounces of myrrh. Mix them with fragrant wine, and after boiling, strain the oil. Then, pour it over three pounds and six ounces of ground cardamom that has been soaked in rainwater. Let it sit for a while and then press out the liquid. Take three and a half pounds of the treated oil, pluck the petals from a thousand lilies, and place them in a wide but shallow basin. Pour the oil over them and mix with your hands, which have been smeared with honey. Let it sit for one day and one night. In the morning, transfer it to a strainer and press it out.\n\nImmediately strain what you obtain from the water pressed out with the oil, because like rose perfume it will not hold up but bubble up and spoil. Decant multiple times into other vessels that have been smeared with honey, adding fine salt and carefully removing any impurities that collect.\n\nThen transfer the pressed aroma from the strainer to the basin, and again pour over the same amount of aromatized oil as before, and mix in ten holkai of ground cardamom. Stir it appropriately with your hands, let it sit for a while, and strain out the liquid, purifying what runs off.\n\nFor a third time, repeat the same process, adding cardamom and salt as before, anointing your hands with honey, and pressing. The first extraction will be the best, the second next in quality, and the third the least. Again, take a thousand lilies, pluck their petals, and place them [in the basin.] Pour the first strained perfume over them and repeat the same process as before, always adding cardamom. Then strain it, and do the same for the second and third pressings, as mentioned, also adding cardamom. The more often you steep fresh lilies, the stronger the perfume will become.\n\nAt the end, when you think you have enough, mix into each preparation two drachmas of good myrrh, two drachmas of cinnamon, and ten drachmas of saffron. However, some say: chop equal amounts of saffron and cinnamon, sift them, and add them to the basin with water. Pour over them the first [batch] of strained perfume. Let it sit for a while, and then transfer it to dry vessels that have been pre-anointed with gum, myrrh, saffron, and honey diluted with water. Do the same for the second and third pressings.\n\nSome however prepare a simple version with oil of balanos or some other oil and lilies. The one produced in Phoenicia and Egypt is considered to be excellent, with the best being that which smells of lilies. It possesses warming, softening, and astringent properties for menstrual and uterine inflammations and, generally, is highly useful for women’s conditions. It is also suitable for treating alopecia, ulcers, scaly skin, eczema, and it quickly reduces bruises and brings the skin to a natural color; overall, it has a thinning effect. When taken orally, it also promotes bile flow in the abdomen and stimulates urination. However, it is harsh on the stomach and can cause nausea.",
         "notes": "Edition consulted: Wellmann (pp. 47–49). Translator: Coughlin. Citation: De materia medica 1.52.",
         "combinedSegments": [
-          { "text": "Preparation of sousinon perfume (σουσίνου), which some call leirinon. Take 9 lb 5 oz of " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-9-5" },
-          { "text": ", 5 lb 10 oz of " },
-          { "text": "κάλαμος", "type": "annotation", "id": "ing-kalamos-5-10" },
-          { "text": ", and 5 oz of " },
-          { "text": "σμύρνα", "type": "annotation", "id": "ing-smyrna-5" },
-          { "text": ". " },
-
-          { "text": "Mix", "type": "annotation", "id": "pr-phyrein" },
-          { "text": " them with fragrant " },
-          { "text": "οἶνος", "type": "annotation", "id": "ing-oinos" },
-          { "text": ", then " },
-          { "text": "boil", "type": "annotation", "id": "pr-hepsein" },
-          { "text": " and " },
-          { "text": "strain", "type": "annotation", "id": "pr-apodiēthein" },
-          { "text": " the oil.\n\n" },
-
-          { "text": "Pour", "type": "annotation", "id": "pr-epicheein" },
-          { "text": " it over ground " },
-          { "text": "κάρδαμωμον", "type": "annotation", "id": "ing-kardamomon-3-6" },
-          { "text": " (after soaking it in " },
-          { "text": "ὕδωρ ὄμβριον", "type": "annotation", "id": "ing-hydor-ombrion" },
-          { "text": "). Let it " },
-          { "text": "rest", "type": "annotation", "id": "pr-ean" },
-          { "text": " briefly, then " },
-          { "text": "press out", "type": "annotation", "id": "pr-apothlibein" },
-          { "text": ".\n\n" },
-
-          { "text": "Take 3 1/2 lb of the treated " },
-          { "text": "ἔλαιον", "type": "annotation", "id": "ing-elaion-3-5" },
-          { "text": ". " },
-          { "text": "Pluck", "type": "annotation", "id": "pr-apophyllizein" },
-          { "text": " the petals from one thousand " },
-          { "text": "κρίνα", "type": "annotation", "id": "ing-krinon-1000" },
-          { "text": " and place them in a wide, shallow " },
-          { "text": "λουτήρ", "type": "annotation", "id": "tool-louter" },
-          { "text": ". " },
-          { "text": "Pour", "type": "annotation", "id": "pr-epicheein" },
-          { "text": " the oil over them and " },
-          { "text": "stir", "type": "annotation", "id": "pr-anakinein" },
-          { "text": " with hands smeared with " },
-          { "text": "μέλι", "type": "annotation", "id": "ing-meli" },
-          { "text": ". " },
-          { "text": "Rest", "type": "annotation", "id": "pr-ean" },
-          { "text": " for one day and one night, then in the morning " },
-          { "text": "strain", "type": "annotation", "id": "pr-exipoun" },
-          { "text": " through a " },
-          { "text": "κυρτίς", "type": "annotation", "id": "tool-kyrtis" },
-          { "text": ".\n\n" },
-
-          { "text": "Immediately " },
-          { "text": "separate", "type": "annotation", "id": "pr-chōrizein" },
-          { "text": " the oil from any pressed-out water. " },
-          { "text": "Decant", "type": "annotation", "id": "pr-metaggizein" },
-          { "text": " repeatedly into " },
-          { "text": "ἀγγεῖον", "type": "annotation", "id": "tool-angeion" },
-          { "text": " smeared with honey, " },
-          { "text": "sprinkling", "type": "annotation", "id": "pr-prospassein" },
-          { "text": " fine " },
-          { "text": "ἅλς", "type": "annotation", "id": "ing-hals" },
-          { "text": " and carefully " },
-          { "text": "removing", "type": "annotation", "id": "pr-aphairein" },
-          { "text": " impurities.\n\n" },
-
-          { "text": "Repeat the infusion and pressing cycles, adding more ground " },
-          { "text": "κάρδαμωμον", "type": "annotation", "id": "ing-kardamomon-10-holkai" },
-          { "text": " and fresh " },
-          { "text": "κρίνα", "type": "annotation", "id": "ing-krinon-1000" },
-          { "text": ". The more often you " },
-          { "text": "soak", "type": "annotation", "id": "pr-apobrechein" },
-          { "text": " fresh lilies, the stronger the perfume becomes.\n\n" },
-
-          { "text": "To finish, " },
-          { "text": "mix", "type": "annotation", "id": "pr-mignynai" },
-          { "text": " in " },
-          { "text": "σμύρνα", "type": "annotation", "id": "ing-smyrna-2-drachmas" },
-          { "text": ", " },
-          { "text": "κινάμωμον", "type": "annotation", "id": "ing-kinamomon" },
-          { "text": ", and " },
-          { "text": "κρόκος", "type": "annotation", "id": "ing-krokos" },
-          { "text": ". Some also " },
-          { "text": "sift", "type": "annotation", "id": "pr-sesai" },
-          { "text": " cinnamon and saffron and store the perfume in vessels pre-anointed with " },
-          { "text": "κόμμι", "type": "annotation", "id": "ing-kommi" },
-          { "text": ". A simpler version uses " },
-          { "text": "βαλάνινον", "type": "annotation", "id": "ing-balaninon" },
-          { "text": " oil and lilies." }
+          {
+            "text": "Preparation of sousinon perfume (σουσίνου), which some call leirinon. Take 9 lb 5 oz of "
+          },
+          {
+            "text": "ἔλαιον",
+            "type": "annotation",
+            "id": "ing-elaion-9-5"
+          },
+          {
+            "text": ", 5 lb 10 oz of "
+          },
+          {
+            "text": "κάλαμος",
+            "type": "annotation",
+            "id": "ing-kalamos-5-10"
+          },
+          {
+            "text": ", and 5 oz of "
+          },
+          {
+            "text": "σμύρνα",
+            "type": "annotation",
+            "id": "ing-smyrna-5"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Mix",
+            "type": "annotation",
+            "id": "pr-phyrein"
+          },
+          {
+            "text": " them with fragrant "
+          },
+          {
+            "text": "οἶνος",
+            "type": "annotation",
+            "id": "ing-oinos"
+          },
+          {
+            "text": ", then "
+          },
+          {
+            "text": "boil",
+            "type": "annotation",
+            "id": "pr-hepsein"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "strain",
+            "type": "annotation",
+            "id": "pr-apodiēthein"
+          },
+          {
+            "text": " the oil.\n\n"
+          },
+          {
+            "text": "Pour",
+            "type": "annotation",
+            "id": "pr-epicheein"
+          },
+          {
+            "text": " it over ground "
+          },
+          {
+            "text": "κάρδαμωμον",
+            "type": "annotation",
+            "id": "ing-kardamomon-3-6"
+          },
+          {
+            "text": " (after soaking it in "
+          },
+          {
+            "text": "ὕδωρ ὄμβριον",
+            "type": "annotation",
+            "id": "ing-hydor-ombrion"
+          },
+          {
+            "text": "). Let it "
+          },
+          {
+            "text": "rest",
+            "type": "annotation",
+            "id": "pr-ean"
+          },
+          {
+            "text": " briefly, then "
+          },
+          {
+            "text": "press out",
+            "type": "annotation",
+            "id": "pr-apothlibein"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Take 3 1/2 lb of the treated "
+          },
+          {
+            "text": "ἔλαιον",
+            "type": "annotation",
+            "id": "ing-elaion-3-5"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Pluck",
+            "type": "annotation",
+            "id": "pr-apophyllizein"
+          },
+          {
+            "text": " the petals from one thousand "
+          },
+          {
+            "text": "κρίνα",
+            "type": "annotation",
+            "id": "ing-krinon-1000"
+          },
+          {
+            "text": " and place them in a wide, shallow "
+          },
+          {
+            "text": "λουτήρ",
+            "type": "annotation",
+            "id": "tool-louter"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Pour",
+            "type": "annotation",
+            "id": "pr-epicheein"
+          },
+          {
+            "text": " the oil over them and "
+          },
+          {
+            "text": "stir",
+            "type": "annotation",
+            "id": "pr-anakinein"
+          },
+          {
+            "text": " with hands smeared with "
+          },
+          {
+            "text": "μέλι",
+            "type": "annotation",
+            "id": "ing-meli"
+          },
+          {
+            "text": ". "
+          },
+          {
+            "text": "Rest",
+            "type": "annotation",
+            "id": "pr-ean"
+          },
+          {
+            "text": " for one day and one night, then in the morning "
+          },
+          {
+            "text": "strain",
+            "type": "annotation",
+            "id": "pr-exipoun"
+          },
+          {
+            "text": " through a "
+          },
+          {
+            "text": "κυρτίς",
+            "type": "annotation",
+            "id": "tool-kyrtis"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Immediately "
+          },
+          {
+            "text": "separate",
+            "type": "annotation",
+            "id": "pr-chōrizein"
+          },
+          {
+            "text": " the oil from any pressed-out water. "
+          },
+          {
+            "text": "Decant",
+            "type": "annotation",
+            "id": "pr-metaggizein"
+          },
+          {
+            "text": " repeatedly into "
+          },
+          {
+            "text": "ἀγγεῖον",
+            "type": "annotation",
+            "id": "tool-angeion"
+          },
+          {
+            "text": " smeared with honey, "
+          },
+          {
+            "text": "sprinkling",
+            "type": "annotation",
+            "id": "pr-prospassein"
+          },
+          {
+            "text": " fine "
+          },
+          {
+            "text": "ἅλς",
+            "type": "annotation",
+            "id": "ing-hals"
+          },
+          {
+            "text": " and carefully "
+          },
+          {
+            "text": "removing",
+            "type": "annotation",
+            "id": "pr-aphairein"
+          },
+          {
+            "text": " impurities.\n\n"
+          },
+          {
+            "text": "Repeat the infusion and pressing cycles, adding more ground "
+          },
+          {
+            "text": "κάρδαμωμον",
+            "type": "annotation",
+            "id": "ing-kardamomon-10-holkai"
+          },
+          {
+            "text": " and fresh "
+          },
+          {
+            "text": "κρίνα",
+            "type": "annotation",
+            "id": "ing-krinon-1000"
+          },
+          {
+            "text": ". The more often you "
+          },
+          {
+            "text": "soak",
+            "type": "annotation",
+            "id": "pr-apobrechein"
+          },
+          {
+            "text": " fresh lilies, the stronger the perfume becomes.\n\n"
+          },
+          {
+            "text": "To finish, "
+          },
+          {
+            "text": "mix",
+            "type": "annotation",
+            "id": "pr-mignynai"
+          },
+          {
+            "text": " in "
+          },
+          {
+            "text": "σμύρνα",
+            "type": "annotation",
+            "id": "ing-smyrna-2-drachmas"
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "κινάμωμον",
+            "type": "annotation",
+            "id": "ing-kinamomon"
+          },
+          {
+            "text": ", and "
+          },
+          {
+            "text": "κρόκος",
+            "type": "annotation",
+            "id": "ing-krokos"
+          },
+          {
+            "text": ". Some also "
+          },
+          {
+            "text": "sift",
+            "type": "annotation",
+            "id": "pr-sesai"
+          },
+          {
+            "text": " cinnamon and saffron and store the perfume in vessels pre-anointed with "
+          },
+          {
+            "text": "κόμμι",
+            "type": "annotation",
+            "id": "ing-kommi"
+          },
+          {
+            "text": ". A simpler version uses "
+          },
+          {
+            "text": "βαλάνινον",
+            "type": "annotation",
+            "id": "ing-balaninon"
+          },
+          {
+            "text": " oil and lilies."
+          }
         ]
       },
       "annotations": {
@@ -1046,7 +1587,6 @@
           "annotationType": "ingredient",
           "links": []
         },
-
         "tool-angeion": {
           "term": "ἀγγεῖον",
           "transliteration": "angeion",
@@ -1068,7 +1608,6 @@
           "annotationType": "tool",
           "links": []
         },
-
         "pr-phyrein": {
           "term": "φυρᾶν",
           "transliteration": "phyrein",
@@ -1210,8 +1749,18 @@
           "amount": "9 lb 5 oz",
           "originalAmount": "ἐλαίου λίτρας ἐννέα οὐγγίας πέντε",
           "quantities": [
-            { "value": 9, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
-            { "value": 5, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
+            {
+              "value": 9,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            },
+            {
+              "value": 5,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
           ],
           "role": "carrier"
         },
@@ -1226,8 +1775,18 @@
           "amount": "5 lb 10 oz",
           "originalAmount": "καλάμου λίτρας πέντε οὐγγίας δέκα",
           "quantities": [
-            { "value": 5, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
-            { "value": 10, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
+            {
+              "value": 5,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            },
+            {
+              "value": 10,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
           ],
           "role": "aromatic"
         },
@@ -1241,7 +1800,14 @@
           "displayTerm": "Myrrh",
           "amount": "5 oz",
           "originalAmount": "σμύρνης οὐγγίας πέντε",
-          "quantities": [{ "value": 5, "unit": "oz", "unitKey": "oz", "unitType": "weight" }],
+          "quantities": [
+            {
+              "value": 5,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
+          ],
           "role": "aromatic"
         },
         {
@@ -1268,8 +1834,18 @@
           "amount": "3 lb 6 oz",
           "originalAmount": "καρδαμώμου κεκομμένου καὶ βεβρεγμένου ὕδατι ὀμβρίῳ λιτρῶν τριῶν οὐγγιῶν ἓξ",
           "quantities": [
-            { "value": 3, "unit": "lb", "unitKey": "lb", "unitType": "weight" },
-            { "value": 6, "unit": "oz", "unitKey": "oz", "unitType": "weight" }
+            {
+              "value": 3,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            },
+            {
+              "value": 6,
+              "unit": "oz",
+              "unitKey": "oz",
+              "unitType": "weight"
+            }
           ],
           "role": "aromatic"
         },
@@ -1296,7 +1872,14 @@
           "displayTerm": "Treated olive oil",
           "amount": "3.5 lb",
           "originalAmount": "ἐκ τοῦ ἐστυμμένου ἐλαίου τρεῖς ἥμισυ λίτρας",
-          "quantities": [{ "value": 3.5, "unit": "lb", "unitKey": "lb", "unitType": "weight" }],
+          "quantities": [
+            {
+              "value": 3.5,
+              "unit": "lb",
+              "unitKey": "lb",
+              "unitType": "weight"
+            }
+          ],
           "role": "carrier"
         },
         {
@@ -1309,7 +1892,15 @@
           "displayTerm": "Lily petals",
           "amount": "1000 lilies",
           "originalAmount": "κρίνα ἀριθμῷ χίλια",
-          "quantities": [{ "value": 1000, "unit": "count", "unitKey": "count", "unitType": "n/a", "displayUnit": "lilies" }],
+          "quantities": [
+            {
+              "value": 1000,
+              "unit": "count",
+              "unitKey": "count",
+              "unitType": "n/a",
+              "displayUnit": "lilies"
+            }
+          ],
           "role": "aromatic"
         },
         {
@@ -1416,7 +2007,6 @@
           "quantities": [],
           "role": "alternative"
         },
-
         {
           "id": "rt-1",
           "type": "tool",
@@ -1453,7 +2043,6 @@
           "quantities": [],
           "role": ""
         },
-
         {
           "id": "rp-1",
           "type": "process",
@@ -1910,51 +2499,165 @@
         "translation": "What is called smoked oil is prepared as follows: combine 5 ounces each of large aromatic onyx, first-quality storax, pure bdellium, and costus; 5 Italian pints of fine sweet oil; and a sufficient amount of moss. Coarsely divide the costus, storax, and bdellium into large pieces, mix them together, and place them in a new handleless earthenware vessel. Cover the vessel’s mouth with a layer of moss, and encircle the exterior of the moss with fragrant twigs such as those of aspalathos to secure the contents inside. Take another long-necked earthen vessel with a mouth that fits snugly with the first vessel, and fill it with 5 pints of sweet oil. Bury the vessel containing the oil in the ground up to its neck to prevent overheating, then join the two vessels by fitting their mouths together. Seal the joint with clay around the entire perimeter and allow it to dry completely. The following day, place a large amount of charcoal around and over the first vessel, covering it completely. Light the fire and use a fan to maintain it. Once the fire has burned out and the charcoal has cooled, the aromatic ingredients in the first vessel will have slowly released their smoke through its mouth, infusing the oil in the buried vessel below. This process gives the oil its name, smoked oil. After the vessels cool, open them, remove the oil, and store it in a glass container for use. This oil is used by women to anoint the uterus and lower back during cases of suppressed menstruation. It is also suitable for postpartum cleansing when applied in the same manner. Additionally, it benefits those with chilled chests and provides relief for tightness and tension when applied warm using a woolen cloth to the uterus or lower back.",
         "notes": "Ed. Olivieri (CMG VIII.1), 68.15–69.12. Trans. Coughlin. Citation: Libri medicinales 1.134.",
         "combinedSegments": [
-          { "text": "What is called " },
-          { "text": "smoked", "type": "annotation", "id": "pr-smoking" },
-          { "text": " oil is prepared as follows: combine 5 " },
-          { "text": "oungiai", "type": "annotation", "id": "unit-oungia" },
-          { "text": " each of large aromatic " },
-          { "text": "ὀνύχων ἀρωματικῶν", "type": "annotation", "id": "ing-onyx" },
-          { "text": ", first-quality " },
-          { "text": "στύρακος", "type": "annotation", "id": "ing-styrax" },
-          { "text": ", pure " },
-          { "text": "βδελλίου", "type": "annotation", "id": "ing-bdellion" },
-          { "text": ", and " },
-          { "text": "κόστου", "type": "annotation", "id": "ing-costus" },
-          { "text": "; 5 " },
-          { "text": "xestai", "type": "annotation", "id": "unit-xestes" },
-          { "text": " of fine " },
-          { "text": "ἐλαίου γλυκέος", "type": "annotation", "id": "ing-sweet-oil" },
-          { "text": "; and a sufficient amount of " },
-          { "text": "ὕπνου", "type": "annotation", "id": "ing-hypnon" },
-          { "text": ".\n\n" },
-
-          { "text": "Coarsely divide the costus, storax, and bdellium into large pieces, mix them together, and place them in a new handleless " },
-          { "text": "earthenware vessel", "type": "annotation", "id": "t-xestion" },
-          { "text": ". Cover the vessel’s mouth with a layer of " },
-          { "text": "ὕπνου", "type": "annotation", "id": "ing-hypnon" },
-          { "text": ", and encircle the exterior of the moss with fragrant twigs such as those of " },
-          { "text": "ἀσπαλάθου", "type": "annotation", "id": "ing-aspalathos" },
-          { "text": " to secure the contents inside.\n\n" },
-
-          { "text": "Take another long-necked earthen vessel with a mouth that fits snugly with the first vessel, and fill it with 5 xestai of " },
-          { "text": "ἐλαίου γλυκέος", "type": "annotation", "id": "ing-sweet-oil" },
-          { "text": ". Bury the vessel containing the oil in the ground up to its neck to prevent overheating, then join the two vessels by fitting their mouths together. Seal the joint with " },
-          { "text": "πηλῷ", "type": "annotation", "id": "ing-clay" },
-          { "text": " around the entire perimeter and allow it to dry completely.\n\n" },
-
-          { "text": "The following day, place a large amount of charcoal around and over the first vessel, covering it completely. Light the fire and use a fan to maintain it. Once the fire has burned out and the charcoal has cooled, the aromatic ingredients in the first vessel will have slowly released their smoke through its mouth, infusing the oil in the buried vessel below. This process gives the oil its name, " },
-          { "text": "smoked", "type": "annotation", "id": "pr-smoking" },
-          { "text": " oil. After the vessels cool, open them, remove the oil, and store it in a glass container for use.\n\n" },
-
-          { "text": "This oil is used by women to anoint the " },
-          { "text": "uterus", "type": "annotation", "id": "term-etron" },
-          { "text": " and " },
-          { "text": "lower back", "type": "annotation", "id": "term-osphy" },
-          { "text": " during cases of suppressed " },
-          { "text": "menstruation", "type": "annotation", "id": "term-katamenia" },
-          { "text": ". It is also suitable for postpartum cleansing when applied in the same manner. Additionally, it benefits those with chilled chests and provides relief for tightness and tension when applied warm using a woolen cloth to the uterus or lower back." }
+          {
+            "text": "What is called "
+          },
+          {
+            "text": "smoked",
+            "type": "annotation",
+            "id": "pr-smoking"
+          },
+          {
+            "text": " oil is prepared as follows: combine 5 "
+          },
+          {
+            "text": "oungiai",
+            "type": "annotation",
+            "id": "unit-oungia"
+          },
+          {
+            "text": " each of large aromatic "
+          },
+          {
+            "text": "ὀνύχων ἀρωματικῶν",
+            "type": "annotation",
+            "id": "ing-onyx"
+          },
+          {
+            "text": ", first-quality "
+          },
+          {
+            "text": "στύρακος",
+            "type": "annotation",
+            "id": "ing-styrax"
+          },
+          {
+            "text": ", pure "
+          },
+          {
+            "text": "βδελλίου",
+            "type": "annotation",
+            "id": "ing-bdellion"
+          },
+          {
+            "text": ", and "
+          },
+          {
+            "text": "κόστου",
+            "type": "annotation",
+            "id": "ing-costus"
+          },
+          {
+            "text": "; 5 "
+          },
+          {
+            "text": "xestai",
+            "type": "annotation",
+            "id": "unit-xestes"
+          },
+          {
+            "text": " of fine "
+          },
+          {
+            "text": "ἐλαίου γλυκέος",
+            "type": "annotation",
+            "id": "ing-sweet-oil"
+          },
+          {
+            "text": "; and a sufficient amount of "
+          },
+          {
+            "text": "ὕπνου",
+            "type": "annotation",
+            "id": "ing-hypnon"
+          },
+          {
+            "text": ".\n\n"
+          },
+          {
+            "text": "Coarsely divide the costus, storax, and bdellium into large pieces, mix them together, and place them in a new handleless "
+          },
+          {
+            "text": "earthenware vessel",
+            "type": "annotation",
+            "id": "t-xestion"
+          },
+          {
+            "text": ". Cover the vessel’s mouth with a layer of "
+          },
+          {
+            "text": "ὕπνου",
+            "type": "annotation",
+            "id": "ing-hypnon"
+          },
+          {
+            "text": ", and encircle the exterior of the moss with fragrant twigs such as those of "
+          },
+          {
+            "text": "ἀσπαλάθου",
+            "type": "annotation",
+            "id": "ing-aspalathos"
+          },
+          {
+            "text": " to secure the contents inside.\n\n"
+          },
+          {
+            "text": "Take another long-necked earthen vessel with a mouth that fits snugly with the first vessel, and fill it with 5 xestai of "
+          },
+          {
+            "text": "ἐλαίου γλυκέος",
+            "type": "annotation",
+            "id": "ing-sweet-oil"
+          },
+          {
+            "text": ". Bury the vessel containing the oil in the ground up to its neck to prevent overheating, then join the two vessels by fitting their mouths together. Seal the joint with "
+          },
+          {
+            "text": "πηλῷ",
+            "type": "annotation",
+            "id": "ing-clay"
+          },
+          {
+            "text": " around the entire perimeter and allow it to dry completely.\n\n"
+          },
+          {
+            "text": "The following day, place a large amount of charcoal around and over the first vessel, covering it completely. Light the fire and use a fan to maintain it. Once the fire has burned out and the charcoal has cooled, the aromatic ingredients in the first vessel will have slowly released their smoke through its mouth, infusing the oil in the buried vessel below. This process gives the oil its name, "
+          },
+          {
+            "text": "smoked",
+            "type": "annotation",
+            "id": "pr-smoking"
+          },
+          {
+            "text": " oil. After the vessels cool, open them, remove the oil, and store it in a glass container for use.\n\n"
+          },
+          {
+            "text": "This oil is used by women to anoint the "
+          },
+          {
+            "text": "uterus",
+            "type": "annotation",
+            "id": "term-etron"
+          },
+          {
+            "text": " and "
+          },
+          {
+            "text": "lower back",
+            "type": "annotation",
+            "id": "term-osphy"
+          },
+          {
+            "text": " during cases of suppressed "
+          },
+          {
+            "text": "menstruation",
+            "type": "annotation",
+            "id": "term-katamenia"
+          },
+          {
+            "text": ". It is also suitable for postpartum cleansing when applied in the same manner. Additionally, it benefits those with chilled chests and provides relief for tightness and tension when applied warm using a woolen cloth to the uterus or lower back."
+          }
         ]
       },
       "annotations": {
@@ -1963,63 +2666,108 @@
           "transliteration": "onyx",
           "definition": "Aromatic onyx/onycha (fragrant material) used here as an aromatic ingredient.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-onyx" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-onyx"
+            }
+          ]
         },
         "ing-styrax": {
           "term": "στύραξ",
           "transliteration": "styrax",
           "definition": "Storax resin (styrax) used as an aromatic ingredient.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-styrax" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-styrax"
+            }
+          ]
         },
         "ing-bdellion": {
           "term": "βδέλλιον",
           "transliteration": "bdellion",
           "definition": "Bdellium resin used as an aromatic ingredient.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-bdellion" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-bdellion"
+            }
+          ]
         },
         "ing-costus": {
           "term": "κόστος",
           "transliteration": "kostos",
           "definition": "Costus root/aromatic plant material used as an ingredient.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-costus" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-costus"
+            }
+          ]
         },
         "ing-sweet-oil": {
           "term": "ἐλαίου γλυκέος",
           "transliteration": "elaiou glykeos",
           "definition": "Sweet oil; treated here as olive oil used as a carrier.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-oil" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-oil"
+            }
+          ]
         },
         "ing-hypnon": {
           "term": "ὕπνον",
           "transliteration": "hypnon",
           "definition": "Moss (hypnon), used as a packing/sealing material in the apparatus.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-hypnon" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-hypnon"
+            }
+          ]
         },
         "ing-aspalathos": {
           "term": "ἀσπάλαθος",
           "transliteration": "aspalathos",
           "definition": "Aspalathos twigs used to secure and scent the sealing layer.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-aspalathos" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-aspalathos"
+            }
+          ]
         },
         "ing-clay": {
           "term": "πηλός",
           "transliteration": "pēlos",
           "definition": "Clay used to seal the join between vessels.",
           "annotationType": "ingredient",
-          "links": [{ "label": "View ingredient", "route": "workshop-ingredient:i-clay" }]
+          "links": [
+            {
+              "label": "View ingredient",
+              "route": "workshop-ingredient:i-clay"
+            }
+          ]
         },
         "t-xestion": {
           "term": "Earthenware vessel (xestes)",
           "transliteration": "xestion",
           "definition": "An earthenware vessel (ξεστίον ὀστράκινον), used here as the upper container for smoking aromatics.",
           "annotationType": "tool",
-          "links": [{ "label": "View tool", "route": "workshop-tool:t-xestion" }]
+          "links": [
+            {
+              "label": "View tool",
+              "route": "workshop-tool:t-xestion"
+            }
+          ]
         },
         "pr-smoking": {
           "term": "καπνίζειν",
@@ -2027,7 +2775,12 @@
           "lemma": "καπνίζειν",
           "definition": "To smoke/infuse by exposure to aromatic smoke.",
           "annotationType": "process",
-          "links": [{ "label": "View process", "route": "workshop-process:pr-smoking" }]
+          "links": [
+            {
+              "label": "View process",
+              "route": "workshop-process:pr-smoking"
+            }
+          ]
         },
         "term-katamenia": {
           "term": "καταμήνια",
@@ -2066,165 +2819,191 @@
         }
       },
       "items": [
-	        {
-	          "id": "ri-1",
-	          "type": "ingredient",
-	          "masterId": "i-onyx",
-	          "ancientTermId": "ai-onyx",
-	          "originalTerm": "ὄνυξ",
-	          "transliteration": "onyx",
-	          "displayTerm": "Aromatic onyx",
-	          "amount": "5 oungiai",
-	          "originalAmount": "𐆄 <ε>",
+        {
+          "id": "ri-1",
+          "type": "ingredient",
+          "masterId": "i-onyx",
+          "ancientTermId": "ai-onyx",
+          "originalTerm": "ὄνυξ",
+          "transliteration": "onyx",
+          "displayTerm": "Aromatic onyx",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
               "unit": "oungia-weight",
               "unitKey": "oungia-weight",
               "unitType": "weight",
-              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "unitRaw": {
+                "term": "𐆄",
+                "transliteration": "oungia",
+                "kind": "mass"
+              },
               "needsReview": true
             }
           ],
           "role": "aromatic"
         },
-	        {
-	          "id": "ri-2",
-	          "type": "ingredient",
-	          "masterId": "i-styrax",
-	          "ancientTermId": "ai-styrax",
-	          "originalTerm": "στύραξ",
-	          "transliteration": "styrax",
-	          "displayTerm": "Storax",
-	          "amount": "5 oungiai",
-	          "originalAmount": "𐆄 <ε>",
+        {
+          "id": "ri-2",
+          "type": "ingredient",
+          "masterId": "i-styrax",
+          "ancientTermId": "ai-styrax",
+          "originalTerm": "στύραξ",
+          "transliteration": "styrax",
+          "displayTerm": "Storax",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
               "unit": "oungia-weight",
               "unitKey": "oungia-weight",
               "unitType": "weight",
-              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "unitRaw": {
+                "term": "𐆄",
+                "transliteration": "oungia",
+                "kind": "mass"
+              },
               "needsReview": true
             }
           ],
           "role": "aromatic"
         },
-	        {
-	          "id": "ri-3",
-	          "type": "ingredient",
-	          "masterId": "i-bdellion",
-	          "ancientTermId": "ai-bdellion",
-	          "originalTerm": "βδέλλιον",
-	          "transliteration": "bdellion",
-	          "displayTerm": "Bdellium",
-	          "amount": "5 oungiai",
-	          "originalAmount": "𐆄 <ε>",
+        {
+          "id": "ri-3",
+          "type": "ingredient",
+          "masterId": "i-bdellion",
+          "ancientTermId": "ai-bdellion",
+          "originalTerm": "βδέλλιον",
+          "transliteration": "bdellion",
+          "displayTerm": "Bdellium",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 <ε>",
           "quantities": [
             {
               "value": 5,
               "unit": "oungia-weight",
               "unitKey": "oungia-weight",
               "unitType": "weight",
-              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "unitRaw": {
+                "term": "𐆄",
+                "transliteration": "oungia",
+                "kind": "mass"
+              },
               "needsReview": true
             }
           ],
           "role": "aromatic"
         },
-	        {
-	          "id": "ri-4",
-	          "type": "ingredient",
-	          "masterId": "i-costus",
-	          "ancientTermId": "ai-kostos",
-	          "originalTerm": "κόστος",
-	          "transliteration": "kostos",
-	          "displayTerm": "Costus",
-	          "amount": "5 oungiai",
-	          "originalAmount": "𐆄 εʹ",
+        {
+          "id": "ri-4",
+          "type": "ingredient",
+          "masterId": "i-costus",
+          "ancientTermId": "ai-kostos",
+          "originalTerm": "κόστος",
+          "transliteration": "kostos",
+          "displayTerm": "Costus",
+          "amount": "5 oungiai",
+          "originalAmount": "𐆄 εʹ",
           "quantities": [
             {
               "value": 5,
               "unit": "oungia-weight",
               "unitKey": "oungia-weight",
               "unitType": "weight",
-              "unitRaw": { "term": "𐆄", "transliteration": "oungia", "kind": "mass" },
+              "unitRaw": {
+                "term": "𐆄",
+                "transliteration": "oungia",
+                "kind": "mass"
+              },
               "needsReview": true
             }
           ],
           "role": "aromatic"
         },
-	        {
-	          "id": "ri-5",
-	          "type": "ingredient",
-	          "masterId": "i-oil",
-	          "ancientTermId": "ai-elaion",
-	          "originalTerm": "ἔλαιον",
-	          "transliteration": "elaion",
-	          "displayTerm": "Sweet oil (olive oil)",
-	          "amount": "5 xestai",
-	          "originalAmount": "ξέστας <ε>",
+        {
+          "id": "ri-5",
+          "type": "ingredient",
+          "masterId": "i-oil",
+          "ancientTermId": "ai-elaion",
+          "originalTerm": "ἔλαιον",
+          "transliteration": "elaion",
+          "displayTerm": "Sweet oil (olive oil)",
+          "amount": "5 xestai",
+          "originalAmount": "ξέστας <ε>",
           "quantities": [
             {
               "value": 5,
               "unit": "xestes-volume",
               "unitKey": "xestes-volume",
               "unitType": "volume",
-              "unitRaw": { "term": "ξέστας", "transliteration": "xestas", "kind": "volume" },
+              "unitRaw": {
+                "term": "ξέστας",
+                "transliteration": "xestas",
+                "kind": "volume"
+              },
               "needsReview": true
             }
           ],
           "role": "carrier"
         },
-	        {
-	          "id": "ri-6",
-	          "type": "ingredient",
-	          "masterId": "i-hypnon",
-	          "ancientTermId": "ai-hypnon",
-	          "originalTerm": "ὕπνον",
-	          "transliteration": "hypnon",
-	          "displayTerm": "Moss (hypnon)",
-	          "amount": "sufficient amount",
-	          "originalAmount": "τὸ ἀρκοῦν",
-          "quantities": [{ "value": 1, "unit": "unspecified", "needsReview": true }],
+        {
+          "id": "ri-6",
+          "type": "ingredient",
+          "masterId": "i-hypnon",
+          "ancientTermId": "ai-hypnon",
+          "originalTerm": "ὕπνον",
+          "transliteration": "hypnon",
+          "displayTerm": "Moss (hypnon)",
+          "amount": "sufficient amount",
+          "originalAmount": "τὸ ἀρκοῦν",
+          "quantities": [
+            {
+              "value": 1,
+              "unit": "unspecified",
+              "needsReview": true
+            }
+          ],
           "role": "adjuvant"
         },
-	        {
-	          "id": "ri-7",
-	          "type": "ingredient",
-	          "masterId": "i-aspalathos",
-	          "ancientTermId": "ai-aspalathos",
-	          "originalTerm": "ἀσπάλαθος",
-	          "transliteration": "aspalathos",
-	          "displayTerm": "Aspalathos (twigs)",
-	          "amount": "",
-	          "originalAmount": "ξυλάρια ἀσπαλάθου",
+        {
+          "id": "ri-7",
+          "type": "ingredient",
+          "masterId": "i-aspalathos",
+          "ancientTermId": "ai-aspalathos",
+          "originalTerm": "ἀσπάλαθος",
+          "transliteration": "aspalathos",
+          "displayTerm": "Aspalathos (twigs)",
+          "amount": "",
+          "originalAmount": "ξυλάρια ἀσπαλάθου",
           "quantities": [],
           "role": "aromatic"
         },
-	        {
-	          "id": "ri-8",
-	          "type": "ingredient",
-	          "masterId": "i-clay",
-	          "ancientTermId": "ai-pelos",
-	          "originalTerm": "πηλός",
-	          "transliteration": "pēlos",
-	          "displayTerm": "Clay",
-	          "amount": "",
-	          "originalAmount": "πηλῷ",
+        {
+          "id": "ri-8",
+          "type": "ingredient",
+          "masterId": "i-clay",
+          "ancientTermId": "ai-pelos",
+          "originalTerm": "πηλός",
+          "transliteration": "pēlos",
+          "displayTerm": "Clay",
+          "amount": "",
+          "originalAmount": "πηλῷ",
           "quantities": [],
           "role": "other"
         },
-	        {
-	          "id": "ri-9",
-	          "type": "ingredient",
-	          "masterId": "i-charcoal",
-	          "ancientTermId": "ai-karbon",
-	          "originalTerm": "κάρβων",
-	          "transliteration": "karbon",
-	          "displayTerm": "Charcoal",
-	          "amount": "",
-	          "originalAmount": "κάρβωνας πολλούς",
+        {
+          "id": "ri-9",
+          "type": "ingredient",
+          "masterId": "i-charcoal",
+          "ancientTermId": "ai-karbon",
+          "originalTerm": "κάρβων",
+          "transliteration": "karbon",
+          "displayTerm": "Charcoal",
+          "amount": "",
+          "originalAmount": "κάρβωνας πολλούς",
           "quantities": [],
           "role": "other"
         },
@@ -2400,212 +3179,960 @@
       "placeholder": true,
       "sourceKind": "project"
     },
-	    {
-	      "id": "ai-balaninon",
-	      "term": "βαλάνινον",
-	      "transliteration": "balaninon",
-	      "description": "An alternative base-oil term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-onyx",
-	      "term": "ὄνυξ",
-	      "transliteration": "onyx",
-	      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-styrax",
-	      "term": "στύραξ",
-	      "transliteration": "styrax",
-	      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-bdellion",
-	      "term": "βδέλλιον",
-	      "transliteration": "bdellion",
-	      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-kostos",
-	      "term": "κόστος",
-	      "transliteration": "kostos",
-	      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-hypnon",
-	      "term": "ὕπνον",
-	      "transliteration": "hypnon",
-	      "description": "A packing/sealing material term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-pelos",
-	      "term": "πηλός",
-	      "transliteration": "pēlos",
-	      "description": "A material term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    },
-	    {
-	      "id": "ai-karbon",
-	      "term": "κάρβων",
-	      "transliteration": "karbon",
-	      "description": "A fuel/material term appearing in recipes (demo scaffold).",
-	      "placeholder": true,
-	      "sourceKind": "project"
-	    }
-	  ],
+    {
+      "id": "ai-balaninon",
+      "term": "βαλάνινον",
+      "transliteration": "balaninon",
+      "description": "An alternative base-oil term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-onyx",
+      "term": "ὄνυξ",
+      "transliteration": "onyx",
+      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-styrax",
+      "term": "στύραξ",
+      "transliteration": "styrax",
+      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-bdellion",
+      "term": "βδέλλιον",
+      "transliteration": "bdellion",
+      "description": "A resinous ingredient term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-kostos",
+      "term": "κόστος",
+      "transliteration": "kostos",
+      "description": "An aromatic ingredient term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-hypnon",
+      "term": "ὕπνον",
+      "transliteration": "hypnon",
+      "description": "A packing/sealing material term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-pelos",
+      "term": "πηλός",
+      "transliteration": "pēlos",
+      "description": "A material term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ai-karbon",
+      "term": "κάρβων",
+      "transliteration": "karbon",
+      "description": "A fuel/material term appearing in recipes (demo scaffold).",
+      "placeholder": true,
+      "sourceKind": "project"
+    }
+  ],
   "ingredientProducts": [
-    { "id": "ip-skhoinos-a", "label": "Reed, Aromatic (Candidate A)", "description": "A possible modern interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-skhoinos-b", "label": "Grass, Aromatic (Candidate B)", "description": "A second interpretation slot for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-elaion-a", "label": "Oil, Base, Common (Candidate A)", "description": "A common base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-elaion-b", "label": "Oil, Base, Alternative (Candidate B)", "description": "An alternative base-oil interpretation slot for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-rhodon-a", "label": "Rose, Material (Candidate A)", "description": "A possible modern interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-rhodon-b", "label": "Rose, Material, Variant (Candidate B)", "description": "A second interpretation slot for ῥόδον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-meli", "label": "Honey (placeholder scaffold)", "description": "A non-ambiguous scaffold product for μέλι.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-hydor", "label": "Water (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ὕδωρ.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-kalamos-a", "label": "Cane, Aromatic (Candidate A)", "description": "A possible modern interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kalamos-b", "label": "Reed, Aromatic (Candidate B)", "description": "A second interpretation slot for κάλαμος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-aspalathos-a", "label": "Aromatic, Woody (Candidate A)", "description": "A possible modern interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-aspalathos-b", "label": "Aromatic, Woody (Candidate B)", "description": "A second interpretation slot for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-anchousa-a", "label": "Plant, Dye (Candidate A)", "description": "A possible modern interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-anchousa-b", "label": "Plant, Dye (Candidate B)", "description": "A second interpretation slot for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-hals", "label": "Salt (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ἅλς.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-smyrna-a", "label": "Resin, Myrrh (Candidate A)", "description": "A possible modern interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-smyrna-b", "label": "Resin, Myrrh, Variant (Candidate B)", "description": "A second interpretation slot for σμύρνα.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-oinos-a", "label": "Wine, Aromatic (Candidate A)", "description": "A possible interpretation slot for οἶνος in perfumery contexts.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-oinos-b", "label": "Wine/Must, Grape (Candidate B)", "description": "A second interpretation slot for οἶνος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-kardamomon-a", "label": "Spice, Cardamom-like (Candidate A)", "description": "A possible modern interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kardamomon-b", "label": "Spice, Seed, Aromatic (Candidate B)", "description": "A second interpretation slot for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-hydor-ombrion", "label": "Rainwater (placeholder scaffold)", "description": "A non-ambiguous scaffold product for ὕδωρ ὄμβριον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-krinon-a", "label": "Lily, Material (Candidate A)", "description": "A possible modern interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-krinon-b", "label": "Lily, Material, Variant (Candidate B)", "description": "A second interpretation slot for κρίνον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-kinamomon-a", "label": "Spice, Cinnamon-like (Candidate A)", "description": "A possible modern interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kinamomon-b", "label": "Spice, Bark, Aromatic (Candidate B)", "description": "A second interpretation slot for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-kassia-a", "label": "Aromatic, Kassia-like (Candidate A)", "description": "A possible modern interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kassia-b", "label": "Spice, Bark, Kassia-like (Candidate B)", "description": "A second interpretation slot for κασσία.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-krokos-a", "label": "Material, Saffron-like (Candidate A)", "description": "A possible modern interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-krokos-b", "label": "Spice, Dye, Yellow (Candidate B)", "description": "A second interpretation slot for κρόκος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-kommi-a", "label": "Gum, Plant (Candidate A)", "description": "A possible modern interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-kommi-b", "label": "Gum, Resinous (Candidate B)", "description": "A second interpretation slot for κόμμι.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "ip-balaninon-a", "label": "Oil, Nut/Seed (Candidate A)", "description": "A possible modern interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ip-balaninon-b", "label": "Oil, Base, Alternative (Candidate B)", "description": "A second interpretation slot for βαλάνινον.", "placeholder": true, "sourceKind": "project" }
+    {
+      "id": "ip-skhoinos-a",
+      "label": "Reed, Aromatic (Candidate A)",
+      "description": "A possible modern interpretation slot for σχοῖνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-skhoinos-b",
+      "label": "Grass, Aromatic (Candidate B)",
+      "description": "A second interpretation slot for σχοῖνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-elaion-a",
+      "label": "Oil, Base, Common (Candidate A)",
+      "description": "A common base-oil interpretation slot for ἔλαιον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-elaion-b",
+      "label": "Oil, Base, Alternative (Candidate B)",
+      "description": "An alternative base-oil interpretation slot for ἔλαιον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-rhodon-a",
+      "label": "Rose, Material (Candidate A)",
+      "description": "A possible modern interpretation slot for ῥόδον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-rhodon-b",
+      "label": "Rose, Material, Variant (Candidate B)",
+      "description": "A second interpretation slot for ῥόδον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-meli",
+      "label": "Honey (placeholder scaffold)",
+      "description": "A non-ambiguous scaffold product for μέλι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-hydor",
+      "label": "Water (placeholder scaffold)",
+      "description": "A non-ambiguous scaffold product for ὕδωρ.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kalamos-a",
+      "label": "Cane, Aromatic (Candidate A)",
+      "description": "A possible modern interpretation slot for κάλαμος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kalamos-b",
+      "label": "Reed, Aromatic (Candidate B)",
+      "description": "A second interpretation slot for κάλαμος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-aspalathos-a",
+      "label": "Aromatic, Woody (Candidate A)",
+      "description": "A possible modern interpretation slot for ἀσπάλαθος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-aspalathos-b",
+      "label": "Aromatic, Woody (Candidate B)",
+      "description": "A second interpretation slot for ἀσπάλαθος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-anchousa-a",
+      "label": "Plant, Dye (Candidate A)",
+      "description": "A possible modern interpretation slot for ἄγχουσα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-anchousa-b",
+      "label": "Plant, Dye (Candidate B)",
+      "description": "A second interpretation slot for ἄγχουσα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-hals",
+      "label": "Salt (placeholder scaffold)",
+      "description": "A non-ambiguous scaffold product for ἅλς.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-smyrna-a",
+      "label": "Resin, Myrrh (Candidate A)",
+      "description": "A possible modern interpretation slot for σμύρνα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-smyrna-b",
+      "label": "Resin, Myrrh, Variant (Candidate B)",
+      "description": "A second interpretation slot for σμύρνα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-oinos-a",
+      "label": "Wine, Aromatic (Candidate A)",
+      "description": "A possible interpretation slot for οἶνος in perfumery contexts.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-oinos-b",
+      "label": "Wine/Must, Grape (Candidate B)",
+      "description": "A second interpretation slot for οἶνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kardamomon-a",
+      "label": "Spice, Cardamom-like (Candidate A)",
+      "description": "A possible modern interpretation slot for κάρδαμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kardamomon-b",
+      "label": "Spice, Seed, Aromatic (Candidate B)",
+      "description": "A second interpretation slot for κάρδαμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-hydor-ombrion",
+      "label": "Rainwater (placeholder scaffold)",
+      "description": "A non-ambiguous scaffold product for ὕδωρ ὄμβριον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-krinon-a",
+      "label": "Lily, Material (Candidate A)",
+      "description": "A possible modern interpretation slot for κρίνον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-krinon-b",
+      "label": "Lily, Material, Variant (Candidate B)",
+      "description": "A second interpretation slot for κρίνον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kinamomon-a",
+      "label": "Spice, Cinnamon-like (Candidate A)",
+      "description": "A possible modern interpretation slot for κινάμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kinamomon-b",
+      "label": "Spice, Bark, Aromatic (Candidate B)",
+      "description": "A second interpretation slot for κινάμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kassia-a",
+      "label": "Aromatic, Kassia-like (Candidate A)",
+      "description": "A possible modern interpretation slot for κασσία.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kassia-b",
+      "label": "Spice, Bark, Kassia-like (Candidate B)",
+      "description": "A second interpretation slot for κασσία.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-krokos-a",
+      "label": "Material, Saffron-like (Candidate A)",
+      "description": "A possible modern interpretation slot for κρόκος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-krokos-b",
+      "label": "Spice, Dye, Yellow (Candidate B)",
+      "description": "A second interpretation slot for κρόκος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kommi-a",
+      "label": "Gum, Plant (Candidate A)",
+      "description": "A possible modern interpretation slot for κόμμι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-kommi-b",
+      "label": "Gum, Resinous (Candidate B)",
+      "description": "A second interpretation slot for κόμμι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-balaninon-a",
+      "label": "Oil, Nut/Seed (Candidate A)",
+      "description": "A possible modern interpretation slot for βαλάνινον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ip-balaninon-b",
+      "label": "Oil, Base, Alternative (Candidate B)",
+      "description": "A second interpretation slot for βαλάνινον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    }
   ],
   "materialSources": [
-    { "id": "ms-skhoinos-a", "label": "Material source A for σχοῖνος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-skhoinos-b", "label": "Material source B for σχοῖνος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-elaion-a", "label": "Material source A for ἔλαιον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-elaion-b", "label": "Material source B for ἔλαιον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-rhodon-a", "label": "Material source A for ῥόδον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-rhodon-b", "label": "Material source B for ῥόδον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-meli", "label": "Material source for μέλι (placeholder)", "description": "Placeholder source record for honey.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-hydor", "label": "Material source for ὕδωρ (placeholder)", "description": "Placeholder source record for water.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kalamos-a", "label": "Material source A for κάλαμος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kalamos-b", "label": "Material source B for κάλαμος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-aspalathos-a", "label": "Material source A for ἀσπάλαθος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-aspalathos-b", "label": "Material source B for ἀσπάλαθος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-anchousa-a", "label": "Material source A for ἄγχουσα (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-anchousa-b", "label": "Material source B for ἄγχουσα (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-hals", "label": "Material source for ἅλς (placeholder)", "description": "Placeholder source record for salt.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-smyrna-a", "label": "Material source A for σμύρνα (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-smyrna-b", "label": "Material source B for σμύρνα (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-oinos-a", "label": "Material source A for οἶνος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-oinos-b", "label": "Material source B for οἶνος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kardamomon-a", "label": "Material source A for κάρδαμωμον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kardamomon-b", "label": "Material source B for κάρδαμωμον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-hydor-ombrion", "label": "Material source for ὕδωρ ὄμβριον (placeholder)", "description": "Placeholder source record for rainwater.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-krinon-a", "label": "Material source A for κρίνον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-krinon-b", "label": "Material source B for κρίνον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kinamomon-a", "label": "Material source A for κινάμωμον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kinamomon-b", "label": "Material source B for κινάμωμον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kassia-a", "label": "Material source A for κασσία (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kassia-b", "label": "Material source B for κασσία (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-krokos-a", "label": "Material source A for κρόκος (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-krokos-b", "label": "Material source B for κρόκος (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kommi-a", "label": "Material source A for κόμμι (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-kommi-b", "label": "Material source B for κόμμι (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-balaninon-a", "label": "Material source A for βαλάνινον (placeholder)", "description": "Placeholder source record for candidate A.", "placeholder": true, "sourceKind": "project" },
-    { "id": "ms-balaninon-b", "label": "Material source B for βαλάνινον (placeholder)", "description": "Placeholder source record for candidate B.", "placeholder": true, "sourceKind": "project" }
+    {
+      "id": "ms-skhoinos-a",
+      "label": "Material source A for σχοῖνος (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-skhoinos-b",
+      "label": "Material source B for σχοῖνος (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-elaion-a",
+      "label": "Material source A for ἔλαιον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-elaion-b",
+      "label": "Material source B for ἔλαιον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-rhodon-a",
+      "label": "Material source A for ῥόδον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-rhodon-b",
+      "label": "Material source B for ῥόδον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-meli",
+      "label": "Material source for μέλι (placeholder)",
+      "description": "Placeholder source record for honey.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-hydor",
+      "label": "Material source for ὕδωρ (placeholder)",
+      "description": "Placeholder source record for water.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kalamos-a",
+      "label": "Material source A for κάλαμος (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kalamos-b",
+      "label": "Material source B for κάλαμος (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-aspalathos-a",
+      "label": "Material source A for ἀσπάλαθος (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-aspalathos-b",
+      "label": "Material source B for ἀσπάλαθος (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-anchousa-a",
+      "label": "Material source A for ἄγχουσα (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-anchousa-b",
+      "label": "Material source B for ἄγχουσα (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-hals",
+      "label": "Material source for ἅλς (placeholder)",
+      "description": "Placeholder source record for salt.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-smyrna-a",
+      "label": "Material source A for σμύρνα (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-smyrna-b",
+      "label": "Material source B for σμύρνα (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-oinos-a",
+      "label": "Material source A for οἶνος (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-oinos-b",
+      "label": "Material source B for οἶνος (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kardamomon-a",
+      "label": "Material source A for κάρδαμωμον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kardamomon-b",
+      "label": "Material source B for κάρδαμωμον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-hydor-ombrion",
+      "label": "Material source for ὕδωρ ὄμβριον (placeholder)",
+      "description": "Placeholder source record for rainwater.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-krinon-a",
+      "label": "Material source A for κρίνον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-krinon-b",
+      "label": "Material source B for κρίνον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kinamomon-a",
+      "label": "Material source A for κινάμωμον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kinamomon-b",
+      "label": "Material source B for κινάμωμον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kassia-a",
+      "label": "Material source A for κασσία (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kassia-b",
+      "label": "Material source B for κασσία (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-krokos-a",
+      "label": "Material source A for κρόκος (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-krokos-b",
+      "label": "Material source B for κρόκος (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kommi-a",
+      "label": "Material source A for κόμμι (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-kommi-b",
+      "label": "Material source B for κόμμι (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-balaninon-a",
+      "label": "Material source A for βαλάνινον (placeholder)",
+      "description": "Placeholder source record for candidate A.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "ms-balaninon-b",
+      "label": "Material source B for βαλάνινον (placeholder)",
+      "description": "Placeholder source record for candidate B.",
+      "placeholder": true,
+      "sourceKind": "project"
+    }
   ],
   "identifications": [
-    { "id": "id-skhoinos-a", "ancientIngredientId": "ai-skhoinos", "ingredientProductId": "ip-skhoinos-a", "materialSourceId": "ms-skhoinos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §1", "notes": "Placeholder identification A for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-skhoinos-b", "ancientIngredientId": "ai-skhoinos", "ingredientProductId": "ip-skhoinos-b", "materialSourceId": "ms-skhoinos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §1", "notes": "Placeholder identification B for σχοῖνος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-elaion-a", "ancientIngredientId": "ai-elaion", "ingredientProductId": "ip-elaion-a", "materialSourceId": "ms-elaion-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §2", "notes": "Placeholder identification A for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-elaion-b", "ancientIngredientId": "ai-elaion", "ingredientProductId": "ip-elaion-b", "materialSourceId": "ms-elaion-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §2", "notes": "Placeholder identification B for ἔλαιον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-rhodon-a", "ancientIngredientId": "ai-rhodon", "ingredientProductId": "ip-rhodon-a", "materialSourceId": "ms-rhodon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §3", "notes": "Placeholder identification A for ῥόδον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-rhodon-b", "ancientIngredientId": "ai-rhodon", "ingredientProductId": "ip-rhodon-b", "materialSourceId": "ms-rhodon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §3", "notes": "Placeholder identification B for ῥόδον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-meli", "ancientIngredientId": "ai-meli", "ingredientProductId": "ip-meli", "materialSourceId": "ms-meli", "confidence": "established", "workId": "w-demo-workshop-notes", "locator": "Demo §4", "notes": "Placeholder identification for μέλι.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-hydor", "ancientIngredientId": "ai-hydor", "ingredientProductId": "ip-hydor", "materialSourceId": "ms-hydor", "confidence": "established", "workId": "w-demo-workshop-notes", "locator": "Demo §5", "notes": "Placeholder identification for ὕδωρ.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-kalamos-a", "ancientIngredientId": "ai-kalamos", "ingredientProductId": "ip-kalamos-a", "materialSourceId": "ms-kalamos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §6", "notes": "Placeholder identification A for κάλαμος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-kalamos-b", "ancientIngredientId": "ai-kalamos", "ingredientProductId": "ip-kalamos-b", "materialSourceId": "ms-kalamos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §6", "notes": "Placeholder identification B for κάλαμος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-aspalathos-a", "ancientIngredientId": "ai-aspalathos", "ingredientProductId": "ip-aspalathos-a", "materialSourceId": "ms-aspalathos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §7", "notes": "Placeholder identification A for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-aspalathos-b", "ancientIngredientId": "ai-aspalathos", "ingredientProductId": "ip-aspalathos-b", "materialSourceId": "ms-aspalathos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §7", "notes": "Placeholder identification B for ἀσπάλαθος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-anchousa-a", "ancientIngredientId": "ai-anchousa", "ingredientProductId": "ip-anchousa-a", "materialSourceId": "ms-anchousa-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §8", "notes": "Placeholder identification A for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-anchousa-b", "ancientIngredientId": "ai-anchousa", "ingredientProductId": "ip-anchousa-b", "materialSourceId": "ms-anchousa-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §8", "notes": "Placeholder identification B for ἄγχουσα.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-hals", "ancientIngredientId": "ai-hals", "ingredientProductId": "ip-hals", "materialSourceId": "ms-hals", "confidence": "established", "workId": "w-demo-workshop-notes", "locator": "Demo §9", "notes": "Placeholder identification for ἅλς.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-smyrna-a", "ancientIngredientId": "ai-smyrna", "ingredientProductId": "ip-smyrna-a", "materialSourceId": "ms-smyrna-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §10", "notes": "Placeholder identification A for σμύρνα.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-smyrna-b", "ancientIngredientId": "ai-smyrna", "ingredientProductId": "ip-smyrna-b", "materialSourceId": "ms-smyrna-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §10", "notes": "Placeholder identification B for σμύρνα.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-oinos-a", "ancientIngredientId": "ai-oinos", "ingredientProductId": "ip-oinos-a", "materialSourceId": "ms-oinos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §11", "notes": "Placeholder identification A for οἶνος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-oinos-b", "ancientIngredientId": "ai-oinos", "ingredientProductId": "ip-oinos-b", "materialSourceId": "ms-oinos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §11", "notes": "Placeholder identification B for οἶνος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-kardamomon-a", "ancientIngredientId": "ai-kardamomon", "ingredientProductId": "ip-kardamomon-a", "materialSourceId": "ms-kardamomon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §12", "notes": "Placeholder identification A for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-kardamomon-b", "ancientIngredientId": "ai-kardamomon", "ingredientProductId": "ip-kardamomon-b", "materialSourceId": "ms-kardamomon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §12", "notes": "Placeholder identification B for κάρδαμωμον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-hydor-ombrion", "ancientIngredientId": "ai-hydor-ombrion", "ingredientProductId": "ip-hydor-ombrion", "materialSourceId": "ms-hydor-ombrion", "confidence": "established", "workId": "w-demo-workshop-notes", "locator": "Demo §13", "notes": "Placeholder identification for rainwater.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-krinon-a", "ancientIngredientId": "ai-krinon", "ingredientProductId": "ip-krinon-a", "materialSourceId": "ms-krinon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §14", "notes": "Placeholder identification A for κρίνον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-krinon-b", "ancientIngredientId": "ai-krinon", "ingredientProductId": "ip-krinon-b", "materialSourceId": "ms-krinon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §14", "notes": "Placeholder identification B for κρίνον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-kinamomon-a", "ancientIngredientId": "ai-kinamomon", "ingredientProductId": "ip-kinamomon-a", "materialSourceId": "ms-kinamomon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §15", "notes": "Placeholder identification A for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-kinamomon-b", "ancientIngredientId": "ai-kinamomon", "ingredientProductId": "ip-kinamomon-b", "materialSourceId": "ms-kinamomon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §15", "notes": "Placeholder identification B for κινάμωμον.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-kassia-a", "ancientIngredientId": "ai-kassia", "ingredientProductId": "ip-kassia-a", "materialSourceId": "ms-kassia-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §15a", "notes": "Placeholder identification A for κασσία.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-kassia-b", "ancientIngredientId": "ai-kassia", "ingredientProductId": "ip-kassia-b", "materialSourceId": "ms-kassia-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §15a", "notes": "Placeholder identification B for κασσία.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-krokos-a", "ancientIngredientId": "ai-krokos", "ingredientProductId": "ip-krokos-a", "materialSourceId": "ms-krokos-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §16", "notes": "Placeholder identification A for κρόκος.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-krokos-b", "ancientIngredientId": "ai-krokos", "ingredientProductId": "ip-krokos-b", "materialSourceId": "ms-krokos-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §16", "notes": "Placeholder identification B for κρόκος.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-kommi-a", "ancientIngredientId": "ai-kommi", "ingredientProductId": "ip-kommi-a", "materialSourceId": "ms-kommi-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §17", "notes": "Placeholder identification A for κόμμι.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-kommi-b", "ancientIngredientId": "ai-kommi", "ingredientProductId": "ip-kommi-b", "materialSourceId": "ms-kommi-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §17", "notes": "Placeholder identification B for κόμμι.", "placeholder": true, "sourceKind": "project" },
-
-    { "id": "id-balaninon-a", "ancientIngredientId": "ai-balaninon", "ingredientProductId": "ip-balaninon-a", "materialSourceId": "ms-balaninon-a", "confidence": "probable", "workId": "w-demo-workshop-notes", "locator": "Demo §18", "notes": "Placeholder identification A for βαλάνινον.", "placeholder": true, "sourceKind": "project" },
-    { "id": "id-balaninon-b", "ancientIngredientId": "ai-balaninon", "ingredientProductId": "ip-balaninon-b", "materialSourceId": "ms-balaninon-b", "confidence": "speculative", "workId": "w-demo-workshop-notes", "locator": "Demo §18", "notes": "Placeholder identification B for βαλάνινον.", "placeholder": true, "sourceKind": "project" }
+    {
+      "id": "id-skhoinos-a",
+      "ancientIngredientId": "ai-skhoinos",
+      "ingredientProductId": "ip-skhoinos-a",
+      "materialSourceId": "ms-skhoinos-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §1",
+      "notes": "Placeholder identification A for σχοῖνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-skhoinos-b",
+      "ancientIngredientId": "ai-skhoinos",
+      "ingredientProductId": "ip-skhoinos-b",
+      "materialSourceId": "ms-skhoinos-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §1",
+      "notes": "Placeholder identification B for σχοῖνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-elaion-a",
+      "ancientIngredientId": "ai-elaion",
+      "ingredientProductId": "ip-elaion-a",
+      "materialSourceId": "ms-elaion-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §2",
+      "notes": "Placeholder identification A for ἔλαιον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-elaion-b",
+      "ancientIngredientId": "ai-elaion",
+      "ingredientProductId": "ip-elaion-b",
+      "materialSourceId": "ms-elaion-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §2",
+      "notes": "Placeholder identification B for ἔλαιον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-rhodon-a",
+      "ancientIngredientId": "ai-rhodon",
+      "ingredientProductId": "ip-rhodon-a",
+      "materialSourceId": "ms-rhodon-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §3",
+      "notes": "Placeholder identification A for ῥόδον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-rhodon-b",
+      "ancientIngredientId": "ai-rhodon",
+      "ingredientProductId": "ip-rhodon-b",
+      "materialSourceId": "ms-rhodon-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §3",
+      "notes": "Placeholder identification B for ῥόδον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-meli",
+      "ancientIngredientId": "ai-meli",
+      "ingredientProductId": "ip-meli",
+      "materialSourceId": "ms-meli",
+      "confidence": "established",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §4",
+      "notes": "Placeholder identification for μέλι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-hydor",
+      "ancientIngredientId": "ai-hydor",
+      "ingredientProductId": "ip-hydor",
+      "materialSourceId": "ms-hydor",
+      "confidence": "established",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §5",
+      "notes": "Placeholder identification for ὕδωρ.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kalamos-a",
+      "ancientIngredientId": "ai-kalamos",
+      "ingredientProductId": "ip-kalamos-a",
+      "materialSourceId": "ms-kalamos-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §6",
+      "notes": "Placeholder identification A for κάλαμος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kalamos-b",
+      "ancientIngredientId": "ai-kalamos",
+      "ingredientProductId": "ip-kalamos-b",
+      "materialSourceId": "ms-kalamos-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §6",
+      "notes": "Placeholder identification B for κάλαμος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-aspalathos-a",
+      "ancientIngredientId": "ai-aspalathos",
+      "ingredientProductId": "ip-aspalathos-a",
+      "materialSourceId": "ms-aspalathos-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §7",
+      "notes": "Placeholder identification A for ἀσπάλαθος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-aspalathos-b",
+      "ancientIngredientId": "ai-aspalathos",
+      "ingredientProductId": "ip-aspalathos-b",
+      "materialSourceId": "ms-aspalathos-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §7",
+      "notes": "Placeholder identification B for ἀσπάλαθος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-anchousa-a",
+      "ancientIngredientId": "ai-anchousa",
+      "ingredientProductId": "ip-anchousa-a",
+      "materialSourceId": "ms-anchousa-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §8",
+      "notes": "Placeholder identification A for ἄγχουσα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-anchousa-b",
+      "ancientIngredientId": "ai-anchousa",
+      "ingredientProductId": "ip-anchousa-b",
+      "materialSourceId": "ms-anchousa-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §8",
+      "notes": "Placeholder identification B for ἄγχουσα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-hals",
+      "ancientIngredientId": "ai-hals",
+      "ingredientProductId": "ip-hals",
+      "materialSourceId": "ms-hals",
+      "confidence": "established",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §9",
+      "notes": "Placeholder identification for ἅλς.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-smyrna-a",
+      "ancientIngredientId": "ai-smyrna",
+      "ingredientProductId": "ip-smyrna-a",
+      "materialSourceId": "ms-smyrna-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §10",
+      "notes": "Placeholder identification A for σμύρνα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-smyrna-b",
+      "ancientIngredientId": "ai-smyrna",
+      "ingredientProductId": "ip-smyrna-b",
+      "materialSourceId": "ms-smyrna-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §10",
+      "notes": "Placeholder identification B for σμύρνα.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-oinos-a",
+      "ancientIngredientId": "ai-oinos",
+      "ingredientProductId": "ip-oinos-a",
+      "materialSourceId": "ms-oinos-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §11",
+      "notes": "Placeholder identification A for οἶνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-oinos-b",
+      "ancientIngredientId": "ai-oinos",
+      "ingredientProductId": "ip-oinos-b",
+      "materialSourceId": "ms-oinos-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §11",
+      "notes": "Placeholder identification B for οἶνος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kardamomon-a",
+      "ancientIngredientId": "ai-kardamomon",
+      "ingredientProductId": "ip-kardamomon-a",
+      "materialSourceId": "ms-kardamomon-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §12",
+      "notes": "Placeholder identification A for κάρδαμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kardamomon-b",
+      "ancientIngredientId": "ai-kardamomon",
+      "ingredientProductId": "ip-kardamomon-b",
+      "materialSourceId": "ms-kardamomon-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §12",
+      "notes": "Placeholder identification B for κάρδαμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-hydor-ombrion",
+      "ancientIngredientId": "ai-hydor-ombrion",
+      "ingredientProductId": "ip-hydor-ombrion",
+      "materialSourceId": "ms-hydor-ombrion",
+      "confidence": "established",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §13",
+      "notes": "Placeholder identification for rainwater.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-krinon-a",
+      "ancientIngredientId": "ai-krinon",
+      "ingredientProductId": "ip-krinon-a",
+      "materialSourceId": "ms-krinon-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §14",
+      "notes": "Placeholder identification A for κρίνον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-krinon-b",
+      "ancientIngredientId": "ai-krinon",
+      "ingredientProductId": "ip-krinon-b",
+      "materialSourceId": "ms-krinon-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §14",
+      "notes": "Placeholder identification B for κρίνον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kinamomon-a",
+      "ancientIngredientId": "ai-kinamomon",
+      "ingredientProductId": "ip-kinamomon-a",
+      "materialSourceId": "ms-kinamomon-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §15",
+      "notes": "Placeholder identification A for κινάμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kinamomon-b",
+      "ancientIngredientId": "ai-kinamomon",
+      "ingredientProductId": "ip-kinamomon-b",
+      "materialSourceId": "ms-kinamomon-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §15",
+      "notes": "Placeholder identification B for κινάμωμον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kassia-a",
+      "ancientIngredientId": "ai-kassia",
+      "ingredientProductId": "ip-kassia-a",
+      "materialSourceId": "ms-kassia-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §15a",
+      "notes": "Placeholder identification A for κασσία.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kassia-b",
+      "ancientIngredientId": "ai-kassia",
+      "ingredientProductId": "ip-kassia-b",
+      "materialSourceId": "ms-kassia-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §15a",
+      "notes": "Placeholder identification B for κασσία.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-krokos-a",
+      "ancientIngredientId": "ai-krokos",
+      "ingredientProductId": "ip-krokos-a",
+      "materialSourceId": "ms-krokos-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §16",
+      "notes": "Placeholder identification A for κρόκος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-krokos-b",
+      "ancientIngredientId": "ai-krokos",
+      "ingredientProductId": "ip-krokos-b",
+      "materialSourceId": "ms-krokos-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §16",
+      "notes": "Placeholder identification B for κρόκος.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kommi-a",
+      "ancientIngredientId": "ai-kommi",
+      "ingredientProductId": "ip-kommi-a",
+      "materialSourceId": "ms-kommi-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §17",
+      "notes": "Placeholder identification A for κόμμι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-kommi-b",
+      "ancientIngredientId": "ai-kommi",
+      "ingredientProductId": "ip-kommi-b",
+      "materialSourceId": "ms-kommi-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §17",
+      "notes": "Placeholder identification B for κόμμι.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-balaninon-a",
+      "ancientIngredientId": "ai-balaninon",
+      "ingredientProductId": "ip-balaninon-a",
+      "materialSourceId": "ms-balaninon-a",
+      "confidence": "probable",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §18",
+      "notes": "Placeholder identification A for βαλάνινον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    },
+    {
+      "id": "id-balaninon-b",
+      "ancientIngredientId": "ai-balaninon",
+      "ingredientProductId": "ip-balaninon-b",
+      "materialSourceId": "ms-balaninon-b",
+      "confidence": "speculative",
+      "workId": "w-demo-workshop-notes",
+      "locator": "Demo §18",
+      "notes": "Placeholder identification B for βαλάνινον.",
+      "placeholder": true,
+      "sourceKind": "project"
+    }
   ],
   "masterIngredients": [
     {
@@ -3133,55 +4660,148 @@
       "name": "Pedanius Dioscorides",
       "slug": "pedanius-dioscorides",
       "urn": "urn:aos:person:pedanius-dioscorides",
-      "categories": ["historical"],
+      "categories": [
+        "historical"
+      ],
       "description": "Greek physician, pharmacologist, and botanist, employed in the Roman army. Author of De materia medica.",
       "role": "Physician",
       "place": "Anazarbus",
       "date": "1st Century CE"
     },
     {
-      "id": "p-sean-coughlin",
-      "name": "Sean Coughlin",
-      "slug": "sean-coughlin",
-      "urn": "urn:aos:person:sean-coughlin",
-      "categories": ["team"],
-      "description": "Principal Investigator. Works on ancient perfumery texts, data modelling, and experimental reconstruction (demo profile).",
-      "role": "Principal Investigator",
-      "place": "Alchemies of Scent",
-      "date": "Contemporary"
-    },
-    {
-      "id": "p-team-research-associate",
-      "name": "Research Associate (Demo)",
-      "slug": "research-associate-demo",
-      "urn": "urn:aos:person:research-associate-demo",
-      "categories": ["team"],
-      "description": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
-      "role": "Research Associate",
-      "place": "Alchemies of Scent",
-      "date": "Contemporary"
-    },
-    {
-      "id": "p-team-chemist",
-      "name": "Chemist (Demo)",
-      "slug": "chemist-demo",
-      "urn": "urn:aos:person:chemist-demo",
-      "categories": ["team"],
-      "description": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
-      "role": "Chemist",
-      "place": "Alchemies of Scent",
-      "date": "Contemporary"
-    },
-    {
       "id": "p-aetius",
       "name": "Aetius of Amida",
       "slug": "aetius-of-amida",
       "urn": "urn:aos:person:aetius-of-amida",
-      "categories": ["historical"],
+      "categories": [
+        "historical"
+      ],
       "description": "Byzantine physician and compiler of Libri medicinales.",
       "role": "Physician",
       "place": "Amida",
       "date": "6th century"
+    },
+    {
+      "id": "p-team-chemist",
+      "urn": "urn:aos:person:chemist-demo",
+      "slug": "chemist-demo",
+      "displayName": "Chemist (Demo)",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Chemist"
+      ],
+      "affiliations": [
+        "Alchemies of Scent"
+      ],
+      "bio": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
+      "date": "Contemporary",
+      "name": "Chemist (Demo)",
+      "description": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
+      "role": "Chemist"
+    },
+    {
+      "id": "p-team-research-associate",
+      "urn": "urn:aos:person:research-associate-demo",
+      "slug": "research-associate-demo",
+      "displayName": "Research Associate (Demo)",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Research Associate"
+      ],
+      "affiliations": [
+        "Alchemies of Scent"
+      ],
+      "bio": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
+      "date": "Contemporary",
+      "name": "Research Associate (Demo)",
+      "description": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
+      "role": "Research Associate"
+    },
+    {
+      "id": "p-sean-coughlin",
+      "urn": "urn:aos:person:sean-coughlin",
+      "slug": "sean-coughlin",
+      "displayName": "Sean Coughlin",
+      "categories": [
+        "team",
+        "collaborator"
+      ],
+      "roles": [
+        "Principal Investigator"
+      ],
+      "affiliations": [
+        "Junior Star Research Fellow Institute of Philosophy of the Czech Academy of Sciences Jilská 1, 110 00 Praha 1 Czech Republic",
+        "Associate Scientist Ullrich Jahn Group | Chemistry of Natural Products Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences Flemingovo náměstí 2, 160 00 Praha 6 Czech Republic"
+      ],
+      "bio": "Sean Coughlin is a historian of science who explores the connections between art and nature in the ancient Greek and Roman world. He is currently Junior Star Research Fellow at the Institute of Philosophy and Associate Scientist at the Institute of Organic Chemistry and Biochemistry at the Czech Academy of Sciences in Prague.\n\nSean has held posts at the Collaborative Research Centre SFB 980 Episteme in Motion, the Department of Classical Philology, Humboldt-Universität zu Berlin, Excellence Cluster Topoi, and the University of Western Ontario. He has held visiting fellowships at Einstein Center: Chronoi, the Martin Buber Society of Fellows at the Hebrew University of Jerusalem, and the Research Training Group: Philosophy, Science and the Sciences in Berlin. He worked for a time as a cook to understand culinary metaphors in Aristotle’s biology. Before ancient philosophy, he was a laboratory technician in the Department of Psychiatry and Behavioural Neurosciences at McMaster University.\n\nHe publishes on Ancient Greek and Latin philosophy, on Greco-Roman medicine and pharmacology, on genres of scientific writing, and on perfumery in the ancient Mediterranean. With David Leith and Orly Lewis, he co-edited the volume The Concept of Pneuma after Aristotle (Berlin: Edition Topoi, 2020). His work has been exhibited in at National Geographic Museum in Washington DC and the Berlin Museum of Medical History and has been covered by the BBC, the Times, the Washington Post and Repubblica.\n\nAt Alchemies of Scent, Sean will be looking at how artistic production was used as a model for understanding the natural world, and vice versa, how experience of the natural world was thought to be the source of different artistic methods.\n\nHe will also be conducting experiments on Greco-Egyptian perfume production techniques preserved in the works of Theophrastus, Dioscorides, Pliny the Elder, Galen and the medical encyclopedists, Oribasius, Aetius of Amida and Paul of Aegina.",
+      "image": {
+        "src": "https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1636379735312-8ZCEIIEXO6FQ6APKBQNB/IMG_1494-2.jpg?format=original",
+        "alt": "  Sean Coughlin. Photo by Jana Říhová  "
+      },
+      "links": [
+        {
+          "label": "Department for Ancient and Medieval Thought, FLÚ AV ČR",
+          "url": "https://ancientmedieval.flu.cas.cz/en/people/team-for-ancient-philosophy/10-lide/274-sean-coughlin-en"
+        },
+        {
+          "label": "Ullrich Jahn Group, Chemistry of Natural Products, ÚOCHB AV ČR",
+          "url": "https://www.uochb.cz/en/directory/1153/sean-coughlin"
+        },
+        {
+          "label": "ORCID",
+          "url": "https://orcid.org/0000-0001-5374-0537"
+        },
+        {
+          "label": "Academia.edu",
+          "url": "https://cas-cz.academia.edu/SeanCoughlin"
+        },
+        {
+          "label": "PhilPeople",
+          "url": "https://philpeople.org/profiles/sean-michael-pead-coughlin"
+        },
+        {
+          "label": "Google Scholar",
+          "url": "https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/sean-coughlin",
+        "sourcePostName": "sean-coughlin"
+      },
+      "date": "Contemporary",
+      "name": "Sean Coughlin",
+      "description": "Sean Coughlin is a historian of science who explores the connections between art and nature in the ancient Greek and Roman world. He is currently Junior Star Research Fellow at the Institute of Philosophy and Associate Scientist at the Institute of Organic Chemistry and Biochemistry at the Czech Academy of Sciences in Prague.\n\nSean has held posts at the Collaborative Research Centre SFB 980 Episteme in Motion, the Department of Classical Philology, Humboldt-Universität zu Berlin, Excellence Cluster Topoi, and the University of Western Ontario. He has held visiting fellowships at Einstein Center: Chronoi, the Martin Buber Society of Fellows at the Hebrew University of Jerusalem, and the Research Training Group: Philosophy, Science and the Sciences in Berlin. He worked for a time as a cook to understand culinary metaphors in Aristotle’s biology. Before ancient philosophy, he was a laboratory technician in the Department of Psychiatry and Behavioural Neurosciences at McMaster University.\n\nHe publishes on Ancient Greek and Latin philosophy, on Greco-Roman medicine and pharmacology, on genres of scientific writing, and on perfumery in the ancient Mediterranean. With David Leith and Orly Lewis, he co-edited the volume The Concept of Pneuma after Aristotle (Berlin: Edition Topoi, 2020). His work has been exhibited in at National Geographic Museum in Washington DC and the Berlin Museum of Medical History and has been covered by the BBC, the Times, the Washington Post and Repubblica.\n\nAt Alchemies of Scent, Sean will be looking at how artistic production was used as a model for understanding the natural world, and vice versa, how experience of the natural world was thought to be the source of different artistic methods.\n\nHe will also be conducting experiments on Greco-Egyptian perfume production techniques preserved in the works of Theophrastus, Dioscorides, Pliny the Elder, Galen and the medical encyclopedists, Oribasius, Aetius of Amida and Paul of Aegina.",
+      "role": "Principal Investigator",
+      "externalLinks": [
+        {
+          "label": "Department for Ancient and Medieval Thought, FLÚ AV ČR",
+          "url": "https://ancientmedieval.flu.cas.cz/en/people/team-for-ancient-philosophy/10-lide/274-sean-coughlin-en"
+        },
+        {
+          "label": "Ullrich Jahn Group, Chemistry of Natural Products, ÚOCHB AV ČR",
+          "url": "https://www.uochb.cz/en/directory/1153/sean-coughlin"
+        },
+        {
+          "label": "ORCID",
+          "url": "https://orcid.org/0000-0001-5374-0537"
+        },
+        {
+          "label": "Academia.edu",
+          "url": "https://cas-cz.academia.edu/SeanCoughlin"
+        },
+        {
+          "label": "PhilPeople",
+          "url": "https://philpeople.org/profiles/sean-michael-pead-coughlin"
+        },
+        {
+          "label": "Google Scholar",
+          "url": "https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ"
+        }
+      ]
     }
   ],
   "pins": {
@@ -3244,17 +4864,17 @@
       "r-lily-dioscorides:ing-meli": "ai-meli",
       "r-lily-dioscorides:ing-hals": "ai-hals",
       "r-lily-dioscorides:ing-kinamomon": "ai-kinamomon",
-	      "r-lily-dioscorides:ing-krokos": "ai-krokos",
-	      "r-lily-dioscorides:ing-kommi": "ai-kommi",
-	      "r-lily-dioscorides:ing-balaninon": "ai-balaninon",
-	      "r-smoked-oil-aetius:ing-onyx": "ai-onyx",
-	      "r-smoked-oil-aetius:ing-styrax": "ai-styrax",
-	      "r-smoked-oil-aetius:ing-bdellion": "ai-bdellion",
-	      "r-smoked-oil-aetius:ing-costus": "ai-kostos",
-	      "r-smoked-oil-aetius:ing-sweet-oil": "ai-elaion",
-	      "r-smoked-oil-aetius:ing-hypnon": "ai-hypnon",
-	      "r-smoked-oil-aetius:ing-aspalathos": "ai-aspalathos",
-	      "r-smoked-oil-aetius:ing-clay": "ai-pelos"
-	    }
-	  }
-	}
+      "r-lily-dioscorides:ing-krokos": "ai-krokos",
+      "r-lily-dioscorides:ing-kommi": "ai-kommi",
+      "r-lily-dioscorides:ing-balaninon": "ai-balaninon",
+      "r-smoked-oil-aetius:ing-onyx": "ai-onyx",
+      "r-smoked-oil-aetius:ing-styrax": "ai-styrax",
+      "r-smoked-oil-aetius:ing-bdellion": "ai-bdellion",
+      "r-smoked-oil-aetius:ing-costus": "ai-kostos",
+      "r-smoked-oil-aetius:ing-sweet-oil": "ai-elaion",
+      "r-smoked-oil-aetius:ing-hypnon": "ai-hypnon",
+      "r-smoked-oil-aetius:ing-aspalathos": "ai-aspalathos",
+      "r-smoked-oil-aetius:ing-clay": "ai-pelos"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+id: p-klara-metge
+urn: urn:aos:person:klara-metge
+slug: klara-metge
+displayName: Klára Metge
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Studied BA Theatre studies and English and American studies. Currently she is finishing her first year of theatre directing at DAMU.
+
+  Director and dramaturge: “The Birth of Myrrh.” Part of Stars of Philosophy, 17 June 2022.
+
+  Additional performances were held in September 2022 and July 2023.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/79fc17f3-b2ef-420b-8f24-b5408c3d18f4/klara_metge.jpg?format=original
+links:
+  - label: Website
+    url: https://www.damu.cz/cs/vse-o-fakulte/studenti/145903-klara-metge/
+  - label: “The Birth of Myrrh.” Part of Stars of Philosophy, 17 June 2022.
+    url: /events?tag=performance&category=Public%20Events
+legacy:
+  sourceUrl: /klara-metge
+  sourcePostName: klara-metge
+date: Contemporary
+todo:
+  - Review roles

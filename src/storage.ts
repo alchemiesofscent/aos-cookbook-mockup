@@ -142,6 +142,7 @@ export const loadState = async (): Promise<DatabaseState> => {
   const mergeMissingCollectionsFromSeed = (db: DatabaseState, seedDb: DatabaseState | null): boolean => {
     const seed = seedDb ?? ({} as DatabaseState);
     let changed = false;
+    const preferSeedMergeKeys = new Set<keyof DatabaseState>(["masterPeople"]);
 
     const ensureArrayKey = <K extends keyof DatabaseState>(key: K): void => {
       const currentValue = (db as any)[key];
@@ -176,6 +177,34 @@ export const loadState = async (): Promise<DatabaseState> => {
       if (currentValue.length === 0 && seedValue.length > 0) {
         (db as any)[key] = seedValue;
         changed = true;
+        return;
+      }
+
+      if (preferSeedMergeKeys.has(key)) {
+        const seedIds = new Set<string>(seedValue.map((item: any) => item?.id).filter(Boolean));
+        const merged = [
+          ...seedValue,
+          ...currentValue.filter((item: any) => item?.id && !seedIds.has(item.id)),
+        ];
+
+        const currentById = new Map<string, any>(currentValue.map((item: any) => [item?.id, item]));
+        let didChange = merged.length !== currentValue.length;
+        if (!didChange) {
+          for (const seedItem of seedValue) {
+            const id = seedItem?.id;
+            if (!id) continue;
+            const currentItem = currentById.get(id);
+            if (!currentItem || JSON.stringify(currentItem) !== JSON.stringify(seedItem)) {
+              didChange = true;
+              break;
+            }
+          }
+        }
+
+        if (didChange) {
+          (db as any)[key] = merged;
+          changed = true;
+        }
         return;
       }
 

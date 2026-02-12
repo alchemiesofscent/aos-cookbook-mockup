@@ -1,0 +1,25 @@
+id: p-robert-littman
+urn: urn:aos:person:robert-littman
+slug: robert-littman
+displayName: Robert J. Littman
+categories:
+  - collaborator
+bio: |-
+  Director Tell Timai Archaeological Project Website
+
+  Robert Littman is an American classicist, biblical scholar, ancient historian and archaeologist. He is currently Professor of Classics at the University of Hawai’i at Manoa and Director of the Tell Timai Excavations Timai El Amdid Egypt. Known for his broad range of expertise in the ancient world, he is the author of numerous diverse books and articles on Greek history and literature, ancient medicine, biblical studies, and Egyptian archaeology. He was educated at Oxford University (M.Litt) and Columbia University (Ph.D.). In 2018 the Archaeological Institute of America selected him for the Martha and Artemis Joukowsky Distinguished Service Award.
+
+  His excavations at Tell Timai are producing material remains of the Greco-Roman period in Egypt that promise new insights in ancient perfumes and scents.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/88632117-13b2-46dc-a080-8a681af9f1b8/littman-r.jpg?format=original
+links:
+  - label: Website
+    url: https://manoa.hawaii.edu/llea/classics/faculty/robert-littman/
+  - label: Website
+    url: https://telltimai.org
+legacy:
+  sourceUrl: /robert-littman
+  sourcePostName: robert-littman
+date: Contemporary
+todo:
+  - Review roles

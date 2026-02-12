@@ -58,11 +58,29 @@ export const Footer = ({
         <a style={{ cursor: "pointer" }} onClick={() => navigate("project")}>
           Project
         </a>
-        <a style={{ cursor: "pointer" }} onClick={() => navigate("team")}>
-          Team
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("about-people")}>
+          People
         </a>
         <a style={{ cursor: "pointer" }} onClick={() => navigate("news")}>
           News
+        </a>
+      </div>
+      <div className="col">
+        <h4>For scholars</h4>
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("docs:architecture")}>
+          Architecture overview
+        </a>
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("docs:data-model")}>
+          Data model
+        </a>
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("docs:identifiers")}>
+          Identifiers &amp; citation
+        </a>
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("docs:exports")}>
+          Exports
+        </a>
+        <a style={{ cursor: "pointer" }} onClick={() => navigate("docs:editorial-workflow")}>
+          Editorial workflow
         </a>
       </div>
     </div>

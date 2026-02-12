@@ -1,0 +1,35 @@
+id: p-maarten-janssen
+urn: urn:aos:person:maarten-janssen
+slug: maarten-janssen
+displayName: Maarten Janssen
+categories:
+  - team
+roles:
+  - Researcher
+affiliations:
+  - Computational Linguistics
+bio: |-
+  Maarten Janssen is a computational linguist, with a special interest in corpora, lexica, and formal semantics. He was responsible for the system behind the official vocabulary of Portuguese (VOC), and is currently mostly known as the main author of the TEITOK corpus system. His PhD is from Utrecht University, and he has worked in various research institutes around Europe: OTS (Utrecht), ERSS (Toulouse), ILTEC (Lisbon), IULA (Barcelona), CLUL (Lisbon), CELGA (Coimbra), and is currently working at UFAL (Prague).
+
+  Maarten Janssen is responsible for overseeing the creation of a corpus out of the source material used in Alchemies of Scent, and for developing a system that can be used to model recipes and ingredients directly over the source material.
+
+  M. Janssen. 2021. UDWiki: Guided creation and exploitation of UD treebanks. UDW 2021 - 5th Workshop on Universal Dependencies, Proceedings - To be held as part of SyntaxFest 2021, pages 84–95.
+
+  C. Navarretta and M. Eskevich, editors. 2020. Integrating TEITOK and Kontext at LINDAT. CLARIN, Madrid, Spain.
+
+  Egon W Stemle, Adriane Boyd, Maarten Janssen, A Rosen, D Rosén, E Volodina, et al. 2019. Working together towards an ideal infrastructure for language learner corpora
+
+  M. Janssen. 2018. Adding words to manuscripts: From PagesXML to TEITOK. Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), 11057 LNCS:152–157.
+
+  M. Janssen. 2016. TEITOK: Text-faithful annotated corpora. Proceedings of the 10th International Conference on Language Resources and Evaluation, LREC 2016, pages 4037–4043.
+
+  ORCID: 0000-0003-0272-6318
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1631529072929-I63NAB47G1Y5NN4YEELD/laur.+plut.+74.02+fol+370v.jpg?format=original
+links:
+  - label: "ORCID: 0000-0003-0272-6318"
+    url: https://orcid.org/0000-0003-0272-6318
+legacy:
+  sourceUrl: /maarten-janssen
+  sourcePostName: maarten-janssen
+date: Contemporary

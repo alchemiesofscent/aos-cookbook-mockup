@@ -1,11 +1,13 @@
 import type { DatabaseState } from "../../types";
 import {
+  parseDocsRoute,
   parseInterpretationRoute,
   parsePersonRoute,
   parseRecipeRoute,
   parseWorkRoute,
   parseWorkshopEntityRoute,
 } from "./parse";
+import { docsBySlug } from "../../content/markdown";
 
 export type BreadcrumbItem = {
   label: string;
@@ -38,6 +40,7 @@ export const getDetailFallback = (route: string): BreadcrumbItem | null => {
   if (parseRecipeRoute(route)) return crumb("Recipes", "archive");
   if (parsePersonRoute(route)) return crumb("People", "people");
   if (parseWorkRoute(route)) return crumb("Works", "works");
+  if (parseDocsRoute(route)) return crumb("Docs", "docs");
   return null;
 };
 
@@ -117,13 +120,19 @@ export const buildBreadcrumbs = (route: string, db: DatabaseState): BreadcrumbIt
   const personRoute = parsePersonRoute(route);
   if (personRoute) {
     const person = (db.masterPeople ?? []).find((p) => p.id === personRoute.id);
-    return [HOME, LIBRARY, crumb("People", "people"), crumb(person?.name ?? "Person")];
+    return [HOME, LIBRARY, crumb("People", "people"), crumb(person?.displayName ?? person?.name ?? "Person")];
   }
 
   const workRoute = parseWorkRoute(route);
   if (workRoute) {
     const work = (db.masterWorks ?? []).find((w) => w.id === workRoute.id);
     return [HOME, LIBRARY, crumb("Works", "works"), crumb(work?.name ?? "Work")];
+  }
+
+  const docsRoute = parseDocsRoute(route);
+  if (docsRoute) {
+    const doc = docsBySlug.get(docsRoute.slug);
+    return [HOME, crumb("Docs", "docs"), crumb(doc?.title ?? docsRoute.slug)];
   }
 
   switch (route) {
@@ -141,10 +150,12 @@ export const buildBreadcrumbs = (route: string, db: DatabaseState): BreadcrumbIt
       return [HOME, ABOUT];
     case "project":
       return [HOME, ABOUT, crumb("Project", "project")];
-    case "team":
-      return [HOME, ABOUT, crumb("Team", "team")];
+    case "about-people":
+      return [HOME, ABOUT, crumb("People", "about-people")];
     case "news":
       return [HOME, ABOUT, crumb("News", "news")];
+    case "docs":
+      return [HOME, crumb("Docs", "docs")];
     case "import":
       return [HOME, ABOUT, crumb("Import", "import")];
     case "workshop":

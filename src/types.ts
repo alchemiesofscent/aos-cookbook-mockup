@@ -61,14 +61,30 @@ export interface MasterEntity {
   slug: string;
   urn: string;
   name: string;
+  displayName?: string;
+  sortName?: string;
   categories?: string[];
   originalName?: string; // Ancient/Greek term
   transliteratedName?: string; // Latinized ancient term
   description: string;
+  bio?: string;
   family?: string; // For ingredients
   source?: string; // For ingredients (botanical source)
   type?: string; // For tools (Tool type)
   role?: string; // For people (e.g. "Physician")
+  roles?: string[]; // For people
+  affiliations?: string[]; // For people
+  image?: {
+    src: string;
+    alt?: string;
+    credit?: string;
+  };
+  links?: ExternalLink[];
+  legacy?: {
+    sourceUrl?: string;
+    sourcePostName?: string;
+  };
+  todo?: string[];
   parentId?: string; // For hierarchical works (e.g. Edition -> Work)
   author?: string; // For works (Legacy/Display string)
   authorId?: string; // For works (Link to Person)
@@ -76,6 +92,7 @@ export interface MasterEntity {
   language?: string; // For works
   place?: string; // For works
   externalLinks?: ExternalLink[]; // For people/works (e.g. Wikipedia, VIAF)
+  externalIds?: Record<string, string>; // For people/works (e.g. VIAF, ORCID)
 }
 
 export interface Quantity {

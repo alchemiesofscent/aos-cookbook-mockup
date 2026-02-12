@@ -3,8 +3,9 @@ import type { DatabaseState } from "../../types";
 
 export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const people = [...(db.masterPeople ?? [])]
-    .filter((p) => !(p.categories ?? []).includes("team"))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .filter((p) => (p.categories ?? []).includes("historical"))
+    .filter((p) => !(p.categories ?? []).some((c) => c === "team" || c === "collaborator" || c === "alumni"))
+    .sort((a, b) => (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name));
 
   return (
     <div className="page-container">
@@ -16,10 +17,10 @@ export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void
       <div className="recipe-grid">
         {people.map((person) => (
           <div className="recipe-card" key={person.id}>
-            <h3>{person.name}</h3>
+            <h3>{person.displayName ?? person.name}</h3>
             <div className="card-sub">{[person.role, person.date].filter(Boolean).join(" • ")}</div>
             <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
-              {person.description}
+              {person.bio ?? person.description}
             </p>
             <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
               View profile

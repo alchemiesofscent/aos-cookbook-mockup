@@ -1,0 +1,25 @@
+id: p-manuela-marai
+urn: urn:aos:person:manuela-marai
+slug: manuela-marai
+displayName: Manuela Marai
+categories:
+  - collaborator
+bio: |-
+  Website
+
+  Manuela Marai is a third year PhD student in Classics and Ancient History at the University of Warwick under the supervision of Dr. Caroline Petit (Department of Classics) and Dr. Freya Harrison (School of Life Sciences), and she is currently a visiting student at the Humboldt-Universität in Berlin.
+
+  She holds degrees in Classical Languages and Literatures as well as Molecular Biology, and she is developing research strategies for using historical texts as sources for “new” drugs. In particular, her analysis focuses on the potential antimicrobial activity of wound healing salves in the works of the Greek physician Galen of Pergamon, and on the rationale behind the use and the processing of natural substances in the synthesis of compound remedies in antiquity.
+
+  At Alchemies of Scent, Manuela will be conducting experiments to investigate the ancient manufacturing and processing of resinous substances, which, in addition to their use in perfume-making, represented frequent ingredients in wound healing formulations. In particular, she will test some procedures to separate the fractions of resins and pine tar as described in Greek and Latin sources such as Theophrastus, Dioscorides, Pliny the Elder, and Galen.
+image:
+  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1637861621808-V62LAC1MJ45F478X4X8I/Marai_Photo+Website.jpg?format=original
+links:
+  - label: Website
+    url: https://warwick.ac.uk/fac/arts/classics/research/currentpgs/marai/
+legacy:
+  sourceUrl: /manuela-marai
+  sourcePostName: manuela-marai
+date: Contemporary
+todo:
+  - Review roles

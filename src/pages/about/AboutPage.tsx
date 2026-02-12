@@ -18,12 +18,12 @@ export const AboutPage = ({ navigate }) => {
             <p>Our methodology combines text-based historical research with chemical analysis to recreate ancient perfumes.</p>
             <button className="text-btn">Read Mission &rarr;</button>
          </div>
-         {/* Card 2: Team */}
-         <div className="library-section-card" onClick={() => navigate('team')}>
+         {/* Card 2: People */}
+         <div className="library-section-card" onClick={() => navigate('about-people')}>
             <span className="library-count">Researchers</span>
-            <h2>The Team</h2>
+            <h2>People</h2>
             <p>An international collaboration of historians of science, classicists, and organic chemists.</p>
-            <button className="text-btn">Meet the Team &rarr;</button>
+            <button className="text-btn">Meet the People &rarr;</button>
          </div>
          {/* Card 3: News */}
          <div className="library-section-card" onClick={() => navigate('news')}>
