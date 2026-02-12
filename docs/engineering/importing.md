@@ -1,16 +1,36 @@
 # Importing People and News
 
-This project uses a YAML-driven people pipeline and optional WXR import.
+This project uses a YAML-driven people pipeline and an optional WXR importer.
+
+## Quick start
+1. Place the WordPress export XML at `tmp/Squarespace-Wordpress-Export-02-11-2026.xml`.
+2. Run the importer to generate drafts:
+   - `npm run import:wxr -- tmp/Squarespace-Wordpress-Export-02-11-2026.xml`
+3. Review drafts in `data/import/people_draft/` and copy confirmed people into `data/people/`.
+4. Compile the canonical dataset:
+   - `npm run compile:people`
+5. Validate invariants:
+   - `npm run validate:seed`
 
 ## Scripts
+- `npm run import:wxr`
+  - Parses WXR XML and writes draft people YAML to `data/import/people_draft/`.
+  - Writes draft news markdown to `content/news/_draft/` for `wp:post_type == post`.
+  - Writes legacy redirect mappings to `public/legacy/redirects.json`.
 
-- `npm run import:wxr`  
-  Parses a WordPress export XML file and writes draft people YAML to `data/import/people_draft/` and news markdown drafts to `content/news/_draft/`.
-  - Default input: `Squarespace-Wordpress-Export-02-11-2026.xml` at repo root.
-  - Optional: pass a custom path as the first argument.
+- `npm run compile:people`
+  - Compiles `data/people/*.yaml` into `public/data/seed.json` under `masterPeople`.
+  - Preserves historical people and replaces project people (team/collaborator/alumni).
 
-- `npm run compile:people`  
-  Compiles canonical YAML in `data/people/` into `public/data/seed.json` under `masterPeople`. Historical people are preserved; project people (team/collaborator/alumni) are replaced.
+- `npm run validate:seed`
+  - Validates IDs, URNs, and allowed categories.
 
-- `npm run validate:seed`  
-  Validates dataset invariants including required fields and allowed categories for `masterPeople`.
+## People YAML fields
+Required:
+- `id`, `urn`, `slug`, `displayName`
+
+Common optional fields:
+- `roles`, `bio`, `affiliations`, `image`, `links`, `categories`
+
+Categories allowed:
+- `historical`, `team`, `collaborator`, `alumni`
