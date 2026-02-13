@@ -8,6 +8,7 @@ import {
   getPersonPublications,
   getPersonRoles,
   isProjectPerson,
+  resolvePersonImageSrc,
   splitBioParagraphs,
 } from "../../lib/people";
 
@@ -38,7 +39,7 @@ export const PersonDetailPageDb = ({
   const safeLinks = links.filter((link) => link.url && !link.url.startsWith("mailto:"));
   const publicationUrlSet = new Set(publications.map((link) => link.url));
   const profileLinks = safeLinks.filter((link) => !publicationUrlSet.has(link.url));
-  const imageSrc = person?.image?.src;
+  const imageSrc = resolvePersonImageSrc(person?.image?.src);
   const imageAlt = person?.image?.alt ?? displayName;
 
   const authoredWorks = (db.masterWorks ?? []).filter((w) => w.authorId === personId);

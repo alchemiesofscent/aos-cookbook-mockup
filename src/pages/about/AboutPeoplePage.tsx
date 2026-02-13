@@ -6,6 +6,7 @@ import {
   getPersonSortKey,
   getPersonShortBlurb,
   isCollaboratorPerson,
+  resolvePersonImageSrc,
   isTeamPerson,
 } from "../../lib/people";
 
@@ -21,7 +22,7 @@ const renderCards = (people: MasterEntity[], navigate: (route: string) => void) 
   return people.map((person) => {
     const roles = getPersonRoles(person);
     const shortBlurb = getPersonShortBlurb(person, 170);
-    const imageSrc = person.image?.src;
+    const imageSrc = resolvePersonImageSrc(person.image?.src);
     const imageAlt = person.image?.alt ?? getPersonDisplayName(person);
     return (
       <div

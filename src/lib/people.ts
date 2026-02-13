@@ -5,6 +5,15 @@ const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 export const getPersonDisplayName = (person: MasterEntity | null | undefined) =>
   person?.displayName ?? person?.name ?? "Person";
 
+export const resolvePersonImageSrc = (src: string | undefined): string => {
+  if (!src) return "";
+  if (/^(https?:)?\/\//i.test(src) || src.startsWith("data:")) return src;
+  const base = import.meta.env.BASE_URL || "/";
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+  if (src.startsWith("/")) return `${normalizedBase}${src.slice(1)}`;
+  return `${normalizedBase}${src}`;
+};
+
 export const getPersonSortKey = (person: MasterEntity | null | undefined) => {
   const explicit = typeof person?.sortName === "string" ? person.sortName.trim() : "";
   if (explicit) return explicit.toLocaleLowerCase();
