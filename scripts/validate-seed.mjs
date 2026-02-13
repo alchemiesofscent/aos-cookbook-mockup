@@ -181,9 +181,13 @@ const validateHomepageCuratedTargets = async (errors, seed) => {
 
 const validateMasterPeople = (errors, seed) => {
   const allowedCategories = new Set(["historical", "team", "collaborator", "alumni"]);
+  const forbiddenIds = new Set(["p-team-chemist", "p-team-research-associate"]);
   for (const person of seed.masterPeople ?? []) {
     const personId = person?.id ?? "(missing-id)";
     if (!person || typeof person !== "object") continue;
+    if (forbiddenIds.has(personId)) {
+      addError(errors, SEED_PATH, `masterPeople:${personId}`, "id", "deprecated demo person must not be present");
+    }
     if (!person.id) addError(errors, SEED_PATH, `masterPeople:${personId}`, "id", "missing");
     if (!person.urn) addError(errors, SEED_PATH, `masterPeople:${personId}`, "urn", "missing");
     if (!person.slug) addError(errors, SEED_PATH, `masterPeople:${personId}`, "slug", "missing");

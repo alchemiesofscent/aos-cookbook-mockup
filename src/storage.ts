@@ -18,6 +18,7 @@ const STORAGE_KEYS = {
 };
 
 const CURRENT_DB_VERSION = "1";
+const DEPRECATED_PERSON_IDS = new Set(["p-team-chemist", "p-team-research-associate"]);
 
 const writeDatabaseToStorage = (data: DatabaseState) => {
   localStorage.setItem(STORAGE_KEYS.RECIPES, JSON.stringify(data.recipes));
@@ -272,12 +273,21 @@ export const loadState = async (): Promise<DatabaseState> => {
     return changed;
   };
 
+  const pruneDeprecatedMasterPeople = (db: DatabaseState): boolean => {
+    const current = Array.isArray(db.masterPeople) ? db.masterPeople : [];
+    const next = current.filter((person) => !DEPRECATED_PERSON_IDS.has(person?.id ?? ""));
+    if (next.length === current.length) return false;
+    db.masterPeople = next;
+    return true;
+  };
+
   if (!shouldInitializeFromSeed()) {
     const current = StorageAdapter.load();
     const seedDb = await tryFetchSeedDb();
     const changed =
       mergeMissingCollectionsFromSeed(current, seedDb) ||
-      backfillAncientTermIds(current);
+      backfillAncientTermIds(current) ||
+      pruneDeprecatedMasterPeople(current);
     if (changed) writeDatabaseToStorage(current);
     return current;
   }
@@ -293,12 +303,16 @@ export const loadState = async (): Promise<DatabaseState> => {
     const seed = (await response.json()) as DatabaseState;
     backfillAncientTermIds(seed);
     mergeMissingCollectionsFromSeed(seed, seed);
+    pruneDeprecatedMasterPeople(seed);
     writeDatabaseToStorage(seed);
     return StorageAdapter.load();
   } catch (error) {
     console.warn("Seed overlay failed; falling back to existing localStorage state.", error);
     const current = StorageAdapter.load();
-    const changed = backfillAncientTermIds(current) || mergeMissingCollectionsFromSeed(current, null);
+    const changed =
+      backfillAncientTermIds(current) ||
+      mergeMissingCollectionsFromSeed(current, null) ||
+      pruneDeprecatedMasterPeople(current);
     if (changed) writeDatabaseToStorage(current);
     return current;
   }
