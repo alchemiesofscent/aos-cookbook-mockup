@@ -21,16 +21,30 @@ This project uses a YAML-driven people pipeline and an optional WXR importer.
 - `npm run compile:people`
   - Compiles `data/people/*.yaml` into `public/data/seed.json` under `masterPeople`.
   - Preserves historical people and replaces project people (team/collaborator/alumni).
+  - Enforces project category consistency (project profiles cannot be both team and collaborator).
 
 - `npm run validate:seed`
   - Validates IDs, URNs, and allowed categories.
+  - Rejects deprecated demo IDs (`p-team-chemist`, `p-team-research-associate`).
 
 ## People YAML fields
 Required:
 - `id`, `urn`, `slug`, `displayName`
 
 Common optional fields:
-- `roles`, `bio`, `affiliations`, `image`, `links`, `categories`
+- `sortName`, `roles`, `bio`, `shortBlurb`
+- `affiliations` (string array) and/or `affiliationsDetailed` (structured array)
+- `publications` (link array)
+- `image`, `links`, `categories`
 
 Categories allowed:
 - `historical`, `team`, `collaborator`, `alumni`
+
+Category policy:
+- Historical people use `historical`.
+- Project people must use exactly one of `team` or `collaborator`.
+- `alumni` is optional metadata and does not replace the required project role marker.
+
+Image handling:
+- Prefer site-relative image paths for long-term stability on GitHub Pages, e.g. `/img/people/<slug>.jpg`.
+- If external image URLs are used temporarily, ensure they are migrated to local assets before release.

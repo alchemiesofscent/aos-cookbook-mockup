@@ -20,7 +20,10 @@ Required fields (baseline):
 - `id`, `urn`, `slug`, `displayName` (or `name` for legacy)
 
 Common optional fields:
-- `roles`, `bio`, `affiliations`, `image`, `links`
+- `sortName`, `roles`, `bio`, `shortBlurb`
+- `affiliations` and `affiliationsDetailed`
+- `publications`
+- `image`, `links`
 - `categories` (see below)
 
 Categories (allowed):
@@ -31,4 +34,6 @@ Categories (allowed):
 
 ## Notes
 - The UI tolerates missing optional fields.
-- People cards and details prefer `displayName` and `bio` when present.
+- People cards and details prefer `displayName` and `shortBlurb` (fallback: truncated bio).
+- Project people are expected to have exactly one of `team` or `collaborator`.
+- About/People sorting uses `sortName` when present, then a last-name fallback.

@@ -1,6 +1,15 @@
-# GitHub Pages + Storage-Backed Data Plan (no implementation yet)
+# GitHub Pages + Storage-Backed Data Plan
 
 Note: This is the canonical deploy doc.
+
+## Current Implementation Notes
+
+- Deployment is implemented via `.github/workflows/deploy.yml`.
+- Vite base path is set in CI with `VITE_BASE="/<repo>/"`.
+- The Pages build includes a video transcode step:
+  - Source: `public/img/20250625_073847000_iOS.MOV`
+  - Output: `public/img/20250625_073847000_iOS.mp4`
+- Runtime hero video usage should reference the MP4 path, not MOV, for browser compatibility.
 
 ## Goals
 - Deploy the Vite + React app to GitHub Pages.

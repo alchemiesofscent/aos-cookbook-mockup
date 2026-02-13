@@ -33,11 +33,14 @@ This file is a concise snapshot of where the project stands and what has been de
 
 - There is a **single** people dataset: `db.masterPeople`.
 - `masterPeople[].categories` is used to distinguish:
-  - `"historical"` vs `"team"` (at minimum).
+  - `"historical"`, `"team"`, `"collaborator"` (plus optional `"alumni"`).
+- Project people are constrained to **exactly one** of `"team"` or `"collaborator"`.
 - Team listing is data-driven:
   - Team page filters `categories` including `"team"`.
+- Collaborators listing is data-driven:
+  - About > People filters `categories` including `"collaborator"`.
 - People listing is data-driven:
-  - People page filters out `"team"` (or can be grouped later).
+  - Library > People filters out `"team"` and `"collaborator"` (historical index only).
 - Works are data-driven from `db.masterWorks`.
 
 ## Recipe Reading UX
@@ -81,6 +84,7 @@ This file is a concise snapshot of where the project stands and what has been de
 ## Open Items / Next Steps
 
 - Maintain dataset version metadata in `public/data/version.json` and keep it visible in the footer.
+- Monitor GitHub Pages deploys for media build steps (MOV → MP4 transcode for hero video).
 - Strengthen FAIR/citability deliverables:
   - consistent “Cite this” block per entity
   - JSON-LD exports per entity type
