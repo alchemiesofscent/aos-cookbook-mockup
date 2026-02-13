@@ -15,6 +15,12 @@ type HomePageProps = {
 
 export default function HomePage({ navigate, db }: HomePageProps) {
   const [query, setQuery] = useState("");
+  const [heroVideoEnabled, setHeroVideoEnabled] = useState(true);
+  const heroVideoSrc = useMemo(() => {
+    const base = import.meta.env.BASE_URL || "/";
+    const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+    return `${normalizedBase}img/20250625_073847000_iOS.mp4`;
+  }, []);
 
   const featured = useMemo(() => {
     const recipe = db.recipes.find((r) => r.slug === homepageContent.feature.recipeSlug) ?? db.recipes[0];
@@ -112,6 +118,19 @@ export default function HomePage({ navigate, db }: HomePageProps) {
               </div>
             </div>
             <div className="homeLanding-featureMedia" aria-hidden="true">
+              {heroVideoEnabled ? (
+                <video
+                  className="homeLanding-featureVideo"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onError={() => setHeroVideoEnabled(false)}
+                >
+                  <source src={heroVideoSrc} type="video/mp4" />
+                </video>
+              ) : null}
               <div className="homeLanding-featureMediaLabel">Featured recipe</div>
             </div>
           </div>

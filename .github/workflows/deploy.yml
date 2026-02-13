@@ -37,6 +37,27 @@ jobs:
       - name: Validate seed
         run: npm run validate:seed
 
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Transcode hero video for web playback
+        run: |
+          if [ -f "public/img/20250625_073847000_iOS.MOV" ]; then
+            ffmpeg -y \
+              -i public/img/20250625_073847000_iOS.MOV \
+              -vf "scale='min(1920,iw)':-2:flags=lanczos,format=yuv420p" \
+              -c:v libx264 \
+              -profile:v high \
+              -level 4.1 \
+              -crf 23 \
+              -preset medium \
+              -movflags +faststart \
+              -an \
+              public/img/20250625_073847000_iOS.mp4
+          fi
+
       - name: Build
         env:
           VITE_BASE: "/${{ github.event.repository.name }}/"
