@@ -7,7 +7,7 @@ This project follows Semantic Versioning for the dataset: see `docs/engineering/
 ## Unreleased
 
 ### Dataset
-- Added project profiles for Diana Míčková, Heike Wilde, Laura Juliana Prieto Pabón, Victor Golubev, and Julie Tomsová.
+- Added project profiles for Diana Míčková, Heike Wilde, Laura Juliana Prieto Pabón, Victor Golubev, Julie Tomsová, Martin Pehal, and Jan Rezek.
 - Removed deprecated demo profiles `p-team-chemist` and `p-team-research-associate`.
 - Added local portrait assets under `public/img/people/` and updated people records to use site-relative image paths.
 - Extended people schema usage with `shortBlurb`, `affiliationsDetailed`, and `publications`.
