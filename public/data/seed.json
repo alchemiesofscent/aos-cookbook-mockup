@@ -4839,6 +4839,31 @@
       ]
     },
     {
+      "id": "p-jan-rezek",
+      "urn": "urn:aos:person:jan-rezek",
+      "slug": "jan-rezek",
+      "displayName": "Jan Rezek",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Botany"
+      ],
+      "bio": "Laboratory of Plant Biotechnologies Institute of Experimental Botany, v. v. i. Academy of Sciences of the Czech Republic Rozvojová 313 165 02 Prague 6 - Lysolaje Czech Republic",
+      "image": {
+        "src": "/img/people/jan-rezek.jpg",
+        "alt": "Jan Rezek"
+      },
+      "legacy": {
+        "sourceUrl": "/jan-rezek",
+        "sourcePostName": "jan-rezek"
+      },
+      "date": "Contemporary",
+      "name": "Jan Rezek",
+      "description": "Laboratory of Plant Biotechnologies Institute of Experimental Botany, v. v. i. Academy of Sciences of the Czech Republic Rozvojová 313 165 02 Prague 6 - Lysolaje Czech Republic",
+      "role": "Botany"
+    },
+    {
       "id": "p-julie-tomsova",
       "urn": "urn:aos:person:julie-tomsova",
       "slug": "julie-tomsova",
@@ -4985,6 +5010,43 @@
         {
           "label": "DOI 10.3390/molecules21121729",
           "url": "https://doi.org/10.3390/molecules21121729"
+        }
+      ]
+    },
+    {
+      "id": "p-martin-pehal",
+      "urn": "urn:aos:person:martin-pehal",
+      "slug": "martin-pehal",
+      "displayName": "Martin Pehal",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Egyptology"
+      ],
+      "bio": "Website",
+      "image": {
+        "src": "/img/people/martin-pehal.jpg",
+        "alt": "Martin Pehal"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://ufar.ff.cuni.cz/en/department-2/staff/martin-pehal/"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/martin-pehal",
+        "sourcePostName": "martin-pehal"
+      },
+      "date": "Contemporary",
+      "name": "Martin Pehal",
+      "description": "Website",
+      "role": "Egyptology",
+      "externalLinks": [
+        {
+          "label": "Website",
+          "url": "https://ufar.ff.cuni.cz/en/department-2/staff/martin-pehal/"
         }
       ]
     },

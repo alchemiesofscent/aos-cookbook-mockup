@@ -1,0 +1,16 @@
+id: p-jan-rezek
+urn: urn:aos:person:jan-rezek
+slug: jan-rezek
+displayName: Jan Rezek
+categories:
+  - team
+roles:
+  - Botany
+bio: Laboratory of Plant Biotechnologies Institute of Experimental Botany, v. v. i. Academy of Sciences of the Czech Republic Rozvojová 313 165 02 Prague 6 - Lysolaje Czech Republic
+image:
+  src: /img/people/jan-rezek.jpg
+  alt: Jan Rezek
+legacy:
+  sourceUrl: /jan-rezek
+  sourcePostName: jan-rezek
+date: Contemporary
