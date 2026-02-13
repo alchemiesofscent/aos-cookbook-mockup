@@ -18,6 +18,7 @@ export type DocsRoute = { slug: string };
 
 export type NavigateOptions = {
   replace?: boolean;
+  preserveScroll?: boolean;
   searchQuery?: string;
   params?: Record<string, string>;
 };

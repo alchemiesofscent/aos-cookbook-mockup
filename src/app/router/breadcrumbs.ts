@@ -120,6 +120,11 @@ export const buildBreadcrumbs = (route: string, db: DatabaseState): BreadcrumbIt
   const personRoute = parsePersonRoute(route);
   if (personRoute) {
     const person = (db.masterPeople ?? []).find((p) => p.id === personRoute.id);
+    const categories = person?.categories ?? [];
+    const isProjectPerson = categories.includes("team") || categories.includes("collaborator");
+    if (isProjectPerson) {
+      return [HOME, ABOUT, crumb("People", "about-people"), crumb(person?.displayName ?? person?.name ?? "Person")];
+    }
     return [HOME, LIBRARY, crumb("People", "people"), crumb(person?.displayName ?? person?.name ?? "Person")];
   }
 

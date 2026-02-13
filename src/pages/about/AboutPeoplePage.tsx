@@ -1,9 +1,13 @@
 import React from "react";
 import type { DatabaseState, MasterEntity } from "../../types";
-
-const getDisplayName = (person: MasterEntity) => person.displayName ?? person.name;
-const emailRe = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
-const getBio = (person: MasterEntity) => (person.bio ?? person.description ?? "").replace(emailRe, "").trim();
+import {
+  getPersonDisplayName,
+  getPersonRoles,
+  getPersonSortKey,
+  getPersonShortBlurb,
+  isCollaboratorPerson,
+  isTeamPerson,
+} from "../../lib/people";
 
 const renderCards = (people: MasterEntity[], navigate: (route: string) => void) => {
   if (!people.length) {
@@ -15,34 +19,32 @@ const renderCards = (people: MasterEntity[], navigate: (route: string) => void) 
   }
 
   return people.map((person) => {
-    const image = person.image?.src;
+    const roles = getPersonRoles(person);
+    const shortBlurb = getPersonShortBlurb(person, 170);
+    const imageSrc = person.image?.src;
+    const imageAlt = person.image?.alt ?? getPersonDisplayName(person);
     return (
       <div
         key={person.id}
-        className="recipe-card"
+        className="recipe-card person-card"
         onClick={() => navigate(`person:${person.id}`)}
         style={{ cursor: "pointer" }}
       >
-        {image ? (
-          <img
-            src={image}
-            alt={person.image?.alt ?? getDisplayName(person)}
-            style={{
-              width: "100%",
-              height: "180px",
-              objectFit: "cover",
-              objectPosition: "top center",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-            }}
-          />
-        ) : null}
-        <h3>{getDisplayName(person)}</h3>
-        {person.roles?.length ? <div className="card-sub">{person.roles[0]}</div> : person.role ? <div className="card-sub">{person.role}</div> : null}
-        {getBio(person) ? (
-          <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>{getBio(person)}</p>
-        ) : null}
-        <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
+        {imageSrc ? (
+          <img className="person-portrait-image" src={imageSrc} alt={imageAlt} />
+        ) : (
+          <div className="person-portrait-placeholder">[portrait placeholder]</div>
+        )}
+        <h3>{getPersonDisplayName(person)}</h3>
+        {roles.length ? <div className="card-sub">{roles[0]}</div> : null}
+        {shortBlurb ? <p className="person-card-blurb">{shortBlurb}</p> : null}
+        <button
+          className="btn-secondary"
+          onClick={(event) => {
+            event.stopPropagation();
+            navigate(`person:${person.id}`);
+          }}
+        >
           View profile
         </button>
       </div>
@@ -52,12 +54,12 @@ const renderCards = (people: MasterEntity[], navigate: (route: string) => void) 
 
 export const AboutPeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const team = [...(db.masterPeople ?? [])]
-    .filter((person) => (person.categories ?? []).includes("team") && !(person.categories ?? []).includes("alumni"))
-    .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b)));
+    .filter((person) => isTeamPerson(person) && !(person.categories ?? []).includes("alumni"))
+    .sort((a, b) => getPersonSortKey(a).localeCompare(getPersonSortKey(b)));
 
   const collaborators = [...(db.masterPeople ?? [])]
-    .filter((person) => (person.categories ?? []).includes("collaborator"))
-    .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b)));
+    .filter((person) => isCollaboratorPerson(person) && !(person.categories ?? []).includes("alumni"))
+    .sort((a, b) => getPersonSortKey(a).localeCompare(getPersonSortKey(b)));
 
   return (
     <div className="page-container">

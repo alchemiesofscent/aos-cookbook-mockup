@@ -1,0 +1,59 @@
+id: p-heike-wilde
+urn: urn:aos:person:heike-wilde
+slug: heike-wilde
+displayName: Heike Wilde
+categories:
+  - team
+roles:
+  - Postdoctoral Fellow
+affiliations:
+  - Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences
+  - Ägyptologisches Institut, Heidelberg University
+affiliationsDetailed:
+  - institution: Institute of Philosophy of the Czech Academy of Sciences
+    department: Department of Ancient and Medieval Thought
+    location: Prague, Czech Republic
+  - institution: Heidelberg University
+    department: Ägyptologisches Institut
+    location: Heidelberg, Germany
+    url: https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/aegy/institut/hwilde.html
+shortBlurb: Egyptologist examining scent, aromata, and ritual materials in Ancient Egypt, with focus on Edfu laboratory scenes.
+bio: |-
+  Heike Wilde is a postdoctoral fellow and Egyptologist at the Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences. Her work focuses on scent, aromata and related raw and manufactured materials in religious, symbolic and cultic contexts in Ancient Egypt. She is also affiliated with the Department of Egyptology at Heidelberg University.
+
+  Before her PhD in Egyptology, she worked on excavations in Germany and Egypt. She also worked with the Egyptian Collection of the Roemer- und Pelizaeus-Museum, preparing exhibition and workshop programming related to ancient Egyptian perfumery. After her PhD she continued research at Heidelberg University and later held a post in an interdisciplinary BMBF project in Art History.
+
+  Heike publishes on ancient technology and cultural history, especially the relationship between technology, art, social history, and ritual significance of materials in Ancient Egypt.
+
+  At Alchemies of Scent, Heike examines the laboratory scenes of the Edfu Temple and ritual scenes related to myrrh offerings in Late Egyptian temples. She also contributes to the project's Egyptian and ancient Greek perfumery lexicon.
+
+  "Glass-Working in Ancient Egypt. From Artificial Stone to Mass-Produced Translucence." In Edition TOPOI (Berlin 2021), 9-28.
+
+  "Technologie und Kommunikation. Innovationsschübe vor dem Hintergrund der Außenbeziehungen Altägyptens." In Mobilität und Wissenstransfer in diachroner und interdisziplinärer Perspektive (2013), 115-150.
+
+  "The Utilization and Proliferation of New Technologies and Materials during the 2nd Millennium BCE." In There and Back Again - The Crossroads II (2015), 129-148.
+
+  Innovation und Tradition. Zur Herstellung und Verbreitung von Prestigegütern im pharaonischen Ägypten. Wiesbaden, 2011.
+publications:
+  - label: Glass-Working in Ancient Egypt (Edition TOPOI)
+    url: https://doi.org/10.17171/3-67
+  - label: Technologie und Kommunikation (De Gruyter)
+    url: https://doi.org/10.1515/9783110258912.115
+image:
+  src: /img/people/heike-wilde.jpg
+  alt: Heike Wilde
+links:
+  - label: ORCID
+    url: http://orcid.org/0000-0001-6119-0694
+  - label: Academia.edu
+    url: https://cas-cz.academia.edu/HeikeWilde
+  - label: Heidelberg Profile
+    url: https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/aegy/institut/hwilde.html
+  - label: BMBF Project
+    url: http://www.rpmuseum.de/ueber-uns/projekte/kunstmodell.html
+  - label: DOI 10.1515/9783110258912.115
+    url: https://doi.org/10.1515/9783110258912.115
+legacy:
+  sourceUrl: /heike-wilde
+  sourcePostName: heike-wilde
+date: Contemporary

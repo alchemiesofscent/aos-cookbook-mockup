@@ -104,6 +104,10 @@ const App = ({
   const [route, setRoute] = useState(initialUrlState.route);
   const [searchQuery, setSearchQuery] = useState(initialUrlState.searchQuery);
   const [searchParams, setSearchParams] = useState<Record<string, string>>(initialUrlState.params);
+  const resetScrollToTop = () => {
+    if (typeof window === "undefined") return;
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
     document.title = "Alchemies of Scent — The Laboratory";
@@ -194,6 +198,10 @@ const App = ({
       setRoute(canonical);
       setSearchQuery(isSearch ? nextSearchQuery : "");
       setSearchParams(isSearch ? nextParams : {});
+      const shouldPreserveScroll = Boolean(options?.preserveScroll) || canonical === route;
+      if (!shouldPreserveScroll) {
+        resetScrollToTop();
+      }
     };
   }, [db, route, searchQuery, searchParams]);
 

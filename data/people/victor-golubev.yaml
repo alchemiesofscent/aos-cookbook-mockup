@@ -1,0 +1,46 @@
+id: p-victor-golubev
+urn: urn:aos:person:victor-golubev
+slug: victor-golubev
+displayName: Victor Golubev
+categories:
+  - team
+roles:
+  - Project Coordinator
+  - Doctoral Research Fellow
+affiliations:
+  - Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences
+  - Chemistry of Natural Products Group, Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences
+affiliationsDetailed:
+  - institution: Institute of Philosophy of the Czech Academy of Sciences
+    department: Department of Ancient and Medieval Thought
+    location: Prague, Czech Republic
+  - institution: Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences
+    department: Chemistry of Natural Products Group
+    location: Prague, Czech Republic
+    url: https://www.uochb.cz/cs/adresar/631/victor-golubev
+shortBlurb: Organic chemist coordinating replication and analytical workflows for ancient perfume oil preparation methods.
+bio: |-
+  Victor Golubev is an organic chemist in the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences. He works primarily on synthesis and application of phosphine ligands for transition-metal catalysis.
+
+  At Alchemies of Scent, Victor is responsible for analysis and replication of ancient perfume preparation procedures. He analyzes candidate oils used as substrates, reproduces ancient methodologies with modern equipment, develops chemical explanations of ongoing processes during oil preparation, and evaluates materials using GC/LC-MS.
+
+  Zubkov, F. I., Golubev, V. D., Zaytsev, V. P., Bakhanovich, O. V., Nikitina, E. V., Khrustalev, V. N., Aysin, R. R., Timofeeva, T. V., Novikov, R. A., Varlamov, A. V. "Ring-chain tautomerism in the products of the reaction between 5-substituted furfurylamines and anhydrides of α,β-unsaturated carboxylic acids." Chemistry of Heterocyclic Compounds, 52.4 (2016): 225-236.
+
+  Golubev, V., Zubkov, F. and Krasavin, M. "A simple, three-component synthesis of 2-aminothiazoles using trimethylsilyl isothiocyanate." Tetrahedron Letters 54 (2013): 4844-4847.
+
+  Zubkov, F. I., Zaytsev, V. P., Airiyan, I. K., Golubev, V. D., Puzikova, E. S., Sorokina, E. A., Nikitina, E. V., Varlamov, A. V. "Synthesis of oxiranoepoxy- and dihydroxyepoxyisoindolones." Russian Chemical Bulletin 3 (2012): 600-605.
+
+  Zaytsev, V. P., Mikhailova, N. M., Airiyan, I. K., Galkina, E. V., Golubev, V. D., Nikitina, E. V., Zubkov, F. I., Varlamov, A. V. "Cycloaddition of furfurilamines to maleic anhydride and its substituted derivatives." Chemistry of Heterocyclic Compounds 3 (2012): 505-513.
+publications:
+  - label: UOCHB publication/profile page
+    url: https://www.uochb.cz/cs/adresar/631/victor-golubev
+image:
+  src: /img/people/victor-golubev.jpg
+  alt: Victor Golubev
+links:
+  - label: UOCHB Profile
+    url: https://www.uochb.cz/cs/adresar/631/victor-golubev
+legacy:
+  sourceUrl: /victor-golubev
+  sourcePostName: victor-golubev
+date: Contemporary

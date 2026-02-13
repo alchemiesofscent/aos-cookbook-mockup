@@ -4,12 +4,19 @@ slug: sean-coughlin
 displayName: Sean Coughlin
 categories:
   - team
-  - collaborator
 roles:
   - Principal Investigator
 affiliations:
-  -   Junior Star Research Fellow Institute of Philosophy of the Czech Academy of Sciences Jilská 1, 110 00 Praha 1 Czech Republic;
-  -   Associate Scientist, Ullrich Jahn Group Chemistry of Natural Products Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences Flemingovo náměstí 2, 160 00 Praha 6 Czech Republic
+  - Institute of Philosophy of the Czech Academy of Sciences
+  - Ullrich Jahn Group, Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences
+affiliationsDetailed:
+  - institution: Institute of Philosophy of the Czech Academy of Sciences
+    department: Department of Ancient and Medieval Thought
+    location: Prague, Czech Republic
+  - institution: Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences
+    department: Ullrich Jahn Group, Chemistry of Natural Products
+    location: Prague, Czech Republic
+shortBlurb: Historian of science and principal investigator studying ancient perfumery, scientific writing, and experimental reconstruction.
 bio: |-
   Sean Coughlin is a historian of science who explores the connections between art and nature in the ancient Greek and Roman world. He is currently Junior Star Research Fellow at the Institute of Philosophy and Associate Scientist at the Institute of Organic Chemistry and Biochemistry at the Czech Academy of Sciences in Prague.
 
@@ -23,8 +30,8 @@ bio: |-
 
  
 image:
-  src: https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1636379735312-8ZCEIIEXO6FQ6APKBQNB/IMG_1494-2.jpg?format=original
-  alt: "  Sean Coughlin. Photo by Jana Říhová  "
+  src: /img/people/sean-coughlin.jpg
+  alt: Sean Coughlin
 links:
   - label: Department for Ancient and Medieval Thought, FLÚ AV ČR
     url: https://ancientmedieval.flu.cas.cz/en/people/team-for-ancient-philosophy/10-lide/274-sean-coughlin-en
@@ -37,6 +44,9 @@ links:
   - label: PhilPeople
     url: https://philpeople.org/profiles/sean-michael-pead-coughlin
   - label: Google Scholar
+    url: https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ
+publications:
+  - label: Google Scholar Publications
     url: https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ
 legacy:
   sourceUrl: /sean-coughlin

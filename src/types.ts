@@ -74,6 +74,14 @@ export interface MasterEntity {
   role?: string; // For people (e.g. "Physician")
   roles?: string[]; // For people
   affiliations?: string[]; // For people
+  shortBlurb?: string; // For people cards/indexes
+  affiliationsDetailed?: Array<{
+    institution: string;
+    department?: string;
+    location?: string;
+    url?: string;
+  }>; // For people
+  publications?: ExternalLink[]; // For people
   image?: {
     src: string;
     alt?: string;

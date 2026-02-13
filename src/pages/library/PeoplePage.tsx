@@ -1,11 +1,12 @@
 import React from "react";
 import type { DatabaseState } from "../../types";
+import { getPersonDisplayName, getPersonShortBlurb, getPersonRoles, getPersonSortKey } from "../../lib/people";
 
 export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void; db: DatabaseState }) => {
   const people = [...(db.masterPeople ?? [])]
     .filter((p) => (p.categories ?? []).includes("historical"))
     .filter((p) => !(p.categories ?? []).some((c) => c === "team" || c === "collaborator" || c === "alumni"))
-    .sort((a, b) => (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name));
+    .sort((a, b) => getPersonSortKey(a).localeCompare(getPersonSortKey(b)));
 
   return (
     <div className="page-container">
@@ -15,18 +16,19 @@ export const PeoplePage = ({ navigate, db }: { navigate: (route: string) => void
       </div>
 
       <div className="recipe-grid">
-        {people.map((person) => (
-          <div className="recipe-card" key={person.id}>
-            <h3>{person.displayName ?? person.name}</h3>
-            <div className="card-sub">{[person.role, person.date].filter(Boolean).join(" • ")}</div>
-            <p style={{ fontSize: "0.9rem", color: "var(--color-earth)", marginBottom: "1.5rem" }}>
-              {person.bio ?? person.description}
-            </p>
-            <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
-              View profile
-            </button>
-          </div>
-        ))}
+        {people.map((person) => {
+          const shortBlurb = getPersonShortBlurb(person, 180);
+          return (
+            <div className="recipe-card" key={person.id}>
+              <h3>{getPersonDisplayName(person)}</h3>
+              <div className="card-sub">{[...getPersonRoles(person), person.date].filter(Boolean).join(" • ")}</div>
+              {shortBlurb ? <p className="person-card-blurb">{shortBlurb}</p> : null}
+              <button className="btn-secondary" onClick={() => navigate(`person:${person.id}`)}>
+                View profile
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

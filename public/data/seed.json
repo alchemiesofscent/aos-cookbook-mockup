@@ -4682,44 +4682,311 @@
       "date": "6th century"
     },
     {
-      "id": "p-team-chemist",
-      "urn": "urn:aos:person:chemist-demo",
-      "slug": "chemist-demo",
-      "displayName": "Chemist (Demo)",
+      "id": "p-diana-mickova",
+      "urn": "urn:aos:person:diana-mickova",
+      "slug": "diana-mickova",
+      "displayName": "Diana Míčková",
       "categories": [
         "team"
       ],
       "roles": [
-        "Chemist"
+        "Doctoral Research Fellow"
       ],
       "affiliations": [
-        "Alchemies of Scent"
+        "Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences",
+        "Czech Institute of Egyptology and Institute of Greek and Latin Studies, Charles University"
       ],
-      "bio": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
+      "affiliationsDetailed": [
+        {
+          "institution": "Institute of Philosophy of the Czech Academy of Sciences",
+          "department": "Department of Ancient and Medieval Thought",
+          "location": "Prague, Czech Republic"
+        },
+        {
+          "institution": "Charles University",
+          "department": "Czech Institute of Egyptology and Institute of Greek and Latin Studies",
+          "location": "Prague, Czech Republic"
+        }
+      ],
+      "shortBlurb": "Egyptologist focused on Saite-Persian ritual texts, Egyptian perfumery lexicon work, and archaeology at Abusir.",
+      "bio": "Diana Míčková is an Egyptologist and currently a collaborator of the project Alchemies of Scent at the Department of Ancient and Medieval Thought Institute of Philosophy of the Czech Academy of Sciences. She is also a member and PhD candidate at the Czech Institute of Egyptology and PhD student at the Institute of Greek and Latin Studies of Charles University in Prague. Her work focuses mostly on translation and analysis of religious texts from the Saite-Persian shaft tombs at Abusir and she regularly participates on archaeological expeditions at Abusir under the Czech Institute of Egyptology. She also teaches Egyptian language and literature at Charles University in Prague.\n\nShe publishes on ancient Egyptian religious texts, magic and rituals, Egyptian literature and on the ancient art of memory. She is co-author, with Renata Landgráfová, of forthcoming volumes on the texts from the tombs of Menekhibnekau and Iufaa at Abusir. She is also co-author of a Czech translation of Middle Egyptian stories and an open-access database of their interlinear glossing.\n\nAt Alchemies of Scent, she collaborates on the project's lexicon of Egyptian perfumery texts, with particular focus on texts from the Laboratory of Edfu.\n\n\"Secrets of the Laboratory (jz) - The mummification ritual on the southern wall of the burial chamber of Iufaa at Abusir.\" With Renata Landgráfová. In Bárta, M., Coppens. F., Krejčí, J. (eds.). Abusir and Saqqara in the Year 2020, 2021, 349-359.\n\n\"Iufaa as a sun priest and his false window. Going forth into daylight at the eastern horizon.\" With Renata Landgráfová and Jiří Janák. In Bárta, M., Coppens. F., Krejčí, J. (eds.). Abusir and Saqqara in the Year 2020, 2021, 323-332.\n\n\"Purification of the Whopper - Royal Purification Ritual in the Shaft Tomb of Iufaa at Abusir.\" With Renata Landgráfová. In Coppens, F., Vymazalová, H. (eds.). XI. Ägyptologische Tempeltagung: The Discourse between Tomb and Temple, Wiesbaden, 2021, 183-208.\n\nPoslyš vyprávění z časů tvých otců: Příběhy ze starého Egypta. With Dorotea Wollnerová. Academia, 2019.\n\n\"The curious case of priest Iufaa: Preliminary remarks on texts on the inner side of the outer sarcophagus.\" In Current Research in Egyptology 2017: proceedings of eighteenth annual symposium, Access Archaeopress series, 2018, 116-125.",
+      "publications": [
+        {
+          "label": "Interlinear Glossing Database (project resource)",
+          "url": "https://cegu.ff.cuni.cz/cs/veda-a-vyzkum/projekty/dalsi-projekty/staroegyptske-povidky-z-obdobi-stredni-rise-preklad-analyza-a-zpristupneni-gramaticke-struktury-textu-obecne-lingvistice"
+        }
+      ],
+      "image": {
+        "src": "/img/people/diana-mickova.jpg",
+        "alt": "Diana Míčková"
+      },
+      "links": [
+        {
+          "label": "Interlinear Glossing Database",
+          "url": "https://cegu.ff.cuni.cz/cs/veda-a-vyzkum/projekty/dalsi-projekty/staroegyptske-povidky-z-obdobi-stredni-rise-preklad-analyza-a-zpristupneni-gramaticke-struktury-textu-obecne-lingvistice"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/diana-mickova",
+        "sourcePostName": "diana-mickova"
+      },
       "date": "Contemporary",
-      "name": "Chemist (Demo)",
-      "description": "Chemist conducting analysis of reconstructed aromatics and materials (demo profile).",
-      "role": "Chemist"
+      "name": "Diana Míčková",
+      "description": "Diana Míčková is an Egyptologist and currently a collaborator of the project Alchemies of Scent at the Department of Ancient and Medieval Thought Institute of Philosophy of the Czech Academy of Sciences. She is also a member and PhD candidate at the Czech Institute of Egyptology and PhD student at the Institute of Greek and Latin Studies of Charles University in Prague. Her work focuses mostly on translation and analysis of religious texts from the Saite-Persian shaft tombs at Abusir and she regularly participates on archaeological expeditions at Abusir under the Czech Institute of Egyptology. She also teaches Egyptian language and literature at Charles University in Prague.\n\nShe publishes on ancient Egyptian religious texts, magic and rituals, Egyptian literature and on the ancient art of memory. She is co-author, with Renata Landgráfová, of forthcoming volumes on the texts from the tombs of Menekhibnekau and Iufaa at Abusir. She is also co-author of a Czech translation of Middle Egyptian stories and an open-access database of their interlinear glossing.\n\nAt Alchemies of Scent, she collaborates on the project's lexicon of Egyptian perfumery texts, with particular focus on texts from the Laboratory of Edfu.\n\n\"Secrets of the Laboratory (jz) - The mummification ritual on the southern wall of the burial chamber of Iufaa at Abusir.\" With Renata Landgráfová. In Bárta, M., Coppens. F., Krejčí, J. (eds.). Abusir and Saqqara in the Year 2020, 2021, 349-359.\n\n\"Iufaa as a sun priest and his false window. Going forth into daylight at the eastern horizon.\" With Renata Landgráfová and Jiří Janák. In Bárta, M., Coppens. F., Krejčí, J. (eds.). Abusir and Saqqara in the Year 2020, 2021, 323-332.\n\n\"Purification of the Whopper - Royal Purification Ritual in the Shaft Tomb of Iufaa at Abusir.\" With Renata Landgráfová. In Coppens, F., Vymazalová, H. (eds.). XI. Ägyptologische Tempeltagung: The Discourse between Tomb and Temple, Wiesbaden, 2021, 183-208.\n\nPoslyš vyprávění z časů tvých otců: Příběhy ze starého Egypta. With Dorotea Wollnerová. Academia, 2019.\n\n\"The curious case of priest Iufaa: Preliminary remarks on texts on the inner side of the outer sarcophagus.\" In Current Research in Egyptology 2017: proceedings of eighteenth annual symposium, Access Archaeopress series, 2018, 116-125.",
+      "role": "Doctoral Research Fellow",
+      "externalLinks": [
+        {
+          "label": "Interlinear Glossing Database",
+          "url": "https://cegu.ff.cuni.cz/cs/veda-a-vyzkum/projekty/dalsi-projekty/staroegyptske-povidky-z-obdobi-stredni-rise-preklad-analyza-a-zpristupneni-gramaticke-struktury-textu-obecne-lingvistice"
+        }
+      ]
     },
     {
-      "id": "p-team-research-associate",
-      "urn": "urn:aos:person:research-associate-demo",
-      "slug": "research-associate-demo",
-      "displayName": "Research Associate (Demo)",
+      "id": "p-heike-wilde",
+      "urn": "urn:aos:person:heike-wilde",
+      "slug": "heike-wilde",
+      "displayName": "Heike Wilde",
       "categories": [
         "team"
       ],
       "roles": [
-        "Research Associate"
+        "Postdoctoral Fellow"
       ],
       "affiliations": [
-        "Alchemies of Scent"
+        "Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences",
+        "Ägyptologisches Institut, Heidelberg University"
       ],
-      "bio": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
+      "affiliationsDetailed": [
+        {
+          "institution": "Institute of Philosophy of the Czech Academy of Sciences",
+          "department": "Department of Ancient and Medieval Thought",
+          "location": "Prague, Czech Republic"
+        },
+        {
+          "institution": "Heidelberg University",
+          "department": "Ägyptologisches Institut",
+          "location": "Heidelberg, Germany",
+          "url": "https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/aegy/institut/hwilde.html"
+        }
+      ],
+      "shortBlurb": "Egyptologist examining scent, aromata, and ritual materials in Ancient Egypt, with focus on Edfu laboratory scenes.",
+      "bio": "Heike Wilde is a postdoctoral fellow and Egyptologist at the Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences. Her work focuses on scent, aromata and related raw and manufactured materials in religious, symbolic and cultic contexts in Ancient Egypt. She is also affiliated with the Department of Egyptology at Heidelberg University.\n\nBefore her PhD in Egyptology, she worked on excavations in Germany and Egypt. She also worked with the Egyptian Collection of the Roemer- und Pelizaeus-Museum, preparing exhibition and workshop programming related to ancient Egyptian perfumery. After her PhD she continued research at Heidelberg University and later held a post in an interdisciplinary BMBF project in Art History.\n\nHeike publishes on ancient technology and cultural history, especially the relationship between technology, art, social history, and ritual significance of materials in Ancient Egypt.\n\nAt Alchemies of Scent, Heike examines the laboratory scenes of the Edfu Temple and ritual scenes related to myrrh offerings in Late Egyptian temples. She also contributes to the project's Egyptian and ancient Greek perfumery lexicon.\n\n\"Glass-Working in Ancient Egypt. From Artificial Stone to Mass-Produced Translucence.\" In Edition TOPOI (Berlin 2021), 9-28.\n\n\"Technologie und Kommunikation. Innovationsschübe vor dem Hintergrund der Außenbeziehungen Altägyptens.\" In Mobilität und Wissenstransfer in diachroner und interdisziplinärer Perspektive (2013), 115-150.\n\n\"The Utilization and Proliferation of New Technologies and Materials during the 2nd Millennium BCE.\" In There and Back Again - The Crossroads II (2015), 129-148.\n\nInnovation und Tradition. Zur Herstellung und Verbreitung von Prestigegütern im pharaonischen Ägypten. Wiesbaden, 2011.",
+      "publications": [
+        {
+          "label": "Glass-Working in Ancient Egypt (Edition TOPOI)",
+          "url": "https://doi.org/10.17171/3-67"
+        },
+        {
+          "label": "Technologie und Kommunikation (De Gruyter)",
+          "url": "https://doi.org/10.1515/9783110258912.115"
+        }
+      ],
+      "image": {
+        "src": "/img/people/heike-wilde.jpg",
+        "alt": "Heike Wilde"
+      },
+      "links": [
+        {
+          "label": "ORCID",
+          "url": "http://orcid.org/0000-0001-6119-0694"
+        },
+        {
+          "label": "Academia.edu",
+          "url": "https://cas-cz.academia.edu/HeikeWilde"
+        },
+        {
+          "label": "Heidelberg Profile",
+          "url": "https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/aegy/institut/hwilde.html"
+        },
+        {
+          "label": "BMBF Project",
+          "url": "http://www.rpmuseum.de/ueber-uns/projekte/kunstmodell.html"
+        },
+        {
+          "label": "DOI 10.1515/9783110258912.115",
+          "url": "https://doi.org/10.1515/9783110258912.115"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/heike-wilde",
+        "sourcePostName": "heike-wilde"
+      },
       "date": "Contemporary",
-      "name": "Research Associate (Demo)",
-      "description": "Research Associate focusing on Greek and Latin botanical terminology (demo profile).",
-      "role": "Research Associate"
+      "name": "Heike Wilde",
+      "description": "Heike Wilde is a postdoctoral fellow and Egyptologist at the Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences. Her work focuses on scent, aromata and related raw and manufactured materials in religious, symbolic and cultic contexts in Ancient Egypt. She is also affiliated with the Department of Egyptology at Heidelberg University.\n\nBefore her PhD in Egyptology, she worked on excavations in Germany and Egypt. She also worked with the Egyptian Collection of the Roemer- und Pelizaeus-Museum, preparing exhibition and workshop programming related to ancient Egyptian perfumery. After her PhD she continued research at Heidelberg University and later held a post in an interdisciplinary BMBF project in Art History.\n\nHeike publishes on ancient technology and cultural history, especially the relationship between technology, art, social history, and ritual significance of materials in Ancient Egypt.\n\nAt Alchemies of Scent, Heike examines the laboratory scenes of the Edfu Temple and ritual scenes related to myrrh offerings in Late Egyptian temples. She also contributes to the project's Egyptian and ancient Greek perfumery lexicon.\n\n\"Glass-Working in Ancient Egypt. From Artificial Stone to Mass-Produced Translucence.\" In Edition TOPOI (Berlin 2021), 9-28.\n\n\"Technologie und Kommunikation. Innovationsschübe vor dem Hintergrund der Außenbeziehungen Altägyptens.\" In Mobilität und Wissenstransfer in diachroner und interdisziplinärer Perspektive (2013), 115-150.\n\n\"The Utilization and Proliferation of New Technologies and Materials during the 2nd Millennium BCE.\" In There and Back Again - The Crossroads II (2015), 129-148.\n\nInnovation und Tradition. Zur Herstellung und Verbreitung von Prestigegütern im pharaonischen Ägypten. Wiesbaden, 2011.",
+      "role": "Postdoctoral Fellow",
+      "externalLinks": [
+        {
+          "label": "ORCID",
+          "url": "http://orcid.org/0000-0001-6119-0694"
+        },
+        {
+          "label": "Academia.edu",
+          "url": "https://cas-cz.academia.edu/HeikeWilde"
+        },
+        {
+          "label": "Heidelberg Profile",
+          "url": "https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/aegy/institut/hwilde.html"
+        },
+        {
+          "label": "BMBF Project",
+          "url": "http://www.rpmuseum.de/ueber-uns/projekte/kunstmodell.html"
+        },
+        {
+          "label": "DOI 10.1515/9783110258912.115",
+          "url": "https://doi.org/10.1515/9783110258912.115"
+        }
+      ]
+    },
+    {
+      "id": "p-julie-tomsova",
+      "urn": "urn:aos:person:julie-tomsova",
+      "slug": "julie-tomsova",
+      "displayName": "Julie Tomsová",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Exhibition Coordinator"
+      ],
+      "affiliations": [
+        "Náprstek Museum of Asian, African and American Cultures, National Museum",
+        "Faculty of Humanities, Charles University"
+      ],
+      "affiliationsDetailed": [
+        {
+          "institution": "National Museum",
+          "department": "Náprstek Museum of Asian, African and American Cultures",
+          "location": "Prague, Czech Republic"
+        },
+        {
+          "institution": "Charles University",
+          "department": "Faculty of Humanities, Department of General Anthropology",
+          "location": "Prague, Czech Republic"
+        }
+      ],
+      "shortBlurb": "Egyptologist and archaeologist focused on public engagement, educational programming, and project events coordination.",
+      "bio": "Julie Tomsová is an Egyptologist and archaeologist focused on public archaeology and education. She prepares educational programs for schools and the public at the Náprstek Museum of Asian, African and American Cultures (National Museum). She also studies and presents the anthropological-Egyptological collection of the Hrdlička Museum of Man at Charles University and collaborates with Fraus publishing house on educational materials for Czech elementary schools. She is a PhD candidate at the Faculty of Humanities, Charles University.\n\nShe publishes on the Egyptological collection of the Hrdlička Museum of Man and co-authored studies on ancient Egyptian mummies in Czech collections.\n\nAt Alchemies of Scent, she coordinates public-facing events including workshops, lectures, festivals, fairs, and other cultural programs, and contributes to project presentation and PR communication.\n\n\"Egyptologická sbírka Hrdličkova muzea člověka PřF UK v Praze.\" In Pražské egyptologické studie XII, 2014, pp. 56-67.\n\n\"Skeletal Material from Deir el-Medina in the Egyptological Collection of the Hrdlicka Museum of Man in Prague.\" With Zuzana Schierová. In Annals of the Náprstek Museum 37, 2016, pp. 41-69.\n\n\"Atlas of Egyptian Mummies in the Czech Collections I: Complete Adult Human Mummies.\" With Pavel Onderka et al. National Museum, 2016.\n\n\"Dějepis 6 s nadhledem. Pracovní sešit pro základní školy a víceletá gymnázia.\" With Veronika Puhačová et al. Fraus, 2020.",
+      "publications": [
+        {
+          "label": "Publications profile (Academia.edu)",
+          "url": "https://cuni.academia.edu/JulieTomsov%C3%A1"
+        }
+      ],
+      "image": {
+        "src": "/img/people/julie-tomsova.jpg",
+        "alt": "Julie Tomsová"
+      },
+      "links": [
+        {
+          "label": "Academia.edu",
+          "url": "https://cuni.academia.edu/JulieTomsov%C3%A1"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/julie-tomsova",
+        "sourcePostName": "julie-tomsova"
+      },
+      "date": "Contemporary",
+      "name": "Julie Tomsová",
+      "description": "Julie Tomsová is an Egyptologist and archaeologist focused on public archaeology and education. She prepares educational programs for schools and the public at the Náprstek Museum of Asian, African and American Cultures (National Museum). She also studies and presents the anthropological-Egyptological collection of the Hrdlička Museum of Man at Charles University and collaborates with Fraus publishing house on educational materials for Czech elementary schools. She is a PhD candidate at the Faculty of Humanities, Charles University.\n\nShe publishes on the Egyptological collection of the Hrdlička Museum of Man and co-authored studies on ancient Egyptian mummies in Czech collections.\n\nAt Alchemies of Scent, she coordinates public-facing events including workshops, lectures, festivals, fairs, and other cultural programs, and contributes to project presentation and PR communication.\n\n\"Egyptologická sbírka Hrdličkova muzea člověka PřF UK v Praze.\" In Pražské egyptologické studie XII, 2014, pp. 56-67.\n\n\"Skeletal Material from Deir el-Medina in the Egyptological Collection of the Hrdlicka Museum of Man in Prague.\" With Zuzana Schierová. In Annals of the Náprstek Museum 37, 2016, pp. 41-69.\n\n\"Atlas of Egyptian Mummies in the Czech Collections I: Complete Adult Human Mummies.\" With Pavel Onderka et al. National Museum, 2016.\n\n\"Dějepis 6 s nadhledem. Pracovní sešit pro základní školy a víceletá gymnázia.\" With Veronika Puhačová et al. Fraus, 2020.",
+      "role": "Exhibition Coordinator",
+      "externalLinks": [
+        {
+          "label": "Academia.edu",
+          "url": "https://cuni.academia.edu/JulieTomsov%C3%A1"
+        }
+      ]
+    },
+    {
+      "id": "p-laura-prieto",
+      "urn": "urn:aos:person:laura-prieto",
+      "slug": "laura-prieto",
+      "displayName": "Laura Juliana Prieto Pabón",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Doctoral Fellow"
+      ],
+      "affiliations": [
+        "Chemistry of Natural Products Group, Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences"
+      ],
+      "affiliationsDetailed": [
+        {
+          "institution": "Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences",
+          "department": "Chemistry of Natural Products Group",
+          "location": "Prague, Czech Republic"
+        }
+      ],
+      "shortBlurb": "Flavors and fragrances chemist leading replication workflows and biomarker-focused analytical work for ancient perfume reconstructions.",
+      "bio": "Laura Juliana Prieto Pabón is a flavors and fragrances chemist with experience in organic chemistry and sensory evaluation in fine fragrance. She is part of the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences.\n\nAt Alchemies of Scent, Laura is responsible for replication of ancient perfume preparation procedures. Her doctoral project includes identifying and synthesizing relevant biomarkers for ancient perfumery ingredients, modeling ancient methods with modern techniques, and analyzing raw and processed materials using GC/LC-MS.\n\nPlevová K.; Prieto Pabón L.J.; Gaysinski, M.; Poulain-Martini, S.; Michelet, V. \"Phosphorous NMR Analysis and Activity of Chiral BINAP-Silver Complexes.\" ChemPlusChem, 2022, 87 (11).\n\nCardona-G, W.; Robledo, S. M.; Prieto, L.J.; Yepes, A.F. \"S-AllylCysteine Ester/Caffeic Acid Amide Hybrids as Promising Antiprotozoal Candidates.\" Brazilian Journal of Pharmaceutical Sciences, 2022, 58.\n\nCastrillón, W.; Herrera-R.; Prieto, L.J.; Conesa-Milián, L.; Carda, M.; Naranjo, T.; Maldonado, M.E.; Cardona-G, W. \"Synthesis and In-vitro Evaluation of S-allylcysteine Ester Caffeic Acid Amide Hybrids as Potential Anticancer Agents.\" Iranian Journal of Pharmaceutical Research, 2019, 18(4), 1770-1789.\n\nGarcía, J.; Prieto, L.; Guevara, A.; Malagon, D.; Osorio, C. \"Chemical Studies of Yellow Tamarillo (Solanum betaceum Cav.) Fruit Flavor by Using a Molecular Sensory Approach.\" Molecules, 2016, 21, 1729.",
+      "publications": [
+        {
+          "label": "ChemPlusChem (2022)",
+          "url": "https://doi.org/10.1002/cplu.202200217"
+        },
+        {
+          "label": "Brazilian Journal of Pharmaceutical Sciences (2022)",
+          "url": "https://doi.org/10.1590/s2175-97902022e20822"
+        },
+        {
+          "label": "Iranian Journal of Pharmaceutical Research (2019)",
+          "url": "https://doi.org/10.22037/ijpr.2019.15184.12921"
+        },
+        {
+          "label": "Molecules (2016)",
+          "url": "https://doi.org/10.3390/molecules21121729"
+        }
+      ],
+      "image": {
+        "src": "/img/people/laura-prieto.jpg",
+        "alt": "Laura Juliana Prieto Pabón"
+      },
+      "links": [
+        {
+          "label": "DOI 10.1002/cplu.202200217",
+          "url": "https://doi.org/10.1002/cplu.202200217"
+        },
+        {
+          "label": "DOI 10.1590/s2175-97902022e20822",
+          "url": "https://doi.org/10.1590/s2175-97902022e20822"
+        },
+        {
+          "label": "DOI 10.22037/ijpr.2019.15184.12921",
+          "url": "https://doi.org/10.22037/ijpr.2019.15184.12921"
+        },
+        {
+          "label": "DOI 10.3390/molecules21121729",
+          "url": "https://doi.org/10.3390/molecules21121729"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/laura-prieto",
+        "sourcePostName": "laura-prieto"
+      },
+      "date": "Contemporary",
+      "name": "Laura Juliana Prieto Pabón",
+      "description": "Laura Juliana Prieto Pabón is a flavors and fragrances chemist with experience in organic chemistry and sensory evaluation in fine fragrance. She is part of the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences.\n\nAt Alchemies of Scent, Laura is responsible for replication of ancient perfume preparation procedures. Her doctoral project includes identifying and synthesizing relevant biomarkers for ancient perfumery ingredients, modeling ancient methods with modern techniques, and analyzing raw and processed materials using GC/LC-MS.\n\nPlevová K.; Prieto Pabón L.J.; Gaysinski, M.; Poulain-Martini, S.; Michelet, V. \"Phosphorous NMR Analysis and Activity of Chiral BINAP-Silver Complexes.\" ChemPlusChem, 2022, 87 (11).\n\nCardona-G, W.; Robledo, S. M.; Prieto, L.J.; Yepes, A.F. \"S-AllylCysteine Ester/Caffeic Acid Amide Hybrids as Promising Antiprotozoal Candidates.\" Brazilian Journal of Pharmaceutical Sciences, 2022, 58.\n\nCastrillón, W.; Herrera-R.; Prieto, L.J.; Conesa-Milián, L.; Carda, M.; Naranjo, T.; Maldonado, M.E.; Cardona-G, W. \"Synthesis and In-vitro Evaluation of S-allylcysteine Ester Caffeic Acid Amide Hybrids as Potential Anticancer Agents.\" Iranian Journal of Pharmaceutical Research, 2019, 18(4), 1770-1789.\n\nGarcía, J.; Prieto, L.; Guevara, A.; Malagon, D.; Osorio, C. \"Chemical Studies of Yellow Tamarillo (Solanum betaceum Cav.) Fruit Flavor by Using a Molecular Sensory Approach.\" Molecules, 2016, 21, 1729.",
+      "role": "Doctoral Fellow",
+      "externalLinks": [
+        {
+          "label": "DOI 10.1002/cplu.202200217",
+          "url": "https://doi.org/10.1002/cplu.202200217"
+        },
+        {
+          "label": "DOI 10.1590/s2175-97902022e20822",
+          "url": "https://doi.org/10.1590/s2175-97902022e20822"
+        },
+        {
+          "label": "DOI 10.22037/ijpr.2019.15184.12921",
+          "url": "https://doi.org/10.22037/ijpr.2019.15184.12921"
+        },
+        {
+          "label": "DOI 10.3390/molecules21121729",
+          "url": "https://doi.org/10.3390/molecules21121729"
+        }
+      ]
     },
     {
       "id": "p-sean-coughlin",
@@ -4727,20 +4994,32 @@
       "slug": "sean-coughlin",
       "displayName": "Sean Coughlin",
       "categories": [
-        "team",
-        "collaborator"
+        "team"
       ],
       "roles": [
         "Principal Investigator"
       ],
       "affiliations": [
-        "Junior Star Research Fellow Institute of Philosophy of the Czech Academy of Sciences Jilská 1, 110 00 Praha 1 Czech Republic",
-        "Associate Scientist Ullrich Jahn Group | Chemistry of Natural Products Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences Flemingovo náměstí 2, 160 00 Praha 6 Czech Republic"
+        "Institute of Philosophy of the Czech Academy of Sciences",
+        "Ullrich Jahn Group, Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences"
       ],
+      "affiliationsDetailed": [
+        {
+          "institution": "Institute of Philosophy of the Czech Academy of Sciences",
+          "department": "Department of Ancient and Medieval Thought",
+          "location": "Prague, Czech Republic"
+        },
+        {
+          "institution": "Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences",
+          "department": "Ullrich Jahn Group, Chemistry of Natural Products",
+          "location": "Prague, Czech Republic"
+        }
+      ],
+      "shortBlurb": "Historian of science and principal investigator studying ancient perfumery, scientific writing, and experimental reconstruction.",
       "bio": "Sean Coughlin is a historian of science who explores the connections between art and nature in the ancient Greek and Roman world. He is currently Junior Star Research Fellow at the Institute of Philosophy and Associate Scientist at the Institute of Organic Chemistry and Biochemistry at the Czech Academy of Sciences in Prague.\n\nSean has held posts at the Collaborative Research Centre SFB 980 Episteme in Motion, the Department of Classical Philology, Humboldt-Universität zu Berlin, Excellence Cluster Topoi, and the University of Western Ontario. He has held visiting fellowships at Einstein Center: Chronoi, the Martin Buber Society of Fellows at the Hebrew University of Jerusalem, and the Research Training Group: Philosophy, Science and the Sciences in Berlin. He worked for a time as a cook to understand culinary metaphors in Aristotle’s biology. Before ancient philosophy, he was a laboratory technician in the Department of Psychiatry and Behavioural Neurosciences at McMaster University.\n\nHe publishes on Ancient Greek and Latin philosophy, on Greco-Roman medicine and pharmacology, on genres of scientific writing, and on perfumery in the ancient Mediterranean. With David Leith and Orly Lewis, he co-edited the volume The Concept of Pneuma after Aristotle (Berlin: Edition Topoi, 2020). His work has been exhibited in at National Geographic Museum in Washington DC and the Berlin Museum of Medical History and has been covered by the BBC, the Times, the Washington Post and Repubblica.\n\nAt Alchemies of Scent, Sean will be looking at how artistic production was used as a model for understanding the natural world, and vice versa, how experience of the natural world was thought to be the source of different artistic methods.\n\nHe will also be conducting experiments on Greco-Egyptian perfume production techniques preserved in the works of Theophrastus, Dioscorides, Pliny the Elder, Galen and the medical encyclopedists, Oribasius, Aetius of Amida and Paul of Aegina.",
       "image": {
-        "src": "https://images.squarespace-cdn.com/content/v1/60748620e2a1a54b20bb852d/1636379735312-8ZCEIIEXO6FQ6APKBQNB/IMG_1494-2.jpg?format=original",
-        "alt": "  Sean Coughlin. Photo by Jana Říhová  "
+        "src": "/img/people/sean-coughlin.jpg",
+        "alt": "Sean Coughlin"
       },
       "links": [
         {
@@ -4765,6 +5044,12 @@
         },
         {
           "label": "Google Scholar",
+          "url": "https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ"
+        }
+      ],
+      "publications": [
+        {
+          "label": "Google Scholar Publications",
           "url": "https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ"
         }
       ],
@@ -4800,6 +5085,68 @@
         {
           "label": "Google Scholar",
           "url": "https://scholar.google.de/citations?hl=en&user=8GbU_DwAAAAJ"
+        }
+      ]
+    },
+    {
+      "id": "p-victor-golubev",
+      "urn": "urn:aos:person:victor-golubev",
+      "slug": "victor-golubev",
+      "displayName": "Victor Golubev",
+      "categories": [
+        "team"
+      ],
+      "roles": [
+        "Project Coordinator",
+        "Doctoral Research Fellow"
+      ],
+      "affiliations": [
+        "Department of Ancient and Medieval Thought, Institute of Philosophy of the Czech Academy of Sciences",
+        "Chemistry of Natural Products Group, Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences"
+      ],
+      "affiliationsDetailed": [
+        {
+          "institution": "Institute of Philosophy of the Czech Academy of Sciences",
+          "department": "Department of Ancient and Medieval Thought",
+          "location": "Prague, Czech Republic"
+        },
+        {
+          "institution": "Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences",
+          "department": "Chemistry of Natural Products Group",
+          "location": "Prague, Czech Republic",
+          "url": "https://www.uochb.cz/cs/adresar/631/victor-golubev"
+        }
+      ],
+      "shortBlurb": "Organic chemist coordinating replication and analytical workflows for ancient perfume oil preparation methods.",
+      "bio": "Victor Golubev is an organic chemist in the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences. He works primarily on synthesis and application of phosphine ligands for transition-metal catalysis.\n\nAt Alchemies of Scent, Victor is responsible for analysis and replication of ancient perfume preparation procedures. He analyzes candidate oils used as substrates, reproduces ancient methodologies with modern equipment, develops chemical explanations of ongoing processes during oil preparation, and evaluates materials using GC/LC-MS.\n\nZubkov, F. I., Golubev, V. D., Zaytsev, V. P., Bakhanovich, O. V., Nikitina, E. V., Khrustalev, V. N., Aysin, R. R., Timofeeva, T. V., Novikov, R. A., Varlamov, A. V. \"Ring-chain tautomerism in the products of the reaction between 5-substituted furfurylamines and anhydrides of α,β-unsaturated carboxylic acids.\" Chemistry of Heterocyclic Compounds, 52.4 (2016): 225-236.\n\nGolubev, V., Zubkov, F. and Krasavin, M. \"A simple, three-component synthesis of 2-aminothiazoles using trimethylsilyl isothiocyanate.\" Tetrahedron Letters 54 (2013): 4844-4847.\n\nZubkov, F. I., Zaytsev, V. P., Airiyan, I. K., Golubev, V. D., Puzikova, E. S., Sorokina, E. A., Nikitina, E. V., Varlamov, A. V. \"Synthesis of oxiranoepoxy- and dihydroxyepoxyisoindolones.\" Russian Chemical Bulletin 3 (2012): 600-605.\n\nZaytsev, V. P., Mikhailova, N. M., Airiyan, I. K., Galkina, E. V., Golubev, V. D., Nikitina, E. V., Zubkov, F. I., Varlamov, A. V. \"Cycloaddition of furfurilamines to maleic anhydride and its substituted derivatives.\" Chemistry of Heterocyclic Compounds 3 (2012): 505-513.",
+      "publications": [
+        {
+          "label": "UOCHB publication/profile page",
+          "url": "https://www.uochb.cz/cs/adresar/631/victor-golubev"
+        }
+      ],
+      "image": {
+        "src": "/img/people/victor-golubev.jpg",
+        "alt": "Victor Golubev"
+      },
+      "links": [
+        {
+          "label": "UOCHB Profile",
+          "url": "https://www.uochb.cz/cs/adresar/631/victor-golubev"
+        }
+      ],
+      "legacy": {
+        "sourceUrl": "/victor-golubev",
+        "sourcePostName": "victor-golubev"
+      },
+      "date": "Contemporary",
+      "name": "Victor Golubev",
+      "description": "Victor Golubev is an organic chemist in the Chemistry of Natural Products Group at the Institute of Organic Chemistry and Biochemistry of the Czech Academy of Sciences. He works primarily on synthesis and application of phosphine ligands for transition-metal catalysis.\n\nAt Alchemies of Scent, Victor is responsible for analysis and replication of ancient perfume preparation procedures. He analyzes candidate oils used as substrates, reproduces ancient methodologies with modern equipment, develops chemical explanations of ongoing processes during oil preparation, and evaluates materials using GC/LC-MS.\n\nZubkov, F. I., Golubev, V. D., Zaytsev, V. P., Bakhanovich, O. V., Nikitina, E. V., Khrustalev, V. N., Aysin, R. R., Timofeeva, T. V., Novikov, R. A., Varlamov, A. V. \"Ring-chain tautomerism in the products of the reaction between 5-substituted furfurylamines and anhydrides of α,β-unsaturated carboxylic acids.\" Chemistry of Heterocyclic Compounds, 52.4 (2016): 225-236.\n\nGolubev, V., Zubkov, F. and Krasavin, M. \"A simple, three-component synthesis of 2-aminothiazoles using trimethylsilyl isothiocyanate.\" Tetrahedron Letters 54 (2013): 4844-4847.\n\nZubkov, F. I., Zaytsev, V. P., Airiyan, I. K., Golubev, V. D., Puzikova, E. S., Sorokina, E. A., Nikitina, E. V., Varlamov, A. V. \"Synthesis of oxiranoepoxy- and dihydroxyepoxyisoindolones.\" Russian Chemical Bulletin 3 (2012): 600-605.\n\nZaytsev, V. P., Mikhailova, N. M., Airiyan, I. K., Galkina, E. V., Golubev, V. D., Nikitina, E. V., Zubkov, F. I., Varlamov, A. V. \"Cycloaddition of furfurilamines to maleic anhydride and its substituted derivatives.\" Chemistry of Heterocyclic Compounds 3 (2012): 505-513.",
+      "role": "Project Coordinator",
+      "externalLinks": [
+        {
+          "label": "UOCHB Profile",
+          "url": "https://www.uochb.cz/cs/adresar/631/victor-golubev"
         }
       ]
     }

@@ -35,17 +35,49 @@ const normalizeArray = (value: unknown): string[] => {
   return [];
 };
 
-const normalizeExternalLinks = (value: unknown) => {
+const normalizeLinkList = (value: unknown) => {
   if (!Array.isArray(value)) return undefined;
-  return value
+  const normalized = value
     .map((item) => {
       if (!item || typeof item !== "object") return null;
       const label = typeof (item as { label?: unknown }).label === "string" ? (item as { label: string }).label : "";
       const url = typeof (item as { url?: unknown }).url === "string" ? (item as { url: string }).url : "";
       if (!label && !url) return null;
-      return { label, url };
+      return { label: label.trim(), url: url.trim() };
     })
     .filter(Boolean);
+  return normalized.length ? normalized : undefined;
+};
+
+const normalizeAffiliationsDetailed = (value: unknown) => {
+  if (!Array.isArray(value)) return undefined;
+  const normalized = value
+    .map((item) => {
+      if (!item || typeof item !== "object") return null;
+      const institution =
+        typeof (item as { institution?: unknown }).institution === "string"
+          ? (item as { institution: string }).institution.trim()
+          : "";
+      const department =
+        typeof (item as { department?: unknown }).department === "string"
+          ? (item as { department: string }).department.trim()
+          : "";
+      const location =
+        typeof (item as { location?: unknown }).location === "string"
+          ? (item as { location: string }).location.trim()
+          : "";
+      const url = typeof (item as { url?: unknown }).url === "string" ? (item as { url: string }).url.trim() : "";
+
+      if (!institution && !department && !location && !url) return null;
+      return {
+        institution: institution || department || location || "Affiliation",
+        department: department || undefined,
+        location: location || undefined,
+        url: url || undefined,
+      };
+    })
+    .filter(Boolean);
+  return normalized.length ? normalized : undefined;
 };
 
 const main = async () => {
@@ -95,10 +127,23 @@ const main = async () => {
         errors.push(`${label}: unknown category (${category})`);
       }
     }
+    const hasTeam = categories.includes("team");
+    const hasCollaborator = categories.includes("collaborator");
+    const hasProjectMarker = hasTeam || hasCollaborator || categories.includes("alumni");
+    if (hasTeam && hasCollaborator) {
+      errors.push(`${label}: categories cannot include both team and collaborator`);
+    }
+    if (hasProjectMarker && hasTeam === hasCollaborator) {
+      errors.push(`${label}: project people must include exactly one of team or collaborator`);
+    }
 
     const roles = normalizeArray(data.roles);
+    const affiliations = normalizeArray(data.affiliations);
     const role = typeof data.role === "string" ? data.role : roles[0];
-    const links = normalizeExternalLinks(data.links) ?? normalizeExternalLinks(data.externalLinks);
+    const links = normalizeLinkList(data.links) ?? normalizeLinkList(data.externalLinks);
+    const publications = normalizeLinkList(data.publications);
+    const affiliationsDetailed = normalizeAffiliationsDetailed(data.affiliationsDetailed);
+    const shortBlurb = typeof data.shortBlurb === "string" ? data.shortBlurb.trim() : "";
 
     compiled.push({
       ...data,
@@ -109,8 +154,12 @@ const main = async () => {
       displayName,
       description: typeof data.bio === "string" ? data.bio : typeof data.description === "string" ? data.description : "",
       bio: typeof data.bio === "string" ? data.bio : undefined,
+      shortBlurb: shortBlurb || undefined,
       role: role || undefined,
       roles: roles.length ? roles : undefined,
+      affiliations: affiliations.length ? affiliations : undefined,
+      affiliationsDetailed: affiliationsDetailed ?? undefined,
+      publications: publications ?? undefined,
       categories,
       links: links ?? undefined,
       externalLinks: links ?? undefined,

@@ -1,0 +1,46 @@
+id: p-julie-tomsova
+urn: urn:aos:person:julie-tomsova
+slug: julie-tomsova
+displayName: Julie Tomsová
+categories:
+  - team
+roles:
+  - Exhibition Coordinator
+affiliations:
+  - Náprstek Museum of Asian, African and American Cultures, National Museum
+  - Faculty of Humanities, Charles University
+affiliationsDetailed:
+  - institution: National Museum
+    department: Náprstek Museum of Asian, African and American Cultures
+    location: Prague, Czech Republic
+  - institution: Charles University
+    department: Faculty of Humanities, Department of General Anthropology
+    location: Prague, Czech Republic
+shortBlurb: Egyptologist and archaeologist focused on public engagement, educational programming, and project events coordination.
+bio: |-
+  Julie Tomsová is an Egyptologist and archaeologist focused on public archaeology and education. She prepares educational programs for schools and the public at the Náprstek Museum of Asian, African and American Cultures (National Museum). She also studies and presents the anthropological-Egyptological collection of the Hrdlička Museum of Man at Charles University and collaborates with Fraus publishing house on educational materials for Czech elementary schools. She is a PhD candidate at the Faculty of Humanities, Charles University.
+
+  She publishes on the Egyptological collection of the Hrdlička Museum of Man and co-authored studies on ancient Egyptian mummies in Czech collections.
+
+  At Alchemies of Scent, she coordinates public-facing events including workshops, lectures, festivals, fairs, and other cultural programs, and contributes to project presentation and PR communication.
+
+  "Egyptologická sbírka Hrdličkova muzea člověka PřF UK v Praze." In Pražské egyptologické studie XII, 2014, pp. 56-67.
+
+  "Skeletal Material from Deir el-Medina in the Egyptological Collection of the Hrdlicka Museum of Man in Prague." With Zuzana Schierová. In Annals of the Náprstek Museum 37, 2016, pp. 41-69.
+
+  "Atlas of Egyptian Mummies in the Czech Collections I: Complete Adult Human Mummies." With Pavel Onderka et al. National Museum, 2016.
+
+  "Dějepis 6 s nadhledem. Pracovní sešit pro základní školy a víceletá gymnázia." With Veronika Puhačová et al. Fraus, 2020.
+publications:
+  - label: Publications profile (Academia.edu)
+    url: https://cuni.academia.edu/JulieTomsov%C3%A1
+image:
+  src: /img/people/julie-tomsova.jpg
+  alt: Julie Tomsová
+links:
+  - label: Academia.edu
+    url: https://cuni.academia.edu/JulieTomsov%C3%A1
+legacy:
+  sourceUrl: /julie-tomsova
+  sourcePostName: julie-tomsova
+date: Contemporary

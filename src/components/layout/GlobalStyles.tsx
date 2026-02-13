@@ -648,6 +648,39 @@ export const GlobalStyles = () => {
     .card-sub { font-style: italic; color: var(--color-stone); margin-bottom: 1rem; font-family: var(--font-serif); }
     .card-meta { font-family: var(--font-sans); font-size: var(--text-sm); color: var(--color-earth); margin-bottom: 1.5rem; }
     .recipe-card-cta { margin-top: auto; }
+    .person-card .btn-secondary { margin-top: auto; }
+    .person-card-blurb {
+      font-size: 0.9rem;
+      color: var(--color-earth);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .person-portrait-image {
+      width: 100%;
+      height: 180px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      background: var(--color-muted-bg);
+    }
+    .person-portrait-placeholder {
+      width: 100%;
+      height: 180px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px dashed var(--color-border-strong);
+      color: var(--color-stone);
+      background: var(--color-muted-bg);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: lowercase;
+    }
 
     /* Ingredient & Product Pages */
     .quote-block { border-left: 3px solid var(--color-amber); padding-left: 1rem; margin-bottom: 1.5rem; font-style: italic; }
@@ -693,6 +726,85 @@ export const GlobalStyles = () => {
     }
     .product-section:last-child { border-bottom: none; }
     .product-section h2 { margin-top: 0; }
+    .person-detail-hero {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+    .person-detail-main { flex: 2; }
+    .person-detail-aside { flex: 1; }
+    .person-portrait-large {
+      min-height: 240px;
+      border: 1px dashed var(--color-border-strong);
+      color: var(--color-stone);
+      background: var(--color-muted-bg);
+      text-transform: lowercase;
+    }
+    .person-portrait-large-image {
+      width: 100%;
+      min-height: 240px;
+      height: 240px;
+      margin-bottom: 0;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      object-fit: cover;
+      object-position: top center;
+      background: var(--color-muted-bg);
+    }
+    .person-meta-list {
+      font-size: 1rem;
+      color: var(--color-stone);
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .person-link-row {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .person-affiliation-list {
+      margin-top: 1.75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.9rem;
+    }
+    .person-affiliation-item {
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 0.85rem 0.95rem;
+      background: var(--color-warm-white);
+    }
+    .person-affiliation-title {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--color-charcoal);
+      font-weight: 600;
+    }
+    .person-affiliation-detail {
+      font-family: var(--font-sans);
+      color: var(--color-stone);
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+      line-height: 1.45;
+    }
+    .person-bio-paragraph {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      max-width: 800px;
+      margin-top: 0;
+      margin-bottom: 1.1rem;
+    }
+    .person-publication-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
     .term-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -730,8 +842,8 @@ export const GlobalStyles = () => {
       .footer-columns { flex-direction: column; gap: 2rem; }
       .filters-bar { flex-direction: column; align-items: flex-start; }
       .filter-meta { width: 100%; justify-content: space-between; margin-left: 0; padding-top: 1rem; border-top: 1px solid var(--color-border); }
-      
-      .product-section > div[style*="flex"] { flex-direction: column; }
+      .person-detail-hero { flex-direction: column; gap: 1.5rem; }
+      .person-detail-aside { width: 100%; }
     }
   `}</style>
   );

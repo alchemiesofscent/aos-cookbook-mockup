@@ -196,6 +196,80 @@ const validateMasterPeople = (errors, seed) => {
         addError(errors, SEED_PATH, `masterPeople:${personId}`, "categories", `unknown category (${category})`);
       }
     }
+
+    const hasTeam = categories.includes("team");
+    const hasCollaborator = categories.includes("collaborator");
+    const hasProjectMarker = hasTeam || hasCollaborator || categories.includes("alumni");
+    if (hasTeam && hasCollaborator) {
+      addError(
+        errors,
+        SEED_PATH,
+        `masterPeople:${personId}`,
+        "categories",
+        "project person cannot be both team and collaborator",
+      );
+    }
+    if (hasProjectMarker && hasTeam === hasCollaborator) {
+      addError(
+        errors,
+        SEED_PATH,
+        `masterPeople:${personId}`,
+        "categories",
+        "project person must include exactly one of team or collaborator",
+      );
+    }
+
+    if (person.shortBlurb !== undefined && typeof person.shortBlurb !== "string") {
+      addError(errors, SEED_PATH, `masterPeople:${personId}`, "shortBlurb", "must be a string");
+    }
+
+    if (person.affiliationsDetailed !== undefined) {
+      if (!Array.isArray(person.affiliationsDetailed)) {
+        addError(errors, SEED_PATH, `masterPeople:${personId}`, "affiliationsDetailed", "must be an array");
+      } else {
+        for (let idx = 0; idx < person.affiliationsDetailed.length; idx += 1) {
+          const item = person.affiliationsDetailed[idx];
+          const fieldBase = `affiliationsDetailed[${idx}]`;
+          if (!item || typeof item !== "object") {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, fieldBase, "must be an object");
+            continue;
+          }
+          if (typeof item.institution !== "string" || item.institution.trim().length === 0) {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.institution`, "must be a non-empty string");
+          }
+          if (item.department !== undefined && typeof item.department !== "string") {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.department`, "must be a string");
+          }
+          if (item.location !== undefined && typeof item.location !== "string") {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.location`, "must be a string");
+          }
+          if (item.url !== undefined && typeof item.url !== "string") {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.url`, "must be a string");
+          }
+        }
+      }
+    }
+
+    if (person.publications !== undefined) {
+      if (!Array.isArray(person.publications)) {
+        addError(errors, SEED_PATH, `masterPeople:${personId}`, "publications", "must be an array");
+      } else {
+        for (let idx = 0; idx < person.publications.length; idx += 1) {
+          const pub = person.publications[idx];
+          const fieldBase = `publications[${idx}]`;
+          if (!pub || typeof pub !== "object") {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, fieldBase, "must be an object");
+            continue;
+          }
+          if (typeof pub.label !== "string" || pub.label.trim().length === 0) {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.label`, "must be a non-empty string");
+          }
+          if (typeof pub.url !== "string" || pub.url.trim().length === 0) {
+            addError(errors, SEED_PATH, `masterPeople:${personId}`, `${fieldBase}.url`, "must be a non-empty string");
+          }
+        }
+      }
+    }
   }
 };
 
