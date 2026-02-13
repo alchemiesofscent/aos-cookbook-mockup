@@ -47,6 +47,7 @@ export default function StudioPage({ db }: StudioPageProps) {
   const [equivalents, setEquivalents] = useState<UnitEquivalentsLookup | null>(null);
   const [drawerIngredientId, setDrawerIngredientId] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
+  const [heroVideoEnabled, setHeroVideoEnabled] = useState(true);
 
   useEffect(() => {
     loadUnitEquivalents().then(setEquivalents);
@@ -93,7 +94,7 @@ export default function StudioPage({ db }: StudioPageProps) {
   const heroVideoSrc = useMemo(() => {
     const base = import.meta.env.BASE_URL || "/";
     const normalizedBase = base.endsWith("/") ? base : `${base}/`;
-    return `${normalizedBase}img/20250625_073847000_iOS.MOV`;
+    return `${normalizedBase}img/20250625_073847000_iOS.mp4`;
   }, []);
 
   const yieldDisplay = useMemo(() => {
@@ -177,17 +178,19 @@ export default function StudioPage({ db }: StudioPageProps) {
     <div className="page-container">
       <header className="heroHeader">
         <figure className="heroFigure">
-          {recipe?.id === "r-lily-dioscorides" ? (
+          {recipe?.id === "r-lily-dioscorides" && heroVideoEnabled ? (
             <video
               className="heroImg"
-              src={heroVideoSrc}
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
+              onError={() => setHeroVideoEnabled(false)}
               aria-label={studio?.heroImage?.alt ?? "Lily perfume"}
-            />
+            >
+              <source src={heroVideoSrc} type="video/mp4" />
+            </video>
           ) : (
             <img className="heroImg" src={heroSrc} alt={studio?.heroImage?.alt ?? ""} />
           )}
